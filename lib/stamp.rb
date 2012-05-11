@@ -1,6 +1,13 @@
+require 'stamp/config'
 require 'stamp/has_template'
 
 module Stamp
+  
+  class StampfileError < StandardError
+    def message
+      "in Stampfile, " + super
+    end
+  end
   
   # Loads the +Stampfile+.
   # 
@@ -9,7 +16,8 @@ module Stamp
   # grandparent, and so on.
   # 
   # === Returns
-  # The path to the +Stampfile+ if one was found and +nil+ otherwise.
+  # An instance of Config which has been configured using the +Stampfile+, if
+  # one was found, otherwise +nil+.
   def self.load_stampfile
     parts = Dir.pwd.split File::SEPARATOR
     i = parts.length
@@ -18,9 +26,15 @@ module Stamp
     end
     path = File.join(parts.slice(0, i) + ['Stampfile']) if i >= 0
     if path
-      # TODO: load it
+      stampfile = Config.new path
+      begin
+        b = stampfile.instance_eval {binding}
+        eval File.read(path), b
+      rescue Exception => e
+        raise StampfileError.new(e.to_s)
+      end
+      stampfile
     end
-    path
   end
   
 end

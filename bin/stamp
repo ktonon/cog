@@ -47,14 +47,15 @@ pre do |global, command, options, args|
   # chosen command
   # Use skips_pre before a command to skip this block
   # on that command only
-  path = Stamp.load_stampfile
-  if !path && command && command.name != :project
+  stampfile = Stamp.load_stampfile
+  if !stampfile && command && command.name != :project
     puts 'No Stampfile could be found'
     false
-  elsif path && command && command.name == :project
-    puts "A Stampfile already exists at #{path.inspect}"
+  elsif stampfile && command && command.name == :project
+    puts "A Stampfile already exists at #{stampfile.path.inspect}"
     false
   else
+    global[:stampfile] = stampfile
     true
   end
 end
