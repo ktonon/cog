@@ -14,6 +14,7 @@ $: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib')
 require 'rubygems'
 require 'gli'
 require 'stamp_version'
+require 'stamp'
 
 include GLI
 
@@ -21,42 +22,44 @@ program_desc 'This is a utility to help you write code generators.'
 
 version Stamp::VERSION
 
-desc 'Describe some switch here'
-switch [:s,:switch]
+desc 'Write extra information'
+switch [:v,:verbose]
 
-desc 'Describe some flag here'
-default_value 'the default'
-arg_name 'The name of the argument'
-flag [:f,:flagname]
-
-desc 'Describe new here'
-arg_name 'Describe arguments to new here'
-command :new do |c|
-  c.desc 'Describe a switch to new'
-  c.switch :s
-
-  c.desc 'Describe a flag to new'
-  c.default_value 'default'
-  c.flag :f
-  c.action do |global_options,options,args|
-
-    # Your command logic here
-     
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
+desc 'Add stamp to a project by generating a Stampfile in the current directory'
+command :project do |c|
+  c.action do |global_options, options, args|
+    puts 'Created Stampfile'
+    FileUtils.touch 'Stampfile'
   end
 end
 
-pre do |global,command,options,args|
+desc 'Create a new template'
+arg_name 'NAME'
+command :template do |c|
+  c.action do |global_options, options, args|
+    # TODO: implement me
+  end
+end
+
+pre do |global, command, options, args|
   # Pre logic here
   # Return true to proceed; false to abort and not call the
   # chosen command
   # Use skips_pre before a command to skip this block
   # on that command only
-  true
+  path = Stamp.load_stampfile
+  if !path && command && command.name != :project
+    puts 'No Stampfile could be found'
+    false
+  elsif path && command && command.name == :project
+    puts "A Stampfile already exists at #{path.inspect}"
+    false
+  else
+    true
+  end
 end
 
-post do |global,command,options,args|
+post do |global, command, options, args|
   # Post logic here
   # Use skips_post before a command to skip this
   # block on that command only
