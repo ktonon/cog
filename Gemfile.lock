@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    stamp (0.0.1)
+    cog (0.0.1)
 
 GEM
   remote: http://rubygems.org/
@@ -29,4 +29,4 @@ DEPENDENCIES
   rake
   rdoc
   rspec
-  stamp!
+  cog!

@@ -1,6 +1,6 @@
-module Stamp
+module Cog
   
-  # When the Stampfile is processed, +self+ will be set to an instance of this
+  # When the Cogfile is processed, +self+ will be set to an instance of this
   # object at the global context.
   class Config
     attr_reader :path
@@ -8,7 +8,7 @@ module Stamp
     # Create an empty config object
     #
     # === Arguments
-    # * +path+ - The path to the +Stampfile+ which will be used to configure
+    # * +path+ - The path to the +Cogfile+ which will be used to configure
     #   this object.
     def initialize(path)
       @path = path

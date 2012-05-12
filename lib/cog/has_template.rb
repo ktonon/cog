@@ -1,9 +1,9 @@
-module Stamp
+module Cog
 
   # Mixin for classes that can use templates to generate code
   module HasTemplate
     
-    def stamp(template_name)
+    def cog(template_name)
       
     end
     

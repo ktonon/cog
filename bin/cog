@@ -13,23 +13,23 @@ end
 $: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib')
 require 'rubygems'
 require 'gli'
-require 'stamp_version'
-require 'stamp'
+require 'cog_version'
+require 'cog'
 
 include GLI
 
 program_desc 'This is a utility to help you write code generators.'
 
-version Stamp::VERSION
+version Cog::VERSION
 
 desc 'Write extra information'
 switch [:v,:verbose]
 
-desc 'Add stamp to a project by generating a Stampfile in the current directory'
+desc 'Add cog to a project by generating a Cogfile in the current directory'
 command :project do |c|
   c.action do |global_options, options, args|
-    puts 'Created Stampfile'
-    FileUtils.touch 'Stampfile'
+    puts 'Created Cogfile'
+    FileUtils.touch 'Cogfile'
   end
 end
 
@@ -47,15 +47,15 @@ pre do |global, command, options, args|
   # chosen command
   # Use skips_pre before a command to skip this block
   # on that command only
-  stampfile = Stamp.load_stampfile
-  if !stampfile && command && command.name != :project
-    puts 'No Stampfile could be found'
+  cogfile = Cog.load_cogfile
+  if !cogfile && command && command.name != :project
+    puts 'No Cogfile could be found'
     false
-  elsif stampfile && command && command.name == :project
-    puts "A Stampfile already exists at #{stampfile.path.inspect}"
+  elsif cogfile && command && command.name == :project
+    puts "A Cogfile already exists at #{cogfile.path.inspect}"
     false
   else
-    global[:stampfile] = stampfile
+    global[:cogfile] = cogfile
     true
   end
 end
