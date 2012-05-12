@@ -11,7 +11,7 @@ spec = Gem::Specification.new do |s|
   s.files = ['bin/cog'] + Dir.glob('lib/**/*.rb')
   s.require_paths << 'lib'
   s.has_rdoc = true
-  s.extra_rdoc_files = ['cog.rdoc']
+  s.extra_rdoc_files = ['API.rdoc']
   s.rdoc_options << '--title' << 'cog' << '--main' << 'cog.rdoc' << '-ri'
   s.bindir = 'bin'
   s.executables << 'cog'
