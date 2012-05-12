@@ -13,7 +13,7 @@ gem install cog
 ```
 
 Change to the root directory of a project in which you'd like to use a code
-generator. Create a +Cogfile+.
+generator. Create a `Cogfile`.
 
 ```bash
 cog project
