@@ -1,23 +1,17 @@
-require 'cog/config'
+require 'cog/cogfile'
 require 'cog/has_template'
 
 module Cog
   
-  class CogfileError < StandardError
-    def message
-      "in Cogfile, " + super
-    end
-  end
-  
-  # Loads the +Cogfile+.
+  # Loads the +Cogfile+ for the current project.
   # 
   # The +Cogfile+ will be looked for in the present working directory. If none
   # is found there the parent directory will be checked, and then the
   # grandparent, and so on.
   # 
   # === Returns
-  # An instance of Config which has been configured using the +Cogfile+, if
-  # one was found, otherwise +nil+.
+  # An instance of Config which has been configured with a Cogfile. Or +nil+ if
+  # no +Cogfile+ could be found.
   def self.load_cogfile
     parts = Dir.pwd.split File::SEPARATOR
     i = parts.length
@@ -26,14 +20,17 @@ module Cog
     end
     path = File.join(parts.slice(0, i) + ['Cogfile']) if i >= 0
     if path
-      cogfile = Config.new path
+      Cogfile.instance.instance_eval do
+        @cogfile_path = path
+        @project_root = File.dirname path
+      end
       begin
-        b = cogfile.instance_eval {binding}
+        b = Cogfile.instance.instance_eval {binding}
         eval File.read(path), b
       rescue Exception => e
         raise CogfileError.new(e.to_s)
       end
-      cogfile
+      Cogfile.instance
     end
   end
   

@@ -29,7 +29,18 @@ desc 'Add cog to a project by generating a Cogfile in the current directory'
 command :project do |c|
   c.action do |global_options, options, args|
     puts 'Created Cogfile'
-    FileUtils.touch 'Cogfile'
+    File.open('Cogfile', 'w') do |file|
+      # TODO: use a template to do this instead
+      file.write("# All paths are relative to the directory containing this file.
+
+# The directory in which to find ERB template files.
+template_dir 'templates'
+
+# The directory in which application code can be found. This is where
+# generated code will go. Probably along side non-generated code.
+code_dir 'src'
+")
+    end
   end
 end
 
@@ -37,7 +48,7 @@ desc 'Create a new template'
 arg_name 'NAME'
 command :template do |c|
   c.action do |global_options, options, args|
-    # TODO: implement me
+    puts 'Not implemented'
   end
 end
 
@@ -47,12 +58,12 @@ pre do |global, command, options, args|
   # chosen command
   # Use skips_pre before a command to skip this block
   # on that command only
-  cogfile = Cog.load_cogfile
+    cogfile = Cog.load_cogfile
   if !cogfile && command && command.name != :project
     puts 'No Cogfile could be found'
     false
   elsif cogfile && command && command.name == :project
-    puts "A Cogfile already exists at #{cogfile.path.inspect}"
+    puts "A Cogfile already exists at #{cogfile.cogfile_path.inspect}"
     false
   else
     global[:cogfile] = cogfile

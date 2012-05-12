@@ -5,8 +5,8 @@ require 'rdoc/task'
 require 'rspec/core/rake_task'
 
 Rake::RDocTask.new do |rd|
-  rd.main = "cog.rdoc"
-  rd.rdoc_files.include("cog.rdoc","lib/**/*.rb","bin/**/*")
+  rd.main = "API.rdoc"
+  rd.rdoc_files.include("API.rdoc","lib/**/*.rb","bin/**/*")
   rd.title = 'Your application title'
 end
 
