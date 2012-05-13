@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'singleton'
 
 module Cog
@@ -8,12 +9,12 @@ module Cog
     
     # Path to the master +Cogfile+.
     def self.master_cogfile_path
-      File.join File.dirname($0), 'cog_assets/Master.cogfile'
+      File.join gem_dir, 'Master.cogfile'
     end
 
     # Path to the default +Cogfile+.
     def self.default_cogfile_path
-      File.join File.dirname($0), 'cog_assets/Default.cogfile'
+      File.join gem_dir, 'templates/Default.cogfile'
     end
     
     # Loads the default +Cogfile+ for the current project.
@@ -96,6 +97,16 @@ module Cog
         else
           File.join project_root, val
         end
+      end
+    end
+    
+  private
+    def self.gem_dir
+      spec = Gem.loaded_specs['cog']
+      if spec.nil?
+        File.expand_path File.join(File.dirname($0), '..')
+      else
+        spec.gem_dir
       end
     end
   end
