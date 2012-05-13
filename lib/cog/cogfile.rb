@@ -8,12 +8,12 @@ module Cog
     
     # Path to the master +Cogfile+.
     def self.master_cogfile_path
-      File.join File.dirname($0), '../Master.cogfile'
+      File.join File.dirname($0), 'cog_assets/Master.cogfile'
     end
 
     # Path to the default +Cogfile+.
     def self.default_cogfile_path
-      File.join File.dirname($0), '../templates/Default.cogfile'
+      File.join File.dirname($0), 'cog_assets/Default.cogfile'
     end
     
     # Loads the default +Cogfile+ for the current project.
