@@ -75,7 +75,7 @@ module Cog
         end
       end
       
-      class TemplateContext
+      class TemplateContext # :nodoc:
         def initialize(obj, context={})
           @obj = obj
           context.each do |key, value|
