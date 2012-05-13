@@ -11,7 +11,7 @@ project's file tree. The +Cogfile+ is just a ruby file and the commands
 available in it are defined in the Cog::Cogfile class. It is generated for you
 when you issue this command from a shell in the root directory of your project:
 
-  cog project
+  cog init
 
 and it will look something like this:
 

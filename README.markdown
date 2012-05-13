@@ -18,7 +18,7 @@ Change to the root directory of a project in which you'd like to use a code
 generator and do this:
 
 ```bash
-cog project
+cog init
 ```
 
 This will create a `Cogfile` which is used to configure `cog` for your project.
