@@ -1,0 +1,12 @@
+Sat, 12 May 2012 21:18:16 -0400
+lib/cog/mixins/uses_templates.rb	Sat, 12 May 2012 21:18:09 -0400
+lib/cog.rb	Sat, 12 May 2012 21:18:09 -0400
+lib/cog/spec_helpers/matchers.rb	Sat, 12 May 2012 21:18:09 -0400
+lib/cog/cogfile.rb	Sat, 12 May 2012 21:18:09 -0400
+bin/cog	Sat, 12 May 2012 21:18:09 -0400
+lib/cog/spec_helpers/runner.rb	Sat, 12 May 2012 21:18:09 -0400
+API.rdoc	Sat, 12 May 2012 21:18:09 -0400
+lib/cog_version.rb	Sat, 12 May 2012 21:18:09 -0400
+lib/cog/template_controller.rb	Sat, 12 May 2012 21:18:09 -0400
+lib/cog/spec_helpers.rb	Sat, 12 May 2012 21:18:09 -0400
+lib/cog/mixins.rb	Sat, 12 May 2012 21:18:09 -0400

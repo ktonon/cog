@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>Your application title</title>
+<title>class Object - Your application title</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -20,7 +20,7 @@
 <script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
 
 
-<body>
+<body id="top" class="class">
 <nav id="metadata">
   <nav id="home-section" class="section">
   <h3 class="section-header">
@@ -42,6 +42,47 @@
   <ul id="search-results" class="initially-hidden"></ul>
 </nav>
 
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/cog/spec_helpers/matchers.rb
+    <li>bin/cog
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">
+  
+</nav>
+
+    <!-- Included Modules -->
+<nav id="includes-section" class="section">
+  <h3 class="section-header">Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="Cog/SpecHelpers/Matchers.html">Cog::SpecHelpers::Matchers</a>
+  
+  
+  
+    <li><span class="include">GLI</span>
+  
+  
+  </ul>
+</nav>
+
+    
+  </div>
 
   <div id="project-metadata">
     <nav id="fileindex-section" class="section project-section">
@@ -93,46 +134,30 @@
   </div>
 </nav>
 
-<div id="documentation" class="description">
+<div id="documentation">
+  <h1 class="class">class Object</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
   
-<h1 id="label-cog+API+docs">cog <a href="API_rdoc.html">API</a> docs</h1>
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
 
-<p><code>cog</code> is a command line utility that makes it a bit easier to
-organize a project which uses code generation. Many of your interactions
-with <code>cog</code> will be using the command line interface. However, to
-get any real mileage out of it you’ll need to use the <a
-href="API_rdoc.html">API</a> (documented here). For more information on the
-command line interface see <a
-href="https://github.com/ktonon/cog#cog">github.com/ktonon/cog#cog</a></p>
+    
 
-<p><code>cog</code> is configured with a <code>Cogfile</code>, which should be
-in the root of your project’s file tree. The <code>Cogfile</code> is just
-a ruby file and the commands available in it are defined in the <a
-href="Cog/Cogfile.html">Cog::Cogfile</a> class. It is generated for you
-when you issue this command from a shell in the root directory of your
-project:</p>
+    
 
-<pre>cog project</pre>
+    
 
-<p>and it will look something like this:</p>
+    <!-- Methods -->
+    
+  </section><!-- 5Buntitled-5D -->
 
-<pre># All paths are relative to the directory containing this file.
-
-# The directory in which to find ERB template files.
-template_dir 'templates'
-
-# The directory in which application code can be found. This is where
-# generated code will go. Probably along side non-generated code.
-code_dir 'src'</pre>
-
-<h2 id="label-Testing">Testing</h2>
-
-<p>The tests are written in <code>RSpec</code> and can be found in the
-<code>spec/</code> directory. Custom matchers are available to make writing
-specs easier. See <a href="Cog/SpecHelpers.html">Cog::SpecHelpers</a> for
-more details.</p>
-
-</div>
+</div><!-- documentation -->
 
 
 <footer id="validator-badges">
