@@ -23,3 +23,9 @@ and it will look something like this:
   # The directory in which application code can be found. This is where
   # generated code will go. Probably along side non-generated code.
   code_dir 'src'
+
+== Testing
+
+The tests are written in +RSpec+ and can be found in the <tt>spec/</tt>
+directory. Custom matchers are available to make writing specs easier. See
+Cog::SpecHelpers for more details.
