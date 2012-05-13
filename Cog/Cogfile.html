@@ -117,9 +117,9 @@
   
     <li><a href="../Cog/Mixins.html">Cog::Mixins</a>
   
-    <li><a href="../Cog/Mixins/UsesTemplates.html">Cog::Mixins::UsesTemplates</a>
+    <li><a href="../Cog/Mixins/Mirror.html">Cog::Mixins::Mirror</a>
   
-    <li><a href="../Cog/Mixins/UsesTemplates/TemplateContext.html">Cog::Mixins::UsesTemplates::TemplateContext</a>
+    <li><a href="../Cog/Mixins/UsesTemplates.html">Cog::Mixins::UsesTemplates</a>
   
     <li><a href="../Cog/SpecHelpers.html">Cog::SpecHelpers</a>
   
@@ -216,9 +216,9 @@ singleton instance of this object.</p>
 
           
           <div class="method-source-code" id="default_cogfile_path-source">
-            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 15</span>
+            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_cogfile_path</span>
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">$0</span>), <span class="ruby-string">'../templates/Default.cogfile'</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">gem_dir</span>, <span class="ruby-string">'templates/Default.cogfile'</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- default_cogfile_path-source -->
           
@@ -256,7 +256,7 @@ with a <code>Cogfile</code>. If no such file was found then
 
           
           <div class="method-source-code" id="for_project-source">
-            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 28</span>
+            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_project</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@for_project</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@for_project</span>
   <span class="ruby-identifier">parts</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>.<span class="ruby-identifier">split</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">SEPARATOR</span>
@@ -295,7 +295,7 @@ with a <code>Cogfile</code>. If no such file was found then
 
           
           <div class="method-source-code" id="master-source">
-            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 42</span>
+            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">master</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@master</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@master</span>
   <span class="ruby-ivar">@master</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">master_cogfile_path</span>
@@ -326,9 +326,9 @@ with a <code>Cogfile</code>. If no such file was found then
 
           
           <div class="method-source-code" id="master_cogfile_path-source">
-            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 10</span>
+            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">master_cogfile_path</span>
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">$0</span>), <span class="ruby-string">'../Master.cogfile'</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">gem_dir</span>, <span class="ruby-string">'Master.cogfile'</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- master_cogfile_path-source -->
           
@@ -356,7 +356,7 @@ with a <code>Cogfile</code>. If no such file was found then
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 48</span>
+            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 49</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">path</span>)
   <span class="ruby-ivar">@cogfile_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-identifier">path</span>
   <span class="ruby-ivar">@project_root</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span> <span class="ruby-ivar">@cogfile_path</span>
@@ -404,7 +404,7 @@ option <code>:absolute</code> is passed.</p>
 
           
           <div class="method-source-code" id="code_dir-source">
-            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 92</span>
+            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 93</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">code_dir</span>(<span class="ruby-identifier">val</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">opt</span>={})
   <span class="ruby-identifier">get_or_set</span>(<span class="ruby-value">:code_dir</span>, <span class="ruby-identifier">val</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">opt</span>[<span class="ruby-value">:absolute</span>]
@@ -444,7 +444,7 @@ option <code>:absolute</code> is passed.</p>
 
           
           <div class="method-source-code" id="template_dir-source">
-            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 77</span>
+            <pre><span class="ruby-comment"># File lib/cog/cogfile.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">template_dir</span>(<span class="ruby-identifier">val</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">opt</span>={})
   <span class="ruby-identifier">get_or_set</span>(<span class="ruby-value">:template_dir</span>, <span class="ruby-identifier">val</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">opt</span>[<span class="ruby-value">:absolute</span>]
