@@ -3,6 +3,8 @@ cog
 
 This is a utility to help you write code generators. _It is still in early development_.
 
+See also the [API docs](http://ktonon.github.com/cog/).
+
 Quick Start
 -----------
 
