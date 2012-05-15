@@ -12,9 +12,10 @@ unless File.respond_to? :realpath
 end
 $: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib')
 require 'rubygems'
-require 'gli'
-require 'cog_version'
 require 'cog'
+require 'cog_version'
+require 'gli'
+require 'fileutils'
 
 include GLI
 
@@ -27,15 +28,37 @@ switch [:v,:verbose]
 
 desc 'Add cog to a project by generating a Cogfile in the current directory'
 command :init do |c|
-  c.action do |global_options, options, args|
-    Cog.copy_default_cogfile 'Cogfile'
+  c.action do |g,o,a|
+    puts "Generated Cogfile"
+    FileUtils.cp File.join(Cog::Config.gem_dir, 'Default.cogfile'), 'Cogfile'
   end
 end
 
-desc 'Create a new template'
-arg_name 'NAME'
-command :template do |c|
-  c.action do |global_options, options, args|
+desc 'Create a new mirror class'
+arg_name 'ClassName'
+command :mirror do |c|
+  c.desc 'The target language (see languages command)'
+  c.arg_name 'language'
+  c.flag [:language, :l]
+  
+  c.desc 'Slash (/) separated prefix for generator, templates, and app code'
+  c.arg_name 'path'
+  c.flag [:package, :p]
+
+  c.action do |g,o,a|
+    tc = Cog::TemplateController.new
+    a.each do |class_name|
+      tc.stamp_generator 'mirror', class_name, o
+      tc.stamp_module 'mirror-abstract', "abstract_#{class_name}", o
+      tc.stamp_module 'mirror-impl', class_name, o
+    end
+  end
+end
+
+desc 'List supported languages'
+command :languages do |c|
+  c.action do |g,o,a|
+    puts 'c++'
   end
 end
 
@@ -45,7 +68,7 @@ pre do |global, command, options, args|
   # chosen command
   # Use skips_pre before a command to skip this block
   # on that command only
-  cogfile = Cog::Cogfile.for_project
+  cogfile = Cog::Config.for_project
   if !cogfile && command && command.name != :init
     puts 'No Cogfile could be found'
     false

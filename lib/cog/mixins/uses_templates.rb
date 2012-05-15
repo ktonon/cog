@@ -1,4 +1,4 @@
-require 'cog/cogfile'
+require 'cog/config'
 require 'erb'
 
 module Cog
@@ -6,59 +6,67 @@ module Cog
     
     # Mixin for classes that can use templates to generate code
     module UsesTemplates
-    
-      # Use an alternate Cogfile
-      def using_cogfile(cogfile)
-        @cogfile = cogfile
-      end
       
       # Get the template with the given name.
       #
       # === Parameters
       # * +path+ - a path to a template file which is relative to
-      #   Cogfile#template_dir and does not include the +.erb+ extension.
+      #   Config#template_dir and does not include the +.erb+ extension.
+      #
+      # === Options
+      # * <tt>:absolute</tt> - set to +true+ to indicate that path is absolute
+      #   and should not be prefixed. Default value is +false+.
       #
       # === Returns
       # An instance of ERB.
-      def get_template(path)
-        @cogfile ||= Cogfile.for_project
-        path = File.join @cogfile.template_dir, "#{path}.erb"
-        unless File.exists? path
-          raise MissingTemplate.new path
-        end
+      def get_template(path, opt={})
+        path += '.erb'
+        path = File.join Config.for_project.template_dir, path unless opt[:absolute]
+        raise MissingTemplate.new path unless File.exists? path
         ERB.new File.read(path)
       end
     
       # Stamp this object using the template at the given path.
       #
       # === Parameters
-      # * +path+ - the path to the template to use which is relative to
-      #   Cogfile#template_dir and does not include the +.erb+ extension.
-      # * +dest+ - the destination path to the generated file which is relative
-      #   to Cogfile#code_dir. If this is not provided, then the generated code
-      #   will be returned as a string.
+      # * +path+ - to the template which is relative to Config#template_dir and 
+      #   does not include the +.erb+ extension.
       #
-      # === Context
-      # All keys are added as instance variables to the context that is passed
-      # into the template.
+      # === Options
+      # * <tt>:target</tt> - the destination path to the generated file which is
+      #   relative to either Config#app_dir or Config#cog_dir, depending on the
+      #   value of the <tt>:target_type</tt> option.
+      # * <tt>:target_type</tt> - either <tt>:cog</tt> or <tt>:app</tt>.
+      #   Determines what path to prefix to the <tt>:target</tt> option. The
+      #   default value is <tt>:app</tt>
+      # * <tt>:use_absolute_path</tt> - set to +true+ to indicate that path is
+      #   absolute and should not be prefixed. Default value is +false+.
+      # * <tt>:binding</tt> - specify an alternate binding to use when resolving
+      #   the +ERB+ template. If none is provided +self.binding+ will be used.
       #
       # === Returns
       # +nil+ if generated to a file, otherwise returns the generated code as a
       # string.
-      def stamp(path, dest=nil, context={})
-        t = get_template path
-        context = TemplateContext.new self, context
-        b = context.instance_eval {binding}
-        if dest.nil?
+      def stamp(path, opt={})
+        t = get_template path, :absolute => opt[:use_absolute_path]
+        b = opt[:binding] || binding
+        target = opt[:target]
+        if target.nil?
           t.result(b)
         else
-          dest = File.join @cogfile.code_dir, dest
-          FileUtils.mkpath File.dirname(dest) unless File.exists? dest
+          target_type = opt[:target_type] || :app
+          target = case target_type.to_s
+          when /cog/i
+            File.join Config.for_project.cog_dir, target
+          when /app/i
+            File.join Config.for_project.app_dir, target
+          end
+          FileUtils.mkpath File.dirname(target) unless File.exists? target
           scratch = "#{path}.scratch"
           File.open(scratch, 'w') {|file| file.write t.result(b)}
-          unless same? dest, scratch
-            puts "Generated #{dest}"
-            FileUtils.mv scratch, dest
+          unless same? target, scratch
+            puts "Generated #{target}"
+            FileUtils.mv scratch, target
           else
             FileUtils.rm scratch
           end
@@ -72,23 +80,6 @@ module Cog
           File.read(original) == File.read(scratch)
         else
           false
-        end
-      end
-      
-      class TemplateContext # :nodoc:
-        def initialize(obj, context={})
-          @obj = obj
-          context.each do |key, value|
-            instance_variable_set "@#{key}", value
-          end
-        end
-        
-        def method_missing(meth, *args, &block)
-          if @obj.respond_to? meth
-            @obj.method(meth).call *args, &block
-          else
-            super
-          end
         end
       end
     end

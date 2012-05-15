@@ -1,3 +1,4 @@
+require 'cog/mixins/uses_templates'
 module Cog
   module Mixins
 
@@ -49,6 +50,10 @@ module Cog
     # generated once. The C++ compiler will let you know if any abstract methods
     # are missing from +Dog+ when you try to instantiate it.
     module Mirror
+      def self.included(base)
+        base.include UsesTemplates
+      end
+      
       
     end
     
