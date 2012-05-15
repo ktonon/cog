@@ -57,8 +57,30 @@
   <div id="class-metadata">
     
     
+    <!-- Included Modules -->
+<nav id="includes-section" class="section">
+  <h3 class="section-header">Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="UsesTemplates.html">Cog::Mixins::UsesTemplates</a>
+  
+  
+  </ul>
+</nav>
+
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
     
+    <li><a href="#method-c-included">::included</a>
     
+  </ul>
+</nav>
+
   </div>
 
   <div id="project-metadata">
@@ -79,9 +101,9 @@
   
     <li><a href="../../Cog.html">Cog</a>
   
-    <li><a href="../../Cog/Cogfile.html">Cog::Cogfile</a>
-  
     <li><a href="../../Cog/CogfileError.html">Cog::CogfileError</a>
+  
+    <li><a href="../../Cog/Config.html">Cog::Config</a>
   
     <li><a href="../../Cog/Errors.html">Cog::Errors</a>
   
@@ -185,6 +207,42 @@ to instantiate it.</p>
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-included" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">included</span><span
+            class="method-args">(base)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="included-source">
+            <pre><span class="ruby-comment"># File lib/cog/mixins/mirror.rb, line 53</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
+  <span class="ruby-identifier">base</span>.<span class="ruby-identifier">include</span> <span class="ruby-constant">UsesTemplates</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- included-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- included-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->

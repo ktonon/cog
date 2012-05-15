@@ -82,7 +82,9 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-c-new">::new</a>
+    <li><a href="#method-i-stamp_generator">#stamp_generator</a>
+    
+    <li><a href="#method-i-stamp_module">#stamp_module</a>
     
   </ul>
 </nav>
@@ -107,9 +109,9 @@
   
     <li><a href="../Cog.html">Cog</a>
   
-    <li><a href="../Cog/Cogfile.html">Cog::Cogfile</a>
-  
     <li><a href="../Cog/CogfileError.html">Cog::CogfileError</a>
+  
+    <li><a href="../Cog/Config.html">Cog::Config</a>
   
     <li><a href="../Cog/Errors.html">Cog::Errors</a>
   
@@ -160,41 +162,126 @@
 
     <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-c-new" class="method-detail ">
+      <div id="method-i-stamp_generator" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(opt={})</span>
+          <span class="method-name">stamp_generator</span><span
+            class="method-args">(ruby_template, generator_name, opt={})</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          
+          <p>Create a ruby generator from a template.</p>
+
+<h3 id="method-i-stamp_generator-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>ruby_template</code> - name of the ruby template. This is a template
+which is distributed in the cog gem. It is relative to
+<code>templates/</code></p>
+</li><li>
+<p><code>generator_name</code> - name of the generator</p>
+</li></ul>
+
+<h3 id="method-i-stamp_generator-label-Options">Options</h3>
+<ul><li>
+<p><code>:language</code> - only <code>'c++'</code> is accepted at this time</p>
+</li><li>
+<p><code>:package</code> - slash (/) separated path which will prefix
+<code>generator_name</code></p>
+</li></ul>
           
 
           
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/cog/template_controller.rb, line 10</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">opt</span>={})
-  <span class="ruby-identifier">using_cogfile</span> <span class="ruby-constant">Cogfile</span>.<span class="ruby-identifier">master</span>
+          <div class="method-source-code" id="stamp_generator-source">
+            <pre><span class="ruby-comment"># File lib/cog/template_controller.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stamp_generator</span>(<span class="ruby-identifier">ruby_template</span>, <span class="ruby-identifier">generator_name</span>, <span class="ruby-identifier">opt</span>={})
+  <span class="ruby-identifier">template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">gem_dir</span>, <span class="ruby-string">'templates'</span>, <span class="ruby-node">&quot;#{ruby_template}.rb&quot;</span>
+  <span class="ruby-identifier">target</span> = <span class="ruby-node">&quot;#{generator_name}.rb&quot;</span>
+  <span class="ruby-identifier">target</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">opt</span>[<span class="ruby-value">:package</span>], <span class="ruby-identifier">target</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">opt</span>[<span class="ruby-value">:package</span>]
+  <span class="ruby-identifier">target</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-string">'generators'</span>, <span class="ruby-identifier">target</span>
+  <span class="ruby-identifier">stamp</span> <span class="ruby-identifier">template</span>,
+    <span class="ruby-value">:target</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">target</span>,
+    <span class="ruby-value">:target_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:cog</span>,
+    <span class="ruby-value">:use_absolute_path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
+          </div><!-- stamp_generator-source -->
           
         </div>
 
         
 
         
-      </div><!-- new-method -->
+      </div><!-- stamp_generator-method -->
 
     
-    </section><!-- public-class-method-details -->
+      <div id="method-i-stamp_module" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stamp_module</span><span
+            class="method-args">(source_template, module_name, opt={})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Create an app module template from a template.</p>
+
+<h3 id="method-i-stamp_module-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>source_template</code> - name of the source template. This is a
+template which is distributed in the cog gem. It is relative to
+<code>templates/{language}/</code>, where language is specified by the
+<code>:language</code> option. Do not include any file extension such as
+<code>.h</code> (the <code>:language</code> will also determine this)</p>
+</li><li>
+<p><code>module_name</code> - name of the module. For languages like
+<code>:c++</code>, two templates will be generated (i.e. one
+<code>.h</code> and one <code>.cpp</code>)</p>
+</li></ul>
+
+<h3 id="method-i-stamp_module-label-Options">Options</h3>
+<ul><li>
+<p><code>:language</code> - only <code>'c++'</code> is accepted at this time</p>
+</li><li>
+<p><code>:package</code> - slash (/) separated path which will prefix
+<code>module_name</code></p>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="stamp_module-source">
+            <pre><span class="ruby-comment"># File lib/cog/template_controller.rb, line 49</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stamp_module</span>(<span class="ruby-identifier">source_template</span>, <span class="ruby-identifier">module_name</span>, <span class="ruby-identifier">opt</span>={})
+  <span class="ruby-identifier">lang</span> = <span class="ruby-identifier">opt</span>[<span class="ruby-value">:language</span>] <span class="ruby-operator">||</span> <span class="ruby-string">'c++'</span>
+  <span class="ruby-identifier">extensions_for_language</span>(<span class="ruby-identifier">lang</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ext</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">gem_dir</span>, <span class="ruby-string">'templates'</span>, <span class="ruby-identifier">lang</span>, <span class="ruby-node">&quot;#{source_template}.#{ext}&quot;</span>
+    <span class="ruby-identifier">target</span> = <span class="ruby-node">&quot;#{module_name}.#{ext}&quot;</span>
+    <span class="ruby-identifier">target</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">opt</span>[<span class="ruby-value">:package</span>], <span class="ruby-identifier">target</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">opt</span>[<span class="ruby-value">:package</span>]
+    <span class="ruby-identifier">target</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-string">'templates'</span>, <span class="ruby-identifier">target</span>
+    <span class="ruby-identifier">stamp</span> <span class="ruby-identifier">template</span>,
+      <span class="ruby-value">:target</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">target</span>,
+      <span class="ruby-value">:target_type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:cog</span>,
+      <span class="ruby-value">:use_absolute_path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- stamp_module-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stamp_module-method -->
+
+    
+    </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 
