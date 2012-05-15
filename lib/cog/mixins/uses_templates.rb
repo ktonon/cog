@@ -62,7 +62,12 @@ module Cog
             File.join Config.for_project.app_dir, target
           end
           FileUtils.mkpath File.dirname(target) unless File.exists? target
-          scratch = "#{path}.scratch"
+          scratch = case target_type.to_s
+          when /cog/i
+            File.join Config.for_project.cog_dir, "#{opt[:target]}.scratch"
+          when /app/i
+            File.join Config.for_project.app_dir, "#{opt[:target]}.scratch"
+          end
           File.open(scratch, 'w') {|file| file.write t.result(b)}
           unless same? target, scratch
             puts "Generated #{target}"
