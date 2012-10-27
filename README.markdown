@@ -54,7 +54,7 @@ PROJECT_ROOT/
            +     templates/
 ```
 
-The `Cogfile` configures `cog` for use with your project. In short, it tells `cog` where to find sources and where to put generated code. It should look like this when you first create it
+The [Cogfile](http://ktonon.github.com/cog/Cog/Cogfile.html) configures `cog` for use with your project. In short, it tells `cog` where to find sources and where to put generated code. It should look like this when you first create it
 
 ```ruby
 # All paths are relative to the directory containing this file.
