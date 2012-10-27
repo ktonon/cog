@@ -7,6 +7,18 @@ module Cog
     # Mixin for classes that can use templates to generate code
     module UsesTemplates
       
+      # File extension for a snippet of the given source code language.
+      # ==== Example
+      #   snippet_extension 'c++' # => 'h'
+      def snippet_extension(lang = 'text')
+        case lang
+        when /(c\+\+|c|objc)/i
+          'h'
+        else
+          'txt'
+        end
+      end
+      
       # Get the template with the given name.
       #
       # === Parameters
@@ -21,11 +33,16 @@ module Cog
       # An instance of ERB.
       def get_template(path, opt={})
         path += '.erb'
-        path = File.join Config.for_project.template_dir, path unless opt[:absolute]
-        raise MissingTemplate.new path unless File.exists? path
-        ERB.new File.read(path)
+        prefix = if opt[:cog_template]
+          File.join Config.gem_dir, 'templates'
+        elsif !opt[:absolute]
+          Config.for_project.template_dir
+        end
+        path = File.join prefix, path unless prefix.nil?
+        raise Errors::MissingTemplate.new path unless File.exists? path
+        ERB.new File.read(path), 0, '>'
       end
-    
+      
       # Stamp this object using the template at the given path.
       #
       # === Parameters
@@ -78,7 +95,39 @@ module Cog
           nil
         end
       end
-    
+      
+      # A warning that indicates a file is maintained by a generator
+      def generated_warning
+        lang = Config.for_project.language
+        t = get_template "snippets/#{lang}/generated_warning.#{snippet_extension lang}", :cog_template => true
+        t.result(binding)
+      end
+      
+      def include_guard_begin(name)
+        full = "COG_INCLUDE_GUARD_#{name.upcase}"
+        "#ifndef #{full}\n#define #{full}"
+      end
+      
+      def include_guard_end
+        "#endif // COG_INCLUDE_GUARD_[...]"
+      end
+      
+      def namespace_begin(name)
+        return if name.nil?
+        case Config.for_project.language
+        when /c\+\+/
+          "namespace #{name} {"
+        end
+      end
+
+      def namespace_end(name)
+        return if name.nil?
+        case Config.for_project.language
+        when /c\+\+/
+          "} // namespace #{name}"
+        end
+      end
+      
     private
       def same?(original, scratch) # :nodoc:
         if File.exists? original

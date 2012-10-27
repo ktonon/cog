@@ -5,3 +5,6 @@ cog_dir 'cog'
 
 # The directory in which to place generated application code.
 app_dir 'src'
+
+# The default language in which to generate source code.
+language 'c++'

@@ -1,5 +1,5 @@
 require 'cog/config'
-require 'cog/template_controller'
+require 'cog/meta'
 require 'cog/mixins'
 
 module Cog

@@ -10,8 +10,9 @@ module Cog
         def matches?(runner)
           @runner = runner
           @runner.exec do |i,o,e|
-            @first_line = o.readlines.first
-            /help.*code gen/ =~ @first_line
+            @first_line = o.readline
+            @second_line = o.readline
+            /help.*code gen/ =~ @second_line
           end
         end
         def failure_message

@@ -1,0 +1,10 @@
+class <%= classname %>
+  include Cog::Mixins::Mirror
+  
+  # Attributes
+  string :name, :access => :r # Read-only string attribute
+  int :age # Read-write integer attribute
+  
+  # Methods
+  meth :speak
+end

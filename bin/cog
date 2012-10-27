@@ -12,12 +12,13 @@ unless File.respond_to? :realpath
 end
 $: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib')
 require 'rubygems'
+require 'active_support/core_ext'
 require 'cog'
 require 'cog_version'
 require 'gli'
 require 'fileutils'
 
-include GLI
+include GLI::App
 
 program_desc 'This is a utility to help you write code generators.'
 
@@ -34,26 +35,24 @@ command :init do |c|
   end
 end
 
-desc 'Create a new mirror class'
-arg_name 'ClassName'
-command :mirror do |c|
-  c.desc 'The target language (see languages command)'
-  c.arg_name 'language'
-  c.flag [:language, :l]
-  
-  c.desc 'Slash (/) separated prefix for generator, templates, and app code'
-  c.arg_name 'path'
-  c.flag [:package, :p]
-
-  c.action do |g,o,a|
-    tc = Cog::TemplateController.new
-    a.each do |class_name|
-      tc.stamp_generator 'mirror', class_name, o
-      tc.stamp_module 'mirror-abstract', "abstract_#{class_name}", o
-      tc.stamp_module 'mirror-impl', class_name, o
-    end
-  end
-end
+# desc 'Create a new mirror class'
+# arg_name 'ClassName'
+# command :mirror do |c|
+#   c.desc 'The target language (see languages command)'
+#   c.arg_name 'language'
+#   c.flag [:language, :l]
+#   
+#   c.desc 'Slash (/) separated prefix for generator, templates, and app code'
+#   c.arg_name 'path'
+#   c.flag [:package, :p]
+# 
+#   c.action do |g,opt,a|
+#     a.each do |class_name|
+#       mirror_gen = Cog::Meta::MirrorGen.new class_name
+#       mirror_gen.stamp opt
+#     end
+#   end
+# end
 
 desc 'List supported languages'
 command :languages do |c|
@@ -93,4 +92,4 @@ on_error do |exception|
   true
 end
 
-exit GLI.run(ARGV)
+exit run(ARGV)
