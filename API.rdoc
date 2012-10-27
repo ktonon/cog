@@ -23,6 +23,9 @@ and it will look something like this:
   # The directory in which to place generated application code.
   app_dir 'src'
 
+  # The default language in which to generate source code.
+  language 'c++'
+
 == Testing
 
 The tests are written in +RSpec+ and can be found in the <tt>spec/</tt>
