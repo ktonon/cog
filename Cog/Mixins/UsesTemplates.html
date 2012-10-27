@@ -64,7 +64,19 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-i-generated_warning">#generated_warning</a>
+    
     <li><a href="#method-i-get_template">#get_template</a>
+    
+    <li><a href="#method-i-include_guard_begin">#include_guard_begin</a>
+    
+    <li><a href="#method-i-include_guard_end">#include_guard_end</a>
+    
+    <li><a href="#method-i-namespace_begin">#namespace_begin</a>
+    
+    <li><a href="#method-i-namespace_end">#namespace_end</a>
+    
+    <li><a href="#method-i-snippet_extension">#snippet_extension</a>
     
     <li><a href="#method-i-stamp">#stamp</a>
     
@@ -91,6 +103,8 @@
   
     <li><a href="../../Cog.html">Cog</a>
   
+    <li><a href="../../Cog/Cogfile.html">Cog::Cogfile</a>
+  
     <li><a href="../../Cog/CogfileError.html">Cog::CogfileError</a>
   
     <li><a href="../../Cog/Config.html">Cog::Config</a>
@@ -98,6 +112,12 @@
     <li><a href="../../Cog/Errors.html">Cog::Errors</a>
   
     <li><a href="../../Cog/Errors/MissingTemplate.html">Cog::Errors::MissingTemplate</a>
+  
+    <li><a href="../../Cog/Meta.html">Cog::Meta</a>
+  
+    <li><a href="../../Cog/Meta/GenGen.html">Cog::Meta::GenGen</a>
+  
+    <li><a href="../../Cog/Meta/MirrorGen.html">Cog::Meta::MirrorGen</a>
   
     <li><a href="../../Cog/Mixins.html">Cog::Mixins</a>
   
@@ -112,8 +132,6 @@
     <li><a href="../../Cog/SpecHelpers/Invocation.html">Cog::SpecHelpers::Invocation</a>
   
     <li><a href="../../Cog/SpecHelpers/Matchers.html">Cog::SpecHelpers::Matchers</a>
-  
-    <li><a href="../../Cog/TemplateController.html">Cog::TemplateController</a>
   
     <li><a href="../../Object.html">Object</a>
   
@@ -150,6 +168,38 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-generated_warning" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generated_warning</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>A warning that indicates a file is maintained by a generator</p>
+          
+
+          
+          <div class="method-source-code" id="generated_warning-source">
+            <pre><span class="ruby-comment"># File lib/cog/mixins/uses_templates.rb, line 100</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generated_warning</span>
+  <span class="ruby-identifier">lang</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">for_project</span>.<span class="ruby-identifier">language</span>
+  <span class="ruby-identifier">t</span> = <span class="ruby-identifier">get_template</span> <span class="ruby-node">&quot;snippets/#{lang}/generated_warning.#{snippet_extension lang}&quot;</span>, <span class="ruby-value">:cog_template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+  <span class="ruby-identifier">t</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- generated_warning-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- generated_warning-method -->
+
+    
       <div id="method-i-get_template" class="method-detail ">
         
         <div class="method-heading">
@@ -166,7 +216,7 @@
 <h3 id="method-i-get_template-label-Parameters">Parameters</h3>
 <ul><li>
 <p><code>path</code> - a path to a template file which is relative to <a
-href="../Config.html#method-i-template_dir">Cog::Config#template_dir</a>
+href="../Config.html#attribute-i-template_dir">Cog::Config#template_dir</a>
 and does not include the <code>.erb</code> extension.</p>
 </li></ul>
 
@@ -183,12 +233,17 @@ absolute and should not be prefixed. Default value is <code>false</code>.</p>
 
           
           <div class="method-source-code" id="get_template-source">
-            <pre><span class="ruby-comment"># File lib/cog/mixins/uses_templates.rb, line 22</span>
+            <pre><span class="ruby-comment"># File lib/cog/mixins/uses_templates.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_template</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">opt</span>={})
   <span class="ruby-identifier">path</span> <span class="ruby-operator">+=</span> <span class="ruby-string">'.erb'</span>
-  <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">for_project</span>.<span class="ruby-identifier">template_dir</span>, <span class="ruby-identifier">path</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">opt</span>[<span class="ruby-value">:absolute</span>]
-  <span class="ruby-identifier">raise</span> <span class="ruby-constant">MissingTemplate</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">path</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">path</span>
-  <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">path</span>)
+  <span class="ruby-identifier">prefix</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">opt</span>[<span class="ruby-value">:cog_template</span>]
+    <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">gem_dir</span>, <span class="ruby-string">'templates'</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-operator">!</span><span class="ruby-identifier">opt</span>[<span class="ruby-value">:absolute</span>]
+    <span class="ruby-constant">Config</span>.<span class="ruby-identifier">for_project</span>.<span class="ruby-identifier">template_dir</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">prefix</span>, <span class="ruby-identifier">path</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">prefix</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingTemplate</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">path</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">path</span>
+  <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">path</span>), <span class="ruby-value">0</span>, <span class="ruby-string">'&gt;'</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- get_template-source -->
           
@@ -198,6 +253,175 @@ absolute and should not be prefixed. Default value is <code>false</code>.</p>
 
         
       </div><!-- get_template-method -->
+
+    
+      <div id="method-i-include_guard_begin" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">include_guard_begin</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="include_guard_begin-source">
+            <pre><span class="ruby-comment"># File lib/cog/mixins/uses_templates.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">include_guard_begin</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-identifier">full</span> = <span class="ruby-node">&quot;COG_INCLUDE_GUARD_#{name.upcase}&quot;</span>
+  <span class="ruby-node">&quot;#ifndef #{full}\n#define #{full}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- include_guard_begin-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- include_guard_begin-method -->
+
+    
+      <div id="method-i-include_guard_end" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">include_guard_end</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="include_guard_end-source">
+            <pre><span class="ruby-comment"># File lib/cog/mixins/uses_templates.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">include_guard_end</span>
+  <span class="ruby-node">&quot;#endif // COG_INCLUDE_GUARD_[...]&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- include_guard_end-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- include_guard_end-method -->
+
+    
+      <div id="method-i-namespace_begin" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">namespace_begin</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="namespace_begin-source">
+            <pre><span class="ruby-comment"># File lib/cog/mixins/uses_templates.rb, line 115</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">namespace_begin</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">for_project</span>.<span class="ruby-identifier">language</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-regexp">%rc\+\+/</span>
+    <span class="ruby-node">&quot;namespace #{name} {&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- namespace_begin-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- namespace_begin-method -->
+
+    
+      <div id="method-i-namespace_end" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">namespace_end</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="namespace_end-source">
+            <pre><span class="ruby-comment"># File lib/cog/mixins/uses_templates.rb, line 123</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">namespace_end</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">for_project</span>.<span class="ruby-identifier">language</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-regexp">%rc\+\+/</span>
+    <span class="ruby-node">&quot;} // namespace #{name}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- namespace_end-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- namespace_end-method -->
+
+    
+      <div id="method-i-snippet_extension" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">snippet_extension</span><span
+            class="method-args">(lang = 'text')</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>File extension for a snippet of the given source code language.</p>
+
+<h4 id="method-i-snippet_extension-label-Example">Example</h4>
+
+<pre class="ruby"><span class="ruby-identifier">snippet_extension</span> <span class="ruby-string">'c++'</span> <span class="ruby-comment"># =&gt; 'h'</span>
+</pre>
+          
+
+          
+          <div class="method-source-code" id="snippet_extension-source">
+            <pre><span class="ruby-comment"># File lib/cog/mixins/uses_templates.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">snippet_extension</span>(<span class="ruby-identifier">lang</span> = <span class="ruby-string">'text'</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">lang</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-regexp">%r(c\+\+|c|objc)/</span>
+    <span class="ruby-string">'h'</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-string">'txt'</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- snippet_extension-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- snippet_extension-method -->
 
     
       <div id="method-i-stamp" class="method-detail ">
@@ -216,7 +440,7 @@ absolute and should not be prefixed. Default value is <code>false</code>.</p>
 <h3 id="method-i-stamp-label-Parameters">Parameters</h3>
 <ul><li>
 <p><code>path</code> - to the template which is relative to <a
-href="../Config.html#method-i-template_dir">Cog::Config#template_dir</a>
+href="../Config.html#attribute-i-template_dir">Cog::Config#template_dir</a>
 and  does not include the <code>.erb</code> extension.</p>
 </li></ul>
 
@@ -224,9 +448,9 @@ and  does not include the <code>.erb</code> extension.</p>
 <ul><li>
 <p><code>:target</code> - the destination path to the generated file which is
 relative to either <a
-href="../Config.html#method-i-app_dir">Cog::Config#app_dir</a> or <a
-href="../Config.html#method-i-cog_dir">Cog::Config#cog_dir</a>, depending
-on the value of the <code>:target_type</code> option.</p>
+href="../Config.html#attribute-i-app_dir">Cog::Config#app_dir</a> or
+Config#cog_dir, depending on the value of the <code>:target_type</code>
+option.</p>
 </li><li>
 <p><code>:target_type</code> - either <code>:cog</code> or <code>:app</code>.
 Determines what path to prefix to the <code>:target</code> option. The
@@ -249,7 +473,7 @@ code as a string.</p>
 
           
           <div class="method-source-code" id="stamp-source">
-            <pre><span class="ruby-comment"># File lib/cog/mixins/uses_templates.rb, line 50</span>
+            <pre><span class="ruby-comment"># File lib/cog/mixins/uses_templates.rb, line 67</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">stamp</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">opt</span>={})
   <span class="ruby-identifier">t</span> = <span class="ruby-identifier">get_template</span> <span class="ruby-identifier">path</span>, <span class="ruby-value">:absolute</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">opt</span>[<span class="ruby-value">:use_absolute_path</span>]
   <span class="ruby-identifier">b</span> = <span class="ruby-identifier">opt</span>[<span class="ruby-value">:binding</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">binding</span>
@@ -265,7 +489,12 @@ code as a string.</p>
       <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">for_project</span>.<span class="ruby-identifier">app_dir</span>, <span class="ruby-identifier">target</span>
     <span class="ruby-keyword">end</span>
     <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkpath</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">target</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">target</span>
-    <span class="ruby-identifier">scratch</span> = <span class="ruby-node">&quot;#{path}.scratch&quot;</span>
+    <span class="ruby-identifier">scratch</span> = <span class="ruby-keyword">case</span> <span class="ruby-identifier">target_type</span>.<span class="ruby-identifier">to_s</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-regexp">%rcog/</span>
+      <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">for_project</span>.<span class="ruby-identifier">cog_dir</span>, <span class="ruby-node">&quot;#{opt[:target]}.scratch&quot;</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-regexp">%rapp/</span>
+      <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">for_project</span>.<span class="ruby-identifier">app_dir</span>, <span class="ruby-node">&quot;#{opt[:target]}.scratch&quot;</span>
+    <span class="ruby-keyword">end</span>
     <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">scratch</span>, <span class="ruby-string">'w'</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">b</span>)}
     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">same?</span> <span class="ruby-identifier">target</span>, <span class="ruby-identifier">scratch</span>
       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Generated #{target}&quot;</span>

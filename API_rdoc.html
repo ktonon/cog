@@ -61,6 +61,8 @@
   
     <li><a href="./Cog.html">Cog</a>
   
+    <li><a href="./Cog/Cogfile.html">Cog::Cogfile</a>
+  
     <li><a href="./Cog/CogfileError.html">Cog::CogfileError</a>
   
     <li><a href="./Cog/Config.html">Cog::Config</a>
@@ -68,6 +70,12 @@
     <li><a href="./Cog/Errors.html">Cog::Errors</a>
   
     <li><a href="./Cog/Errors/MissingTemplate.html">Cog::Errors::MissingTemplate</a>
+  
+    <li><a href="./Cog/Meta.html">Cog::Meta</a>
+  
+    <li><a href="./Cog/Meta/GenGen.html">Cog::Meta::GenGen</a>
+  
+    <li><a href="./Cog/Meta/MirrorGen.html">Cog::Meta::MirrorGen</a>
   
     <li><a href="./Cog/Mixins.html">Cog::Mixins</a>
   
@@ -83,8 +91,6 @@
   
     <li><a href="./Cog/SpecHelpers/Matchers.html">Cog::SpecHelpers::Matchers</a>
   
-    <li><a href="./Cog/TemplateController.html">Cog::TemplateController</a>
-  
     <li><a href="./Object.html">Object</a>
   
   </ul>
@@ -95,41 +101,9 @@
 
 <div id="documentation" class="description">
   
-<h1 id="label-cog+API+docs">cog <a href="API_rdoc.html">API</a> docs</h1>
-
-<p><code>cog</code> is a command line utility that makes it a bit easier to
-organize a project which uses code generation. Many of your interactions
-with <code>cog</code> will be using the command line interface. However, to
-get any real mileage out of it you’ll need to use the <a
-href="API_rdoc.html">API</a> (documented here). For more information on the
-command line interface see <a
-href="https://github.com/ktonon/cog#cog">github.com/ktonon/cog#cog</a></p>
-
-<p><code>cog</code> is configured with a <code>Cogfile</code>, which should be
-in the root of your project’s file tree. The <code>Cogfile</code> is just
-a ruby file and the commands available in it are defined in the
-Cog::Cogfile class. It is generated for you when you issue this command
-from a shell in the root directory of your project:</p>
-
-<pre>cog init</pre>
-
-<p>and it will look something like this:</p>
-
-<pre># All paths are relative to the directory containing this file.
-
-# The directory in which to find ERB template files.
-template_dir 'templates'
-
-# The directory in which application code can be found. This is where
-# generated code will go. Probably along side non-generated code.
-code_dir 'src'</pre>
-
-<h2 id="label-Testing">Testing</h2>
-
-<p>The tests are written in <code>RSpec</code> and can be found in the
-<code>spec/</code> directory. Custom matchers are available to make writing
-specs easier. See <a href="Cog/SpecHelpers.html">Cog::SpecHelpers</a> for
-more details.</p>
+<p>Please see <a
+href="https://github.com/ktonon/cog#readme">github.com/ktonon/cog#readme</a>
+for a general introduction.</p>
 
 </div>
 

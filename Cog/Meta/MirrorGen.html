@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class Cog::SpecHelpers::App - Your application title</title>
+<title>class Cog::Meta::MirrorGen - Your application title</title>
 
 <link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
 
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/cog/spec_helpers/runner.rb
+    <li>lib/cog/meta/mirror_gen.rb
   </ul>
 </nav>
 
@@ -72,7 +72,13 @@
     
     <li><a href="#method-c-new">::new</a>
     
-    <li><a href="#method-i-run">#run</a>
+    <li><a href="#method-i-abstract_classname">#abstract_classname</a>
+    
+    <li><a href="#method-i-classname">#classname</a>
+    
+    <li><a href="#method-i-filename">#filename</a>
+    
+    <li><a href="#method-i-stamp">#stamp</a>
     
   </ul>
 </nav>
@@ -136,11 +142,12 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class Cog::SpecHelpers::App</h1>
+  <h1 class="class">class Cog::Meta::MirrorGen</h1>
 
   <div id="description" class="description">
     
-<p>Points to the <code>cog</code> command-line app</p>
+<p>Generates a <a href="../Mixins/Mirror.html">Cog::Mixins::Mirror</a> and
+associated templates.</p>
 
   </div><!-- description -->
 
@@ -162,41 +169,127 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-run" class="method-detail ">
+      <div id="method-i-abstract_classname" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">run</span><span
-            class="method-args">(*args)</span>
+          <span class="method-name">abstract_classname</span><span
+            class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          <p>Run cog with the given arguments</p>
-
-<h3 id="method-i-run-label-Returns">Returns</h3>
-
-<p>An instance of <a href="Invocation.html">Invocation</a> configured with the
-arguments. Use should and should_not with the custom <a
-href="Matchers.html">Matchers</a></p>
+          
           
 
           
-          <div class="method-source-code" id="run-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/runner.rb, line 18</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>(*<span class="ruby-identifier">args</span>)
-  <span class="ruby-identifier">args</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-ivar">@cog</span>
-  <span class="ruby-constant">Invocation</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">args</span>
+          <div class="method-source-code" id="abstract_classname-source">
+            <pre><span class="ruby-comment"># File lib/cog/meta/mirror_gen.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">abstract_classname</span>
+  <span class="ruby-node">&quot;Cog#{@name.camelize}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- run-source -->
+          </div><!-- abstract_classname-source -->
           
         </div>
 
         
 
         
-      </div><!-- run-method -->
+      </div><!-- abstract_classname-method -->
+
+    
+      <div id="method-i-classname" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">classname</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="classname-source">
+            <pre><span class="ruby-comment"># File lib/cog/meta/mirror_gen.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">classname</span>
+  <span class="ruby-ivar">@name</span>.<span class="ruby-identifier">camelize</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- classname-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- classname-method -->
+
+    
+      <div id="method-i-filename" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">filename</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="filename-source">
+            <pre><span class="ruby-comment"># File lib/cog/meta/mirror_gen.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">filename</span>
+  <span class="ruby-ivar">@name</span>.<span class="ruby-identifier">underscore</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- filename-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- filename-method -->
+
+    
+      <div id="method-i-stamp" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stamp</span><span
+            class="method-args">(opt={})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stamp-source">
+            <pre><span class="ruby-comment"># File lib/cog/meta/mirror_gen.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stamp</span>(<span class="ruby-identifier">opt</span>={})
+  <span class="ruby-identifier">opt</span>[<span class="ruby-value">:binding</span>] = <span class="ruby-identifier">binding</span>
+  <span class="ruby-ivar">@gg</span>.<span class="ruby-identifier">stamp_generator</span> <span class="ruby-string">'mirror'</span>, <span class="ruby-identifier">filename</span>, <span class="ruby-identifier">opt</span>
+  <span class="ruby-ivar">@gg</span>.<span class="ruby-identifier">stamp_module</span> <span class="ruby-string">'mirror-abstract'</span>, <span class="ruby-node">&quot;abstract_#{filename}&quot;</span>, <span class="ruby-identifier">opt</span>
+  <span class="ruby-ivar">@gg</span>.<span class="ruby-identifier">stamp_module</span> <span class="ruby-string">'mirror-impl'</span>, <span class="ruby-identifier">filename</span>, <span class="ruby-identifier">opt</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- stamp-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stamp-method -->
 
     
     </section><!-- public-instance-method-details -->
@@ -209,21 +302,28 @@ href="Matchers.html">Matchers</a></p>
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(path_to_cl_app)</span>
+            class="method-args">(name, opt={})</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          
+          <p>Create a mirror generator</p>
+
+<h3 id="method-c-new-label-Parameters">Parameters</h3>
+<ul><li>
+<p><code>name</code> - the name of the mirror. Will be forced to singular
+form.</p>
+</li></ul>
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/runner.rb, line 9</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">path_to_cl_app</span>)
-  <span class="ruby-ivar">@cog</span> = <span class="ruby-identifier">path_to_cl_app</span>
+            <pre><span class="ruby-comment"># File lib/cog/meta/mirror_gen.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">opt</span>={})
+  <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">singularize</span>
+  <span class="ruby-ivar">@gg</span> = <span class="ruby-constant">GenGen</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
