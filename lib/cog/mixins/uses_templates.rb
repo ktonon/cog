@@ -7,6 +7,47 @@ module Cog
     # Mixin for classes that can use templates to generate code
     module UsesTemplates
       
+      # Copy a file from +src+ to +dest+, but only if +dest+ does not already exist.
+      def copy_if_missing(src, dest)
+        unless File.exists? dest
+          FileUtils.cp src, dest
+          puts "Created #{dest}"
+        end
+      end
+
+      # Stamp a template +source+ onto a +destination+.
+      # ==== Arguments
+      # * +source+ - Relative path to the source template
+      # * +destination+ - Relative path to the destination
+      # ==== Options
+      # * <tt>:source_prefix</tt>
+      # * <tt>:destination_prefix</tt>
+      def stamp(source, destination, opt={})
+        src = File.join [opt[:source_prefix], source.split('/')].flatten.compact
+        dest = File.join [opt[:destination_prefix], destination.split('/')].flatten.compact
+        t = get_template src, :absolute => true
+        b = opt[:binding] || binding
+        FileUtils.mkpath File.dirname(dest) unless File.exists? dest
+        scratch = "#{dest}.scratch"
+        File.open(scratch, 'w') {|file| file.write t.result(b)}
+        unless same? dest, scratch
+          puts "Generated #{dest}"
+          FileUtils.mv scratch, dest
+        else
+          FileUtils.rm scratch
+        end
+        nil
+      end
+
+      # Recursively create directories in the given path if they are missing.
+      def touch_path(*path_components)
+        path = File.join path_components
+        unless File.exists? path
+          FileUtils.mkdir_p path
+          puts "Created #{path}"
+        end
+      end
+      
       # File extension for a snippet of the given source code language.
       # ==== Example
       #   snippet_extension 'c++' # => 'h'
@@ -64,7 +105,7 @@ module Cog
       # === Returns
       # +nil+ if generated to a file, otherwise returns the generated code as a
       # string.
-      def stamp(path, opt={})
+      def _stamp(path, opt={})
         t = get_template path, :absolute => opt[:use_absolute_path]
         b = opt[:binding] || binding
         target = opt[:target]
@@ -95,7 +136,7 @@ module Cog
           nil
         end
       end
-      
+            
       # A warning that indicates a file is maintained by a generator
       def generated_warning
         lang = Config.for_project.language

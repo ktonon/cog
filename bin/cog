@@ -16,7 +16,6 @@ require 'active_support/core_ext'
 require 'cog'
 require 'cog_version'
 require 'gli'
-require 'fileutils'
 
 include GLI::App
 
@@ -24,14 +23,20 @@ program_desc 'This is a utility to help you write code generators.'
 
 version Cog::VERSION
 
-desc 'Write extra information'
-switch [:v,:verbose]
-
 desc 'Add cog to a project by generating a Cogfile in the current directory'
 command :init do |c|
   c.action do |g,o,a|
-    puts "Generated Cogfile"
-    FileUtils.cp File.join(Cog::Config.gem_dir, 'Default.cogfile'), 'Cogfile'
+    Cog.init
+  end
+end
+
+desc 'Create a stand-alone generator tool'
+arg_name 'name'
+command :tool do |c|
+  c.action do |g,o,a|
+    a.each do |name|
+      Cog.tool name
+    end
   end
 end
 
@@ -68,11 +73,8 @@ pre do |global, command, options, args|
   # Use skips_pre before a command to skip this block
   # on that command only
   cogfile = Cog::Config.for_project
-  if !cogfile && command && command.name != :init
+  if !cogfile && command && ![:init, :tool].member?(command.name)
     puts 'No Cogfile could be found'
-    false
-  elsif cogfile && command && command.name == :init
-    puts "A Cogfile already exists at #{cogfile.cogfile_path.inspect}"
     false
   else
     global[:cogfile] = cogfile

@@ -1,0 +1,21 @@
+# Ensure we require the local version and not one we might have installed already
+require File.join([File.dirname(__FILE__),'lib','<%= name %>/version.rb'])
+spec = Gem::Specification.new do |s| 
+  s.name = '<%= name %>'
+  s.version = <%= module_name %>::VERSION
+  s.author = '<%= author %>'
+  s.email = '<%= email %>'
+  s.homepage = ''
+  s.platform = Gem::Platform::RUBY
+  s.summary = '<%= description %>'
+  s.files = %w(bin/<%= name %> LICENSE) + Dir.glob('cog/**/*') + Dir.glob('lib/**/*.rb')
+  s.require_paths << 'lib'
+  s.has_rdoc = true
+  s.rdoc_options << '--title' << '<%= name %>' << '-ri'
+  s.bindir = 'bin'
+  s.executables << '<%= name %>'
+  s.add_development_dependency('rake')
+  s.add_development_dependency('rdoc')
+  s.add_development_dependency('aruba')
+  s.add_runtime_dependency('gli', '2.4.1')
+end

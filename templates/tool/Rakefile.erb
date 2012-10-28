@@ -1,0 +1,14 @@
+require 'rake/clean'
+require 'rubygems'
+require 'rubygems/package_task'
+require 'rdoc/task'
+
+Rake::RDocTask.new do |rd|
+  rd.rdoc_files.include("lib/**/*.rb")
+  rd.title = '<%= module_name %>'
+end
+
+spec = eval(File.read('<%= name %>.gemspec'))
+
+Gem::PackageTask.new(spec) do |pkg|
+end
