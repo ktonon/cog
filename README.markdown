@@ -69,6 +69,38 @@ app_dir 'src'
 language 'c++'
 ```
 
+Write a tool
+------------
+
+While its possible to place all the code for your generator in the `cog/generators` directory, you might also consider writing a tool.
+
+A tool is a stand-alone domain specific generator. You can tell `cog` to help you get started writing a tool. For example, if you wanted to write a command line interface generation tool and call it `cons`, you would do this
+
+```bash
+cog tool cons
+```
+
+In this scenario, the following directory structure would be generated
+
+```
+cons/
+     bin/
+         cons
+     cog/
+         generators/
+         templates/
+     lib/
+         cons.rb
+         cons/
+              version.rb
+     cons.gemspec
+     Gemfile
+     LICENSE
+     Rakefile
+     README.markdown
+
+```
+
 API Documentation
 -----------------
 
