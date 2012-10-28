@@ -85,14 +85,15 @@ In this scenario, the following directory structure would be generated
 ```
 cons/
      bin/
-         cons
+         cons                            - command line interface
      cog/
-         generators/
          templates/
+                   cons/                 - for templates used by the cons tool
+                        generator.rb.erb - a template for the default generator
      lib/
-         cons.rb
+         cons.rb                         - contains the Cons module and boilerplate tool code
          cons/
-              version.rb
+              version.rb                 - adds VERSION to the Cons module
      cons.gemspec
      Gemfile
      LICENSE
