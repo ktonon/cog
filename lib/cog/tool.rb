@@ -36,15 +36,14 @@ module Cog
         :destination_prefix => name
         }
       stamp 'bin', "bin/#{name}", context
-      stamp 'Gemfile', 'Gemfile', context
       stamp 'tool.rb', "lib/#{name}.rb", context
       stamp 'version.rb', "lib/#{name}/version.rb", context
+      stamp 'generator.rb', "cog/templates/#{name}/generator.rb.erb", context
+      stamp 'Gemfile', 'Gemfile', context
+      stamp 'Rakefile', 'Rakefile', context
       stamp 'tool.gemspec', "#{name}.gemspec", context
       stamp 'LICENSE', 'LICENSE', context
-      stamp 'Rakefile', 'Rakefile', context
       stamp 'README.markdown', 'README.markdown', context
-      touch_path name, "cog", "generators"
-      touch_path name, "cog", "templates"
     end
   end
 
