@@ -1,3 +1,4 @@
+require 'cog/spec_helpers/matchers/match_maker'
 require 'rspec'
 
 module Cog
@@ -6,26 +7,25 @@ module Cog
     # Extra should or should_not matchers for RSpec.
     module Matchers
       
-      class ShowHelp # :nodoc:
-        def matches?(runner)
-          @runner = runner
-          @runner.exec do |i,o,e|
-            @first_line = o.readline
-            @second_line = o.readline
-            /help.*code gen/ =~ @second_line
-          end
-        end
-        def failure_message
-          "expected #{@runner} to show the default help text, got #{@first_line.inspect}"
-        end
-        def negative_failure_message
-          "expected #{@runner} to not show the default help text, got #{@first_line.inspect}"
+      # The target Invocation should output the default help text
+      def show_help
+        match_maker do
+          message { "to [show|not show] the default help text, got #{lines.first.inspect}" }
+          test { (/help.*code gen/ =~ lines[1]) }
         end
       end
       
-      # The target Invocation should output the default help text
-      def show_help
-        ShowHelp.new
+      # The target Invocation should create a +Cogfile+ where none existed before
+      def make(path)
+        match_maker do
+          message { "to [create|not create] the #{path}" }
+          before do
+            @existed = File.exists? path
+          end
+          test do
+            !@existed && File.exists?(path)
+          end
+        end
       end
     end
     

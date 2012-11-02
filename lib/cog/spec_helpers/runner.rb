@@ -4,10 +4,10 @@ module Cog
   module SpecHelpers
 
     # Points to the +cog+ command-line app
-    class App
+    class Runner
 
       def initialize(path_to_cl_app)
-        @cog = path_to_cl_app
+        @cog = File.expand_path path_to_cl_app
       end
 
       # Run cog with the given arguments
@@ -17,7 +17,7 @@ module Cog
       # should_not with the custom Matchers
       def run(*args)
         args.unshift @cog
-        Invocation.new args
+        Invocation.new(args.collect {|x| x.to_s})
       end
     end
     
@@ -30,11 +30,15 @@ module Cog
       end
       
       def exec(*args, &block) # :nodoc:
+        @s = ([File.basename @cmd.first] + @cmd.slice(1..-1)).join ' '
         Open3.popen3 *@cmd do |i,o,e,t|
           block.call i,o,e
         end
       end
-      
+
+      def to_s
+        "`#{@s}`"
+      end
     end
     
   end
