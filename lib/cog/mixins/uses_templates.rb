@@ -74,14 +74,16 @@ module Cog
       # An instance of ERB.
       def get_template(path, opt={})
         path += '.erb'
-        prefix = if opt[:cog_template]
-          File.join Config.gem_dir, 'templates'
-        elsif !opt[:absolute]
-          Config.for_project.template_dir
+        fullpath = if opt[:absolute]
+          path
+        else
+          Config.for_project.template_dirs.inject('') do |found, prefix|
+            x = File.join prefix, path
+            found || (File.exists?(x) ? x : '')
+          end
         end
-        path = File.join prefix, path unless prefix.nil?
-        raise Errors::MissingTemplate.new path unless File.exists? path
-        ERB.new File.read(path), 0, '>'
+        raise Errors::MissingTemplate.new fullpath unless File.exists? fullpath
+        ERB.new File.read(fullpath), 0, '>'
       end
       
       # Stamp this object using the template at the given path.

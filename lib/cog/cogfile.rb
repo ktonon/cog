@@ -31,7 +31,7 @@ module Cog
       @config.instance_eval do
         @cog_dir = absolute ? path : File.join(project_root, path)
         @generator_dir = File.join @cog_dir, 'generators'
-        @template_dir = File.join @cog_dir, 'templates'
+        @app_template_dir = File.join @cog_dir, 'templates'
       end
     end
 

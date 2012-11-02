@@ -24,8 +24,20 @@ module Cog
     # Directory in which the +Cogfile+ is found.
     attr_reader :project_root
     
-    # Directory in which to find ERB template files.
-    attr_reader :template_dir
+    # Directory in which to find custom app template files. These templates
+    # have the highest precendence of all template files.
+    attr_reader :app_template_dir
+    
+    # A list of directories in which to find ERB template files.
+    # Priority should be given first to last.
+    def template_dirs
+      [@app_template_dir, @tool_template_dir, File.join(Config.gem_dir, 'templates')].compact
+    end
+    
+    # Tools should set this value.
+    # This will be inserted into the template_dirs in between the cog built-in
+    # templates and the app templates (as defined in the app Cogfile).
+    attr_writer :tool_template_dir
     
     # Initialize from a +Cogfile+ at the given path.
     # ==== Arguments

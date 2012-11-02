@@ -12,7 +12,7 @@ module Cog
     copy_if_missing File.join(Config.gem_dir, 'Default.cogfile'), 'Cogfile'
     config = Config.for_project
     touch_path config.generator_dir
-    touch_path config.template_dir
+    touch_path config.app_template_dir
   end
   
   def self.tool(name)
