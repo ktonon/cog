@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class Cog::SpecHelpers::App - Your application title</title>
+<title>class Cog::SpecHelpers::Runner - cog API Docs</title>
 
 <link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
 
@@ -97,35 +97,29 @@
   
     <li><a href="../../Cog.html">Cog</a>
   
-    <li><a href="../../Cog/Cogfile.html">Cog::Cogfile</a>
-  
-    <li><a href="../../Cog/CogfileError.html">Cog::CogfileError</a>
-  
     <li><a href="../../Cog/Config.html">Cog::Config</a>
+  
+    <li><a href="../../Cog/Config/Cogfile.html">Cog::Config::Cogfile</a>
+  
+    <li><a href="../../Cog/Config/CogfileError.html">Cog::Config::CogfileError</a>
   
     <li><a href="../../Cog/Errors.html">Cog::Errors</a>
   
     <li><a href="../../Cog/Errors/MissingTemplate.html">Cog::Errors::MissingTemplate</a>
   
-    <li><a href="../../Cog/Meta.html">Cog::Meta</a>
-  
-    <li><a href="../../Cog/Meta/GenGen.html">Cog::Meta::GenGen</a>
-  
-    <li><a href="../../Cog/Meta/MirrorGen.html">Cog::Meta::MirrorGen</a>
-  
-    <li><a href="../../Cog/Mixins.html">Cog::Mixins</a>
-  
-    <li><a href="../../Cog/Mixins/Mirror.html">Cog::Mixins::Mirror</a>
-  
-    <li><a href="../../Cog/Mixins/UsesTemplates.html">Cog::Mixins::UsesTemplates</a>
+    <li><a href="../../Cog/Generator.html">Cog::Generator</a>
   
     <li><a href="../../Cog/SpecHelpers.html">Cog::SpecHelpers</a>
-  
-    <li><a href="../../Cog/SpecHelpers/App.html">Cog::SpecHelpers::App</a>
   
     <li><a href="../../Cog/SpecHelpers/Invocation.html">Cog::SpecHelpers::Invocation</a>
   
     <li><a href="../../Cog/SpecHelpers/Matchers.html">Cog::SpecHelpers::Matchers</a>
+  
+    <li><a href="../../Cog/SpecHelpers/Matchers/MatchMaker.html">Cog::SpecHelpers::Matchers::MatchMaker</a>
+  
+    <li><a href="../../Cog/SpecHelpers/Runner.html">Cog::SpecHelpers::Runner</a>
+  
+    <li><a href="../../Cog/Tool.html">Cog::Tool</a>
   
     <li><a href="../../Object.html">Object</a>
   
@@ -136,7 +130,7 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="class">class Cog::SpecHelpers::App</h1>
+  <h1 class="class">class Cog::SpecHelpers::Runner</h1>
 
   <div id="description" class="description">
     
@@ -158,6 +152,42 @@
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(path_to_cl_app)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/runner.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">path_to_cl_app</span>)
+  <span class="ruby-ivar">@cog</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-identifier">path_to_cl_app</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
@@ -186,8 +216,8 @@ href="Matchers.html">Matchers</a></p>
           <div class="method-source-code" id="run-source">
             <pre><span class="ruby-comment"># File lib/cog/spec_helpers/runner.rb, line 18</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>(*<span class="ruby-identifier">args</span>)
-  <span class="ruby-identifier">args</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-ivar">@cog</span>
-  <span class="ruby-constant">Invocation</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">args</span>
+  <span class="ruby-identifier">args</span> = [<span class="ruby-string">'bundle'</span>, <span class="ruby-string">'exec'</span>, <span class="ruby-ivar">@cog</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">args</span>
+  <span class="ruby-constant">Invocation</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">args</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_s</span>})
 <span class="ruby-keyword">end</span></pre>
           </div><!-- run-source -->
           
@@ -200,42 +230,6 @@ href="Matchers.html">Matchers</a></p>
 
     
     </section><!-- public-instance-method-details -->
-  
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(path_to_cl_app)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/runner.rb, line 9</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">path_to_cl_app</span>)
-  <span class="ruby-ivar">@cog</span> = <span class="ruby-identifier">path_to_cl_app</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- new-method -->
-
-    
-    </section><!-- public-class-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 

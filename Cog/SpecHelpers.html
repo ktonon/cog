@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>module Cog::SpecHelpers - Your application title</title>
+<title>module Cog::SpecHelpers - cog API Docs</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -47,6 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
+    <li>lib/cog/spec_helpers/matchers/match_maker.rb
     <li>lib/cog/spec_helpers/matchers.rb
     <li>lib/cog/spec_helpers/runner.rb
     <li>lib/cog/spec_helpers.rb
@@ -60,7 +61,25 @@
     
     
     
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
     
+    <li><a href="#method-i-active_fixture_dir">#active_fixture_dir</a>
+    
+    <li><a href="#method-i-cog_directory">#cog_directory</a>
+    
+    <li><a href="#method-i-cogfile_path">#cogfile_path</a>
+    
+    <li><a href="#method-i-spec_root">#spec_root</a>
+    
+    <li><a href="#method-i-use_fixture">#use_fixture</a>
+    
+  </ul>
+</nav>
+
   </div>
 
   <div id="project-metadata">
@@ -81,35 +100,29 @@
   
     <li><a href="../Cog.html">Cog</a>
   
-    <li><a href="../Cog/Cogfile.html">Cog::Cogfile</a>
-  
-    <li><a href="../Cog/CogfileError.html">Cog::CogfileError</a>
-  
     <li><a href="../Cog/Config.html">Cog::Config</a>
+  
+    <li><a href="../Cog/Config/Cogfile.html">Cog::Config::Cogfile</a>
+  
+    <li><a href="../Cog/Config/CogfileError.html">Cog::Config::CogfileError</a>
   
     <li><a href="../Cog/Errors.html">Cog::Errors</a>
   
     <li><a href="../Cog/Errors/MissingTemplate.html">Cog::Errors::MissingTemplate</a>
   
-    <li><a href="../Cog/Meta.html">Cog::Meta</a>
-  
-    <li><a href="../Cog/Meta/GenGen.html">Cog::Meta::GenGen</a>
-  
-    <li><a href="../Cog/Meta/MirrorGen.html">Cog::Meta::MirrorGen</a>
-  
-    <li><a href="../Cog/Mixins.html">Cog::Mixins</a>
-  
-    <li><a href="../Cog/Mixins/Mirror.html">Cog::Mixins::Mirror</a>
-  
-    <li><a href="../Cog/Mixins/UsesTemplates.html">Cog::Mixins::UsesTemplates</a>
+    <li><a href="../Cog/Generator.html">Cog::Generator</a>
   
     <li><a href="../Cog/SpecHelpers.html">Cog::SpecHelpers</a>
-  
-    <li><a href="../Cog/SpecHelpers/App.html">Cog::SpecHelpers::App</a>
   
     <li><a href="../Cog/SpecHelpers/Invocation.html">Cog::SpecHelpers::Invocation</a>
   
     <li><a href="../Cog/SpecHelpers/Matchers.html">Cog::SpecHelpers::Matchers</a>
+  
+    <li><a href="../Cog/SpecHelpers/Matchers/MatchMaker.html">Cog::SpecHelpers::Matchers::MatchMaker</a>
+  
+    <li><a href="../Cog/SpecHelpers/Runner.html">Cog::SpecHelpers::Runner</a>
+  
+    <li><a href="../Cog/Tool.html">Cog::Tool</a>
   
     <li><a href="../Object.html">Object</a>
   
@@ -132,8 +145,7 @@
 href="SpecHelpers/Matchers.html">SpecHelpers::Matchers</a> available to
 your RSpec tests. These are useful for testing a <a
 href="SpecHelpers/Invocation.html">SpecHelpers::Invocation</a>, which is
-returned from a call to <a
-href="SpecHelpers/App.html#method-i-run">Cog::SpecHelpers::App#run</a></p>
+returned from a call to SpecHelpers::App#run</p>
 
 <pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">'cog/spec_helpers'</span>
 
@@ -166,6 +178,170 @@ href="SpecHelpers/App.html#method-i-run">Cog::SpecHelpers::App#run</a></p>
 
     <!-- Methods -->
     
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-active_fixture_dir" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">active_fixture_dir</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Directory of an active spec fixture.</p>
+          
+
+          
+          <div class="method-source-code" id="active_fixture_dir-source">
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">active_fixture_dir</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">spec_root</span>, <span class="ruby-string">'active_fixture'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- active_fixture_dir-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- active_fixture_dir-method -->
+
+    
+      <div id="method-i-cog_directory" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cog_directory</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Path to the cog directory in the active spec fixture</p>
+          
+
+          
+          <div class="method-source-code" id="cog_directory-source">
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">cog_directory</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">active_fixture_dir</span>, <span class="ruby-string">'cog'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- cog_directory-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- cog_directory-method -->
+
+    
+      <div id="method-i-cogfile_path" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cogfile_path</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Path to the Cogfile in the active spec fixture</p>
+          
+
+          
+          <div class="method-source-code" id="cogfile_path-source">
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">cogfile_path</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">active_fixture_dir</span>, <span class="ruby-string">'Cogfile'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- cogfile_path-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- cogfile_path-method -->
+
+    
+      <div id="method-i-spec_root" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">spec_root</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Absolute path to the root spec directory</p>
+          
+
+          
+          <div class="method-source-code" id="spec_root-source">
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">spec_root</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">'..'</span>, <span class="ruby-string">'..'</span>, <span class="ruby-string">'spec'</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- spec_root-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- spec_root-method -->
+
+    
+      <div id="method-i-use_fixture" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">use_fixture</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The next cog spec will execute in a fresh copy of the given fixture
+directory. Fixture directories are stored in <code>spec/fixtures</code>.</p>
+          
+
+          
+          <div class="method-source-code" id="use_fixture-source">
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">use_fixture</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">spec_root</span>, <span class="ruby-string">'fixtures'</span>, <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">path</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>)
+    <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">rmtree</span> <span class="ruby-identifier">active_fixture_dir</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">active_fixture_dir</span>
+    <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">cp_r</span> <span class="ruby-identifier">path</span>, <span class="ruby-identifier">active_fixture_dir</span>
+    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span> <span class="ruby-identifier">active_fixture_dir</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">throw</span> <span class="ruby-value">:invalid_fixture_name</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- use_fixture-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- use_fixture-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->

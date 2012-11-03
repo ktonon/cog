@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>Table of Contents - Your application title</title>
+<title>Table of Contents - cog API Docs</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -21,12 +21,17 @@
 
 
 <body class="indexpage">
-<h1>Table of Contents - Your application title</h1>
+<h1>Table of Contents - cog API Docs</h1>
 
 <h2>Pages</h2>
 <ul>
   <li class="file">
     <a href="API_rdoc.html">API</a>
+
+    <img class="toc-toggle" src="images/transparent.png" alt="" title="toggle headings">
+    <ul class="initially-hidden">
+      <li><a href="API_rdoc.html#label-cog+API+Docs">cog API Docs</a>
+    </ul>
   </li>
   
 </ul>
@@ -37,18 +42,18 @@
     <a href="Cog.html">Cog</a>
   </li>
     <li class="class">
-    <a href="Cog/Cogfile.html">Cog::Cogfile</a>
+    <a href="Cog/Config.html">Cog::Config</a>
+  </li>
+    <li class="class">
+    <a href="Cog/Config/Cogfile.html">Cog::Config::Cogfile</a>
 
     <img class="toc-toggle" src="images/transparent.png" alt="" title="toggle headings">
     <ul class="initially-hidden">
-      <li><a href="Cog/Cogfile.html#label-Example+Cogfile">Example <code>Cogfile</code></a>
+      <li><a href="Cog/Config/Cogfile.html#label-Example+Cogfile">Example <code>Cogfile</code></a>
     </ul>
   </li>
     <li class="class">
-    <a href="Cog/CogfileError.html">Cog::CogfileError</a>
-  </li>
-    <li class="class">
-    <a href="Cog/Config.html">Cog::Config</a>
+    <a href="Cog/Config/CogfileError.html">Cog::Config::CogfileError</a>
   </li>
     <li class="module">
     <a href="Cog/Errors.html">Cog::Errors</a>
@@ -57,27 +62,7 @@
     <a href="Cog/Errors/MissingTemplate.html">Cog::Errors::MissingTemplate</a>
   </li>
     <li class="module">
-    <a href="Cog/Meta.html">Cog::Meta</a>
-  </li>
-    <li class="class">
-    <a href="Cog/Meta/GenGen.html">Cog::Meta::GenGen</a>
-  </li>
-    <li class="class">
-    <a href="Cog/Meta/MirrorGen.html">Cog::Meta::MirrorGen</a>
-  </li>
-    <li class="module">
-    <a href="Cog/Mixins.html">Cog::Mixins</a>
-  </li>
-    <li class="module">
-    <a href="Cog/Mixins/Mirror.html">Cog::Mixins::Mirror</a>
-
-    <img class="toc-toggle" src="images/transparent.png" alt="" title="toggle headings">
-    <ul class="initially-hidden">
-      <li><a href="Cog/Mixins/Mirror.html#label-Example">Example</a>
-    </ul>
-  </li>
-    <li class="module">
-    <a href="Cog/Mixins/UsesTemplates.html">Cog::Mixins::UsesTemplates</a>
+    <a href="Cog/Generator.html">Cog::Generator</a>
   </li>
     <li class="module">
     <a href="Cog/SpecHelpers.html">Cog::SpecHelpers</a>
@@ -88,13 +73,19 @@
     </ul>
   </li>
     <li class="class">
-    <a href="Cog/SpecHelpers/App.html">Cog::SpecHelpers::App</a>
-  </li>
-    <li class="class">
     <a href="Cog/SpecHelpers/Invocation.html">Cog::SpecHelpers::Invocation</a>
   </li>
     <li class="module">
     <a href="Cog/SpecHelpers/Matchers.html">Cog::SpecHelpers::Matchers</a>
+  </li>
+    <li class="class">
+    <a href="Cog/SpecHelpers/Matchers/MatchMaker.html">Cog::SpecHelpers::Matchers::MatchMaker</a>
+  </li>
+    <li class="class">
+    <a href="Cog/SpecHelpers/Runner.html">Cog::SpecHelpers::Runner</a>
+  </li>
+    <li class="class">
+    <a href="Cog/Tool.html">Cog::Tool</a>
   </li>
     <li class="class">
     <a href="Object.html">Object</a>
@@ -105,57 +96,83 @@
 <h2 id="methods">Methods</h2>
 <ul>
   
-    <li class="method"><a href="Cog/Config.html#method-c-for_project">::for_project &mdash; Cog::Config</a>
+    <li class="method"><a href="Cog/Generator.html#method-c-available">::available &mdash; Cog::Generator</a>
   
-    <li class="method"><a href="Cog/Mixins/Mirror.html#method-c-included">::included &mdash; Cog::Mixins::Mirror</a>
+    <li class="method"><a href="Cog/Tool.html#method-c-available">::available &mdash; Cog::Tool</a>
+  
+    <li class="method"><a href="Cog/Tool.html#method-c-generate_tool">::generate_tool &mdash; Cog::Tool</a>
+  
+    <li class="method"><a href="Cog.html#method-c-initialize_project">::initialize_project &mdash; Cog</a>
+  
+    <li class="method"><a href="Cog/Config.html#method-c-instance">::instance &mdash; Cog::Config</a>
+  
+    <li class="method"><a href="Cog/SpecHelpers/Runner.html#method-c-new">::new &mdash; Cog::SpecHelpers::Runner</a>
   
     <li class="method"><a href="Cog/Config.html#method-c-new">::new &mdash; Cog::Config</a>
   
-    <li class="method"><a href="Cog/Meta/MirrorGen.html#method-c-new">::new &mdash; Cog::Meta::MirrorGen</a>
+    <li class="method"><a href="Cog/Errors/MissingTemplate.html#method-c-new">::new &mdash; Cog::Errors::MissingTemplate</a>
   
-    <li class="method"><a href="Cog/SpecHelpers/App.html#method-c-new">::new &mdash; Cog::SpecHelpers::App</a>
+    <li class="method"><a href="Cog/SpecHelpers.html#method-i-active_fixture_dir">#active_fixture_dir &mdash; Cog::SpecHelpers</a>
   
-    <li class="method"><a href="Cog/Meta/MirrorGen.html#method-i-abstract_classname">#abstract_classname &mdash; Cog::Meta::MirrorGen</a>
+    <li class="method"><a href="Cog/SpecHelpers/Matchers/MatchMaker.html#method-i-before">#before &mdash; Cog::SpecHelpers::Matchers::MatchMaker</a>
   
-    <li class="method"><a href="Cog/Cogfile.html#method-i-app_dir">#app_dir &mdash; Cog::Cogfile</a>
+    <li class="method"><a href="Cog/SpecHelpers.html#method-i-cog_directory">#cog_directory &mdash; Cog::SpecHelpers</a>
   
-    <li class="method"><a href="Cog/Meta/MirrorGen.html#method-i-classname">#classname &mdash; Cog::Meta::MirrorGen</a>
+    <li class="method"><a href="Cog/SpecHelpers.html#method-i-cogfile_path">#cogfile_path &mdash; Cog::SpecHelpers</a>
   
-    <li class="method"><a href="Cog/Cogfile.html#method-i-cog_dir">#cog_dir &mdash; Cog::Cogfile</a>
+    <li class="method"><a href="Cog/Generator.html#method-i-copy_if_missing">#copy_if_missing &mdash; Cog::Generator</a>
   
-    <li class="method"><a href="Cog/Meta/MirrorGen.html#method-i-filename">#filename &mdash; Cog::Meta::MirrorGen</a>
+    <li class="method"><a href="Cog/Generator.html#method-i-generated_warning">#generated_warning &mdash; Cog::Generator</a>
   
-    <li class="method"><a href="Cog/Mixins/UsesTemplates.html#method-i-generated_warning">#generated_warning &mdash; Cog::Mixins::UsesTemplates</a>
+    <li class="method"><a href="Cog/Generator.html#method-i-get_template">#get_template &mdash; Cog::Generator</a>
   
-    <li class="method"><a href="Cog/Mixins/UsesTemplates.html#method-i-get_template">#get_template &mdash; Cog::Mixins::UsesTemplates</a>
+    <li class="method"><a href="Cog/Generator.html#method-i-include_guard_begin">#include_guard_begin &mdash; Cog::Generator</a>
   
-    <li class="method"><a href="Cog/Mixins/UsesTemplates.html#method-i-include_guard_begin">#include_guard_begin &mdash; Cog::Mixins::UsesTemplates</a>
+    <li class="method"><a href="Cog/Generator.html#method-i-include_guard_end">#include_guard_end &mdash; Cog::Generator</a>
   
-    <li class="method"><a href="Cog/Mixins/UsesTemplates.html#method-i-include_guard_end">#include_guard_end &mdash; Cog::Mixins::UsesTemplates</a>
+    <li class="method"><a href="Cog/Config/Cogfile.html#method-i-language">#language &mdash; Cog::Config::Cogfile</a>
   
-    <li class="method"><a href="Cog/Cogfile.html#method-i-language">#language &mdash; Cog::Cogfile</a>
+    <li class="method"><a href="Cog/SpecHelpers/Matchers.html#method-i-make">#make &mdash; Cog::SpecHelpers::Matchers</a>
+  
+    <li class="method"><a href="Cog/SpecHelpers/Matchers.html#method-i-match_maker">#match_maker &mdash; Cog::SpecHelpers::Matchers</a>
+  
+    <li class="method"><a href="Cog/SpecHelpers/Matchers/MatchMaker.html#method-i-message">#message &mdash; Cog::SpecHelpers::Matchers::MatchMaker</a>
   
     <li class="method"><a href="Cog/Errors/MissingTemplate.html#method-i-message">#message &mdash; Cog::Errors::MissingTemplate</a>
   
-    <li class="method"><a href="Cog/CogfileError.html#method-i-message">#message &mdash; Cog::CogfileError</a>
+    <li class="method"><a href="Cog/Config/CogfileError.html#method-i-message">#message &mdash; Cog::Config::CogfileError</a>
   
-    <li class="method"><a href="Cog/Mixins/UsesTemplates.html#method-i-namespace_begin">#namespace_begin &mdash; Cog::Mixins::UsesTemplates</a>
+    <li class="method"><a href="Cog/Generator.html#method-i-namespace_begin">#namespace_begin &mdash; Cog::Generator</a>
   
-    <li class="method"><a href="Cog/Mixins/UsesTemplates.html#method-i-namespace_end">#namespace_end &mdash; Cog::Mixins::UsesTemplates</a>
+    <li class="method"><a href="Cog/Generator.html#method-i-namespace_end">#namespace_end &mdash; Cog::Generator</a>
   
-    <li class="method"><a href="Cog/SpecHelpers/App.html#method-i-run">#run &mdash; Cog::SpecHelpers::App</a>
+    <li class="method"><a href="Cog/Config.html#method-i-project-3F">#project? &mdash; Cog::Config</a>
+  
+    <li class="method"><a href="Cog/Config/Cogfile.html#method-i-project_generators_path">#project_generators_path &mdash; Cog::Config::Cogfile</a>
+  
+    <li class="method"><a href="Cog/Config/Cogfile.html#method-i-project_source_path">#project_source_path &mdash; Cog::Config::Cogfile</a>
+  
+    <li class="method"><a href="Cog/Config/Cogfile.html#method-i-project_templates_path">#project_templates_path &mdash; Cog::Config::Cogfile</a>
+  
+    <li class="method"><a href="Cog/SpecHelpers/Runner.html#method-i-run">#run &mdash; Cog::SpecHelpers::Runner</a>
   
     <li class="method"><a href="Cog/SpecHelpers/Matchers.html#method-i-show_help">#show_help &mdash; Cog::SpecHelpers::Matchers</a>
   
-    <li class="method"><a href="Cog/Mixins/UsesTemplates.html#method-i-snippet_extension">#snippet_extension &mdash; Cog::Mixins::UsesTemplates</a>
+    <li class="method"><a href="Cog/Generator.html#method-i-snippet_extension">#snippet_extension &mdash; Cog::Generator</a>
   
-    <li class="method"><a href="Cog/Meta/MirrorGen.html#method-i-stamp">#stamp &mdash; Cog::Meta::MirrorGen</a>
+    <li class="method"><a href="Cog/SpecHelpers.html#method-i-spec_root">#spec_root &mdash; Cog::SpecHelpers</a>
   
-    <li class="method"><a href="Cog/Mixins/UsesTemplates.html#method-i-stamp">#stamp &mdash; Cog::Mixins::UsesTemplates</a>
+    <li class="method"><a href="Cog/Generator.html#method-i-stamp">#stamp &mdash; Cog::Generator</a>
   
-    <li class="method"><a href="Cog/Meta/GenGen.html#method-i-stamp_generator">#stamp_generator &mdash; Cog::Meta::GenGen</a>
+    <li class="method"><a href="Cog/Config.html#method-i-template_paths">#template_paths &mdash; Cog::Config</a>
   
-    <li class="method"><a href="Cog/Meta/GenGen.html#method-i-stamp_module">#stamp_module &mdash; Cog::Meta::GenGen</a>
+    <li class="method"><a href="Cog/SpecHelpers/Matchers/MatchMaker.html#method-i-test">#test &mdash; Cog::SpecHelpers::Matchers::MatchMaker</a>
+  
+    <li class="method"><a href="Cog/SpecHelpers/Invocation.html#method-i-to_s">#to_s &mdash; Cog::SpecHelpers::Invocation</a>
+  
+    <li class="method"><a href="Cog/Generator.html#method-i-touch_path">#touch_path &mdash; Cog::Generator</a>
+  
+    <li class="method"><a href="Cog/SpecHelpers.html#method-i-use_fixture">#use_fixture &mdash; Cog::SpecHelpers</a>
   
 </ul>
 

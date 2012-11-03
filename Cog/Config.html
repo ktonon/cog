@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class Cog::Config - Your application title</title>
+<title>class Cog::Config - cog API Docs</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -47,6 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
+    <li>lib/cog/config/cogfile.rb
     <li>lib/cog/config.rb
   </ul>
 </nav>
@@ -70,9 +71,13 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-c-for_project">::for_project</a>
+    <li><a href="#method-c-instance">::instance</a>
     
     <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-project-3F">#project?</a>
+    
+    <li><a href="#method-i-template_paths">#template_paths</a>
     
   </ul>
 </nav>
@@ -97,35 +102,29 @@
   
     <li><a href="../Cog.html">Cog</a>
   
-    <li><a href="../Cog/Cogfile.html">Cog::Cogfile</a>
-  
-    <li><a href="../Cog/CogfileError.html">Cog::CogfileError</a>
-  
     <li><a href="../Cog/Config.html">Cog::Config</a>
+  
+    <li><a href="../Cog/Config/Cogfile.html">Cog::Config::Cogfile</a>
+  
+    <li><a href="../Cog/Config/CogfileError.html">Cog::Config::CogfileError</a>
   
     <li><a href="../Cog/Errors.html">Cog::Errors</a>
   
     <li><a href="../Cog/Errors/MissingTemplate.html">Cog::Errors::MissingTemplate</a>
   
-    <li><a href="../Cog/Meta.html">Cog::Meta</a>
-  
-    <li><a href="../Cog/Meta/GenGen.html">Cog::Meta::GenGen</a>
-  
-    <li><a href="../Cog/Meta/MirrorGen.html">Cog::Meta::MirrorGen</a>
-  
-    <li><a href="../Cog/Mixins.html">Cog::Mixins</a>
-  
-    <li><a href="../Cog/Mixins/Mirror.html">Cog::Mixins::Mirror</a>
-  
-    <li><a href="../Cog/Mixins/UsesTemplates.html">Cog::Mixins::UsesTemplates</a>
+    <li><a href="../Cog/Generator.html">Cog::Generator</a>
   
     <li><a href="../Cog/SpecHelpers.html">Cog::SpecHelpers</a>
-  
-    <li><a href="../Cog/SpecHelpers/App.html">Cog::SpecHelpers::App</a>
   
     <li><a href="../Cog/SpecHelpers/Invocation.html">Cog::SpecHelpers::Invocation</a>
   
     <li><a href="../Cog/SpecHelpers/Matchers.html">Cog::SpecHelpers::Matchers</a>
+  
+    <li><a href="../Cog/SpecHelpers/Matchers/MatchMaker.html">Cog::SpecHelpers::Matchers::MatchMaker</a>
+  
+    <li><a href="../Cog/SpecHelpers/Runner.html">Cog::SpecHelpers::Runner</a>
+  
+    <li><a href="../Cog/Tool.html">Cog::Tool</a>
   
     <li><a href="../Object.html">Object</a>
   
@@ -140,8 +139,9 @@
 
   <div id="description" class="description">
     
-<p>This interface is intended for use within generators. Instances of this
-type are initialized via <a href="Cogfile.html">Cogfile</a> files.</p>
+<p>This interface is intended for use within generators. Apps can customize
+Instances of this type can be configured via <a
+href="Config/Cogfile.html">Cogfile</a> files.</p>
 
   </div><!-- description -->
 
@@ -161,19 +161,6 @@ type are initialized via <a href="Cogfile.html">Cogfile</a> files.</p>
       <h3 class="section-header">Attributes</h3>
 
       
-      <div id="attribute-i-app_dir" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">app_dir</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>Directory to which application source code is generated.</p>
-        
-        </div>
-      </div>
-      
       <div id="attribute-i-cogfile_path" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">cogfile_path</span><span
@@ -182,21 +169,7 @@ type are initialized via <a href="Cogfile.html">Cogfile</a> files.</p>
 
         <div class="method-description">
         
-        <p>Path to the <code>Cogfile</code>.</p>
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-generator_dir" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">generator_dir</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>Directory in which to find Ruby source files. These are files which control
-exactly how the code is going to be generated.</p>
+        <p>Path to the project’s <code>Cogfile</code>.</p>
         
         </div>
       </div>
@@ -209,7 +182,20 @@ exactly how the code is going to be generated.</p>
 
         <div class="method-description">
         
-        <p>Default language in which to generated application source code.</p>
+        <p>Default language in which to generated application source code</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-project_generators_path" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">project_generators_path</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Directory in which to find project generators</p>
         
         </div>
       </div>
@@ -222,20 +208,33 @@ exactly how the code is going to be generated.</p>
 
         <div class="method-description">
         
-        <p>Directory in which the <code>Cogfile</code> is found.</p>
+        <p>Directory in which the project’s <code>Cogfile</code> is found</p>
         
         </div>
       </div>
       
-      <div id="attribute-i-template_dir" class="method-detail">
+      <div id="attribute-i-project_source_path" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">template_dir</span><span
+          <span class="method-name">project_source_path</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
         <div class="method-description">
         
-        <p>Directory in which to find ERB template files.</p>
+        <p>Directory to which project source code is generated</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-project_templates_path" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">project_templates_path</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Directory in which to find custom project templates</p>
         
         </div>
       </div>
@@ -249,10 +248,10 @@ exactly how the code is going to be generated.</p>
       <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="method-c-for_project" class="method-detail ">
+      <div id="method-c-instance" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">for_project</span><span
+          <span class="method-name">instance</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -260,25 +259,32 @@ exactly how the code is going to be generated.</p>
 
         <div class="method-description">
           
-          <p>The default configuration for the project.</p>
+          <p>The singleton instance.</p>
 
-<p>Initialized using the <code>Cogfile</code> for the current project. The
-<code>Cogfile</code> will be looked for in the present working directory.
-If none is found there the parent directory will be checked, and then the
-grandparent, and so on.</p>
+<p>Initialized using the <code>Cogfile</code> for the current project, if any
+can be found. If not, then <a
+href="Config.html#method-i-project-3F">project?</a> will be
+<code>false</code>.</p>
 
-<h4 id="method-c-for_project-label-Returns">Returns</h4>
+<p>The <code>Cogfile</code> will be looked for in the present working
+directory. If none is found there the parent directory will be checked, and
+then the grandparent, and so on.</p>
 
-<p>An instance of <a href="Cogfile.html">Cogfile</a> which has been configured
-with a <code>Cogfile</code>. If no such file was found then
+<h4 id="method-c-instance-label-Returns">Returns</h4>
+
+<p>An instance of <a href="Config/Cogfile.html">Cogfile</a> which has been
+configured with a <code>Cogfile</code>. If no such file was found then
 <code>nil</code>.</p>
           
 
           
-          <div class="method-source-code" id="for_project-source">
-            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 50</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_project</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@for_project</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@for_project</span>
+          <div class="method-source-code" id="instance-source">
+            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">instance</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@instance</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@instance</span>
+  <span class="ruby-ivar">@instance</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new</span>
+  
+  <span class="ruby-comment"># Attempt to find a Cogfile</span>
   <span class="ruby-identifier">parts</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>.<span class="ruby-identifier">split</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">SEPARATOR</span>
   <span class="ruby-identifier">i</span> = <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">length</span>
   <span class="ruby-keyword">while</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">parts</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">i</span>) <span class="ruby-operator">+</span> [<span class="ruby-string">'Cogfile'</span>]))
@@ -286,47 +292,45 @@ with a <code>Cogfile</code>. If no such file was found then
   <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">parts</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">i</span>) <span class="ruby-operator">+</span> [<span class="ruby-string">'Cogfile'</span>]) <span class="ruby-keyword">if</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">path</span>)
-    <span class="ruby-ivar">@for_project</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">path</span>
+    <span class="ruby-ivar">@instance</span>.<span class="ruby-identifier">instance_eval</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-ivar">@cogfile_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-identifier">path</span>
+      <span class="ruby-ivar">@project_root</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span> <span class="ruby-ivar">@cogfile_path</span>
+      <span class="ruby-identifier">cogfile</span> = <span class="ruby-constant">Cogfile</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">self</span>
+      <span class="ruby-identifier">cogfile</span>.<span class="ruby-identifier">interpret</span>
+    <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-ivar">@instance</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- for_project-source -->
+          </div><!-- instance-source -->
           
         </div>
 
         
 
         
-      </div><!-- for_project-method -->
+      </div><!-- instance-method -->
 
     
       <div id="method-c-new" class="method-detail ">
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(path)</span>
+            class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          <p>Initialize from a <code>Cogfile</code> at the given path.</p>
-
-<h4 id="method-c-new-label-Arguments">Arguments</h4>
-<ul><li>
-<p><code>path</code> - A file system path to a <code>Cogfile</code>. The file
-must exists.</p>
-</li></ul>
+          
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 33</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">path</span>)
-  <span class="ruby-ivar">@cogfile_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-identifier">path</span>
-  <span class="ruby-ivar">@project_root</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span> <span class="ruby-ivar">@cogfile_path</span>
-  <span class="ruby-identifier">cogfile</span> = <span class="ruby-constant">Cogfile</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">self</span>
-  <span class="ruby-identifier">cogfile</span>.<span class="ruby-identifier">interpret</span>
+            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
+  <span class="ruby-ivar">@project_root</span> = <span class="ruby-keyword">nil</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -339,6 +343,74 @@ must exists.</p>
 
     
     </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-project-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">project?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Are we operating in the context of a project? That is, could a <a
+href="Config/Cogfile.html">Cogfile</a> be found?</p>
+          
+
+          
+          <div class="method-source-code" id="project-3F-source">
+            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">project?</span>
+  <span class="ruby-operator">!</span><span class="ruby-ivar">@project_root</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- project-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- project-3F-method -->
+
+    
+      <div id="method-i-template_paths" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">template_paths</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>A list of directories in which to find ERB template files. Priority should
+be given first to last.</p>
+          
+
+          
+          <div class="method-source-code" id="template_paths-source">
+            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">template_paths</span>
+  [<span class="ruby-ivar">@project_templates_path</span>, <span class="ruby-ivar">@tool_templates_path</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Config</span>.<span class="ruby-identifier">gem_dir</span>, <span class="ruby-string">'templates'</span>)].<span class="ruby-identifier">compact</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- template_paths-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- template_paths-method -->
+
+    
+    </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 
