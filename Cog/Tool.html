@@ -146,6 +146,9 @@
 
   <div id="description" class="description">
     
+<p>For more details on writing tools see <a
+href="https://github.com/ktonon/cog#tools">github.com/ktonon/cog#tools</a></p>
+
   </div><!-- description -->
 
   
@@ -158,78 +161,6 @@
 
     
 
-    
-    <!-- Attributes -->
-    <section id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
-
-      
-      <div id="attribute-i-author" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">author</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>Name of the person who will be given copyright for the generated code</p>
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-description" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">description</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>A one-line description of the tool</p>
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-email" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">email</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>Email address of the author</p>
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-module_name" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">module_name</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>Capitalized module name</p>
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-name" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">name</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>Lower case command-line version of the name</p>
-        
-        </div>
-      </div>
-      
-    </section><!-- attribute-method-details -->
     
 
     <!-- Methods -->
@@ -254,7 +185,7 @@
 
           
           <div class="method-source-code" id="available-source">
-            <pre><span class="ruby-comment"># File lib/cog/tool.rb, line 24</span>
+            <pre><span class="ruby-comment"># File lib/cog/tool.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">available</span>
   <span class="ruby-comment"># TODO: use paths to instantiate a list of Tool objects</span>
   <span class="ruby-identifier">paths</span> = <span class="ruby-constant">ENV</span>[<span class="ruby-string">'COG_TOOLS'</span>] <span class="ruby-operator">||</span> []
@@ -280,12 +211,12 @@
 
         <div class="method-description">
           
-          
+          <p>Generate a new tool with the given name</p>
           
 
           
           <div class="method-source-code" id="generate_tool-source">
-            <pre><span class="ruby-comment"># File lib/cog/tool.rb, line 29</span>
+            <pre><span class="ruby-comment"># File lib/cog/tool.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">generate_tool</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-constant">Object</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">instance_eval</span> <span class="ruby-keyword">do</span>
     <span class="ruby-keyword">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">self</span> ; <span class="ruby-identifier">include</span> <span class="ruby-constant">Generator</span> ; <span class="ruby-keyword">end</span>

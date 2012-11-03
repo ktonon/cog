@@ -131,7 +131,9 @@
 
   <div id="description" class="description">
     
-<p>Extra should or should_not matchers for RSpec.</p>
+<p>Extra should or should_not matchers for RSpec. Check out <a
+href="Matchers.html#method-i-match_maker">match_maker</a> for help writing
+new matchers.</p>
 
   </div><!-- description -->
 
@@ -170,7 +172,7 @@
 
           
           <div class="method-source-code" id="make-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers.rb, line 19</span>
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">make</span>(<span class="ruby-identifier">path</span>)
   <span class="ruby-identifier">match_maker</span> <span class="ruby-keyword">do</span>
     <span class="ruby-identifier">message</span> { <span class="ruby-node">&quot;to [create|not create] the #{path}&quot;</span> }
@@ -203,12 +205,28 @@
 
         <div class="method-description">
           
-          
+          <p>Makes it easy to write RSpec matchers</p>
+
+<p>Here is how the matcher for <a
+href="Matchers.html#method-i-show_help">#show_help</a> is written using
+this method <a href="Matchers.html#method-i-match_maker">match_maker</a>
+method.</p>
+
+<pre class="ruby"><span class="ruby-keyword">def</span> <span class="ruby-identifier">show_help</span>
+  <span class="ruby-identifier">match_maker</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">message</span> { <span class="ruby-node">&quot;to [show|not show] the default help text, got #{lines.first.inspect}&quot;</span> }
+    <span class="ruby-identifier">test</span> { (<span class="ruby-regexp">%rhelp.*code gen/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">lines</span>[<span class="ruby-value">1</span>]) }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>Within the <code>match_maker</code> block, <code>self</code> is set to an
+instance of <a href="Matchers/MatchMaker.html">MatchMaker</a>.</p>
           
 
           
           <div class="method-source-code" id="match_maker-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers/match_maker.rb, line 43</span>
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers/match_maker.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">match_maker</span>(&amp;<span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">m</span> = <span class="ruby-constant">MatchMaker</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-identifier">m</span>.<span class="ruby-identifier">instance_eval</span> &amp;<span class="ruby-identifier">block</span>
@@ -241,7 +259,7 @@ default help text</p>
 
           
           <div class="method-source-code" id="show_help-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers.rb, line 11</span>
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show_help</span>
   <span class="ruby-identifier">match_maker</span> <span class="ruby-keyword">do</span>
     <span class="ruby-identifier">message</span> { <span class="ruby-node">&quot;to [show|not show] the default help text, got #{lines.first.inspect}&quot;</span> }

@@ -145,14 +145,15 @@
 href="SpecHelpers/Matchers.html">SpecHelpers::Matchers</a> available to
 your RSpec tests. These are useful for testing a <a
 href="SpecHelpers/Invocation.html">SpecHelpers::Invocation</a>, which is
-returned from a call to SpecHelpers::App#run</p>
+returned from a call to <a
+href="SpecHelpers/Runner.html#method-i-run">Cog::SpecHelpers::Runner#run</a></p>
 
 <pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">'cog/spec_helpers'</span>
 
 <span class="ruby-identifier">describe</span> <span class="ruby-string">'The command line interface'</span> <span class="ruby-keyword">do</span>
 
   <span class="ruby-identifier">before</span> :<span class="ruby-identifier">all</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-ivar">@cog</span> = <span class="ruby-constant">Cog</span><span class="ruby-operator">::</span><span class="ruby-constant">SpecHelpers</span><span class="ruby-operator">::</span><span class="ruby-constant">App</span>.<span class="ruby-identifier">new</span> <span class="ruby-string">'bin/cog'</span>
+    <span class="ruby-ivar">@cog</span> = <span class="ruby-constant">Cog</span><span class="ruby-operator">::</span><span class="ruby-constant">SpecHelpers</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">new</span> <span class="ruby-string">'bin/cog'</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">it</span> <span class="ruby-string">'should print help when no args are passed'</span> <span class="ruby-keyword">do</span>

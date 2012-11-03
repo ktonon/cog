@@ -136,6 +136,10 @@
 
   <div id="description" class="description">
     
+<p>Within <a
+href="../Matchers.html#method-i-match_maker">Cog::SpecHelpers::Matchers#match_maker</a>
+blocks, <code>self</code> is set to an instance of this class.</p>
+
   </div><!-- description -->
 
   
@@ -162,7 +166,8 @@
 
         <div class="method-description">
         
-        
+        <p>A list of lines read from standard output after executing the <a
+href="../Invocation.html">Invocation</a>.</p>
         
         </div>
       </div>
@@ -188,12 +193,15 @@
         <div class="method-description">
           
           <p>Define a block which runs before the <a
-href="../Invocation.html">Invocation</a></p>
+href="../Invocation.html">Invocation</a>.</p>
+
+<p>This is not required, but can be used to save context that is used the in
+post invocation <a href="MatchMaker.html#method-i-test">test</a>.</p>
           
 
           
           <div class="method-source-code" id="before-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers/match_maker.rb, line 14</span>
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers/match_maker.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">before</span>(&amp;<span class="ruby-identifier">block</span>)
   <span class="ruby-ivar">@before_block</span> = <span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
@@ -218,12 +226,23 @@ href="../Invocation.html">Invocation</a></p>
 
         <div class="method-description">
           
-          <p>Define the failure message</p>
+          <p>Define a block which runs after a test fails and should return a failure
+message template.</p>
+
+<p>The template is used for both positive and negative failures. Substrings
+which look like this <code>&quot;[positive|negative]</code>“ will be
+replaced with the appropriate section. For example</p>
+
+<pre>message { &quot;to [show|not show] the default help text&quot; }</pre>
+
+<p>would read “expected cog to show the default help text” for a positive
+failure and “expected cog to not show the default help text” for a
+negative failure. The “expected cog” part is inserted automatically.</p>
           
 
           
           <div class="method-source-code" id="message-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers/match_maker.rb, line 9</span>
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers/match_maker.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">message</span>(&amp;<span class="ruby-identifier">block</span>)
   <span class="ruby-ivar">@msg_block</span> = <span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
@@ -250,11 +269,14 @@ href="../Invocation.html">Invocation</a></p>
           
           <p>Define the test which runs after the <a
 href="../Invocation.html">Invocation</a></p>
+
+<p>This can make use of instance variables set during <a
+href="MatchMaker.html#method-i-before">before</a>.</p>
           
 
           
           <div class="method-source-code" id="test-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers/match_maker.rb, line 19</span>
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers/match_maker.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">test</span>(&amp;<span class="ruby-identifier">block</span>)
   <span class="ruby-ivar">@test_block</span> = <span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>

@@ -139,9 +139,12 @@
 
   <div id="description" class="description">
     
-<p>This interface is intended for use within generators. Apps can customize
-Instances of this type can be configured via <a
-href="Config/Cogfile.html">Cogfile</a> files.</p>
+<p>This is a low level interface. It is mainly used by the <a
+href="Generator.html">Generator</a> methods to determine where to find
+things, and where to put them. When <code>cog</code> is used in a project
+the values of the singleton <a
+href="Config.html#method-c-instance">::instance</a> should be configured
+using a <a href="Config/Cogfile.html">Cogfile</a>.</p>
 
   </div><!-- description -->
 
@@ -244,6 +247,74 @@ href="Config/Cogfile.html">Cogfile</a> files.</p>
 
     <!-- Methods -->
     
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-project-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">project?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Are we operating in the context of a project? That is, could a <a
+href="Config/Cogfile.html">Cogfile</a> be found?</p>
+          
+
+          
+          <div class="method-source-code" id="project-3F-source">
+            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">project?</span>
+  <span class="ruby-operator">!</span><span class="ruby-ivar">@project_root</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- project-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- project-3F-method -->
+
+    
+      <div id="method-i-template_paths" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">template_paths</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>A list of directories in which to find ERB template files. Priority should
+be given first to last.</p>
+          
+
+          
+          <div class="method-source-code" id="template_paths-source">
+            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">template_paths</span>
+  [<span class="ruby-ivar">@project_templates_path</span>, <span class="ruby-ivar">@tool_templates_path</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Config</span>.<span class="ruby-identifier">gem_dir</span>, <span class="ruby-string">'templates'</span>)].<span class="ruby-identifier">compact</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- template_paths-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- template_paths-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
      <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Class Methods</h3>
 
@@ -261,25 +332,24 @@ href="Config/Cogfile.html">Cogfile</a> files.</p>
           
           <p>The singleton instance.</p>
 
-<p>Initialized using the <code>Cogfile</code> for the current project, if any
-can be found. If not, then <a
+<p>Initialized using the <a href="Config/Cogfile.html">Cogfile</a> for the
+current project, if any can be found. If not, then <a
 href="Config.html#method-i-project-3F">project?</a> will be
-<code>false</code>.</p>
+<code>false</code> and all the <code>project_...</code> attributes will be
+<code>nil</code>.</p>
 
-<p>The <code>Cogfile</code> will be looked for in the present working
-directory. If none is found there the parent directory will be checked, and
-then the grandparent, and so on.</p>
+<p>The <a href="Config/Cogfile.html">Cogfile</a> will be looked for in the
+present working directory. If none is found there the parent directory will
+be checked, and then the grandparent, and so on.</p>
 
 <h4 id="method-c-instance-label-Returns">Returns</h4>
 
-<p>An instance of <a href="Config/Cogfile.html">Cogfile</a> which has been
-configured with a <code>Cogfile</code>. If no such file was found then
-<code>nil</code>.</p>
+<p>An instance of <a href="Config.html">Config</a>.</p>
           
 
           
           <div class="method-source-code" id="instance-source">
-            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 65</span>
+            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 66</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">instance</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@instance</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@instance</span>
   <span class="ruby-ivar">@instance</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new</span>
@@ -328,9 +398,10 @@ configured with a <code>Cogfile</code>. If no such file was found then
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 91</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
   <span class="ruby-ivar">@project_root</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@language</span> = <span class="ruby-string">'c++'</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -343,74 +414,6 @@ configured with a <code>Cogfile</code>. If no such file was found then
 
     
     </section><!-- public-class-method-details -->
-  
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
-
-    
-      <div id="method-i-project-3F" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">project?</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Are we operating in the context of a project? That is, could a <a
-href="Config/Cogfile.html">Cogfile</a> be found?</p>
-          
-
-          
-          <div class="method-source-code" id="project-3F-source">
-            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 31</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">project?</span>
-  <span class="ruby-operator">!</span><span class="ruby-ivar">@project_root</span>.<span class="ruby-identifier">nil?</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- project-3F-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- project-3F-method -->
-
-    
-      <div id="method-i-template_paths" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">template_paths</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>A list of directories in which to find ERB template files. Priority should
-be given first to last.</p>
-          
-
-          
-          <div class="method-source-code" id="template_paths-source">
-            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 37</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">template_paths</span>
-  [<span class="ruby-ivar">@project_templates_path</span>, <span class="ruby-ivar">@tool_templates_path</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Config</span>.<span class="ruby-identifier">gem_dir</span>, <span class="ruby-string">'templates'</span>)].<span class="ruby-identifier">compact</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- template_paths-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- template_paths-method -->
-
-    
-    </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 
