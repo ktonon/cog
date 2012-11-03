@@ -5,8 +5,6 @@ module Cog
   
   class Tool
 
-    include Mixins::UsesTemplates
-    
     # Lower case command-line version of the name
     attr_reader :name
     
@@ -22,28 +20,30 @@ module Cog
     # A one-line description of the tool
     attr_reader :description
     
-    def initialize(name)
-      @name = name.to_s.downcase
-      @module_name = name.to_s.capitalize
-      @author = '<Your name goes here>'
-      @email = 'youremail@...'
-      @description = 'A one-liner'
+    # A list of available tools
+    def self.available
+      paths = ENV['COG_TOOLS'] || []
+      
     end
     
-    def generate!
-      context = {
-        :source_prefix => "#{Config.gem_dir}/templates/tool",
-        :destination_prefix => name
-        }
-      stamp 'bin', "bin/#{name}", context
-      stamp 'tool.rb', "lib/#{name}.rb", context
-      stamp 'version.rb', "lib/#{name}/version.rb", context
-      stamp 'generator.rb', "cog/templates/#{name}/generator.rb.erb", context
-      stamp 'Gemfile', 'Gemfile', context
-      stamp 'Rakefile', 'Rakefile', context
-      stamp 'tool.gemspec', "#{name}.gemspec", context
-      stamp 'LICENSE', 'LICENSE', context
-      stamp 'README.markdown', 'README.markdown', context
+    def self.generate_tool(name)
+      Object.new.instance_eval do
+        class << self ; include Mixins::UsesTemplates ; end
+        @name = name.to_s.downcase
+        @module_name = name.to_s.capitalize
+        @author = '<Your name goes here>'
+        @email = 'youremail@...'
+        @description = 'A one-liner'
+        @cog_version = Cog::VERSION
+        stamp 'cog/tool/tool.rb', "#{@name}/lib/#{@name}.rb"
+        stamp 'cog/tool/version.rb', "#{@name}/lib/#{@name}/version.rb"
+        stamp 'cog/tool/generator.rb', "#{@name}/cog/templates/#{@name}/generator.rb.erb"
+        stamp 'cog/tool/Gemfile', "#{@name}/Gemfile"
+        stamp 'cog/tool/Rakefile', "#{@name}/Rakefile"
+        stamp 'cog/tool/tool.gemspec', "#{@name}/#{@name}.gemspec"
+        stamp 'cog/tool/LICENSE', "#{@name}/LICENSE"
+        stamp 'cog/tool/README.markdown', "#{@name}/README.markdown"
+      end
     end
   end
 

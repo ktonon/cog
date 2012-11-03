@@ -1,83 +1,91 @@
 #!/usr/bin/env ruby
-# 1.9 adds realpath to resolve symlinks; 1.8 doesn't
-# have this method, so we add it so we get resolved symlinks
-# and compatibility
-unless File.respond_to? :realpath
-  class File #:nodoc:
-    def self.realpath path
-      return realpath(File.readlink(path)) if symlink?(path)
-      path
-    end
-  end
-end
-$: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib')
-require 'rubygems'
-require 'active_support/core_ext'
-require 'cog'
-require 'cog_version'
 require 'gli'
+$LOAD_PATH << File.join(File.dirname(__FILE__), '..', 'lib')
+require 'cog'
+require 'active_support/core_ext'
+require 'fileutils'
 
 include GLI::App
 
 program_desc 'This is a utility to help you write code generators.'
 
-version Cog::VERSION
+# version Cog::VERSION
 
-desc 'Add cog to a project by generating a Cogfile in the current directory'
+desc 'Add cog to the project in the present working directory'
+skips_pre
 command :init do |c|
-  c.action do |g,o,a|
-    Cog.init
+
+  c.action do |global_options, options, args|
+    Cog.initialize_project
   end
 end
 
-desc 'Create a stand-alone generator tool'
-arg_name 'name'
+desc 'Create or list available tools'
+arg_name 'tool_name'
+skips_pre
 command :tool do |c|
-  c.action do |g,o,a|
-    a.each do |name|
-      Cog.tool name
+
+  c.action do |global_options, options, args|
+    if args.empty?
+      puts 'Available tools:'
+      puts (Cog::Tool.available.collect {|tool| "  #{tool}"}.join "\n")
+    else
+      args.each do |name|
+        unless File.exists? name
+          Cog::Tool.generate_tool name
+        else
+          puts "Could not create tool for '#{name}', a file or directory already exists with that name"
+        end
+      end
     end
   end
 end
 
-# desc 'Create a new mirror class'
-# arg_name 'ClassName'
-# command :mirror do |c|
-#   c.desc 'The target language (see languages command)'
-#   c.arg_name 'language'
-#   c.flag [:language, :l]
-#   
-#   c.desc 'Slash (/) separated prefix for generator, templates, and app code'
-#   c.arg_name 'path'
-#   c.flag [:package, :p]
-# 
-#   c.action do |g,opt,a|
-#     a.each do |class_name|
-#       mirror_gen = Cog::Meta::MirrorGen.new class_name
-#       mirror_gen.stamp opt
-#     end
-#   end
-# end
+desc 'Create or list custom generators for the current project'
+arg_name 'generator_name'
+command :generator do |c|
+  
+  c.desc 'which tool to use to create the generator'
+  c.arg_name 'tool_name'
+  c.default_value 'generic'
+  c.flag :tool
+  
+  c.action do |global_options, options, args|
+    if args.empty?
+      puts 'Project generators:'
+      puts (Cog::Generator.available.collect {|gen| "  #{gen}"}.join "\n")
+    else
+      args.each do |name|
+        # TODO: create the generator
+      end
+    end
+  end
+end
 
 desc 'List supported languages'
+skips_pre
 command :languages do |c|
-  c.action do |g,o,a|
+
+  c.action do
     puts 'c++'
   end
 end
 
-pre do |global, command, options, args|
+desc 'Run generators in the current project'
+arg_name 'generator_name'
+command :run do |c|
+end
+
+pre do |global_options, command, options, args|
   # Pre logic here
   # Return true to proceed; false to abort and not call the
   # chosen command
   # Use skips_pre before a command to skip this block
   # on that command only
-  cogfile = Cog::Config.for_project
-  if !cogfile && command && ![:init, :tool].member?(command.name)
-    puts 'No Cogfile could be found'
+  unless Cog::Config.instance.project?
+    puts 'No Cogfile could be found. Run `cog init` to prepare an existing project.'
     false
   else
-    global[:cogfile] = cogfile
     true
   end
 end

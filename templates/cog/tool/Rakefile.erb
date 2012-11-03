@@ -5,10 +5,10 @@ require 'rdoc/task'
 
 Rake::RDocTask.new do |rd|
   rd.rdoc_files.include("lib/**/*.rb")
-  rd.title = '<%= module_name %>'
+  rd.title = '<%= @module_name %>'
 end
 
-spec = eval(File.read('<%= name %>.gemspec'))
+spec = eval(File.read('<%= @name %>.gemspec'))
 
 Gem::PackageTask.new(spec) do |pkg|
 end

@@ -1,5 +1,5 @@
 # Ensure we require the local version and not one we might have installed already
-require File.join([File.dirname(__FILE__),'lib','cog_version.rb'])
+require File.join(File.dirname(__FILE__),'lib','cog/version.rb')
 spec = Gem::Specification.new do |s| 
   s.name = 'cog'
   s.version = Cog::VERSION

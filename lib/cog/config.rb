@@ -1,77 +1,43 @@
-require 'rubygems'
+require 'cog/config/cogfile'
 require 'singleton'
-require 'cog/cogfile'
 
 module Cog
   
-  # This interface is intended for use within generators. Instances of this type
-  # are initialized via Cogfile files.
+  # This interface is intended for use within generators. Apps can customize
+  # Instances of this type
+  # can be configured via Cogfile files.
   class Config
         
-    # Directory to which application source code is generated.
-    attr_reader :app_dir
-
-    # Path to the +Cogfile+.
+    # Path to the project's +Cogfile+.
     attr_reader :cogfile_path
 
-    # Directory in which to find Ruby source files. These are files which
-    # control exactly how the code is going to be generated.
-    attr_reader :generator_dir
-
-    # Default language in which to generated application source code.
+    # Default language in which to generated application source code
     attr_reader :language
     
-    # Directory in which the +Cogfile+ is found.
+    # Directory in which to find project generators
+    attr_reader :project_generators_path
+
+    # Directory in which the project's +Cogfile+ is found
     attr_reader :project_root
     
-    # Directory in which to find custom app template files. These templates
-    # have the highest precendence of all template files.
-    attr_reader :app_template_dir
+    # Directory to which project source code is generated
+    attr_reader :project_source_path
+
+    # Directory in which to find custom project templates
+    attr_reader :project_templates_path
+    
+    # Are we operating in the context of a project?
+    # That is, could a Cogfile be found?
+    def project?
+      !@project_root.nil?
+    end
     
     # A list of directories in which to find ERB template files.
     # Priority should be given first to last.
-    def template_dirs
-      [@app_template_dir, @tool_template_dir, File.join(Config.gem_dir, 'templates')].compact
+    def template_paths
+      [@project_templates_path, @tool_templates_path, File.join(Config.gem_dir, 'templates')].compact
     end
     
-    # Tools should set this value.
-    # This will be inserted into the template_dirs in between the cog built-in
-    # templates and the app templates (as defined in the app Cogfile).
-    attr_writer :tool_template_dir
-    
-    # Initialize from a +Cogfile+ at the given path.
-    # ==== Arguments
-    # * +path+ - A file system path to a +Cogfile+. The file must exists.
-    def initialize(path)
-      @cogfile_path = File.expand_path path
-      @project_root = File.dirname @cogfile_path
-      cogfile = Cogfile.new self
-      cogfile.interpret
-    end
-
-    # The default configuration for the project.
-    #
-    # Initialized using the +Cogfile+ for the current project.
-    # The +Cogfile+ will be looked for in the present working directory. If none
-    # is found there the parent directory will be checked, and then the
-    # grandparent, and so on.
-    # 
-    # ==== Returns
-    # An instance of Cogfile which has been configured with a +Cogfile+. If no
-    # such file was found then +nil+.
-    def self.for_project
-      return @for_project if @for_project
-      parts = Dir.pwd.split File::SEPARATOR
-      i = parts.length
-      while i >= 0 && !File.exists?(File.join(parts.slice(0, i) + ['Cogfile']))
-        i -= 1
-      end
-      path = File.join(parts.slice(0, i) + ['Cogfile']) if i >= 0
-      if path && File.exists?(path)
-        @for_project = self.new path
-      end
-    end
-
     # Location of the installed cog gem
     def self.gem_dir # :nodoc:
       spec = Gem.loaded_specs['cog']
@@ -84,6 +50,46 @@ module Cog
       end
     end
     
+    # The singleton instance.
+    #
+    # Initialized using the +Cogfile+ for the current project, if any can be
+    # found. If not, then #project? will be +false+.
+    #
+    # The +Cogfile+ will be looked for in the present working directory. If none
+    # is found there the parent directory will be checked, and then the
+    # grandparent, and so on.
+    # 
+    # ==== Returns
+    # An instance of Cogfile which has been configured with a +Cogfile+. If no
+    # such file was found then +nil+.
+    def self.instance
+      return @instance if @instance
+      @instance = self.new
+      
+      # Attempt to find a Cogfile
+      parts = Dir.pwd.split File::SEPARATOR
+      i = parts.length
+      while i >= 0 && !File.exists?(File.join(parts.slice(0, i) + ['Cogfile']))
+        i -= 1
+      end
+      path = File.join(parts.slice(0, i) + ['Cogfile']) if i >= 0
+      if path && File.exists?(path)
+        @instance.instance_eval do
+          @cogfile_path = File.expand_path path
+          @project_root = File.dirname @cogfile_path
+          cogfile = Cogfile.new self
+          cogfile.interpret
+        end
+      end
+      
+      @instance
+    end
+
+  private
+
+    def initialize
+      @project_root = nil
+    end
+
   end
-  
 end
