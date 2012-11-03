@@ -79,8 +79,8 @@ language 'c++'
 Generators
 ----------
 
-Very loosely, a generator is a ruby file which resides in the `project_generators_path`
-and looks something like this
+A generator is a ruby file which resides in the `project_generators_path`
+and performs its work at the time it is required. Here is one possibility
 
 ```ruby
 require 'cog'
@@ -97,18 +97,14 @@ class MyGenerator
   end
 end
 
-Cog.register MyGenerator.new
+MyGenerator.new.generate
 ```
 
-There are three things to note here
-
-* `Cog.register` must be called exactly once for each generator.
-* The object passed to the register method must have a method named `generate` which takes no arguments and is responsible for generating source code from templates.
-* The name the generator is registered under is implicitly the file's base name, without the extension. For example, if this file was called `cog/generators/my_generator.rb`, then the registered name would be `my_generator`.
+The important part is the last line. Just requiring this file causes it to run the generation procedure.
 
 The inclusion of the mixin
 [Cog::Generator](http://ktonon.github.com/cog/Cog/Generator.html) is a
-convenience, but is practically always done. It provides an interface for easily
+convenience, but is practically always done (either explicitly or implicitly). It provides an interface for easily
 generating source code from templates. The
 [stamp](http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp) method
 is particularly useful. If finds an [ERB template](http://www.stuartellis.eu/articles/erb/)
