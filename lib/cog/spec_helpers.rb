@@ -9,14 +9,14 @@ module Cog
   # === Example
   # Requiring the helpers will make extra SpecHelpers::Matchers available to
   # your RSpec tests. These are useful for testing a SpecHelpers::Invocation,
-  # which is returned from a call to SpecHelpers::App#run
+  # which is returned from a call to SpecHelpers::Runner#run
   #
   #   require 'cog/spec_helpers'
   # 
   #   describe 'The command line interface' do
   # 
   #     before :all do
-  #       @cog = Cog::SpecHelpers::App.new 'bin/cog'
+  #       @cog = Cog::SpecHelpers::Runner.new 'bin/cog'
   #     end
   # 
   #     it 'should print help when no args are passed' do

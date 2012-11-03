@@ -4,10 +4,11 @@ require 'erb'
 
 module Cog
   
-  # Generators have the ability to #stamp templates into source code.
+  # This module defines an interface which can be used by generator objects.
+  # Specifically, it makes it easy to find ERB templates and render them into
+  # generated source code files, using the #stamp method.
   #
-  # This module defines a low-level interface for writing generators. To use it,
-  # just include the Generator module in your class or object.
+  # For more details on writing generators see https://github.com/ktonon/cog#generators
   module Generator
 
     # A list of available project generators
@@ -84,7 +85,7 @@ module Cog
     # File extension for a snippet of the given source code language.
     # ==== Example
     #   snippet_extension 'c++' # => 'h'
-    def snippet_extension(lang = 'text')
+    def snippet_extension(lang = 'text') # :nodoc:
       case lang
       when /(c\+\+|c|objc)/i
         'h'
@@ -94,22 +95,22 @@ module Cog
     end
           
     # A warning that indicates a file is maintained by a generator
-    def generated_warning
+    def generated_warning # :nodoc:
       lang = Config.instance.language
       t = get_template "snippets/#{lang}/generated_warning.#{snippet_extension lang}", :cog_template => true
       t.result(binding)
     end
     
-    def include_guard_begin(name)
+    def include_guard_begin(name) # :nodoc:
       full = "COG_INCLUDE_GUARD_#{name.upcase}"
       "#ifndef #{full}\n#define #{full}"
     end
     
-    def include_guard_end
+    def include_guard_end # :nodoc:
       "#endif // COG_INCLUDE_GUARD_[...]"
     end
     
-    def namespace_begin(name)
+    def namespace_begin(name) # :nodoc:
       return if name.nil?
       case Config.instance.language
       when /c\+\+/
@@ -117,7 +118,7 @@ module Cog
       end
     end
 
-    def namespace_end(name)
+    def namespace_end(name) # :nodoc:
       return if name.nil?
       case Config.instance.language
       when /c\+\+/

@@ -111,10 +111,11 @@ The inclusion of the mixin
 convenience, but is practically always done. It provides an interface for easily
 generating source code from templates. The
 [stamp](http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp) method
-is particularly useful. If finds an ERB template on the template lookup path and
-renders it to a file under the `project_source_path`. The
-`project_templates_path` is on the template lookup path, and takes the highest
-precedence (but there are two other possible paths, see below for more details).
+is particularly useful. If finds an [ERB template](http://www.stuartellis.eu/articles/erb/)
+on the template lookup path and renders it to a file under the
+`project_source_path`. The `project_templates_path` is on the template lookup
+path, and takes the highest precedence (but there are two other possible paths,
+see below for more details).
 
 Tools
 -----

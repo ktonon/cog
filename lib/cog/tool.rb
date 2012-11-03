@@ -3,29 +3,16 @@ require 'cog/generator'
 
 module Cog
   
+  # For more details on writing tools see https://github.com/ktonon/cog#tools
   class Tool
 
-    # Lower case command-line version of the name
-    attr_reader :name
-    
-    # Capitalized module name
-    attr_reader :module_name
-
-    # Name of the person who will be given copyright for the generated code
-    attr_reader :author
-    
-    # Email address of the author
-    attr_reader :email
-    
-    # A one-line description of the tool
-    attr_reader :description
-    
     # A list of available tools
     def self.available
       # TODO: use paths to instantiate a list of Tool objects
       paths = ENV['COG_TOOLS'] || []
     end
     
+    # Generate a new tool with the given name
     def self.generate_tool(name)
       Object.new.instance_eval do
         class << self ; include Generator ; end

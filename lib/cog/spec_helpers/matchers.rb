@@ -5,6 +5,7 @@ module Cog
   module SpecHelpers
     
     # Extra should or should_not matchers for RSpec.
+    # Check out #match_maker for help writing new matchers.
     module Matchers
       
       # The target Invocation should output the default help text

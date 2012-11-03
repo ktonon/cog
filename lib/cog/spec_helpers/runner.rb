@@ -22,7 +22,8 @@ module Cog
     end
     
     # Represents a +cog+ command line invocation, which can be tested with
-    # +RSpec+ +should+ and +should_not+ custom Matchers
+    # +RSpec+ +should+ and +should_not+ custom Matchers. This is the kind of
+    # object returned by Runner#run.
     class Invocation
       
       def initialize(cmd) # :nodoc:
@@ -36,7 +37,7 @@ module Cog
         end
       end
 
-      def to_s
+      def to_s # :nodoc:
         "`#{@s}`"
       end
     end

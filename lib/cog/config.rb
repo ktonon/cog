@@ -3,9 +3,10 @@ require 'singleton'
 
 module Cog
   
-  # This interface is intended for use within generators. Apps can customize
-  # Instances of this type
-  # can be configured via Cogfile files.
+  # This is a low level interface. It is mainly used by the Generator methods
+  # to determine where to find things, and where to put them. When +cog+ is used
+  # in a project the values of the singleton Config::instance should be configured using
+  # a Cogfile.
   class Config
         
     # Path to the project's +Cogfile+.
@@ -52,16 +53,16 @@ module Cog
     
     # The singleton instance.
     #
-    # Initialized using the +Cogfile+ for the current project, if any can be
-    # found. If not, then #project? will be +false+.
+    # Initialized using the Cogfile for the current project, if any can be
+    # found. If not, then #project? will be +false+ and all the +project_...+
+    # attributes will be +nil+.
     #
-    # The +Cogfile+ will be looked for in the present working directory. If none
+    # The Cogfile will be looked for in the present working directory. If none
     # is found there the parent directory will be checked, and then the
     # grandparent, and so on.
     # 
     # ==== Returns
-    # An instance of Cogfile which has been configured with a +Cogfile+. If no
-    # such file was found then +nil+.
+    # An instance of Config.
     def self.instance
       return @instance if @instance
       @instance = self.new
@@ -89,6 +90,7 @@ module Cog
 
     def initialize
       @project_root = nil
+      @language = 'c++'
     end
 
   end
