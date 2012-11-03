@@ -13,7 +13,13 @@ module Cog
 
     # A list of available project generators
     def self.available
-      [:dummy1, :dummy2]
+      if Config.instance.project?
+        Dir.glob(File.join Config.instance.project_generators_path, '*.rb').collect do |path|
+          File.basename(path).slice(0..-4)
+        end
+      else
+        []
+      end
     end
 
     # Get the template with the given name.
