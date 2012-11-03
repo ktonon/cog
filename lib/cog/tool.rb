@@ -1,5 +1,5 @@
 require 'cog/config'
-require 'cog/mixins/uses_templates'
+require 'cog/generator'
 
 module Cog
   
@@ -22,13 +22,13 @@ module Cog
     
     # A list of available tools
     def self.available
+      # TODO: use paths to instantiate a list of Tool objects
       paths = ENV['COG_TOOLS'] || []
-      
     end
     
     def self.generate_tool(name)
       Object.new.instance_eval do
-        class << self ; include Mixins::UsesTemplates ; end
+        class << self ; include Generator ; end
         @name = name.to_s.downcase
         @module_name = name.to_s.capitalize
         @author = '<Your name goes here>'
@@ -41,6 +41,7 @@ module Cog
         stamp 'cog/tool/Gemfile', "#{@name}/Gemfile"
         stamp 'cog/tool/Rakefile', "#{@name}/Rakefile"
         stamp 'cog/tool/tool.gemspec', "#{@name}/#{@name}.gemspec"
+        stamp 'cog/tool/API.rdoc', "#{@name}/API.rdoc"
         stamp 'cog/tool/LICENSE', "#{@name}/LICENSE"
         stamp 'cog/tool/README.markdown', "#{@name}/README.markdown"
       end

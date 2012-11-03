@@ -6,8 +6,8 @@ require 'rspec/core/rake_task'
 
 Rake::RDocTask.new do |rd|
   rd.main = "API.rdoc"
-  rd.rdoc_files.include("API.rdoc","lib/**/*.rb","bin/**/*")
-  rd.title = 'Your application title'
+  rd.rdoc_files.include("API.rdoc", "lib/**/*.rb")
+  rd.title = 'cog API Docs'
 end
 
 spec = eval(File.read('cog.gemspec'))

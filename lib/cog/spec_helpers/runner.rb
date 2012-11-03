@@ -16,7 +16,7 @@ module Cog
       # An instance of Invocation configured with the arguments. Use should and
       # should_not with the custom Matchers
       def run(*args)
-        args.unshift @cog
+        args = ['bundle', 'exec', @cog] + args
         Invocation.new(args.collect {|x| x.to_s})
       end
     end
@@ -30,7 +30,7 @@ module Cog
       end
       
       def exec(*args, &block) # :nodoc:
-        @s = ([File.basename @cmd.first] + @cmd.slice(1..-1)).join ' '
+        @s = ([File.basename @cmd[2]] + @cmd.slice(3..-1)).join ' '
         Open3.popen3 *@cmd do |i,o,e,t|
           block.call i,o,e
         end

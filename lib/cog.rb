@@ -1,6 +1,5 @@
 require 'cog/config'
 require 'cog/generator'
-require 'cog/mixins'
 require 'cog/tool'
 require 'cog/version'
 require 'fileutils'
@@ -12,7 +11,7 @@ module Cog
   # Prepare the project in the present working directory for use with +cog+
   def self.initialize_project
     Object.new.instance_eval do
-      class << self ; include Cog::Mixins::UsesTemplates ; end
+      class << self ; include Generator ; end
       copy_if_missing File.join(Config.gem_dir, 'Default.cogfile'), 'Cogfile'
       config = Config.instance
       touch_path config.project_generators_path

@@ -4,8 +4,9 @@ require 'rubygems/package_task'
 require 'rdoc/task'
 
 Rake::RDocTask.new do |rd|
-  rd.rdoc_files.include("lib/**/*.rb")
-  rd.title = '<%= @module_name %>'
+  rd.main = "API.rdoc"
+  rd.rdoc_files.include("API.rdoc", "lib/**/*.rb")
+  rd.title = '<%= @module_name %> API Docs'
 end
 
 spec = eval(File.read('<%= @name %>.gemspec'))

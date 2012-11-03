@@ -20,8 +20,8 @@ command :init do |c|
   end
 end
 
-desc 'Create or list available tools'
-arg_name 'tool_name'
+desc 'Create a tool (or leave name blank to list available tools)'
+arg_name 'name'
 skips_pre
 command :tool do |c|
 
@@ -41,8 +41,8 @@ command :tool do |c|
   end
 end
 
-desc 'Create or list custom generators for the current project'
-arg_name 'generator_name'
+desc 'Create a generator (or leave name blank to list project generators)'
+arg_name 'name'
 command :generator do |c|
   
   c.desc 'which tool to use to create the generator'

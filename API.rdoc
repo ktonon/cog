@@ -1,1 +1,6 @@
-Please see https://github.com/ktonon/cog#readme for a general introduction.
+= cog API Docs
+
++cog+ is a command line tool which helps you write code generators.
+
+This is the API docs. For a more general introduction to +cog+ visit
+https://github.com/ktonon/cog#readme
