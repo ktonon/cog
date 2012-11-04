@@ -73,7 +73,11 @@
     
     <li><a href="#method-i-cogfile_path">#cogfile_path</a>
     
+    <li><a href="#method-i-generator">#generator</a>
+    
     <li><a href="#method-i-spec_root">#spec_root</a>
+    
+    <li><a href="#method-i-tool">#tool</a>
     
     <li><a href="#method-i-use_fixture">#use_fixture</a>
     
@@ -273,6 +277,36 @@ href="SpecHelpers/Runner.html#method-i-run">Cog::SpecHelpers::Runner#run</a></p>
       </div><!-- cogfile_path-method -->
 
     
+      <div id="method-i-generator" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generator</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Path to the generator with the given name</p>
+          
+
+          
+          <div class="method-source-code" id="generator-source">
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generator</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">active_fixture_dir</span>, <span class="ruby-string">'cog'</span>, <span class="ruby-string">'generators'</span>, <span class="ruby-node">&quot;#{name}.rb&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- generator-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- generator-method -->
+
+    
       <div id="method-i-spec_root" class="method-detail ">
         
         <div class="method-heading">
@@ -303,6 +337,36 @@ href="SpecHelpers/Runner.html#method-i-run">Cog::SpecHelpers::Runner#run</a></p>
       </div><!-- spec_root-method -->
 
     
+      <div id="method-i-tool" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">tool</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Path to the test tool with the given name</p>
+          
+
+          
+          <div class="method-source-code" id="tool-source">
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">tool</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">spec_root</span>, <span class="ruby-string">'tools'</span>, <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- tool-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- tool-method -->
+
+    
       <div id="method-i-use_fixture" class="method-detail ">
         
         <div class="method-heading">
@@ -320,11 +384,11 @@ directory. Fixture directories are stored in <code>spec/fixtures</code>.</p>
 
           
           <div class="method-source-code" id="use_fixture-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 51</span>
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">use_fixture</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">spec_root</span>, <span class="ruby-string">'fixtures'</span>, <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>
   <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">path</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>)
-    <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">rmtree</span> <span class="ruby-identifier">active_fixture_dir</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">active_fixture_dir</span>
+    <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">rm_rf</span> <span class="ruby-identifier">active_fixture_dir</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">active_fixture_dir</span>
     <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">cp_r</span> <span class="ruby-identifier">path</span>, <span class="ruby-identifier">active_fixture_dir</span>
     <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span> <span class="ruby-identifier">active_fixture_dir</span>
   <span class="ruby-keyword">else</span>

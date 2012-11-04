@@ -1,13 +1,13 @@
-Fri, 02 Nov 2012 23:51:57 -0400
-lib/cog/tool.rb	Fri, 02 Nov 2012 23:32:00 -0400
-lib/cog/spec_helpers/runner.rb	Fri, 02 Nov 2012 23:51:55 -0400
-lib/cog.rb	Fri, 02 Nov 2012 23:01:31 -0400
-lib/cog/config/cogfile.rb	Fri, 02 Nov 2012 23:01:28 -0400
-lib/cog/spec_helpers/matchers/match_maker.rb	Fri, 02 Nov 2012 23:50:12 -0400
-lib/cog/errors.rb	Fri, 02 Nov 2012 22:16:59 -0400
-lib/cog/version.rb	Fri, 02 Nov 2012 23:05:43 -0400
-lib/cog/spec_helpers.rb	Fri, 02 Nov 2012 23:33:44 -0400
-lib/cog/config.rb	Fri, 02 Nov 2012 23:20:20 -0400
-lib/cog/spec_helpers/matchers.rb	Fri, 02 Nov 2012 23:39:32 -0400
-lib/cog/generator.rb	Fri, 02 Nov 2012 23:28:48 -0400
-API.rdoc	Fri, 02 Nov 2012 23:01:31 -0400
+Sun, 04 Nov 2012 15:03:34 -0500
+lib/cog/spec_helpers.rb	Sun, 04 Nov 2012 14:26:56 -0500
+API.rdoc	Fri, 02 Nov 2012 23:54:46 -0400
+lib/cog/spec_helpers/matchers.rb	Sun, 04 Nov 2012 14:47:02 -0500
+lib/cog.rb	Sat, 03 Nov 2012 16:40:46 -0400
+lib/cog/spec_helpers/matchers/match_maker.rb	Sun, 04 Nov 2012 14:40:29 -0500
+lib/cog/generator.rb	Sun, 04 Nov 2012 14:57:49 -0500
+lib/cog/config/cogfile.rb	Fri, 02 Nov 2012 23:54:46 -0400
+lib/cog/errors.rb	Fri, 02 Nov 2012 23:54:46 -0400
+lib/cog/version.rb	Sun, 04 Nov 2012 14:58:26 -0500
+lib/cog/spec_helpers/runner.rb	Sun, 04 Nov 2012 13:20:22 -0500
+lib/cog/config.rb	Fri, 02 Nov 2012 23:54:51 -0400
+lib/cog/tool.rb	Sun, 04 Nov 2012 14:53:37 -0500

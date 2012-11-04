@@ -149,6 +149,27 @@
     
 
     
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-tools" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">tools</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Value of the COG_TOOLS environment variable for invocations returned from
+<a href="Runner.html#method-i-run">run</a></p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
 
     <!-- Methods -->
     
@@ -178,10 +199,10 @@ href="Matchers.html">Matchers</a></p>
 
           
           <div class="method-source-code" id="run-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/runner.rb, line 18</span>
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/runner.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>(*<span class="ruby-identifier">args</span>)
-  <span class="ruby-identifier">args</span> = [<span class="ruby-string">'bundle'</span>, <span class="ruby-string">'exec'</span>, <span class="ruby-ivar">@cog</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">args</span>
-  <span class="ruby-constant">Invocation</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">args</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_s</span>})
+  <span class="ruby-identifier">args</span> = [<span class="ruby-ivar">@cog</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">args</span>
+  <span class="ruby-constant">Invocation</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">args</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_s</span>}, <span class="ruby-value">:tools</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@tools</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- run-source -->
           
@@ -215,9 +236,10 @@ href="Matchers.html">Matchers</a></p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/runner.rb, line 9</span>
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/runner.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">path_to_cl_app</span>)
   <span class="ruby-ivar">@cog</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-identifier">path_to_cl_app</span>
+  <span class="ruby-ivar">@tools</span> = []
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           

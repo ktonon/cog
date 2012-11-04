@@ -63,28 +63,16 @@
   
 </nav>
 
-    <!-- Included Modules -->
-<nav id="includes-section" class="section">
-  <h3 class="section-header">Included Modules</h3>
-
-  <ul class="link-list">
-  
-  
-    <li><a class="include" href="Generator.html">Cog::Generator</a>
-  
-  
-  </ul>
-</nav>
-
+    
     <!-- Method Quickref -->
 <nav id="method-list-section" class="section">
   <h3 class="section-header">Methods</h3>
 
   <ul class="link-list">
     
-    <li><a href="#method-c-available">::available</a>
+    <li><a href="#method-c-create">::create</a>
     
-    <li><a href="#method-c-generate_tool">::generate_tool</a>
+    <li><a href="#method-c-list">::list</a>
     
   </ul>
 </nav>
@@ -169,11 +157,68 @@ href="https://github.com/ktonon/cog#tools">github.com/ktonon/cog#tools</a></p>
       <h3 class="section-header">Public Class Methods</h3>
 
     
-      <div id="method-c-available" class="method-detail ">
+      <div id="method-c-create" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">available</span><span
-            class="method-args">()</span>
+          <span class="method-name">create</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Generate a new tool with the given name</p>
+
+<h4 id="method-c-create-label-Returns">Returns</h4>
+
+<p>Whether or not the generator was created successfully</p>
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File lib/cog/tool.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">name</span>
+    <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;A #{File.directory?(name) ? :directory : :file} named '#{name}' already exists\n&quot;</span>.<span class="ruby-identifier">color</span>(<span class="ruby-value">:red</span>)
+    <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">Object</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">instance_eval</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">extend</span> <span class="ruby-constant">Generator</span>
+      <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>
+      <span class="ruby-ivar">@module_name</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">capitalize</span>
+      <span class="ruby-ivar">@author</span> = <span class="ruby-string">'&lt;Your name goes here&gt;'</span>
+      <span class="ruby-ivar">@email</span> = <span class="ruby-string">'youremail@...'</span>
+      <span class="ruby-ivar">@description</span> = <span class="ruby-string">'A one-liner'</span>
+      <span class="ruby-ivar">@cog_version</span> = <span class="ruby-constant">Cog</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span>
+      <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/tool.rb'</span>, <span class="ruby-node">&quot;#{@name}/lib/#{@name}.rb&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/version.rb'</span>, <span class="ruby-node">&quot;#{@name}/lib/#{@name}/version.rb&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/generator.rb'</span>, <span class="ruby-node">&quot;#{@name}/cog/templates/#{@name}/generator.rb.erb&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/Gemfile'</span>, <span class="ruby-node">&quot;#{@name}/Gemfile&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/Rakefile'</span>, <span class="ruby-node">&quot;#{@name}/Rakefile&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/tool.gemspec'</span>, <span class="ruby-node">&quot;#{@name}/#{@name}.gemspec&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/API.rdoc'</span>, <span class="ruby-node">&quot;#{@name}/API.rdoc&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/LICENSE'</span>, <span class="ruby-node">&quot;#{@name}/LICENSE&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/README.markdown'</span>, <span class="ruby-node">&quot;#{@name}/README.markdown&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-method -->
+
+    
+      <div id="method-c-list" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">list</span><span
+            class="method-args">(verbose=false)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -184,67 +229,35 @@ href="https://github.com/ktonon/cog#tools">github.com/ktonon/cog#tools</a></p>
           
 
           
-          <div class="method-source-code" id="available-source">
-            <pre><span class="ruby-comment"># File lib/cog/tool.rb, line 10</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">available</span>
-  <span class="ruby-comment"># TODO: use paths to instantiate a list of Tool objects</span>
-  <span class="ruby-identifier">paths</span> = <span class="ruby-constant">ENV</span>[<span class="ruby-string">'COG_TOOLS'</span>] <span class="ruby-operator">||</span> []
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- available-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- available-method -->
-
-    
-      <div id="method-c-generate_tool" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">generate_tool</span><span
-            class="method-args">(name)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Generate a new tool with the given name</p>
-          
-
-          
-          <div class="method-source-code" id="generate_tool-source">
-            <pre><span class="ruby-comment"># File lib/cog/tool.rb, line 16</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">generate_tool</span>(<span class="ruby-identifier">name</span>)
-  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">instance_eval</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-keyword">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">self</span> ; <span class="ruby-identifier">include</span> <span class="ruby-constant">Generator</span> ; <span class="ruby-keyword">end</span>
-    <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>
-    <span class="ruby-ivar">@module_name</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">capitalize</span>
-    <span class="ruby-ivar">@author</span> = <span class="ruby-string">'&lt;Your name goes here&gt;'</span>
-    <span class="ruby-ivar">@email</span> = <span class="ruby-string">'youremail@...'</span>
-    <span class="ruby-ivar">@description</span> = <span class="ruby-string">'A one-liner'</span>
-    <span class="ruby-ivar">@cog_version</span> = <span class="ruby-constant">Cog</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span>
-    <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/tool.rb'</span>, <span class="ruby-node">&quot;#{@name}/lib/#{@name}.rb&quot;</span>
-    <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/version.rb'</span>, <span class="ruby-node">&quot;#{@name}/lib/#{@name}/version.rb&quot;</span>
-    <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/generator.rb'</span>, <span class="ruby-node">&quot;#{@name}/cog/templates/#{@name}/generator.rb.erb&quot;</span>
-    <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/Gemfile'</span>, <span class="ruby-node">&quot;#{@name}/Gemfile&quot;</span>
-    <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/Rakefile'</span>, <span class="ruby-node">&quot;#{@name}/Rakefile&quot;</span>
-    <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/tool.gemspec'</span>, <span class="ruby-node">&quot;#{@name}/#{@name}.gemspec&quot;</span>
-    <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/API.rdoc'</span>, <span class="ruby-node">&quot;#{@name}/API.rdoc&quot;</span>
-    <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/LICENSE'</span>, <span class="ruby-node">&quot;#{@name}/LICENSE&quot;</span>
-    <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/README.markdown'</span>, <span class="ruby-node">&quot;#{@name}/README.markdown&quot;</span>
+          <div class="method-source-code" id="list-source">
+            <pre><span class="ruby-comment"># File lib/cog/tool.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list</span>(<span class="ruby-identifier">verbose</span>=<span class="ruby-keyword">false</span>)
+  <span class="ruby-identifier">x</span> = (<span class="ruby-constant">ENV</span>[<span class="ruby-string">'COG_TOOLS'</span>] <span class="ruby-operator">||</span> <span class="ruby-string">''</span>).<span class="ruby-identifier">split</span> <span class="ruby-string">':'</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">all?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">path</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>)}
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">verbose</span>
+      <span class="ruby-identifier">x</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-identifier">path</span>}
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">x</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span> <span class="ruby-identifier">path</span>}
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">x</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">path</span>
+        <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;No such cog tool at path '#{path}'\n&quot;</span>.<span class="ruby-identifier">color</span>(<span class="ruby-value">:red</span>)
+      <span class="ruby-keyword">elsif</span> <span class="ruby-operator">!</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span> <span class="ruby-identifier">path</span>
+        <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;Not a cog tool at path '#{path}'\n&quot;</span>.<span class="ruby-identifier">color</span>(<span class="ruby-value">:red</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    []
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- generate_tool-source -->
+          </div><!-- list-source -->
           
         </div>
 
         
 
         
-      </div><!-- generate_tool-method -->
+      </div><!-- list-method -->
 
     
     </section><!-- public-class-method-details -->

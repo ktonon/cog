@@ -65,9 +65,15 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-i-complain">#complain</a>
+    
+    <li><a href="#method-i-do_something">#do_something</a>
+    
     <li><a href="#method-i-make">#make</a>
     
     <li><a href="#method-i-match_maker">#match_maker</a>
+    
+    <li><a href="#method-i-output">#output</a>
     
     <li><a href="#method-i-show_help">#show_help</a>
     
@@ -155,6 +161,74 @@ new matchers.</p>
       <h3 class="section-header">Public Instance Methods</h3>
 
     
+      <div id="method-i-complain" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">complain</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The target <a href="Invocation.html">Invocation</a> should write something
+to STDERR, indicating an error</p>
+          
+
+          
+          <div class="method-source-code" id="complain-source">
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">complain</span>
+  <span class="ruby-identifier">match_maker</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">message</span> { <span class="ruby-string">&quot;to [write something|not write anything] to STDERR&quot;</span> }
+    <span class="ruby-identifier">test</span> { <span class="ruby-operator">!</span><span class="ruby-identifier">error</span>.<span class="ruby-identifier">empty?</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- complain-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- complain-method -->
+
+    
+      <div id="method-i-do_something" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">do_something</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The target <a href="Invocation.html">Invocation</a> should do something, as
+determined by standard output</p>
+          
+
+          
+          <div class="method-source-code" id="do_something-source">
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">do_something</span>
+  <span class="ruby-identifier">match_maker</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">message</span> { <span class="ruby-string">&quot;to [write something|not write anything] to STDOUT&quot;</span> }
+    <span class="ruby-identifier">test</span> { <span class="ruby-operator">!</span><span class="ruby-identifier">lines</span>.<span class="ruby-identifier">empty?</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- do_something-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- do_something-method -->
+
+    
       <div id="method-i-make" class="method-detail ">
         
         <div class="method-heading">
@@ -175,7 +249,7 @@ new matchers.</p>
             <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">make</span>(<span class="ruby-identifier">path</span>)
   <span class="ruby-identifier">match_maker</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">message</span> { <span class="ruby-node">&quot;to [create|not create] the #{path}&quot;</span> }
+    <span class="ruby-identifier">message</span> { <span class="ruby-node">&quot;to [create|not create] #{path}&quot;</span> }
     <span class="ruby-identifier">before</span> <span class="ruby-keyword">do</span>
       <span class="ruby-ivar">@existed</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">path</span>
     <span class="ruby-keyword">end</span>
@@ -226,7 +300,7 @@ instance of <a href="Matchers/MatchMaker.html">MatchMaker</a>.</p>
 
           
           <div class="method-source-code" id="match_maker-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers/match_maker.rb, line 74</span>
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers/match_maker.rb, line 83</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">match_maker</span>(&amp;<span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">m</span> = <span class="ruby-constant">MatchMaker</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-identifier">m</span>.<span class="ruby-identifier">instance_eval</span> &amp;<span class="ruby-identifier">block</span>
@@ -240,6 +314,42 @@ instance of <a href="Matchers/MatchMaker.html">MatchMaker</a>.</p>
 
         
       </div><!-- match_maker-method -->
+
+    
+      <div id="method-i-output" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">output</span><span
+            class="method-args">(x)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The target <a href="Invocation.html">Invocation</a> should write the given
+list of lines to standard output</p>
+          
+
+          
+          <div class="method-source-code" id="output-source">
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">output</span>(<span class="ruby-identifier">x</span>)
+  <span class="ruby-identifier">match_maker</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">message</span> { <span class="ruby-node">&quot;to [write|not write] #{x.join &quot;\n&quot;} to STDOUT&quot;</span>}
+    <span class="ruby-identifier">test</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-identifier">x</span>).<span class="ruby-identifier">all?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">strip</span>}
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- output-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- output-method -->
 
     
       <div id="method-i-show_help" class="method-detail ">
@@ -259,7 +369,7 @@ default help text</p>
 
           
           <div class="method-source-code" id="show_help-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers.rb, line 12</span>
+            <pre><span class="ruby-comment"># File lib/cog/spec_helpers/matchers.rb, line 51</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show_help</span>
   <span class="ruby-identifier">match_maker</span> <span class="ruby-keyword">do</span>
     <span class="ruby-identifier">message</span> { <span class="ruby-node">&quot;to [show|not show] the default help text, got #{lines.first.inspect}&quot;</span> }
