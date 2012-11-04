@@ -132,7 +132,7 @@ module Cog
     def copy_if_missing(src, dest)
       unless File.exists? dest
         FileUtils.cp src, dest
-        STDOUT.write "Created #{dest}\n".color(:white)
+        STDOUT.write "Created #{dest}\n".color(:green)
       end
     end
 
@@ -141,7 +141,7 @@ module Cog
       path = File.join path_components
       unless File.exists? path
         FileUtils.mkdir_p path
-        STDOUT.write "Created #{path}\n".color(:white)
+        STDOUT.write "Created #{path}\n".color(:green)
       end
     end
     
