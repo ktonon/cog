@@ -12,7 +12,7 @@ Get it
 From a terminal
 
 ```bash
-gem install cog
+$ gem install cog
 ```
 
 or in your Gemfile
@@ -38,7 +38,10 @@ To use `cog` with this project, you would first open a terminal and change to
 the `PROJECT_ROOT` directory. Then enter
 
 ```bash
-cog init
+$ cog init
+Created Cogfile
+Created cog/generators
+Created cog/templates
 ```
 
 Now your project's directory layout will look like this
@@ -80,20 +83,27 @@ Generators
 ----------
 
 A generator is a ruby file which resides in the `project_generators_path`
-and performs its work at the time it is required. Here is one possibility
+and performs its work at the time it is required.
+A basic generator can be created using the command line tool once a project has
+been initialized
+
+```bash
+$ cog generator new my_generator
+Created cog/generators/my_generator.rb
+Created cog/templates/my_generator.txt.erb
+```
+
+This is what `my_generator.rb` will look like
 
 ```ruby
 require 'cog'
 
-class MyGenerator
+class MyGenerator 
   include Cog::Generator
   
   def generate
-    @context_var1 = 1
-    @context_var2 = 2
-    stamp 'my_generator/template1.cpp', 'path/to/generated/file1.cpp'
-    stamp 'my_generator/template2.java', 'path/to/generated/file2.java'
-    # ...
+    @some_context = :my_context_value
+    stamp 'my_generator.txt', 'generated_my_generator.txt'
   end
 end
 
@@ -112,6 +122,49 @@ on the template lookup path and renders it to a file under the
 `project_source_path`. The `project_templates_path` is on the template lookup
 path, and takes the highest precedence (but there are two other possible paths,
 see below for more details).
+
+This is what `my_generator.txt.erb` will look like
+
+```erb
+This is some context: <%= @some_context %>!
+```
+
+Now that you have a generator, you can run it like this
+
+```bash
+$ cog run my_generator
+Created src/generated_my_generator.txt
+```
+
+and the contents of the generated file will be
+
+```
+This is some context: my_context_value!
+```
+
+You can also list the project's generators like this
+
+```bash
+$ cog gen list
+my_generator
+
+$ cog gen new fishy
+Created cog/generators/fishy.rb
+Created cog/templates/fishy.txt.erb
+
+$ cog generator list
+fishy
+my_generator
+```
+
+You can run all of the project's generators by excluding the generator name, like this
+
+```bash
+$ cog run
+Created src/generated_fishy.txt
+```
+
+In this case, both generators are run, but the original `my_generator` hasn't changed, so the generated file `generated_my_generator.txt` will not be touched.
 
 Tools
 -----
