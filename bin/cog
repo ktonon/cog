@@ -37,7 +37,9 @@ command :generator do |c|
     else
       # Create
       args.each do |name|
-        Cog::Generator.create name, options
+        unless Cog::Generator.create name, options
+          puts "Failed to create generator #{name}"
+        end
       end
     end
   end
@@ -78,7 +80,7 @@ arg_name 'generator_name'
 command :run do |c|
   
   c.action do |global_options, options, args|
-    args = Cog::Generator.available if args.empty?
+    args = Cog::Generator.list if args.empty?
     args.each do |gen|
       filename = File.join Cog::Config.instance.project_generators_path, "#{gen}.rb"
       if File.exists? filename

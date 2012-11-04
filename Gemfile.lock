@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cog (0.0.11)
+    cog (0.0.15)
 
 GEM
   remote: http://rubygems.org/

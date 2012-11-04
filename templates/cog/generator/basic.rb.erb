@@ -4,7 +4,8 @@ class <%= @class_name %>
   include Cog::Generator
   
   def generate
-    # TODO: create a template and use stamp here to generate source code
+    @some_context = :my_context_value
+    stamp '<%= @name %>.txt', 'generated_<%= @name %>.txt'
   end
 end
 

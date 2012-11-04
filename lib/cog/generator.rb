@@ -33,15 +33,17 @@ module Cog
     # ==== Returns
     # Whether or not the generator was created successfully
     def self.create(name, opt={})
-      return false unless Config.instance.project?
-      filename = File.join Config.instance.project_generators_path, "#{name}.rb"
-      return false if File.exists? filename
       tool = (opt[:tool] || :basic).to_s
+      return false unless Config.instance.project?
+      gen_name = File.join Config.instance.project_generators_path, "#{name}.rb"
+      template_name = File.join Config.instance.project_templates_path, "#{name}.txt.erb"
+      return false if File.exists?(gen_name) || File.exists?(template_name)
       Object.new.instance_eval do
         extend Generator
         @name = name
         @class_name = name.to_s.camelize
-        stamp 'cog/generator/basic.rb', filename
+        stamp 'cog/generator/basic.rb', gen_name, :absolute_destination => true
+        stamp 'cog/generator/basic-template.txt.erb', template_name, :absolute_destination => true
       end
       true
     end
@@ -80,17 +82,19 @@ module Cog
     #
     # ==== Options
     # * <tt>:absolute_template_path</tt> - is the +template_path+ argument absolute? (default: +false+)
+    # * <tt>:absolute_destination</tt> - is the +destination+ argument absolute? (default: +false+)
     def stamp(template_path, destination, opt={})
       t = get_template template_path, :absolute => opt[:absolute_template_path]
       b = opt[:binding] || binding
-      FileUtils.mkpath File.dirname(destination) unless File.exists? destination
-      scratch = "#{destination}.scratch"
+      dest = opt[:absolute_destination] ? destination : File.join(Config.instance.project_source_path, destination)
+      FileUtils.mkpath File.dirname(dest) unless File.exists? dest
+      scratch = "#{dest}.scratch"
       File.open(scratch, 'w') {|file| file.write t.result(b)}
-      if same? destination, scratch
+      if same? dest, scratch
         FileUtils.rm scratch
       else
-        puts "Generated #{destination}"
-        FileUtils.mv scratch, destination
+        puts "Generated #{dest}"
+        FileUtils.mv scratch, dest
       end
       nil
     end
