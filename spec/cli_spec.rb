@@ -26,19 +26,19 @@ describe 'The command line interface' do
     end
     
     it 'running `cog generator` will fail' do
-      @cog.run(:generator).should complain_about_missing_cogfile
+      @cog.run(:generator).should complain
     end
-
+  
     it 'running `cog generator name` will fail' do
-      @cog.run(:generator, :name).should complain_about_missing_cogfile
+      @cog.run(:generator, :name).should complain
     end
     
     it 'running `cog run` will fail' do
-      @cog.run(:run).should complain_about_missing_cogfile
+      @cog.run(:run).should complain
     end
     
     it 'running `cog tool` will not fail' do
-      @cog.run(:tool).should_not complain_about_missing_cogfile
+      @cog.run(:tool).should_not complain
     end
   end
   
@@ -57,6 +57,37 @@ describe 'The command line interface' do
     
     it 'running `cog generator piggy` should create a generator named piggy' do
       @cog.run(:generator, :piggy).should make(generator(:piggy))
+    end
+  end
+  
+  context 'without any tools installed' do
+    before :all do
+      @cog.tools = []
+    end
+    
+    it 'running `cog tool` should not list anything' do
+      @cog.run(:tool).should_not do_something
+    end
+  end
+  
+  context 'with a tool installed' do
+    before :all do
+      @cog.tools = [tool(:beef)]
+    end
+    
+    it 'running `cog tool` should list that tool' do
+      @cog.run(:tool).should output([:beef])
+      @cog.run('-v', :tool).should output([tool(:beef)])
+    end
+  end
+  
+  context 'with a bad tool path' do
+    before :all do
+      @cog.tools = ['/bad/tool/path']
+    end
+    
+    it 'running `cog tool` should complain about a poorly configured tool path' do
+      @cog.run(:tool).should complain
     end
   end
   

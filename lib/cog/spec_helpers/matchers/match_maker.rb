@@ -5,8 +5,12 @@ module Cog
       # Within Matchers#match_maker blocks, +self+ is set to an instance of this
       # class.
       class MatchMaker
-        # A list of lines read from standard output after executing the Invocation.
+
+        # A list of lines read from STDOUT after executing the Invocation
         attr_reader :lines
+
+        # A list of lines read from STDERR after executing the Invocation
+        attr_reader :error
 
         # Define a block which runs after a test fails and should return
         # a failure message template.
@@ -44,18 +48,23 @@ module Cog
           instance_eval &@before_block unless @before_block.nil?
           @runner.exec do |input, output, error|
             @lines = output.readlines
+            @error = error.readlines
           end
           instance_eval &@test_block
         end
         def failure_message # :nodoc:
           msg = instance_eval &@msg_block
           msg = msg.gsub /\[([^\|\]]*)(?:\|([^\]]*)\])?/, '\1'
-          "expected #{@runner} #{msg}"
+          "expected #{@runner} #{msg}\n#{trace}"
         end
         def negative_failure_message # :nodoc:
           msg = instance_eval &@msg_block
           msg = msg.gsub /\[([^\|\]]*)(?:\|([^\]]*)\])?/, '\2'
-          "expected #{@runner} #{msg}"
+          "expected #{@runner} #{msg}\n#{trace}"
+        end
+        
+        def trace # :nodoc
+          "STDOUT:\n#{@lines.join "\n"}\nSTDERR:\n#{@error.join "\n"}"
         end
       end
       

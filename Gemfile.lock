@@ -1,7 +1,9 @@
 PATH
   remote: .
   specs:
-    cog (0.0.15)
+    cog (0.0.17)
+      gli
+      rainbow
 
 GEM
   remote: http://rubygems.org/
@@ -13,6 +15,7 @@ GEM
     gli (2.4.1)
     i18n (0.6.1)
     json (1.7.5)
+    rainbow (1.1.4)
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
@@ -33,6 +36,7 @@ DEPENDENCIES
   cog!
   gli
   i18n
+  rainbow
   rake
   rdoc
   rspec

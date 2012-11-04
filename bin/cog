@@ -4,12 +4,15 @@ $LOAD_PATH << File.join(File.dirname(__FILE__), '..', 'lib')
 require 'cog'
 require 'active_support/core_ext'
 require 'fileutils'
+require 'rainbow'
 
 include GLI::App
 
 program_desc 'This is a utility to help you write code generators.'
 
 # version Cog::VERSION
+desc 'Output more detailed information when running a command'
+switch :v
 
 desc 'Add cog to the project in the present working directory'
 skips_pre
@@ -22,7 +25,7 @@ end
 
 desc 'Create a generator (or leave name blank to list project generators)'
 arg_name 'name'
-command :generator do |c|
+command [:generator, :gen] do |c|
   
   c.desc 'which tool to use to create the generator'
   c.arg_name 'tool_name'
@@ -32,14 +35,12 @@ command :generator do |c|
   c.action do |global_options, options, args|
     if args.empty?
       # List
-      x = Cog::Generator.list
-      puts x.collect {|gen| "  #{gen}"}.join "\n" unless x.empty?
+      x = Cog::Generator.list global_options[:v]
+      puts x.join "\n" unless x.empty?
     else
       # Create
       args.each do |name|
-        unless Cog::Generator.create name, options
-          puts "Failed to create generator #{name}"
-        end
+        Cog::Generator.create name, :tool => options[:tool], :verbose => global_options[:v]
       end
     end
   end
@@ -52,16 +53,26 @@ command :tool do |c|
 
   c.action do |global_options, options, args|
     if args.empty?
-      puts 'Available tools:'
-      puts (Cog::Tool.list.collect {|tool| "  #{tool}"}.join "\n")
+      # List
+      x = Cog::Tool.list global_options[:v]
+      puts x.join "\n" unless x.empty?
     else
+      # Create
       args.each do |name|
-        unless File.exists? name
-          Cog::Tool.create name
-        else
-          puts "Could not create tool for '#{name}', a file or directory already exists with that name"
-        end
+        Cog::Tool.create name
       end
+    end
+  end
+end
+
+desc 'Run generators in the current project'
+arg_name 'generator_name'
+command :run do |c|
+  
+  c.action do |global_options, options, args|
+    args = Cog::Generator.list if args.empty?
+    args.each do |name|
+      Cog::Generator.run name, :verbose => global_options[:v]
     end
   end
 end
@@ -75,24 +86,6 @@ command :languages do |c|
   end
 end
 
-desc 'Run generators in the current project'
-arg_name 'generator_name'
-command :run do |c|
-  
-  c.action do |global_options, options, args|
-    args = Cog::Generator.list if args.empty?
-    args.each do |gen|
-      filename = File.join Cog::Config.instance.project_generators_path, "#{gen}.rb"
-      if File.exists? filename
-        puts "Running generator #{gen}"
-        require filename
-      else
-        puts "No such generator #{gen}"
-      end
-    end
-  end
-end
-
 pre do |global_options, command, options, args|
   # Pre logic here
   # Return true to proceed; false to abort and not call the
@@ -100,7 +93,8 @@ pre do |global_options, command, options, args|
   # Use skips_pre before a command to skip this block
   # on that command only
   unless Cog::Config.instance.project?
-    puts 'No Cogfile could be found. Run `cog init` to prepare an existing project.'
+    STDERR.write "No Cogfile could be found\n".color(:red)
+    STDOUT.write "Run `cog init` to prepare a project for use with cog\n"
     false
   else
     true
@@ -119,4 +113,9 @@ on_error do |exception|
   true
 end
 
-exit run(ARGV)
+begin
+  exit run(ARGV)
+rescue
+  # Don't show stack traces during normal use
+  raise unless ENV['COG_DEBUG'].nil? || /^(|0|false|no|off)$/i =~ ENV['COG_DEBUG']
+end

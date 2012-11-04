@@ -48,7 +48,12 @@ module Cog
     
     # Path to the generator with the given name
     def generator(name)
-      File.join active_fixture_dir, 'cog', 'generators', "#{name}.rb"
+      File.expand_path File.join(active_fixture_dir, 'cog', 'generators', "#{name}.rb")
+    end
+    
+    # Path to the test tool with the given name
+    def tool(name)
+      File.expand_path File.join(spec_root, 'tools', name.to_s)
     end
     
     # The next cog spec will execute in a fresh copy of the given fixture directory.
@@ -56,7 +61,7 @@ module Cog
     def use_fixture(name)
       path = File.join spec_root, 'fixtures', name.to_s
       if File.exists?(path) && File.directory?(path)
-        FileUtils.rmtree active_fixture_dir if File.exists? active_fixture_dir
+        FileUtils.rm_rf active_fixture_dir if File.exists? active_fixture_dir
         FileUtils.cp_r path, active_fixture_dir
         Dir.chdir active_fixture_dir
       else

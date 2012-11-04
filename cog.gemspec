@@ -15,6 +15,8 @@ spec = Gem::Specification.new do |s|
   s.rdoc_options << '--title' << 'cog' << '--main' << 'cog.rdoc' << '-ri'
   s.bindir = 'bin'
   s.executables << 'cog'
+  s.add_dependency('gli')
+  s.add_dependency('rainbow')
   s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
 end

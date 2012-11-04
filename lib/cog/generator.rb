@@ -1,6 +1,7 @@
 require 'cog/config'
 require 'cog/errors'
 require 'erb'
+require 'rainbow'
 
 module Cog
   
@@ -12,11 +13,10 @@ module Cog
   module Generator
 
     # A list of available project generators
-    def self.list
+    def self.list(verbose=false)
       if Config.instance.project?
-        Dir.glob(File.join Config.instance.project_generators_path, '*.rb').collect do |path|
-          File.basename(path).slice(0..-4)
-        end
+        x = Dir.glob(File.join Config.instance.project_generators_path, '*.rb')
+        verbose ? x : (x.collect {|path| File.basename(path).slice(0..-4)})
       else
         []
       end
@@ -37,15 +37,43 @@ module Cog
       return false unless Config.instance.project?
       gen_name = File.join Config.instance.project_generators_path, "#{name}.rb"
       template_name = File.join Config.instance.project_templates_path, "#{name}.txt.erb"
-      return false if File.exists?(gen_name) || File.exists?(template_name)
-      Object.new.instance_eval do
-        extend Generator
-        @name = name
-        @class_name = name.to_s.camelize
-        stamp 'cog/generator/basic.rb', gen_name, :absolute_destination => true
-        stamp 'cog/generator/basic-template.txt.erb', template_name, :absolute_destination => true
+      if File.exists? gen_name
+        STDERR.write "Generator '#{gen_name}' already exists\n".color(:red)
+        false
+      elsif File.exists? template_name
+        STDERR.write "Template '#{template_name}' already exists\n".color(:red)
+        false
+      else
+        Object.new.instance_eval do
+          extend Generator
+          @name = name
+          @class_name = name.to_s.camelize
+          stamp 'cog/generator/basic.rb', gen_name, :absolute_destination => true
+          stamp 'cog/generator/basic-template.txt.erb', template_name, :absolute_destination => true
+        end
+        true
       end
-      true
+    end
+    
+    # Run the generator with the given name
+    #
+    # ==== Arguments
+    # * +name+ - the name of the generator
+    #
+    # ==== Returns
+    # Whether or not the generator could be found
+    def self.run(name, opt={})
+      filename = File.join Cog::Config.instance.project_generators_path, "#{name}.rb"
+      if File.exists? filename
+        require filename
+        return true
+      end
+      STDERR.write "No such generator '#{name}'\n".color(:red)
+      false
+    rescue => e
+      trace = opt[:verbose] ? "\n#{e.backtrace.join "\n"}" : ''
+      STDERR.write "Generator '#{name}' failed: #{e}#{trace}\n".color(:red)
+      false
     end
 
     # Get the template with the given name.
@@ -93,8 +121,9 @@ module Cog
       if same? dest, scratch
         FileUtils.rm scratch
       else
-        puts "Generated #{dest}"
+        updated = File.exists? dest
         FileUtils.mv scratch, dest
+        STDOUT.write "#{updated ? :Updated : :Created} #{dest}\n".color(updated ? :white : :green)
       end
       nil
     end
@@ -103,7 +132,7 @@ module Cog
     def copy_if_missing(src, dest)
       unless File.exists? dest
         FileUtils.cp src, dest
-        puts "Created #{dest}"
+        STDOUT.write "Created #{dest}\n".color(:white)
       end
     end
 
@@ -112,7 +141,7 @@ module Cog
       path = File.join path_components
       unless File.exists? path
         FileUtils.mkdir_p path
-        puts "Created #{path}"
+        STDOUT.write "Created #{path}\n".color(:white)
       end
     end
     
