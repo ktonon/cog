@@ -23,22 +23,29 @@ command :init do |c|
   end
 end
 
-desc 'Create a generator (or leave name blank to list project generators)'
-arg_name 'name'
+desc 'List or create generators for the current project'
 command [:generator, :gen] do |c|
   
-  c.desc 'which tool to use to create the generator'
-  c.arg_name 'tool_name'
-  c.default_value 'basic'
-  c.flag :tool
+  c.default_command :list
   
-  c.action do |global_options, options, args|
-    if args.empty?
-      # List
+  c.desc 'List generators for the current project'
+  c.command :list do |sub|
+    sub.action do |global_options, option, args|
       x = Cog::Generator.list global_options[:v]
       puts x.join "\n" unless x.empty?
-    else
-      # Create
+    end
+  end
+  
+  c.desc 'Create a new generator for the current project'
+  c.arg_name 'generator_name'
+  c.command :new do |sub|
+
+    sub.desc 'which tool to use to create the generator'
+    sub.arg_name 'tool_name'
+    sub.default_value 'basic'
+    sub.flag :tool
+
+    sub.action do |global_options, options, args|
       args.each do |name|
         Cog::Generator.create name, :tool => options[:tool], :verbose => global_options[:v]
       end
@@ -46,18 +53,24 @@ command [:generator, :gen] do |c|
   end
 end
 
-desc 'Create a tool (or leave name blank to list available tools)'
-arg_name 'name'
+desc 'List or create DSLs known as cog tools'
 skips_pre
 command :tool do |c|
-
-  c.action do |global_options, options, args|
-    if args.empty?
-      # List
+  
+  c.default_command :list
+  
+  c.desc 'List the available tools'
+  c.command :list do |sub|
+    sub.action do |global_options, options, args|
       x = Cog::Tool.list global_options[:v]
       puts x.join "\n" unless x.empty?
-    else
-      # Create
+    end
+  end
+  
+  c.desc 'Create a new tool'
+  c.arg_name 'tool_name'
+  c.command :new do |sub|
+    sub.action do |global_options, options, args|
       args.each do |name|
         Cog::Tool.create name
       end

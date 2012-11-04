@@ -29,8 +29,8 @@ describe 'The command line interface' do
       @cog.run(:generator).should complain
     end
   
-    it 'running `cog generator name` will fail' do
-      @cog.run(:generator, :name).should complain
+    it 'running `cog generator new piggy` will fail' do
+      @cog.run(:generator, :new, :piggy).should complain
     end
     
     it 'running `cog run` will fail' do
@@ -54,9 +54,13 @@ describe 'The command line interface' do
     it 'running `cog generator` should not list anything' do
       @cog.run(:generator).should_not do_something
     end
+
+    it 'running `cog generator new` should do nothing' do
+      @cog.run(:generator, :new).should_not do_something
+    end
     
-    it 'running `cog generator piggy` should create a generator named piggy' do
-      @cog.run(:generator, :piggy).should make(generator(:piggy))
+    it 'running `cog generator new piggy` should create a generator named piggy' do
+      @cog.run(:generator, :new, :piggy).should make(generator(:piggy))
     end
   end
   
