@@ -7,13 +7,13 @@ module Cog
   class Tool
 
     # A list of available tools
-    def self.available
+    def self.list
       # TODO: use paths to instantiate a list of Tool objects
       paths = ENV['COG_TOOLS'] || []
     end
     
     # Generate a new tool with the given name
-    def self.generate_tool(name)
+    def self.create(name)
       Object.new.instance_eval do
         class << self ; include Generator ; end
         @name = name.to_s.downcase

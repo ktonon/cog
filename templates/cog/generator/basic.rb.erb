@@ -1,0 +1,11 @@
+require 'cog'
+
+class <%= @class_name %> 
+  include Cog::Generator
+  
+  def generate
+    # TODO: create a template and use stamp here to generate source code
+  end
+end
+
+<%= @class_name %>.new.generate

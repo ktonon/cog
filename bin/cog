@@ -20,6 +20,29 @@ command :init do |c|
   end
 end
 
+desc 'Create a generator (or leave name blank to list project generators)'
+arg_name 'name'
+command :generator do |c|
+  
+  c.desc 'which tool to use to create the generator'
+  c.arg_name 'tool_name'
+  c.default_value 'basic'
+  c.flag :tool
+  
+  c.action do |global_options, options, args|
+    if args.empty?
+      # List
+      x = Cog::Generator.list
+      puts x.collect {|gen| "  #{gen}"}.join "\n" unless x.empty?
+    else
+      # Create
+      args.each do |name|
+        Cog::Generator.create name, options
+      end
+    end
+  end
+end
+
 desc 'Create a tool (or leave name blank to list available tools)'
 arg_name 'name'
 skips_pre
@@ -28,40 +51,14 @@ command :tool do |c|
   c.action do |global_options, options, args|
     if args.empty?
       puts 'Available tools:'
-      puts (Cog::Tool.available.collect {|tool| "  #{tool}"}.join "\n")
+      puts (Cog::Tool.list.collect {|tool| "  #{tool}"}.join "\n")
     else
       args.each do |name|
         unless File.exists? name
-          Cog::Tool.generate_tool name
+          Cog::Tool.create name
         else
           puts "Could not create tool for '#{name}', a file or directory already exists with that name"
         end
-      end
-    end
-  end
-end
-
-desc 'Create a generator (or leave name blank to list project generators)'
-arg_name 'name'
-command :generator do |c|
-  
-  c.desc 'which tool to use to create the generator'
-  c.arg_name 'tool_name'
-  c.default_value 'generic'
-  c.flag :tool
-  
-  c.action do |global_options, options, args|
-    if args.empty?
-      puts 'Project generators:'
-      x = Cog::Generator.available
-      if x.empty?
-        puts '  none found'
-      else
-        puts Cog::Generator.available.collect {|gen| "  #{gen}"}.join "\n"
-      end
-    else
-      args.each do |name|
-        # TODO: create the generator
       end
     end
   end

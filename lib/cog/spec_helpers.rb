@@ -46,6 +46,11 @@ module Cog
       File.join active_fixture_dir, 'cog'
     end
     
+    # Path to the generator with the given name
+    def generator(name)
+      File.join active_fixture_dir, 'cog', 'generators', "#{name}.rb"
+    end
+    
     # The next cog spec will execute in a fresh copy of the given fixture directory.
     # Fixture directories are stored in <tt>spec/fixtures</tt>.
     def use_fixture(name)

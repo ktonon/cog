@@ -12,7 +12,7 @@ module Cog
   module Generator
 
     # A list of available project generators
-    def self.available
+    def self.list
       if Config.instance.project?
         Dir.glob(File.join Config.instance.project_generators_path, '*.rb').collect do |path|
           File.basename(path).slice(0..-4)
@@ -20,6 +20,30 @@ module Cog
       else
         []
       end
+    end
+    
+    # Create a new generator
+    #
+    # ==== Arguments
+    # * +name+ - the name to use for the new generator
+    #
+    # ==== Options
+    # * +tool+ - the name of the tool to use (default: basic)
+    #
+    # ==== Returns
+    # Whether or not the generator was created successfully
+    def self.create(name, opt={})
+      return false unless Config.instance.project?
+      filename = File.join Config.instance.project_generators_path, "#{name}.rb"
+      return false if File.exists? filename
+      tool = (opt[:tool] || :basic).to_s
+      Object.new.instance_eval do
+        extend Generator
+        @name = name
+        @class_name = name.to_s.camelize
+        stamp 'cog/generator/basic.rb', filename
+      end
+      true
     end
 
     # Get the template with the given name.
