@@ -172,7 +172,7 @@ Tools
 While its possible to place all the code for your generator in the
 `project_generators_path`, you might also consider writing a tool.
 
-A tool is a separately distribute ruby gem which can be registered with `cog`
+A tool is a separately distributed ruby gem which can be registered with `cog`
 and contains templates for generator files. A tool should also provide a domain
 specific language (DSL) in which the generator files created by the tool are
 written.
@@ -182,7 +182,17 @@ wanted to write a command line interface generation tool and call it `cons`, you
 would do this
 
 ```bash
-cog tool cons
+$ cog tool new cons
+Created cons/lib/cons.rb
+Created cons/lib/cons/version.rb
+Created cons/cog/templates/cons/generator.rb.erb
+Created cons/cog/templates/cons/cons.txt.erb
+Created cons/Gemfile
+Created cons/Rakefile
+Created cons/cons.gemspec
+Created cons/API.rdoc
+Created cons/LICENSE
+Created cons/README.markdown
 ```
 
 In this scenario, the following directory structure would be generated
@@ -192,9 +202,10 @@ cons/
      cog/
          templates/
                    cons/                 - for templates used by the cons tool
-                        generator.rb.erb - a template for the default generator
+                        generator.rb.erb - a template for making cons generators
+                        cons.txt.erb     - default template used by cons generators
      lib/
-         cons.rb                         - contains the Cons module and boilerplate tool code
+         cons.rb                         - root tool file provides DSL interface
          cons/
               version.rb                 - adds VERSION to the Cons module
      LICENSE
@@ -206,7 +217,86 @@ cons/
 
 ```
 
-TODO: not done documenting this yet. more to come...
+Tools are available across multiple projects. The set of available tools is defined by the value of the `COG_TOOLS` environment variable.
+The value of this variable is a `:` separated list. Each entry should take one of two formats, either
+
+* Name of root tool file without the `.rb` extension. For example `cons`
+* File system path to the root file with the `.rb` extension. For example `/Users/ktonon/cons/lib/cons.rb`
+
+The second form is preferred during development of the tool itself. Both forms are ultimately used in a call to `require`.
+
+You can see a list of the available tools like this
+
+```bash
+$ cog tool list
+cons
+```
+
+As noted before, a tool should contain a template for making generators. In the above example,
+that is the `generator.rb.erb` template. You can make a generator using a custom tool like this
+
+```bash
+$ cog gen new --tool=cons my_cons
+Created cog/generators/my_cons.rb
+```
+
+This new generator will look something like this
+
+```ruby
+require 'cons'
+
+Cons.widget 'my_cons' do |w|
+  w.context = 'this is the context'
+end
+```
+
+There is no explicit call to generate, but there is still a `generate` method on the `Widget` class
+and it is called automatically when the block terminates. Here is what the root tool file `cons.rb` will look like
+
+```ruby
+$LOAD_PATH << File.join(File.dirname(__FILE__))
+require 'cons/version'
+require 'cog'
+
+# Inject this tools templates onto the cog template lookup path
+# Do not remove this line
+Cog::Config.instance.tool_templates_path = File.expand_path(File.join(__FILE__, '..', '..', 'cog', 'templates'))
+
+# Set the template which is used to create generators for this tool
+# Do not remove this line
+Cog::Config.instance.tool_generator_template = 'cons/generator.rb'
+
+# Custom cog tool cons 
+module Cons 
+
+  # Root of the DSL
+  # Feel free to rename this to something more appropriate
+  def self.widget(generator_name, &block)
+    w = Widget.new generator_name
+    block.call w
+    w.generate
+    nil
+  end
+
+  # Root type of the DSL
+  # You'll want to rename this to something more meaningful
+  # and probably place it in a separate file.
+  class Widget
+    
+    include Cog::Generator
+    
+    attr_accessor :context
+    
+    def initialize(generator_name)
+      @generator_name = generator_name
+    end
+    
+    def generate
+      stamp 'cons/cons.txt', "generated_#{@generator_name}.txt"
+    end
+  end
+end
+```
 
 API Documentation
 -----------------
