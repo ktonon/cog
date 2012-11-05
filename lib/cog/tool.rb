@@ -10,11 +10,11 @@ module Cog
     # A list of available tools
     def self.list(verbose=false)
       x = (ENV['COG_TOOLS'] || '').split ':'
-      if x.all? {|path| File.exists?(path) && File.directory?(path)}
+      if x.all? {|path| path.slice(-3..-1) != '.rb' || File.exists?(path)}
         if verbose
-          x.collect {|path| File.expand_path path}
+          x.collect {|path| path.slice(-3..-1) == '.rb' ? File.expand_path(path) : path}
         else
-          x.collect {|path| File.basename path}
+          x.collect {|path| path.slice(-3..-1) == '.rb' ? File.basename(path).slice(0..-4) : path}
         end
       else
         x.each do |path|
@@ -41,13 +41,15 @@ module Cog
           extend Generator
           @name = name.to_s.downcase
           @module_name = name.to_s.capitalize
+          @letter = name.to_s.slice(0,1).downcase
           @author = '<Your name goes here>'
           @email = 'youremail@...'
           @description = 'A one-liner'
           @cog_version = Cog::VERSION
           stamp 'cog/tool/tool.rb', "#{@name}/lib/#{@name}.rb", :absolute_destination => true
           stamp 'cog/tool/version.rb', "#{@name}/lib/#{@name}/version.rb", :absolute_destination => true
-          stamp 'cog/tool/generator.rb', "#{@name}/cog/templates/#{@name}/generator.rb.erb", :absolute_destination => true
+          stamp 'cog/tool/generator.rb.erb', "#{@name}/cog/templates/#{@name}/generator.rb.erb", :absolute_destination => true
+          stamp 'cog/tool/template.txt.erb', "#{@name}/cog/templates/#{@name}/#{@name}.txt.erb", :absolute_destination => true
           stamp 'cog/tool/Gemfile', "#{@name}/Gemfile", :absolute_destination => true
           stamp 'cog/tool/Rakefile', "#{@name}/Rakefile", :absolute_destination => true
           stamp 'cog/tool/tool.gemspec', "#{@name}/#{@name}.gemspec", :absolute_destination => true
@@ -58,6 +60,22 @@ module Cog
         true
       end
     end
-  end
 
+    # Find an available tool with the given name
+    #
+    # ==== Returns
+    # A fully qualified tool path, which can be required
+    def self.find(name)
+      x = (ENV['COG_TOOLS'] || '').split ':'
+      x.each do |path|
+        if path.slice(-3..-1) == '.rb'
+          short = File.basename(path).slice(0..-4)
+          return path if short == name
+        else
+          return path if path == name
+        end
+      end
+    end
+
+  end
 end

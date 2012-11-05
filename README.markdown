@@ -18,7 +18,7 @@ $ gem install cog
 or in your Gemfile
 
 ```ruby
-gem "cog", "~> 0.0.18"
+gem "cog", "~> 0.0.19"
 ```
 
 Prepare a project
@@ -195,35 +195,16 @@ Created cons/LICENSE
 Created cons/README.markdown
 ```
 
-In this scenario, the following directory structure would be generated
-
-```
-cons/
-     cog/
-         templates/
-                   cons/                 - for templates used by the cons tool
-                        generator.rb.erb - a template for making cons generators
-                        cons.txt.erb     - default template used by cons generators
-     lib/
-         cons.rb                         - root tool file provides DSL interface
-         cons/
-              version.rb                 - adds VERSION to the Cons module
-     LICENSE
-     README.markdown
-     API.rdoc
-     cons.gemspec
-     Gemfile
-     Rakefile
-
-```
-
-Tools are available across multiple projects. The set of available tools is defined by the value of the `COG_TOOLS` environment variable.
-The value of this variable is a `:` separated list. Each entry should take one of two formats, either
+Tools are available across multiple projects. The set of available tools is
+defined by the value of the `COG_TOOLS` environment variable. The value of this
+variable is a `:` separated list. Each entry should take one of two formats,
+either
 
 * Name of root tool file without the `.rb` extension. For example `cons`
 * File system path to the root file with the `.rb` extension. For example `/Users/ktonon/cons/lib/cons.rb`
 
-The second form is preferred during development of the tool itself. Both forms are ultimately used in a call to `require`.
+The second form is preferred during development of the tool itself. Both forms
+are internally used as argument in a call to the `require` method.
 
 You can see a list of the available tools like this
 
@@ -232,8 +213,9 @@ $ cog tool list
 cons
 ```
 
-As noted before, a tool should contain a template for making generators. In the above example,
-that is the `generator.rb.erb` template. You can make a generator using a custom tool like this
+As noted before, a tool should contain a template for making generators. In the
+above example, that is the `generator.rb.erb` template. You can make a generator
+using a custom tool like this
 
 ```bash
 $ cog gen new --tool=cons my_cons
@@ -250,8 +232,9 @@ Cons.widget 'my_cons' do |w|
 end
 ```
 
-There is no explicit call to generate, but there is still a `generate` method on the `Widget` class
-and it is called automatically when the block terminates. Here is what the root tool file `cons.rb` will look like
+There is no explicit call to generate, but there is still a `generate` method on
+the `Widget` class and it is called automatically when the block terminates.
+Here is what the root tool file `cons.rb` will look like
 
 ```ruby
 $LOAD_PATH << File.join(File.dirname(__FILE__))

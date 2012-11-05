@@ -33,25 +33,41 @@ module Cog
     # ==== Returns
     # Whether or not the generator was created successfully
     def self.create(name, opt={})
-      tool = (opt[:tool] || :basic).to_s
       return false unless Config.instance.project?
+
       gen_name = File.join Config.instance.project_generators_path, "#{name}.rb"
-      template_name = File.join Config.instance.project_templates_path, "#{name}.txt.erb"
       if File.exists? gen_name
         STDERR.write "Generator '#{gen_name}' already exists\n".color(:red)
-        false
-      elsif File.exists? template_name
+        return false
+      end
+
+      tool = (opt[:tool] || :basic).to_s
+      template_name = File.join Config.instance.project_templates_path, "#{name}.txt.erb"
+      if tool == 'basic' && File.exists?(template_name)
         STDERR.write "Template '#{template_name}' already exists\n".color(:red)
-        false
-      else
-        Object.new.instance_eval do
-          extend Generator
-          @name = name
-          @class_name = name.to_s.camelize
+        return false
+      end
+      
+      Object.new.instance_eval do
+        extend Generator
+        @name = name
+        @class_name = name.to_s.camelize
+        if tool == 'basic'
           stamp 'cog/generator/basic.rb', gen_name, :absolute_destination => true
           stamp 'cog/generator/basic-template.txt.erb', template_name, :absolute_destination => true
+        else
+          tool_path = Tool.find(tool)
+          if tool_path.nil?
+            STDERR.write "No such tool '#{tool}'"
+            false
+          else
+            require tool_path
+            @absolute_require = tool_path != tool
+            @tool_parent_path = File.dirname(tool_path)
+            stamp Config.instance.tool_generator_template, gen_name, :absolute_destination => true
+            true
+          end
         end
-        true
       end
     end
     
@@ -97,7 +113,7 @@ module Cog
           found.empty? && File.exists?(x) ? x : found
         end
       end
-      raise Errors::MissingTemplate.new fullpath unless File.exists? fullpath
+      raise Errors::MissingTemplate.new path unless File.exists? fullpath
       ERB.new File.read(fullpath), 0, '>'
     end
     

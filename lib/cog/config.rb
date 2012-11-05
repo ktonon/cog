@@ -32,6 +32,12 @@ module Cog
     def project?
       !@project_root.nil?
     end
+
+    # A value which is set by the active tool
+    attr_writer :tool_templates_path
+    
+    # A value which is set by the active tool
+    attr_accessor :tool_generator_template
     
     # A list of directories in which to find ERB template files.
     # Priority should be given first to last.

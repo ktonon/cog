@@ -53,7 +53,7 @@ module Cog
     
     # Path to the test tool with the given name
     def tool(name)
-      File.expand_path File.join(spec_root, 'tools', name.to_s)
+      File.expand_path File.join(spec_root, 'tools', name.to_s, 'lib', "#{name}.rb")
     end
     
     # The next cog spec will execute in a fresh copy of the given fixture directory.

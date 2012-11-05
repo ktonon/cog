@@ -87,7 +87,7 @@ describe 'The command line interface' do
   
   context 'with a bad tool path' do
     before :all do
-      @cog.tools = ['/bad/tool/path']
+      @cog.tools = ['/bad/tool/path.rb']
     end
     
     it 'running `cog tool` should complain about a poorly configured tool path' do
