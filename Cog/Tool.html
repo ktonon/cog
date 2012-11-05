@@ -72,6 +72,8 @@
     
     <li><a href="#method-c-create">::create</a>
     
+    <li><a href="#method-c-find">::find</a>
+    
     <li><a href="#method-c-list">::list</a>
     
   </ul>
@@ -187,13 +189,15 @@ href="https://github.com/ktonon/cog#tools">github.com/ktonon/cog#tools</a></p>
       <span class="ruby-identifier">extend</span> <span class="ruby-constant">Generator</span>
       <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>
       <span class="ruby-ivar">@module_name</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">capitalize</span>
+      <span class="ruby-ivar">@letter</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">0</span>,<span class="ruby-value">1</span>).<span class="ruby-identifier">downcase</span>
       <span class="ruby-ivar">@author</span> = <span class="ruby-string">'&lt;Your name goes here&gt;'</span>
       <span class="ruby-ivar">@email</span> = <span class="ruby-string">'youremail@...'</span>
       <span class="ruby-ivar">@description</span> = <span class="ruby-string">'A one-liner'</span>
       <span class="ruby-ivar">@cog_version</span> = <span class="ruby-constant">Cog</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span>
       <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/tool.rb'</span>, <span class="ruby-node">&quot;#{@name}/lib/#{@name}.rb&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
       <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/version.rb'</span>, <span class="ruby-node">&quot;#{@name}/lib/#{@name}/version.rb&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
-      <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/generator.rb'</span>, <span class="ruby-node">&quot;#{@name}/cog/templates/#{@name}/generator.rb.erb&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/generator.rb.erb'</span>, <span class="ruby-node">&quot;#{@name}/cog/templates/#{@name}/generator.rb.erb&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/template.txt.erb'</span>, <span class="ruby-node">&quot;#{@name}/cog/templates/#{@name}/#{@name}.txt.erb&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
       <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/Gemfile'</span>, <span class="ruby-node">&quot;#{@name}/Gemfile&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
       <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/Rakefile'</span>, <span class="ruby-node">&quot;#{@name}/Rakefile&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
       <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/tool/tool.gemspec'</span>, <span class="ruby-node">&quot;#{@name}/#{@name}.gemspec&quot;</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
@@ -212,6 +216,48 @@ href="https://github.com/ktonon/cog#tools">github.com/ktonon/cog#tools</a></p>
 
         
       </div><!-- create-method -->
+
+    
+      <div id="method-c-find" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Find an available tool with the given name</p>
+
+<h4 id="method-c-find-label-Returns">Returns</h4>
+
+<p>A fully qualified tool path, which can be required</p>
+          
+
+          
+          <div class="method-source-code" id="find-source">
+            <pre><span class="ruby-comment"># File lib/cog/tool.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-identifier">x</span> = (<span class="ruby-constant">ENV</span>[<span class="ruby-string">'COG_TOOLS'</span>] <span class="ruby-operator">||</span> <span class="ruby-string">''</span>).<span class="ruby-identifier">split</span> <span class="ruby-string">':'</span>
+  <span class="ruby-identifier">x</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">path</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">-3</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>) <span class="ruby-operator">==</span> <span class="ruby-string">'.rb'</span>
+      <span class="ruby-identifier">short</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">path</span>).<span class="ruby-identifier">slice</span>(<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">-4</span>)
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">path</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">short</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">name</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">path</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">name</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find-method -->
 
     
       <div id="method-c-list" class="method-detail ">
@@ -233,11 +279,11 @@ href="https://github.com/ktonon/cog#tools">github.com/ktonon/cog#tools</a></p>
             <pre><span class="ruby-comment"># File lib/cog/tool.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">list</span>(<span class="ruby-identifier">verbose</span>=<span class="ruby-keyword">false</span>)
   <span class="ruby-identifier">x</span> = (<span class="ruby-constant">ENV</span>[<span class="ruby-string">'COG_TOOLS'</span>] <span class="ruby-operator">||</span> <span class="ruby-string">''</span>).<span class="ruby-identifier">split</span> <span class="ruby-string">':'</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">all?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">path</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>)}
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">all?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-identifier">path</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">-3</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>) <span class="ruby-operator">!=</span> <span class="ruby-string">'.rb'</span> <span class="ruby-operator">||</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">path</span>)}
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">verbose</span>
-      <span class="ruby-identifier">x</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-identifier">path</span>}
+      <span class="ruby-identifier">x</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-identifier">path</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">-3</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>) <span class="ruby-operator">==</span> <span class="ruby-string">'.rb'</span> <span class="ruby-operator">?</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">path</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">path</span>}
     <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">x</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span> <span class="ruby-identifier">path</span>}
+      <span class="ruby-identifier">x</span>.<span class="ruby-identifier">collect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-identifier">path</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">-3</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>) <span class="ruby-operator">==</span> <span class="ruby-string">'.rb'</span> <span class="ruby-operator">?</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">path</span>).<span class="ruby-identifier">slice</span>(<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">-4</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">path</span>}
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">x</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>

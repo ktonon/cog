@@ -183,11 +183,11 @@ href="https://github.com/ktonon/cog#generators">github.com/ktonon/cog#generators
 
           
           <div class="method-source-code" id="copy_if_missing-source">
-            <pre><span class="ruby-comment"># File lib/cog/generator.rb, line 132</span>
+            <pre><span class="ruby-comment"># File lib/cog/generator.rb, line 148</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">copy_if_missing</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">dest</span>)
   <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">dest</span>
     <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">cp</span> <span class="ruby-identifier">src</span>, <span class="ruby-identifier">dest</span>
-    <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;Created #{dest}\n&quot;</span>.<span class="ruby-identifier">color</span>(<span class="ruby-value">:white</span>)
+    <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;Created #{dest}\n&quot;</span>.<span class="ruby-identifier">color</span>(<span class="ruby-value">:green</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- copy_if_missing-source -->
@@ -232,7 +232,7 @@ the template directories</p>
 
           
           <div class="method-source-code" id="get_template-source">
-            <pre><span class="ruby-comment"># File lib/cog/generator.rb, line 90</span>
+            <pre><span class="ruby-comment"># File lib/cog/generator.rb, line 106</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_template</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">opt</span>={})
   <span class="ruby-identifier">path</span> <span class="ruby-operator">+=</span> <span class="ruby-string">'.erb'</span>
   <span class="ruby-identifier">fullpath</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">opt</span>[<span class="ruby-value">:absolute</span>]
@@ -243,7 +243,7 @@ the template directories</p>
       <span class="ruby-identifier">found</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">x</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">found</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingTemplate</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">fullpath</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">fullpath</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errors</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingTemplate</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">path</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">fullpath</span>
   <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">fullpath</span>), <span class="ruby-value">0</span>, <span class="ruby-string">'&gt;'</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- get_template-source -->
@@ -290,7 +290,7 @@ argument absolute? (default: <code>false</code>)</p>
 
           
           <div class="method-source-code" id="stamp-source">
-            <pre><span class="ruby-comment"># File lib/cog/generator.rb, line 114</span>
+            <pre><span class="ruby-comment"># File lib/cog/generator.rb, line 130</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">stamp</span>(<span class="ruby-identifier">template_path</span>, <span class="ruby-identifier">destination</span>, <span class="ruby-identifier">opt</span>={})
   <span class="ruby-identifier">t</span> = <span class="ruby-identifier">get_template</span> <span class="ruby-identifier">template_path</span>, <span class="ruby-value">:absolute</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">opt</span>[<span class="ruby-value">:absolute_template_path</span>]
   <span class="ruby-identifier">b</span> = <span class="ruby-identifier">opt</span>[<span class="ruby-value">:binding</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">binding</span>
@@ -333,12 +333,12 @@ argument absolute? (default: <code>false</code>)</p>
 
           
           <div class="method-source-code" id="touch_path-source">
-            <pre><span class="ruby-comment"># File lib/cog/generator.rb, line 140</span>
+            <pre><span class="ruby-comment"># File lib/cog/generator.rb, line 156</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">touch_path</span>(*<span class="ruby-identifier">path_components</span>)
   <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">path_components</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">path</span>
     <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span> <span class="ruby-identifier">path</span>
-    <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;Created #{path}\n&quot;</span>.<span class="ruby-identifier">color</span>(<span class="ruby-value">:white</span>)
+    <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;Created #{path}\n&quot;</span>.<span class="ruby-identifier">color</span>(<span class="ruby-value">:green</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- touch_path-source -->
@@ -389,25 +389,41 @@ argument absolute? (default: <code>false</code>)</p>
           <div class="method-source-code" id="create-source">
             <pre><span class="ruby-comment"># File lib/cog/generator.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">opt</span>={})
-  <span class="ruby-identifier">tool</span> = (<span class="ruby-identifier">opt</span>[<span class="ruby-value">:tool</span>] <span class="ruby-operator">||</span> <span class="ruby-value">:basic</span>).<span class="ruby-identifier">to_s</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">project?</span>
+
   <span class="ruby-identifier">gen_name</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">project_generators_path</span>, <span class="ruby-node">&quot;#{name}.rb&quot;</span>
-  <span class="ruby-identifier">template_name</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">project_templates_path</span>, <span class="ruby-node">&quot;#{name}.txt.erb&quot;</span>
   <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">gen_name</span>
     <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;Generator '#{gen_name}' already exists\n&quot;</span>.<span class="ruby-identifier">color</span>(<span class="ruby-value">:red</span>)
-    <span class="ruby-keyword">false</span>
-  <span class="ruby-keyword">elsif</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">template_name</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">tool</span> = (<span class="ruby-identifier">opt</span>[<span class="ruby-value">:tool</span>] <span class="ruby-operator">||</span> <span class="ruby-value">:basic</span>).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">template_name</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">project_templates_path</span>, <span class="ruby-node">&quot;#{name}.txt.erb&quot;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">tool</span> <span class="ruby-operator">==</span> <span class="ruby-string">'basic'</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">template_name</span>)
     <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;Template '#{template_name}' already exists\n&quot;</span>.<span class="ruby-identifier">color</span>(<span class="ruby-value">:red</span>)
-    <span class="ruby-keyword">false</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-constant">Object</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">instance_eval</span> <span class="ruby-keyword">do</span>
-      <span class="ruby-identifier">extend</span> <span class="ruby-constant">Generator</span>
-      <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>
-      <span class="ruby-ivar">@class_name</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">camelize</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-constant">Object</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">instance_eval</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">extend</span> <span class="ruby-constant">Generator</span>
+    <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>
+    <span class="ruby-ivar">@class_name</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">camelize</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">tool</span> <span class="ruby-operator">==</span> <span class="ruby-string">'basic'</span>
       <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/generator/basic.rb'</span>, <span class="ruby-identifier">gen_name</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
       <span class="ruby-identifier">stamp</span> <span class="ruby-string">'cog/generator/basic-template.txt.erb'</span>, <span class="ruby-identifier">template_name</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">tool_path</span> = <span class="ruby-constant">Tool</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">tool</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">tool_path</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;No such tool '#{tool}'&quot;</span>
+        <span class="ruby-keyword">false</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">require</span> <span class="ruby-identifier">tool_path</span>
+        <span class="ruby-ivar">@absolute_require</span> = <span class="ruby-identifier">tool_path</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">tool</span>
+        <span class="ruby-ivar">@tool_parent_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">tool_path</span>)
+        <span class="ruby-identifier">stamp</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">tool_generator_template</span>, <span class="ruby-identifier">gen_name</span>, <span class="ruby-value">:absolute_destination</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+        <span class="ruby-keyword">true</span>
+      <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">true</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- create-source -->
@@ -480,7 +496,7 @@ argument absolute? (default: <code>false</code>)</p>
 
           
           <div class="method-source-code" id="run-source">
-            <pre><span class="ruby-comment"># File lib/cog/generator.rb, line 65</span>
+            <pre><span class="ruby-comment"># File lib/cog/generator.rb, line 81</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">run</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">opt</span>={})
   <span class="ruby-identifier">filename</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-constant">Cog</span><span class="ruby-operator">::</span><span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">project_generators_path</span>, <span class="ruby-node">&quot;#{name}.rb&quot;</span>
   <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">filename</span>

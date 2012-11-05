@@ -355,7 +355,7 @@ href="SpecHelpers/Runner.html#method-i-run">Cog::SpecHelpers::Runner#run</a></p>
           <div class="method-source-code" id="tool-source">
             <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">tool</span>(<span class="ruby-identifier">name</span>)
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">spec_root</span>, <span class="ruby-string">'tools'</span>, <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>)
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">spec_root</span>, <span class="ruby-string">'tools'</span>, <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-string">'lib'</span>, <span class="ruby-node">&quot;#{name}.rb&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- tool-source -->
           

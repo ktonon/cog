@@ -242,6 +242,32 @@ using a <a href="Config/Cogfile.html">Cogfile</a>.</p>
         </div>
       </div>
       
+      <div id="attribute-i-tool_generator_template" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">tool_generator_template</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>A value which is set by the active tool</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-tool_templates_path" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">tool_templates_path</span><span
+            class="attribute-access-type">[W]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>A value which is set by the active tool</p>
+        
+        </div>
+      </div>
+      
     </section><!-- attribute-method-details -->
     
 
@@ -299,7 +325,7 @@ be given first to last.</p>
 
           
           <div class="method-source-code" id="template_paths-source">
-            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 38</span>
+            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">template_paths</span>
   [<span class="ruby-ivar">@project_templates_path</span>, <span class="ruby-ivar">@tool_templates_path</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Config</span>.<span class="ruby-identifier">gem_dir</span>, <span class="ruby-string">'templates'</span>)].<span class="ruby-identifier">compact</span>
 <span class="ruby-keyword">end</span></pre>
@@ -349,7 +375,7 @@ be checked, and then the grandparent, and so on.</p>
 
           
           <div class="method-source-code" id="instance-source">
-            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 66</span>
+            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 72</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">instance</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@instance</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@instance</span>
   <span class="ruby-ivar">@instance</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new</span>
@@ -398,7 +424,7 @@ be checked, and then the grandparent, and so on.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 91</span>
+            <pre><span class="ruby-comment"># File lib/cog/config.rb, line 97</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
   <span class="ruby-ivar">@project_root</span> = <span class="ruby-keyword">nil</span>
   <span class="ruby-ivar">@language</span> = <span class="ruby-string">'c++'</span>
