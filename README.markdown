@@ -1,4 +1,4 @@
-![cog](images/cog-logo-small.png)
+![cog](http://ktonon.github.com/cog/images/cog-logo-small.png)
 
 `cog` is a command line utility that makes it a bit easier to organize a project
 which uses code generation.
