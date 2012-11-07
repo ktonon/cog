@@ -39,6 +39,13 @@ module Cog
     attr_accessor :tool_generator_template
     
     # A list of directories in which to find ERB template files
+    #
+    # Templates should be looked for in the following order as determined by the list returned from this method
+    #
+    # * {#project_templates_path}, present if we are in the context of a {#project?}
+    # * tool templates, present if we are in the context of a tool (i.e. a tool has set {#tool_templates_path=})
+    # * +cog+ built-in templates, always present
+    #
     # @return [Array<String>] a list of directories order with ascending priority
     def template_paths
       [@project_templates_path, @tool_templates_path, File.join(Config.gem_dir, 'templates')].compact

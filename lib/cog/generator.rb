@@ -1,5 +1,6 @@
 require 'cog/config'
 require 'cog/errors'
+require 'cog/helpers'
 require 'erb'
 require 'rainbow'
 
@@ -60,7 +61,6 @@ module Cog
             require tool_path
             @absolute_require = tool_path != tool
             @tool_parent_path = File.dirname(tool_path)
-            puts tool_path
             stamp Config.instance.tool_generator_template, gen_name, :absolute_destination => true
             true
           end
@@ -87,7 +87,7 @@ module Cog
     end
 
     # Get the template with the given name
-    # @param path [String] a path to a template file which is relative to one of the template directories
+    # @param path [String] path to template file relative one of the {Config#template_paths}
     # @option opt [Boolean] :absolute (false) is the +path+ argument absolute?
     # @return [ERB] an instance of {http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html ERB}
     def get_template(path, opt={})
@@ -104,15 +104,18 @@ module Cog
       ERB.new File.read(fullpath), 0, '>'
     end
     
-    # Stamp a template +source+ onto a +destination+
+    # Stamp a template into a file or return it as a string
     # @param template_path [String] path to template file relative one of the {Config#template_paths}
     # @param destination [String] path to which the generated file should be written, relative to the {Config#project_source_path}
     # @option opt [Boolean] :absolute_template_path (false) is the +template_path+ absolute?
     # @option opt [Boolean] :absolute_destination (false) is the +destination+ absolute?
-    # @return [nil]
-    def stamp(template_path, destination, opt={})
+    # @option opt [Boolean] :quiet (false) suppress writing to STDOUT?
+    # @return [nil or String] if +destination+ is not provided, the stamped template is returned as a string
+    def stamp(template_path, destination=nil, opt={})
       t = get_template template_path, :absolute => opt[:absolute_template_path]
       b = opt[:binding] || binding
+      return t.result(b) if destination.nil?
+      
       dest = opt[:absolute_destination] ? destination : File.join(Config.instance.project_source_path, destination)
       FileUtils.mkpath File.dirname(dest) unless File.exists? dest
       scratch = "#{dest}.scratch"
@@ -122,28 +125,33 @@ module Cog
       else
         updated = File.exists? dest
         FileUtils.mv scratch, dest
-        STDOUT.write "#{updated ? :Updated : :Created} #{dest}\n".color(updated ? :white : :green)
+        STDOUT.write "#{updated ? :Updated : :Created} #{dest.relative_to_project_root}\n".color(updated ? :white : :green) unless opt[:quiet]
       end
       nil
     end
 
     # Copy a file from +src+ to +dest+, but only if +dest+ does not already exist.
-    # @api unstable
-    def copy_if_missing(src, dest)
+    # @param src [String] where to copy from
+    # @param dest [String] where to copy to
+    # @option opt [Boolean] :quiet (false) suppress writing to STDOUT?
+    # @return [nil]
+    def copy_if_missing(src, dest, opt={})
       unless File.exists? dest
         FileUtils.cp src, dest
-        STDOUT.write "Created #{dest}\n".color(:green)
+        STDOUT.write "Created #{dest.relative_to_project_root}\n".color(:green) unless opt[:quiet]
       end
     end
 
     # Recursively create directories in the given path if they are missing.
-    # @api unstable
-    def touch_path(*path_components)
-      path = File.join path_components
+    # @param path [String] a file system path representing a directory
+    # @option opt [Boolean] :quiet (false) suppress writing to STDOUT?
+    # @return [nil]
+    def touch_path(path, opt={})
       unless File.exists? path
         FileUtils.mkdir_p path
-        STDOUT.write "Created #{path}\n".color(:green)
+        STDOUT.write "Created #{path.relative_to_project_root}\n".color(:green) unless opt[:quiet]
       end
+      nil
     end
     
     # File extension for a snippet of the given source code language.
@@ -158,15 +166,7 @@ module Cog
         'txt'
       end
     end
-          
-    # A warning that indicates a file is maintained by a generator
-    # @api unstable
-    def generated_warning
-      lang = Config.instance.language
-      t = get_template "cog/snippets/#{lang}/generated_warning.#{snippet_extension lang}"
-      t.result(binding)
-    end
-    
+
     # @api unstable
     def include_guard_begin(name)
       full = "COG_INCLUDE_GUARD_#{name.upcase}"

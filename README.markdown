@@ -17,7 +17,7 @@ $ gem install cog
 or in your Gemfile
 
 ```ruby
-gem "cog", "~> 0.0.19"
+gem "cog", "~> 0.0.20"
 ```
 
 Prepare a project
@@ -117,10 +117,12 @@ convenience, but is practically always done (either explicitly or implicitly). I
 generating source code from templates. The
 [stamp](http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp) method
 is particularly useful. If finds an [ERB template](http://www.stuartellis.eu/articles/erb/)
-on the template lookup path and renders it to a file under the
-`project_source_path`. The `project_templates_path` is on the template lookup
-path, and takes the highest precedence (but there are two other possible paths,
-see below for more details).
+in the [template_paths](http://ktonon.github.com/cog/Cog/Config.html#template_paths-instance_method)
+and renders it to a file under the
+[project_source_path](http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method).
+The [project_templates_path](http://ktonon.github.com/cog/Cog/Config.html#project_templates_path-instance_method)
+is in the [template_paths](http://ktonon.github.com/cog/Cog/Config.html#template_paths-instance_method)
+and takes the highest precedence.
 
 This is what `my_generator.txt.erb` will look like
 

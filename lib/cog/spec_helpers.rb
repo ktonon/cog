@@ -64,11 +64,23 @@ module Cog
     def generator(name)
       File.expand_path File.join(active_fixture_dir, 'cog', 'generators', "#{name}.rb")
     end
+
+    # @param name [String] template identifier (without the .erb extension)
+    # @return [String] absolute file system path to the template
+    def template(name)
+      File.expand_path File.join(active_fixture_dir, 'cog', 'templates', "#{name}")
+    end
     
     # @param name [String] tool fixture identifier
     # @return [String] path to the test tool with the given name
     def tool(name)
       File.expand_path File.join(spec_root, 'tools', name.to_s, 'lib', "#{name}.rb")
+    end
+    
+    # @param filename [String] name of a generated source file
+    # @return [String] absolute path to the generated file
+    def generated_file(filename)
+      File.expand_path File.join(active_fixture_dir, 'src', filename)
     end
     
     # The next cog spec will execute in a fresh copy of the given fixture

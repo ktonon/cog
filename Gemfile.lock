@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cog (0.0.19)
+    cog (0.0.20)
       gli
       rainbow
 
