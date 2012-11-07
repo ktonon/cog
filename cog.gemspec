@@ -8,15 +8,13 @@ spec = Gem::Specification.new do |s|
   s.homepage = 'https://github.com/ktonon/cog'
   s.platform = Gem::Platform::RUBY
   s.summary = 'This is a utility to help you write code generators.'
-  s.files = %w(bin/cog Default.cogfile LICENSE) + Dir.glob('templates/**/*') + Dir.glob('lib/**/*.rb')
+  s.files = %w(bin/cog Default.cogfile LICENSE) + Dir.glob('templates/**/*') + Dir.glob('lib/**/*.rb') + Dir.glob('yard-templates/**/*')
   s.require_paths << 'lib'
-  s.has_rdoc = true
-  s.extra_rdoc_files = ['API.rdoc']
-  s.rdoc_options << '--title' << 'cog' << '--main' << 'cog.rdoc' << '-ri'
+  s.has_rdoc = 'yard'
   s.bindir = 'bin'
   s.executables << 'cog'
   s.add_dependency('gli')
   s.add_dependency('rainbow')
   s.add_development_dependency('rake')
-  s.add_development_dependency('rdoc')
+  s.add_development_dependency('yard')
 end

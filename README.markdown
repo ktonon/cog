@@ -1,5 +1,4 @@
-cog
-=====
+![cog](images/cog-logo-small.png)
 
 `cog` is a command line utility that makes it a bit easier to organize a project
 which uses code generation.
@@ -26,7 +25,7 @@ Prepare a project
 
 Consider an existing project with the following directory layout
 
-```
+```text
 PROJECT_ROOT/
              Makefile
              src/
@@ -46,7 +45,7 @@ Created cog/templates
 
 Now your project's directory layout will look like this
 
-```
+```text
 PROJECT_ROOT/
            + Cogfile
              Makefile
@@ -125,7 +124,7 @@ see below for more details).
 
 This is what `my_generator.txt.erb` will look like
 
-```erb
+```rhtml
 This is some context: <%= @some_context %>!
 ```
 
@@ -138,7 +137,7 @@ Created src/generated_my_generator.txt
 
 and the contents of the generated file will be
 
-```
+```text
 This is some context: my_context_value!
 ```
 

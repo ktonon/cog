@@ -4,11 +4,13 @@ require 'cog/tool'
 require 'cog/version'
 require 'fileutils'
 
-# The static methods on this top level module mirror the commands available to
-# the +cog+ command line utility.
+# +cog+ is a command line utility that makes it a bit easier to organize a project
+# which uses code generation. These are the API docs, but you might want to read
+# the {https://github.com/ktonon/cog#readme general introduction} first.
 module Cog
 
   # Prepare the project in the present working directory for use with +cog+
+  # @return [nil]
   def self.initialize_project
     Object.new.instance_eval do
       class << self ; include Generator ; end
@@ -16,6 +18,7 @@ module Cog
       config = Config.instance
       touch_path config.project_generators_path
       touch_path config.project_templates_path
+      nil
     end
   end
   

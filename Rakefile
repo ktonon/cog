@@ -1,13 +1,14 @@
 require 'rake/clean'
 require 'rubygems'
 require 'rubygems/package_task'
-require 'rdoc/task'
 require 'rspec/core/rake_task'
+require 'yard'
 
-Rake::RDocTask.new do |rd|
-  rd.main = "API.rdoc"
-  rd.rdoc_files.include("API.rdoc", "lib/**/*.rb")
-  rd.title = 'cog API Docs'
+YARD::Rake::YardocTask.new do |t|
+  t.files = ["lib/**/*.rb", "README.markdown"]
+  t.options = [
+    '--query', '@api.text != "unstable" && @api.text != "developer"', 
+    '-p', 'yard-templates', '-t', 'default']
 end
 
 spec = eval(File.read('cog.gemspec'))

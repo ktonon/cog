@@ -4,10 +4,12 @@ require 'rainbow'
 
 module Cog
   
-  # For more details on writing tools see https://github.com/ktonon/cog#tools
+  # @see https://github.com/ktonon/cog#tools Introduction to Tools
   class Tool
 
     # A list of available tools
+    # @param verbose [Boolean] should full paths be listed for tools which are explicitly referenced?
+    # @return [Array<String>] a list of strings which can be passed to +require+
     def self.list(verbose=false)
       x = (ENV['COG_TOOLS'] || '').split ':'
       if x.all? {|path| path.slice(-3..-1) != '.rb' || File.exists?(path)}
@@ -29,9 +31,8 @@ module Cog
     end
     
     # Generate a new tool with the given name
-    #
-    # ==== Returns
-    # Whether or not the generator was created successfully
+    # @param name [String] name of the tool to create. Should not conflict with other tool names
+    # @return [Boolean] was the tool created successfully?
     def self.create(name)
       if File.exists? name
         STDERR.write "A #{File.directory?(name) ? :directory : :file} named '#{name}' already exists\n".color(:red)
@@ -62,9 +63,8 @@ module Cog
     end
 
     # Find an available tool with the given name
-    #
-    # ==== Returns
-    # A fully qualified tool path, which can be required
+    # @param name [String] name of the tool to search for
+    # @return [String] a fully qualified tool path, which can be passed to +require+
     def self.find(name)
       x = (ENV['COG_TOOLS'] || '').split ':'
       x.each do |path|

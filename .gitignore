@@ -1,5 +1,6 @@
 .DS_Store
-html
+.yardoc
+doc
 pkg
 spec/active_fixture
 Cogfile

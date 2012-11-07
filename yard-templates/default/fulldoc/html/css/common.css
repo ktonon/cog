@@ -1,0 +1,6 @@
+#toc {
+  -webkit-box-shadow: 0px 0px 2px #bbb;
+}
+#search a:link, #search a:visited {
+  -webkit-box-shadow: 0px 0px 2px #eee;
+}

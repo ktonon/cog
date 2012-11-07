@@ -7,12 +7,14 @@ module Cog
   
   # This module defines an interface which can be used by generator objects.
   # Specifically, it makes it easy to find ERB templates and render them into
-  # generated source code files, using the #stamp method.
+  # generated source code files, using the {#stamp} method.
   #
-  # For more details on writing generators see https://github.com/ktonon/cog#generators
+  # @see https://github.com/ktonon/cog#generators Introduction to Generators
   module Generator
 
-    # A list of available project generators
+    # List the available project generators
+    # @param verbose [Boolean] should full generator paths be listed?
+    # @return [Array<String>] a list of generator names
     def self.list(verbose=false)
       if Config.instance.project?
         x = Dir.glob(File.join Config.instance.project_generators_path, '*.rb')
@@ -23,15 +25,9 @@ module Cog
     end
     
     # Create a new generator
-    #
-    # ==== Arguments
-    # * +name+ - the name to use for the new generator
-    #
-    # ==== Options
-    # * +tool+ - the name of the tool to use (default: basic)
-    #
-    # ==== Returns
-    # Whether or not the generator was created successfully
+    # @param name [String] the name to use for the new generator
+    # @option opt [String] :tool ('basic') the name of the tool to use
+    # @return [Boolean] was the generator successfully created?
     def self.create(name, opt={})
       return false unless Config.instance.project?
 
@@ -64,6 +60,7 @@ module Cog
             require tool_path
             @absolute_require = tool_path != tool
             @tool_parent_path = File.dirname(tool_path)
+            puts tool_path
             stamp Config.instance.tool_generator_template, gen_name, :absolute_destination => true
             true
           end
@@ -72,12 +69,9 @@ module Cog
     end
     
     # Run the generator with the given name
-    #
-    # ==== Arguments
-    # * +name+ - the name of the generator
-    #
-    # ==== Returns
-    # Whether or not the generator could be found
+    # @param name [String] name of the generator as returned by {Generator.list}
+    # @option opt [Boolean] :verbose (false) in the case of an exception, should a full stack trace be written?
+    # @return [Boolean] was the generator run successfully?
     def self.run(name, opt={})
       filename = File.join Cog::Config.instance.project_generators_path, "#{name}.rb"
       if File.exists? filename
@@ -92,17 +86,10 @@ module Cog
       false
     end
 
-    # Get the template with the given name.
-    #
-    # ==== Parameters
-    # * +path+ - a path to a template file which is relative to
-    #   one of the template directories
-    #
-    # ==== Options
-    # * <tt>:absolute</tt> - is the +path+ argument absolute? (default: +false+)
-    #
-    # ==== Returns
-    # An instance of ERB.
+    # Get the template with the given name
+    # @param path [String] a path to a template file which is relative to one of the template directories
+    # @option opt [Boolean] :absolute (false) is the +path+ argument absolute?
+    # @return [ERB] an instance of {http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html ERB}
     def get_template(path, opt={})
       path += '.erb'
       fullpath = if opt[:absolute]
@@ -117,16 +104,12 @@ module Cog
       ERB.new File.read(fullpath), 0, '>'
     end
     
-    # Stamp a template +source+ onto a +destination+.
-    #
-    # ==== Arguments
-    # * +template_path+ - a path to a template file which is relative to one
-    #   of the template directories
-    # * +destination+ - a path to which the generated file should be written
-    #
-    # ==== Options
-    # * <tt>:absolute_template_path</tt> - is the +template_path+ argument absolute? (default: +false+)
-    # * <tt>:absolute_destination</tt> - is the +destination+ argument absolute? (default: +false+)
+    # Stamp a template +source+ onto a +destination+
+    # @param template_path [String] path to template file relative one of the {Config#template_paths}
+    # @param destination [String] path to which the generated file should be written, relative to the {Config#project_source_path}
+    # @option opt [Boolean] :absolute_template_path (false) is the +template_path+ absolute?
+    # @option opt [Boolean] :absolute_destination (false) is the +destination+ absolute?
+    # @return [nil]
     def stamp(template_path, destination, opt={})
       t = get_template template_path, :absolute => opt[:absolute_template_path]
       b = opt[:binding] || binding
@@ -145,6 +128,7 @@ module Cog
     end
 
     # Copy a file from +src+ to +dest+, but only if +dest+ does not already exist.
+    # @api unstable
     def copy_if_missing(src, dest)
       unless File.exists? dest
         FileUtils.cp src, dest
@@ -153,6 +137,7 @@ module Cog
     end
 
     # Recursively create directories in the given path if they are missing.
+    # @api unstable
     def touch_path(*path_components)
       path = File.join path_components
       unless File.exists? path
@@ -162,7 +147,8 @@ module Cog
     end
     
     # File extension for a snippet of the given source code language.
-    # ==== Example
+    # @api unstable
+    # @example
     #   snippet_extension 'c++' # => 'h'
     def snippet_extension(lang = 'text') # :nodoc:
       case lang
@@ -174,22 +160,26 @@ module Cog
     end
           
     # A warning that indicates a file is maintained by a generator
-    def generated_warning # :nodoc:
+    # @api unstable
+    def generated_warning
       lang = Config.instance.language
-      t = get_template "snippets/#{lang}/generated_warning.#{snippet_extension lang}", :cog_template => true
+      t = get_template "cog/snippets/#{lang}/generated_warning.#{snippet_extension lang}"
       t.result(binding)
     end
     
-    def include_guard_begin(name) # :nodoc:
+    # @api unstable
+    def include_guard_begin(name)
       full = "COG_INCLUDE_GUARD_#{name.upcase}"
       "#ifndef #{full}\n#define #{full}"
     end
     
-    def include_guard_end # :nodoc:
+    # @api unstable
+    def include_guard_end
       "#endif // COG_INCLUDE_GUARD_[...]"
     end
     
-    def namespace_begin(name) # :nodoc:
+    # @api unstable
+    def namespace_begin(name)
       return if name.nil?
       case Config.instance.language
       when /c\+\+/
@@ -197,7 +187,8 @@ module Cog
       end
     end
 
-    def namespace_end(name) # :nodoc:
+    # @api unstable
+    def namespace_end(name)
       return if name.nil?
       case Config.instance.language
       when /c\+\+/
@@ -206,7 +197,7 @@ module Cog
     end
     
   private
-    def same?(original, scratch) # :nodoc:
+    def same?(original, scratch)
       if File.exists? original
         File.read(original) == File.read(scratch)
       else

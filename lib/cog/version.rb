@@ -1,3 +1,5 @@
 module Cog
-  VERSION = '0.0.19' unless const_defined? :VERSION
+  unless const_defined? :VERSION
+    VERSION = '0.0.19'
+  end
 end
