@@ -1,420 +1,846 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: Cog::SpecHelpers
+  
+    &mdash; Documentation by YARD 0.8.3
+  
+</title>
 
-<html>
-<head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
 
-<title>module Cog::SpecHelpers - cog API Docs</title>
+  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
-<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
-
-<script type="text/javascript">
-  var rdoc_rel_prefix = "../";
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
 </script>
 
-<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
 
 
-<body id="top" class="module">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../index.html">Home</a>
-    <a href="../table_of_contents.html#classes">Classes</a>
-    <a href="../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (S)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Cog.html" title="Cog (module)">Cog</a></span></span>
+     &raquo; 
+    <span class="title">SpecHelpers</span>
+  
 
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
 
-  <nav id="search-section" class="section project-section" class="initially-hidden">
-  <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
-             title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
-  </form>
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
+    <iframe id="search_frame"></iframe>
 
+    <div id="content"><h1>Module: Cog::SpecHelpers
+  
+  
+  
+</h1>
 
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>lib/cog/spec_helpers/matchers/match_maker.rb
-    <li>lib/cog/spec_helpers/matchers.rb
-    <li>lib/cog/spec_helpers/runner.rb
-    <li>lib/cog/spec_helpers.rb
-  </ul>
-</nav>
-
+<dl class="box">
+  
+  
     
-  </div>
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/cog/spec_helpers.rb<span class="defines">,<br />
+  lib/cog/spec_helpers/runner.rb,<br /> lib/cog/spec_helpers/matchers.rb,<br /> lib/cog/spec_helpers/matchers/match_maker.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
 
-  <div id="class-metadata">
-    
-    
-    
-    <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
-
-  <ul class="link-list">
-    
-    <li><a href="#method-i-active_fixture_dir">#active_fixture_dir</a>
-    
-    <li><a href="#method-i-cog_directory">#cog_directory</a>
-    
-    <li><a href="#method-i-cogfile_path">#cogfile_path</a>
-    
-    <li><a href="#method-i-generator">#generator</a>
-    
-    <li><a href="#method-i-spec_root">#spec_root</a>
-    
-    <li><a href="#method-i-tool">#tool</a>
-    
-    <li><a href="#method-i-use_fixture">#use_fixture</a>
-    
-  </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../API_rdoc.html">API</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../Cog.html">Cog</a>
-  
-    <li><a href="../Cog/Config.html">Cog::Config</a>
-  
-    <li><a href="../Cog/Config/Cogfile.html">Cog::Config::Cogfile</a>
-  
-    <li><a href="../Cog/Config/CogfileError.html">Cog::Config::CogfileError</a>
-  
-    <li><a href="../Cog/Errors.html">Cog::Errors</a>
-  
-    <li><a href="../Cog/Errors/MissingTemplate.html">Cog::Errors::MissingTemplate</a>
-  
-    <li><a href="../Cog/Generator.html">Cog::Generator</a>
-  
-    <li><a href="../Cog/SpecHelpers.html">Cog::SpecHelpers</a>
-  
-    <li><a href="../Cog/SpecHelpers/Invocation.html">Cog::SpecHelpers::Invocation</a>
-  
-    <li><a href="../Cog/SpecHelpers/Matchers.html">Cog::SpecHelpers::Matchers</a>
-  
-    <li><a href="../Cog/SpecHelpers/Matchers/MatchMaker.html">Cog::SpecHelpers::Matchers::MatchMaker</a>
-  
-    <li><a href="../Cog/SpecHelpers/Runner.html">Cog::SpecHelpers::Runner</a>
-  
-    <li><a href="../Cog/Tool.html">Cog::Tool</a>
-  
-    <li><a href="../Object.html">Object</a>
-  
-  </ul>
-</nav>
-
-  </div>
-</nav>
-
-<div id="documentation">
-  <h1 class="module">module Cog::SpecHelpers</h1>
-
-  <div id="description" class="description">
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
     
 <p>Modules and classes to help write specs for testing <code>cog</code></p>
 
-<h3 id="label-Example">Example</h3>
+<p>Requiring the helpers will make extra <span class='object_link'><a href="SpecHelpers/Matchers.html" title="Cog::SpecHelpers::Matchers (module)">Matchers</a></span> available to
+your RSpec tests. These are useful for testing a <span class='object_link'><a href="SpecHelpers/Invocation.html" title="Cog::SpecHelpers::Invocation (class)">Invocation</a></span>,
+which is returned from a call to <span class='object_link'><a href="SpecHelpers/Runner.html#run-instance_method" title="Cog::SpecHelpers::Runner#run (method)">Runner#run</a></span></p>
 
-<p>Requiring the helpers will make extra <a
-href="SpecHelpers/Matchers.html">SpecHelpers::Matchers</a> available to
-your RSpec tests. These are useful for testing a <a
-href="SpecHelpers/Invocation.html">SpecHelpers::Invocation</a>, which is
-returned from a call to <a
-href="SpecHelpers/Runner.html#method-i-run">Cog::SpecHelpers::Runner#run</a></p>
 
-<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">'cog/spec_helpers'</span>
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog/spec_helpers'</span>
 
-<span class="ruby-identifier">describe</span> <span class="ruby-string">'The command line interface'</span> <span class="ruby-keyword">do</span>
+<span class='rubyid_describe identifier id'>describe</span> <span class='string val'>'The command line interface'</span> <span class='rubyid_do do kw'>do</span>
 
-  <span class="ruby-identifier">before</span> :<span class="ruby-identifier">all</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-ivar">@cog</span> = <span class="ruby-constant">Cog</span><span class="ruby-operator">::</span><span class="ruby-constant">SpecHelpers</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">new</span> <span class="ruby-string">'bin/cog'</span>
-  <span class="ruby-keyword">end</span>
+  <span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_SpecHelpers constant id'>SpecHelpers</span>
 
-  <span class="ruby-identifier">it</span> <span class="ruby-string">'should print help when no args are passed'</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-ivar">@cog</span>.<span class="ruby-identifier">run</span>.<span class="ruby-identifier">should</span> <span class="ruby-identifier">show_help</span>
-  <span class="ruby-keyword">end</span>
+  <span class='rubyid_before identifier id'>before</span> <span class='symbol val'>:all</span> <span class='rubyid_do do kw'>do</span>
+    <span class='rubyid_@cog ivar id'>@cog</span> <span class='assign token'>=</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_SpecHelpers constant id'>SpecHelpers</span><span class='colon2 op'>::</span><span class='rubyid_Runner constant id'>Runner</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='string val'>'bin/cog'</span>
+  <span class='rubyid_end end kw'>end</span>
 
-<span class="ruby-keyword">end</span>
+  <span class='rubyid_it identifier id'>it</span> <span class='string val'>'should print help when no args are passed'</span> <span class='rubyid_do do kw'>do</span>
+    <span class='rubyid_@cog ivar id'>@cog</span><span class='dot token'>.</span><span class='rubyid_run identifier id'>run</span><span class='dot token'>.</span><span class='rubyid_should identifier id'>should</span> <span class='rubyid_show_help identifier id'>show_help</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='rubyid_context identifier id'>context</span> <span class='string val'>'in an uninitialized project'</span> <span class='rubyid_do do kw'>do</span>
+
+    <span class='rubyid_before identifier id'>before</span> <span class='symbol val'>:each</span> <span class='rubyid_do do kw'>do</span>
+      <span class='rubyid_use_fixture identifier id'>use_fixture</span> <span class='symbol val'>:uninitialized</span>
+    <span class='rubyid_end end kw'>end</span>
+
+    <span class='rubyid_it identifier id'>it</span> <span class='string val'>'running `cog init` should make a Cogfile'</span> <span class='rubyid_do do kw'>do</span>
+      <span class='rubyid_@cog ivar id'>@cog</span><span class='dot token'>.</span><span class='rubyid_run identifier id'>run</span><span class='lparen token'>(</span><span class='symbol val'>:init</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_should identifier id'>should</span> <span class='rubyid_make identifier id'>make</span><span class='lparen token'>(</span><span class='rubyid_cogfile_path identifier id'>cogfile_path</span><span class='rparen token'>)</span>
+    <span class='rubyid_end end kw'>end</span>
+
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
 </pre>
+    
+  </div>
 
-  </div><!-- description -->
 
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="SpecHelpers/Matchers.html" title="Cog::SpecHelpers::Matchers (module)">Matchers</a></span>
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="SpecHelpers/Invocation.html" title="Cog::SpecHelpers::Invocation (class)">Invocation</a></span>, <span class='object_link'><a href="SpecHelpers/Runner.html" title="Cog::SpecHelpers::Runner (class)">Runner</a></span>
+    
+  
+</p>
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#active_fixture_dir-instance_method" title="#active_fixture_dir (instance method)">- (String) <strong>active_fixture_dir</strong> </a>
+    
+
+    
+  </span>
   
   
   
-  <section id="5Buntitled-5D" class="documentation-section">
-    
-
-    
-
-    
-
-    
-
-    <!-- Methods -->
-    
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
-
-    
-      <div id="method-i-active_fixture_dir" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">active_fixture_dir</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Directory of an active spec fixture.</p>
-          
-
-          
-          <div class="method-source-code" id="active_fixture_dir-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 35</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">active_fixture_dir</span>
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">spec_root</span>, <span class="ruby-string">'active_fixture'</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- active_fixture_dir-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- active_fixture_dir-method -->
-
-    
-      <div id="method-i-cog_directory" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">cog_directory</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Path to the cog directory in the active spec fixture</p>
-          
-
-          
-          <div class="method-source-code" id="cog_directory-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 45</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">cog_directory</span>
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">active_fixture_dir</span>, <span class="ruby-string">'cog'</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- cog_directory-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- cog_directory-method -->
-
-    
-      <div id="method-i-cogfile_path" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">cogfile_path</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Path to the Cogfile in the active spec fixture</p>
-          
-
-          
-          <div class="method-source-code" id="cogfile_path-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 40</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">cogfile_path</span>
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">active_fixture_dir</span>, <span class="ruby-string">'Cogfile'</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- cogfile_path-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- cogfile_path-method -->
-
-    
-      <div id="method-i-generator" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">generator</span><span
-            class="method-args">(name)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Path to the generator with the given name</p>
-          
-
-          
-          <div class="method-source-code" id="generator-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 50</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">generator</span>(<span class="ruby-identifier">name</span>)
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">active_fixture_dir</span>, <span class="ruby-string">'cog'</span>, <span class="ruby-string">'generators'</span>, <span class="ruby-node">&quot;#{name}.rb&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- generator-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- generator-method -->
-
-    
-      <div id="method-i-spec_root" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">spec_root</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Absolute path to the root spec directory</p>
-          
-
-          
-          <div class="method-source-code" id="spec_root-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 30</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">spec_root</span>
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">'..'</span>, <span class="ruby-string">'..'</span>, <span class="ruby-string">'spec'</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- spec_root-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- spec_root-method -->
-
-    
-      <div id="method-i-tool" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">tool</span><span
-            class="method-args">(name)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Path to the test tool with the given name</p>
-          
-
-          
-          <div class="method-source-code" id="tool-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 55</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">tool</span>(<span class="ruby-identifier">name</span>)
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">spec_root</span>, <span class="ruby-string">'tools'</span>, <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-string">'lib'</span>, <span class="ruby-node">&quot;#{name}.rb&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- tool-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- tool-method -->
-
-    
-      <div id="method-i-use_fixture" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">use_fixture</span><span
-            class="method-args">(name)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>The next cog spec will execute in a fresh copy of the given fixture
-directory. Fixture directories are stored in <code>spec/fixtures</code>.</p>
-          
-
-          
-          <div class="method-source-code" id="use_fixture-source">
-            <pre><span class="ruby-comment"># File lib/cog/spec_helpers.rb, line 61</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">use_fixture</span>(<span class="ruby-identifier">name</span>)
-  <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span> <span class="ruby-identifier">spec_root</span>, <span class="ruby-string">'fixtures'</span>, <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">path</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>)
-    <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">rm_rf</span> <span class="ruby-identifier">active_fixture_dir</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">active_fixture_dir</span>
-    <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">cp_r</span> <span class="ruby-identifier">path</span>, <span class="ruby-identifier">active_fixture_dir</span>
-    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span> <span class="ruby-identifier">active_fixture_dir</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">throw</span> <span class="ruby-value">:invalid_fixture_name</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- use_fixture-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- use_fixture-method -->
-
-    
-    </section><!-- public-instance-method-details -->
   
-  </section><!-- 5Buntitled-5D -->
+  
+  
+  
 
-</div><!-- documentation -->
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Directory of an active spec fixture.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cog_directory-instance_method" title="#cog_directory (instance method)">- (String) <strong>cog_directory</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Path to the cog directory in the active spec fixture.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cogfile_path-instance_method" title="#cogfile_path (instance method)">- (String) <strong>cogfile_path</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Path to the Cogfile in the active spec fixture.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#generator-instance_method" title="#generator (instance method)">- (String) <strong>generator</strong>(name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Path to the generator with the given name.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#spec_root-instance_method" title="#spec_root (instance method)">- (String) <strong>spec_root</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Absolute path to the root spec directory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tool-instance_method" title="#tool (instance method)">- (String) <strong>tool</strong>(name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Path to the test tool with the given name.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#use_fixture-instance_method" title="#use_fixture (instance method)">- (nil) <strong>use_fixture</strong>(name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The next cog spec will execute in a fresh copy of the given fixture Fixture
+directories are stored in <code>spec/fixtures</code>.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
 
 
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
-</footer>
 
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="active_fixture_dir-instance_method">
+  
+    - (<tt>String</tt>) <strong>active_fixture_dir</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Directory of an active spec fixture.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>directory of an active spec fixture.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 48</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span>
+  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_spec_root identifier id'>spec_root</span><span class='comma token'>,</span> <span class='string val'>'active_fixture'</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="cog_directory-instance_method">
+  
+    - (<tt>String</tt>) <strong>cog_directory</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Path to the cog directory in the active spec fixture</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>path to the cog directory in the active spec fixture</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+58
+59
+60</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 58</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_cog_directory identifier id'>cog_directory</span>
+  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span><span class='comma token'>,</span> <span class='string val'>'cog'</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="cogfile_path-instance_method">
+  
+    - (<tt>String</tt>) <strong>cogfile_path</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Path to the Cogfile in the active spec fixture</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>path to the Cogfile in the active spec fixture</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 53</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
+  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span><span class='comma token'>,</span> <span class='string val'>'Cogfile'</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="generator-instance_method">
+  
+    - (<tt>String</tt>) <strong>generator</strong>(name) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Path to the generator with the given name</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>active fixture generator identifier</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>path to the generator with the given name</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+64
+65
+66</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 64</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_generator identifier id'>generator</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span><span class='comma token'>,</span> <span class='string val'>'cog'</span><span class='comma token'>,</span> <span class='string val'>'generators'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{name}.rb&quot;</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="spec_root-instance_method">
+  
+    - (<tt>String</tt>) <strong>spec_root</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Absolute path to the root spec directory</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>absolute path to the root spec directory</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 43</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_spec_root identifier id'>spec_root</span>
+  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='rubyid___FILE__ __file__ kw'>__FILE__</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='string val'>'..'</span><span class='comma token'>,</span> <span class='string val'>'..'</span><span class='comma token'>,</span> <span class='string val'>'spec'</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tool-instance_method">
+  
+    - (<tt>String</tt>) <strong>tool</strong>(name) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Path to the test tool with the given name</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>tool fixture identifier</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>path to the test tool with the given name</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 70</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_tool identifier id'>tool</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_spec_root identifier id'>spec_root</span><span class='comma token'>,</span> <span class='string val'>'tools'</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='comma token'>,</span> <span class='string val'>'lib'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{name}.rb&quot;</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="use_fixture-instance_method">
+  
+    - (<tt>nil</tt>) <strong>use_fixture</strong>(name) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The next cog spec will execute in a fresh copy of the given fixture Fixture
+directories are stored in <code>spec/fixtures</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>name of the fixture</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 78</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_use_fixture identifier id'>use_fixture</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_path identifier id'>path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_spec_root identifier id'>spec_root</span><span class='comma token'>,</span> <span class='string val'>'fixtures'</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_directory? fid id'>directory?</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
+    <span class='rubyid_FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='rubyid_rm_rf identifier id'>rm_rf</span> <span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span> <span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span>
+    <span class='rubyid_FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='rubyid_cp_r identifier id'>cp_r</span> <span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span>
+    <span class='rubyid_Dir constant id'>Dir</span><span class='dot token'>.</span><span class='rubyid_chdir identifier id'>chdir</span> <span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_throw identifier id'>throw</span> <span class='symbol val'>:invalid_fixture_name</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_nil nil kw'>nil</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Tue Nov  6 19:43:04 2012 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.3 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

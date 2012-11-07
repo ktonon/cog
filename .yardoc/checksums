@@ -1,0 +1,12 @@
+lib/cog/spec_helpers/runner.rb 3036ba6df105f3a75fdced6d4f34829eb15d6e40
+lib/cog/generator.rb 6b6cdfe779c1f0f7a20082101bde4867b6ed6227
+lib/cog/tool.rb d15cfe53ee79ae9570ab74f1f7200dceb23440c8
+lib/cog/spec_helpers.rb 709695b8af4540a637cb8dc8bd841f6a41edfb0f
+lib/cog/errors.rb eed2d139986499db67b97f9e0920dec56a1fd5b8
+README.markdown bae5c87289cef35be934e076ca31fc3e049ade12
+lib/cog/config/cogfile.rb ef3e931aebe17fc92059e476f27c7c79614eddd1
+lib/cog.rb 2ac3a404340939161d6f1f5fe26805e5af974503
+lib/cog/version.rb 17b06b8c1659569438fccf1e995112d319ffa0c1
+lib/cog/config.rb cbe1dab5987d85ddd48c95fb8c60feac79d4d01d
+lib/cog/spec_helpers/matchers.rb 042d034a42e69a4896747615d7dba829ea68fe86
+lib/cog/spec_helpers/matchers/match_maker.rb 5b9a0cd1b67aa75c119b16e0c0465b3b5591a458
