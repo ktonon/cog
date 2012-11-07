@@ -61,7 +61,7 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><div id='filecontents'><p><img src="images/cog-logo-small.png" alt="cog"></p>
+    <div id="content"><div id='filecontents'><p><img src="http://ktonon.github.com/cog/images/cog-logo-small.png" alt="cog"></p>
 
 <p><code>cog</code> is a command line utility that makes it a bit easier to organize a project
 which uses code generation.</p>
@@ -77,7 +77,7 @@ which uses code generation.</p>
 
 <p>or in your Gemfile</p>
 
-<pre class="code ruby"><code><span class='rubyid_gem identifier id'>gem</span> <span class='string val'>&quot;cog&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;~&gt; 0.0.19&quot;</span>
+<pre class="code ruby"><code><span class='rubyid_gem identifier id'>gem</span> <span class='string val'>&quot;cog&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;~&gt; 0.0.20&quot;</span>
 </code></pre>
 
 <h2>Prepare a project</h2>
@@ -169,10 +169,12 @@ convenience, but is practically always done (either explicitly or implicitly). I
 generating source code from templates. The
 <a href="http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp">stamp</a> method
 is particularly useful. If finds an <a href="http://www.stuartellis.eu/articles/erb/">ERB template</a>
-on the template lookup path and renders it to a file under the
-<code>project_source_path</code>. The <code>project_templates_path</code> is on the template lookup
-path, and takes the highest precedence (but there are two other possible paths,
-see below for more details).</p>
+in the <a href="http://ktonon.github.com/cog/Cog/Config.html#template_paths-instance_method">template_paths</a>
+and renders it to a file under the
+<a href="http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method">project_source_path</a>.
+The <a href="http://ktonon.github.com/cog/Cog/Config.html#project_templates_path-instance_method">project_templates_path</a>
+is in the <a href="http://ktonon.github.com/cog/Cog/Config.html#template_paths-instance_method">template_paths</a>
+and takes the highest precedence.</p>
 
 <p>This is what <code>my_generator.txt.erb</code> will look like</p>
 
@@ -329,7 +331,7 @@ Here is what the root tool file <code>cons.rb</code> will look like</p>
 </div></div>
 
     <div id="footer">
-  Generated on Tue Nov  6 19:43:03 2012 by
+  Generated on Tue Nov  6 22:31:14 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

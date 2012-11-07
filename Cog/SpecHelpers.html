@@ -237,6 +237,30 @@ which is returned from a call to <span class='object_link'><a href="SpecHelpers/
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#generated_file-instance_method" title="#generated_file (instance method)">- (String) <strong>generated_file</strong>(filename) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Absolute path to the generated file.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#generator-instance_method" title="#generator (instance method)">- (String) <strong>generator</strong>(name) </a>
     
 
@@ -277,6 +301,30 @@ which is returned from a call to <span class='object_link'><a href="SpecHelpers/
   
     <span class="summary_desc"><div class='inline'>
 <p>Absolute path to the root spec directory.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#template-instance_method" title="#template (instance method)">- (String) <strong>template</strong>(name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Absolute file system path to the template.</p>
 </div></span>
   
 </li>
@@ -343,7 +391,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
       <div class="method_details first">
   <h3 class="signature first" id="active_fixture_dir-instance_method">
   
-    - (<tt>String</tt>) <strong>active_fixture_dir</strong> 
+    - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>active_fixture_dir</strong> 
   
 
   
@@ -365,7 +413,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
     <li>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
       
       
       
@@ -403,7 +451,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
       <div class="method_details ">
   <h3 class="signature " id="cog_directory-instance_method">
   
-    - (<tt>String</tt>) <strong>cog_directory</strong> 
+    - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>cog_directory</strong> 
   
 
   
@@ -425,7 +473,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
     <li>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
       
       
       
@@ -463,7 +511,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
       <div class="method_details ">
   <h3 class="signature " id="cogfile_path-instance_method">
   
-    - (<tt>String</tt>) <strong>cogfile_path</strong> 
+    - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>cogfile_path</strong> 
   
 
   
@@ -485,7 +533,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
     <li>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
       
       
       
@@ -521,9 +569,89 @@ directories are stored in <code>spec/fixtures</code>.</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="generated_file-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>generated_file</strong>(filename) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Absolute path to the generated file</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>filename</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>name of a generated source file</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>absolute path to the generated file</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+82
+83
+84</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 82</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_generated_file identifier id'>generated_file</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span>
+  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span><span class='comma token'>,</span> <span class='string val'>'src'</span><span class='comma token'>,</span> <span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="generator-instance_method">
   
-    - (<tt>String</tt>) <strong>generator</strong>(name) 
+    - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>generator</strong>(name) 
   
 
   
@@ -546,7 +674,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
         <span class='name'>name</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
       
       
       
@@ -565,7 +693,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
     <li>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
       
       
       
@@ -603,7 +731,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
       <div class="method_details ">
   <h3 class="signature " id="spec_root-instance_method">
   
-    - (<tt>String</tt>) <strong>spec_root</strong> 
+    - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>spec_root</strong> 
   
 
   
@@ -625,7 +753,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
     <li>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
       
       
       
@@ -661,9 +789,89 @@ directories are stored in <code>spec/fixtures</code>.</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="template-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>template</strong>(name) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Absolute file system path to the template</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>template identifier (without the .erb extension)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>absolute file system path to the template</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 70</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_template identifier id'>template</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span><span class='comma token'>,</span> <span class='string val'>'cog'</span><span class='comma token'>,</span> <span class='string val'>'templates'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{name}&quot;</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="tool-instance_method">
   
-    - (<tt>String</tt>) <strong>tool</strong>(name) 
+    - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>tool</strong>(name) 
   
 
   
@@ -686,7 +894,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
         <span class='name'>name</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
       
       
       
@@ -705,7 +913,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
     <li>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
       
       
       
@@ -724,12 +932,12 @@ directories are stored in <code>spec/fixtures</code>.</p>
       <pre class="lines">
 
 
-70
-71
-72</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 76</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_tool identifier id'>tool</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
   <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_spec_root identifier id'>spec_root</span><span class='comma token'>,</span> <span class='string val'>'tools'</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='comma token'>,</span> <span class='string val'>'lib'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{name}.rb&quot;</span><span class='rparen token'>)</span>
@@ -767,7 +975,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
         <span class='name'>name</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
       
       
       
@@ -800,20 +1008,20 @@ directories are stored in <code>spec/fixtures</code>.</p>
       <pre class="lines">
 
 
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88</pre>
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 90</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_use_fixture identifier id'>use_fixture</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
   <span class='rubyid_path identifier id'>path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_spec_root identifier id'>spec_root</span><span class='comma token'>,</span> <span class='string val'>'fixtures'</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span>
@@ -837,7 +1045,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Nov  6 19:43:04 2012 by
+  Generated on Tue Nov  6 22:31:15 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
