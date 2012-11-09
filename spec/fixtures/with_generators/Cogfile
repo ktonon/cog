@@ -1,0 +1,13 @@
+# All paths are relative to the directory containing this file.
+
+# Define the directory in which to find project generators
+project_generators_path 'cog/generators'
+
+# Define the directory in which to find custom project templates
+project_templates_path 'cog/templates'
+
+# Define the directory to which project source code is generated
+project_source_path 'src'
+
+# Define the default language in which to generated application source code
+language 'c++'
