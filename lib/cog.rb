@@ -1,8 +1,9 @@
 require 'cog/config'
+require 'cog/controllers'
+require 'cog/errors'
 require 'cog/generator'
-require 'cog/tool'
+require 'cog/helpers'
 require 'cog/version'
-require 'fileutils'
 
 # +cog+ is a command line utility that makes it a bit easier to organize a project
 # which uses code generation. These are the API docs, but you might want to read

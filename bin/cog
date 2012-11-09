@@ -11,33 +11,37 @@ include GLI::App
 program_desc 'This is a utility to help you write code generators.'
 
 # version Cog::VERSION
+
 desc 'Output more detailed information when running a command'
-switch :v
+switch [:verbose, :v]
+
+desc 'Set the Cogfile explicitly'
+arg_name 'path'
+flag :cogfile
 
 desc 'Add cog to the project in the present working directory'
-skips_pre
 command :init do |c|
 
-  c.action do |global_options, options, args|
+  c.action do |gopt, opt, args|
     Cog.initialize_project
   end
 end
 
-desc 'List or create generators for the current project'
+desc 'Manage project generators'
 command [:generator, :gen] do |c|
   
   c.default_command :list
   
-  c.desc 'List generators for the current project'
+  c.desc 'List project generators'
   c.command :list do |sub|
-    sub.action do |global_options, option, args|
-      x = Cog::Generator.list global_options[:v]
+    sub.action do |gopt, opt, args|
+      x = Cog::Controllers::GeneratorController.list gopt[:v]
       puts x.join "\n" unless x.empty?
     end
   end
   
-  c.desc 'Create a new generator for the current project'
-  c.arg_name 'generator_name'
+  c.desc 'Create a new project generator'
+  c.arg_name 'name'
   c.command :new do |sub|
 
     sub.desc 'which tool to use to create the generator'
@@ -45,24 +49,36 @@ command [:generator, :gen] do |c|
     sub.default_value 'basic'
     sub.flag :tool
 
-    sub.action do |global_options, options, args|
+    sub.action do |gopt, opt, args|
       args.each do |name|
-        Cog::Generator.create name, :tool => options[:tool], :verbose => global_options[:v]
+        Cog::Controllers::GeneratorController.create name, :tool => opt[:tool], :verbose => gopt[:v]
+      end
+    end
+  end
+  
+  c.desc 'Run project generators'
+  c.long_desc 'Omit generator name to run all of them'
+  c.arg_name 'name'
+  c.command :run do |sub|
+
+    sub.action do |gopt, opt, args|
+      args = Cog::Controllers::GeneratorController.list if args.empty?
+      args.each do |name|
+        Cog::Controllers::GeneratorController.run name, :verbose => gopt[:v]
       end
     end
   end
 end
 
 desc 'List or create DSLs known as cog tools'
-skips_pre
 command :tool do |c|
   
   c.default_command :list
   
   c.desc 'List the available tools'
   c.command :list do |sub|
-    sub.action do |global_options, options, args|
-      x = Cog::Tool.list global_options[:v]
+    sub.action do |gopt, opt, args|
+      x = Cog::Controllers::ToolController.list gopt[:verbose]
       puts x.join "\n" unless x.empty?
     end
   end
@@ -70,46 +86,40 @@ command :tool do |c|
   c.desc 'Create a new tool'
   c.arg_name 'tool_name'
   c.command :new do |sub|
-    sub.action do |global_options, options, args|
+    sub.action do |gopt, opt, args|
       args.each do |name|
-        Cog::Tool.create name
+        Cog::Controllers::ToolController.create name
       end
     end
   end
 end
 
-desc 'Run generators in the current project'
-arg_name 'generator_name'
-command :run do |c|
-  
-  c.action do |global_options, options, args|
-    args = Cog::Generator.list if args.empty?
-    args.each do |name|
-      Cog::Generator.run name, :verbose => global_options[:v]
-    end
-  end
-end
+# desc 'Manage templates'
+# command :template do |c|
+#   
+#   c.default_command :list
+#   
+#   c.desc 'List the available templates'
+#   c.command :list do |sub|
+#     sub.desc 'include templates from a given tool'
+#     sub.arg_name 'tool_name'
+#     sub.flag :tool
+#     
+#     sub.action do |gopt, opt, args|
+#       x = Cog::Controllers::TemplateController.list gopt[:verbose]
+#       puts x.join "\n" unless x.empty?
+#     end
+#   end
+# end
 
-desc 'List supported languages'
-skips_pre
-command :languages do |c|
-
-  c.action do
-    puts 'c++'
-  end
-end
-
-pre do |global_options, command, options, args|
-  # Pre logic here
-  # Return true to proceed; false to abort and not call the
-  # chosen command
-  # Use skips_pre before a command to skip this block
-  # on that command only
-  unless Cog::Config.instance.project?
-    STDERR.write "No Cogfile could be found\n".color(:red)
-    STDOUT.write "Run `cog init` to prepare a project for use with cog\n"
+pre do |gopt, command, opt, args|
+  if gopt[:cogfile] && !File.exists?(gopt[:cogfile])
+    STDERR.write "No such Cogfile at #{gopt[:cogfile]}\n"
     false
   else
+    if gopt[:cogfile]
+      Cog::Config.instance = Cog::Config.new gopt[:cogfile]
+    end
     true
   end
 end

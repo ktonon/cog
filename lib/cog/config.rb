@@ -1,5 +1,4 @@
 require 'cog/config/cogfile'
-require 'singleton'
 
 module Cog
   
@@ -63,21 +62,33 @@ module Cog
         spec.gem_dir
       end
     end
-    
-    # The singleton instance
+
+    # @param cogfile_path [String] if provided the {Cogfile} at the given path
+    #   is used to initialize this instance, and {#project?} will be +true+
+    def initialize(cogfile_path = nil)
+      @project_root = nil
+      @language = 'c++'
+      if cogfile_path
+        @cogfile_path = File.expand_path cogfile_path
+        @project_root = File.dirname @cogfile_path
+        cogfile = Cogfile.new self
+        cogfile.interpret
+      end
+    end
+
+    # Find or create the singleton Config instance.
     #
     # Initialized using the Cogfile for the current project, if any can be
-    # found. If not, then {#project?} will be +false+ and all the +project_...+
-    # attributes will be +nil+.
+    # found.
     #
     # The Cogfile will be looked for in the present working directory. If none
     # is found there the parent directory will be checked, and then the
     # grandparent, and so on.
     # 
-    # @return [Config] the singleton Config instance
+    # @return [Config, nil] the current project Config or +nil+ if no {Cogfile}
+    #   could be found
     def self.instance
       return @instance if @instance
-      @instance = self.new
       
       # Attempt to find a Cogfile
       parts = Dir.pwd.split File::SEPARATOR
@@ -86,23 +97,19 @@ module Cog
         i -= 1
       end
       path = File.join(parts.slice(0, i) + ['Cogfile']) if i >= 0
-      if path && File.exists?(path)
-        @instance.instance_eval do
-          @cogfile_path = File.expand_path path
-          @project_root = File.dirname @cogfile_path
-          cogfile = Cogfile.new self
-          cogfile.interpret
-        end
-      end
       
-      @instance
+      if path && File.exists?(path)
+        @instance = self.new path
+      else
+        @instance = self.new
+      end
     end
-
-  private
-
-    def initialize
-      @project_root = nil
-      @language = 'c++'
+    
+    # Explicitly set the singleton Config instance
+    # @param config [Config] the instance to set as the singleton
+    def self.instance=(config)
+      throw :ConfigInstanceAlreadySet unless @instance.nil?
+      @instance = config
     end
 
   end
