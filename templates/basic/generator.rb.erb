@@ -1,0 +1,12 @@
+require 'cog'
+
+class <%= camelized %> 
+  include Cog::Generator
+  
+  def generate
+    @some_context = :my_context_value
+    stamp '<%= name %>.txt', 'generated_<%= name %>.txt'
+  end
+end
+
+<%= camelized %>.new.generate

@@ -1,6 +1,0 @@
-<%% if @absolute_require %>$LOAD_PATH << "<%%= @tool_parent_path %>"
-<%% end %>require '<%= @name %>'
-
-<%= @module_name %>.widget '<%%= @name %>' do |w|
-  w.context = 'this is the context'
-end

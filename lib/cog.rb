@@ -22,5 +22,5 @@ module Cog
       nil
     end
   end
-  
+
 end

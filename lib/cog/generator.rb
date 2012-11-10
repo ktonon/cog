@@ -27,7 +27,7 @@ module Cog
           found.empty? && File.exists?(x) ? x : found
         end
       end
-      raise Errors::MissingTemplate.new path unless File.exists? fullpath
+      raise Errors::NoSuchTemplate.new path unless File.exists? fullpath
       ERB.new File.read(fullpath), 0, '>'
     end
     

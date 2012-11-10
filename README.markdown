@@ -185,32 +185,59 @@ would do this
 ```bash
 $ cog tool new cons
 Created cons/lib/cons.rb
+Created cons/lib/cons/cog_tool.rb
 Created cons/lib/cons/version.rb
 Created cons/cog/templates/cons/generator.rb.erb
 Created cons/cog/templates/cons/cons.txt.erb
 Created cons/Gemfile
 Created cons/Rakefile
 Created cons/cons.gemspec
-Created cons/API.rdoc
 Created cons/LICENSE
 Created cons/README.markdown
 ```
 
-Tools are available across multiple projects. The set of available tools is
-defined by the value of the `COG_TOOLS` environment variable. The value of this
-variable is a `:` separated list. Each entry should take one of two formats,
-either
+Tools are available across multiple projects. There are tools which come
+built-in with `cog` and there are custom tools. In the previous example `cons`
+was a custom tool. The set of custom tools are defined by the value of the
+`COG_TOOLS` environment variable. The value of this variable is a colon (`:`)
+separated list. Each entry should take one of two formats, either
 
-* Name of root tool file without the `.rb` extension. For example `cons`
-* File system path to the root file with the `.rb` extension. For example `/Users/ktonon/cons/lib/cons.rb`
+* The name of the tool. For example `cons`.
+* File system path to the `cog_tool.rb` file. For example `/Users/ktonon/cons/lib/cons/cog_tool.rb`.  This form is useful during development of the tool itself.
 
-The second form is preferred during development of the tool itself. Both forms
-are internally used as argument in a call to the `require` method.
+The directory structure of the tool is important. In the previous example, `cog` will assumes that the following paths will not be renamed or moved with respect to each other
+
+```
+cons/lib/cons.rb
+cons/lib/cons/cog_tool.rb
+cons/cog/templates/
+```
+
+The `cog_tool.rb` is particularly important. It defines the method which stamps new generators for the tool. It looks like this
+
+```ruby
+require 'cog'
+
+# Register cons as a tool with cog
+Cog::Config.instance.register_tool __FILE__ do |tool|
+
+  # Define how new cons generators are created
+  #
+  # Add context as required by your generator template.
+  #
+  # When the block is executed, +self+ will be an instance of Cog::Config::Tool::GeneratorStamper
+  tool.stamp_generator do
+    stamp 'cons/generator.rb', generator_dest, :absolute_destination => true
+  end
+  
+end
+```
 
 You can see a list of the available tools like this
 
 ```bash
 $ cog tool list
+basic
 cons
 ```
 
@@ -219,7 +246,7 @@ above example, that is the `generator.rb.erb` template. You can make a generator
 using a custom tool like this
 
 ```bash
-$ cog gen new --tool=cons my_cons
+$ cog --tool=cons gen new my_cons
 Created cog/generators/my_cons.rb
 ```
 
@@ -242,17 +269,9 @@ $LOAD_PATH << File.join(File.dirname(__FILE__))
 require 'cons/version'
 require 'cog'
 
-# Inject this tools templates onto the cog template lookup path
-# Do not remove this line
-Cog::Config.instance.tool_templates_path = File.expand_path(File.join(__FILE__, '..', '..', 'cog', 'templates'))
-
-# Set the template which is used to create generators for this tool
-# Do not remove this line
-Cog::Config.instance.tool_generator_template = 'cons/generator.rb'
-
 # Custom cog tool cons 
 module Cons 
-
+  
   # Root of the DSL
   # Feel free to rename this to something more appropriate
   def self.widget(generator_name, &block)

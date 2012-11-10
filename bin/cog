@@ -19,6 +19,11 @@ desc 'Set the Cogfile explicitly'
 arg_name 'path'
 flag :cogfile
 
+desc 'Set the active tool'
+arg_name 'name'
+default_value 'basic'
+flag :tool
+
 desc 'Add cog to the project in the present working directory'
 command :init do |c|
 
@@ -35,7 +40,7 @@ command [:generator, :gen] do |c|
   c.desc 'List project generators'
   c.command :list do |sub|
     sub.action do |gopt, opt, args|
-      x = Cog::Controllers::GeneratorController.list gopt[:v]
+      x = Cog::Controllers::GeneratorController.list :verbose => gopt[:v]
       puts x.join "\n" unless x.empty?
     end
   end
@@ -43,15 +48,9 @@ command [:generator, :gen] do |c|
   c.desc 'Create a new project generator'
   c.arg_name 'name'
   c.command :new do |sub|
-
-    sub.desc 'which tool to use to create the generator'
-    sub.arg_name 'tool_name'
-    sub.default_value 'basic'
-    sub.flag :tool
-
     sub.action do |gopt, opt, args|
       args.each do |name|
-        Cog::Controllers::GeneratorController.create name, :tool => opt[:tool], :verbose => gopt[:v]
+        Cog::Controllers::GeneratorController.create name
       end
     end
   end
@@ -60,11 +59,10 @@ command [:generator, :gen] do |c|
   c.long_desc 'Omit generator name to run all of them'
   c.arg_name 'name'
   c.command :run do |sub|
-
     sub.action do |gopt, opt, args|
       args = Cog::Controllers::GeneratorController.list if args.empty?
       args.each do |name|
-        Cog::Controllers::GeneratorController.run name, :verbose => gopt[:v]
+        Cog::Controllers::GeneratorController.run name
       end
     end
   end
@@ -78,7 +76,7 @@ command :tool do |c|
   c.desc 'List the available tools'
   c.command :list do |sub|
     sub.action do |gopt, opt, args|
-      x = Cog::Controllers::ToolController.list gopt[:verbose]
+      x = Cog::Controllers::ToolController.list :verbose => gopt[:verbose]
       puts x.join "\n" unless x.empty?
     end
   end
@@ -94,31 +92,29 @@ command :tool do |c|
   end
 end
 
-# desc 'Manage templates'
-# command :template do |c|
-#   
-#   c.default_command :list
-#   
-#   c.desc 'List the available templates'
-#   c.command :list do |sub|
-#     sub.desc 'include templates from a given tool'
-#     sub.arg_name 'tool_name'
-#     sub.flag :tool
-#     
-#     sub.action do |gopt, opt, args|
-#       x = Cog::Controllers::TemplateController.list gopt[:verbose]
-#       puts x.join "\n" unless x.empty?
-#     end
-#   end
-# end
+desc 'Manage templates'
+command :template do |c|
+  
+  c.default_command :list
+  
+  c.desc 'List the available templates'
+  c.command :list do |sub|
+    sub.action do |gopt, opt, args|
+      x = Cog::Controllers::TemplateController.list :verbose => gopt[:verbose]
+      puts x.join "\n" unless x.empty?
+    end
+  end
+end
 
 pre do |gopt, command, opt, args|
   if gopt[:cogfile] && !File.exists?(gopt[:cogfile])
     STDERR.write "No such Cogfile at #{gopt[:cogfile]}\n"
     false
   else
-    if gopt[:cogfile]
-      Cog::Config.instance = Cog::Config.new gopt[:cogfile]
+    Cog::Config.instance = Cog::Config.new gopt[:cogfile] if gopt[:cogfile]
+    unless command.name == :init
+      Cog::Config.instance.register_tools
+      Cog::Config.instance.activate_tool gopt[:tool]
     end
     true
   end
@@ -136,9 +132,4 @@ on_error do |exception|
   true
 end
 
-begin
-  exit run(ARGV)
-rescue
-  # Don't show stack traces during normal use
-  raise unless ENV['COG_DEBUG'].nil? || /^(|0|false|no|off)$/i =~ ENV['COG_DEBUG']
-end
+exit run(ARGV)

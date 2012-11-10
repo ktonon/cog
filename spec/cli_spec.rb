@@ -64,13 +64,13 @@ describe 'The command line interface' do
     end
   end
   
-  context 'without any tools installed' do
+  context 'without any custom tools' do
     before :all do
       @cog.tools = []
     end
     
-    it 'running `cog tool` should not list anything' do
-      @cog.run(:tool).should_not do_something
+    it 'running `cog tool` should only list the built-in tools' do
+      @cog.run(:tool).should output([:basic])
     end
   end
   
@@ -79,9 +79,8 @@ describe 'The command line interface' do
       @cog.tools = [tool(:beef)]
     end
     
-    it 'running `cog tool` should list that tool' do
-      @cog.run(:tool).should output([:beef])
-      @cog.run('-v', :tool).should output([tool(:beef)])
+    it 'running `cog tool` should list that tool and the built-in tools in alphabetical order' do
+      @cog.run(:tool).should output([:basic, :beef])
     end
   end
   

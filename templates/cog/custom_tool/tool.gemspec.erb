@@ -1,0 +1,18 @@
+# Ensure we require the local version and not one we might have installed already
+require File.join([File.dirname(__FILE__),'lib','<%= @tool_name %>/version.rb'])
+spec = Gem::Specification.new do |s| 
+  s.name = '<%= @tool_name %>'
+  s.version = <%= @tool_module %>::VERSION
+  s.author = '<%= @tool_author %>'
+  s.email = '<%= @tool_email %>'
+  s.homepage = ''
+  s.platform = Gem::Platform::RUBY
+  s.summary = '<%= @tool_description %>'
+  s.files = %w(LICENSE) + Dir.glob('cog/**/*') + Dir.glob('lib/**/*.rb')
+  s.require_paths << 'lib'
+  s.has_rdoc = 'yard'
+  s.extra_rdoc_files = ['API.rdoc']
+  s.rdoc_options << '--title' << '<%= @tool_name %>' << '-ri'
+  s.add_development_dependency('rake')
+  s.add_development_dependency('yard')
+end

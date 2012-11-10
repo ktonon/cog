@@ -6,27 +6,51 @@ module Cog
     class CogError < Exception
     end
     
-    # Indiciates an attempt to use a non-existant template.
-    class MissingTemplate < CogError
-      def initialize(template_path)
-        @template_path = template_path
+    # Define a +cog+ error class
+    # @api developer
+    #
+    # @param class_name [String] name of the error class
+    # @param arg [String] name of the argument to the constructor, will appear in error messages
+    # @yield +self+ will be set to an instance of the error class and <tt>@msg</tt> will contain 
+    def self.define_error(class_name, arg, &block)
+      cls = Class.new CogError
+      Errors.instance_eval { const_set class_name, cls }
+      cls.instance_eval do
+        define_method(:initialize) {|value| @value = value}
+        define_method :message do
+          msg = if block.nil?
+            class_name.to_s.underscore.gsub '_', ' '
+          else
+            instance_eval &block
+          end
+          "(#{arg} => #{@value}) #{msg}"
+        end
       end
-      
-      def message
-        "could not find the template '#{@template_path}'\n#{super}"
-      end
+    end
+
+    define_error :ActionRequiresProject, 'action' do
+      "the action requires a project, but no Cogfile was found"
     end
     
-    # The action requires {Config#project?}
-    class ActionRequiresProject < CogError
-      def initialize(action)
-        @action = action
-      end
-      
-      def message
-        "the action '#{@action}' requires a project, but no Cogfile was found"
-      end
+    define_error :DestinationAlreadyExists, 'path' do
+      "a file or directory at the given path already exists, cannot create anything there"
     end
-  end
 
+    define_error :DuplicateGenerator, 'generator name'
+
+    define_error :DuplicateTool, 'tool name'
+
+    define_error :InvalidToolConfiguration, 'path to cog_tool.rb file' do
+      "invalid directory structure for a cog tool"
+    end
+    
+    define_error :NoSuchGenerator, 'generator name'
+
+    define_error :NoSuchTemplate, 'template path'
+
+    define_error :NoSuchTool, 'tool name' do
+      "no such tool, make sure it appears in the COG_TOOLS environment variable"
+    end
+    
+  end
 end

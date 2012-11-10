@@ -1,4 +1,6 @@
 require 'cog/config/cogfile'
+require 'cog/config/tool'
+require 'cog/errors'
 
 module Cog
   
@@ -26,28 +28,83 @@ module Cog
     # @return [String] directory in which to find custom project templates
     attr_reader :project_templates_path
     
-    # @return [Boolean] are we operating in the context of a project?
+    # @return [Tool] the active tool affects the creation of new generators
+    attr_reader :active_tool
+    
+    # @return [Boolean] whether or not we operating in the context of a project
     def project?
       !@project_root.nil?
     end
-
-    # @param value [String] a value which is set by the active tool
-    attr_writer :tool_templates_path
-    
-    # @return [String] a value which is set by the active tool
-    attr_accessor :tool_generator_template
     
     # A list of directories in which to find ERB template files
     #
     # Templates should be looked for in the following order as determined by the list returned from this method
     #
-    # * {#project_templates_path}, present if we are in the context of a {#project?}
-    # * tool templates, present if we are in the context of a tool (i.e. a tool has set {#tool_templates_path=})
-    # * +cog+ built-in templates, always present
+    # * {#project_templates_path} which is present if {#project?}
+    # * {Tool#templates_path} for each registered tool (in no particular order)
+    # * {Config.cog_templates_path} which is *always* present
     #
     # @return [Array<String>] a list of directories order with ascending priority
     def template_paths
-      [@project_templates_path, @tool_templates_path, File.join(Config.gem_dir, 'templates')].compact
+      paths = [@project_templates_path]
+      paths += tools.collect {|tool| tool.templates_path}
+      paths << Config.cog_templates_path
+      paths.compact
+    end
+    
+    # @return [Array<Tool>] a sorted list of available tools
+    def tools
+      @tools.values.sort
+    end
+    
+    # Register built-in and custom tools.
+    # @api developer
+    #
+    # Custom tools are specified in the +COG_TOOLS+ environment variable.
+    # @return [nil]
+    def register_tools
+      # Register built-in tools
+      [:basic].each do |built_in|
+        require File.join(Config.gem_dir, 'lib', 'cog', 'tools', built_in.to_s, 'cog_tool.rb')
+      end
+      # Register custom tools defined in COG_TOOLS
+      (ENV['COG_TOOLS'] || '').split(':').each do |path|
+        explicit = path.end_with? '.rb'
+        @next_tool_was_required_explicitly = explicit
+        path = "#{path}/cog_tool" unless explicit
+        require path
+      end
+      nil
+    end
+
+    # Define a new +cog+ tool
+    # @api developer
+    # @param path [String] path to the <tt>cog_tool.rb</tt> file
+    # @option opt [Boolean] :built_in (false) if +true+, then treat this tool as a built-in tool
+    # @yield [Tool] define the tool
+    # @return [nil]
+    def register_tool(path, opt={}, &block)
+      tool = Tool.new path, :built_in => opt[:built_in], :explicit_require => @next_tool_was_required_explicitly
+      block.call tool
+      @tools[tool.name] = tool
+      nil
+    end
+    
+    # @api developer
+    # @return [Boolean] whether or not a tool is registered with the given name
+    def tool_registered?(name)
+      @tools.member? name
+    end
+    
+    # Activate the registered tool with the given name
+    # @api developer
+    # @param name [String] name of the registered tool to activate
+    # @return [nil]
+    def activate_tool(name)
+      throw :ToolAlreadyActivated unless @active_tool.nil?
+      raise Errors::NoSuchTool.new(name) unless tool_registered?(name)
+      @tools[name].load
+      @active_tool = @tools[name]
     end
     
     # Location of the installed cog gem
@@ -62,11 +119,17 @@ module Cog
         spec.gem_dir
       end
     end
+    
+    # Location of the built-in templates
+    def self.cog_templates_path
+      File.join Config.gem_dir, 'templates'
+    end
 
     # @param cogfile_path [String] if provided the {Cogfile} at the given path
     #   is used to initialize this instance, and {#project?} will be +true+
     def initialize(cogfile_path = nil)
       @project_root = nil
+      @tools = {}
       @language = 'c++'
       if cogfile_path
         @cogfile_path = File.expand_path cogfile_path
@@ -76,17 +139,17 @@ module Cog
       end
     end
 
-    # Find or create the singleton Config instance.
+    # Find or create the singleton {Config} instance.
     #
-    # Initialized using the Cogfile for the current project, if any can be
-    # found.
+    # Initialized using the {Cogfile} for the current project, if any can be
+    # found. If not, {#project?} will be +false+ and all the <tt>project_...</tt>
+    # methods will return +nil+.
     #
-    # The Cogfile will be looked for in the present working directory. If none
+    # The {Cogfile} will be looked for in the present working directory. If none
     # is found there the parent directory will be checked, and then the
     # grandparent, and so on.
     # 
-    # @return [Config, nil] the current project Config or +nil+ if no {Cogfile}
-    #   could be found
+    # @return [Config] the singleton instance
     def self.instance
       return @instance if @instance
       
@@ -105,8 +168,12 @@ module Cog
       end
     end
     
-    # Explicitly set the singleton Config instance
+    # Explicitly set the singleton Config instance.
+    #
+    # The singleton must not already be set.
+    #
     # @param config [Config] the instance to set as the singleton
+    # @return [nil]
     def self.instance=(config)
       throw :ConfigInstanceAlreadySet unless @instance.nil?
       @instance = config

@@ -1,0 +1,9 @@
+<%% if tool.explicit_require %>
+require '<%%= tool.path %>'
+<%% else %>
+require '<%%= tool.name %>'
+<%% end %>
+
+<%= @tool_module %>.widget '<%%= @name %>' do |w|
+  w.context = 'this is the context'
+end

@@ -1,4 +1,5 @@
 require 'cog/config'
+require 'cog/errors'
 require 'cog/generator'
 require 'rainbow'
 
@@ -10,76 +11,43 @@ module Cog
     # @see https://github.com/ktonon/cog#tools Introduction to Tools
     module ToolController
 
-      # A list of available tools
-      # @param verbose [Boolean] should full paths be listed for tools which are explicitly referenced?
-      # @return [Array<String>] a list of strings which can be passed to +require+
-      def self.list(verbose=false)
-        x = (ENV['COG_TOOLS'] || '').split ':'
-        if x.all? {|path| path.slice(-3..-1) != '.rb' || File.exists?(path)}
-          if verbose
-            x.collect {|path| path.slice(-3..-1) == '.rb' ? File.expand_path(path) : path}
-          else
-            x.collect {|path| path.slice(-3..-1) == '.rb' ? File.basename(path).slice(0..-4) : path}
-          end
-        else
-          x.each do |path|
-            if !File.exists? path
-              STDERR.write "No such cog tool at path '#{path}'\n".color(:red)
-            elsif !File.directory? path
-              STDERR.write "Not a cog tool at path '#{path}'\n".color(:red)
-            end
-          end
-          []
-        end
-      end
-
       # Generate a new tool with the given name
       # @param name [String] name of the tool to create. Should not conflict with other tool names
-      # @return [Boolean] was the tool created successfully?
+      # @return [nil]
       def self.create(name)
-        if File.exists? name
-          STDERR.write "A #{File.directory?(name) ? :directory : :file} named '#{name}' already exists\n".color(:red)
-          false
-        else
-          Object.new.instance_eval do
-            extend Generator
-            @name = name.to_s.downcase
-            @module_name = name.to_s.capitalize
-            @letter = name.to_s.slice(0,1).downcase
-            @author = '<Your name goes here>'
-            @email = 'youremail@...'
-            @description = 'A one-liner'
-            @cog_version = Cog::VERSION
-            stamp 'cog/tool/tool.rb', "#{@name}/lib/#{@name}.rb", :absolute_destination => true
-            stamp 'cog/tool/version.rb', "#{@name}/lib/#{@name}/version.rb", :absolute_destination => true
-            stamp 'cog/tool/generator.rb.erb', "#{@name}/cog/templates/#{@name}/generator.rb.erb", :absolute_destination => true
-            stamp 'cog/tool/template.txt.erb', "#{@name}/cog/templates/#{@name}/#{@name}.txt.erb", :absolute_destination => true
-            stamp 'cog/tool/Gemfile', "#{@name}/Gemfile", :absolute_destination => true
-            stamp 'cog/tool/Rakefile', "#{@name}/Rakefile", :absolute_destination => true
-            stamp 'cog/tool/tool.gemspec', "#{@name}/#{@name}.gemspec", :absolute_destination => true
-            stamp 'cog/tool/API.rdoc', "#{@name}/API.rdoc", :absolute_destination => true
-            stamp 'cog/tool/LICENSE', "#{@name}/LICENSE", :absolute_destination => true
-            stamp 'cog/tool/README.markdown', "#{@name}/README.markdown", :absolute_destination => true
-          end
-          true
+        raise Errors::DestinationAlreadyExists.new(name) if File.exists?(name)
+        raise Errors::DuplicateTool.new(name) if Config.instance.tool_registered?(name)
+        Object.new.instance_eval do
+          extend Generator
+          @tool_name = name.to_s.downcase
+          @tool_module = name.to_s.capitalize
+          @tool_author = '<Your name goes here>'
+          @tool_email = 'youremail@...'
+          @tool_description = 'A one-liner'
+          @cog_version = Cog::VERSION
+          stamp 'cog/custom_tool/tool.rb', "#{@tool_name}/lib/#{@tool_name}.rb", :absolute_destination => true
+          stamp 'cog/custom_tool/cog_tool.rb', "#{@tool_name}/lib/#{@tool_name}/cog_tool.rb", :absolute_destination => true
+          stamp 'cog/custom_tool/version.rb', "#{@tool_name}/lib/#{@tool_name}/version.rb", :absolute_destination => true
+          stamp 'cog/custom_tool/generator.rb.erb', "#{@tool_name}/cog/templates/#{@tool_name}/generator.rb.erb", :absolute_destination => true
+          stamp 'cog/custom_tool/template.txt.erb', "#{@tool_name}/cog/templates/#{@tool_name}/#{@tool_name}.txt.erb", :absolute_destination => true
+          stamp 'cog/custom_tool/Gemfile', "#{@tool_name}/Gemfile", :absolute_destination => true
+          stamp 'cog/custom_tool/Rakefile', "#{@tool_name}/Rakefile", :absolute_destination => true
+          stamp 'cog/custom_tool/tool.gemspec', "#{@tool_name}/#{@tool_name}.gemspec", :absolute_destination => true
+          stamp 'cog/custom_tool/LICENSE', "#{@tool_name}/LICENSE", :absolute_destination => true
+          stamp 'cog/custom_tool/README.markdown', "#{@tool_name}/README.markdown", :absolute_destination => true
+        end
+        nil
+      end
+
+      # @param opt [Boolean] :verbose (false) list full paths to tools
+      # @return [Array<String>] a list of available tools
+      def self.list(opt={})
+        Config.instance.tools.collect do |tool|
+          opt[:verbose] ? tool.path : tool.name
         end
       end
 
-      # Find an available tool with the given name
-      # @param name [String] name of the tool to search for
-      # @return [String] a fully qualified tool path, which can be passed to +require+
-      def self.find(name)
-        x = (ENV['COG_TOOLS'] || '').split ':'
-        x.each do |path|
-          if path.slice(-3..-1) == '.rb'
-            short = File.basename(path).slice(0..-4)
-            return path if short == name
-          else
-            return path if path == name
-          end
-        end
-      end
-      
+
     end
   end
 end

@@ -1,18 +1,10 @@
 $LOAD_PATH << File.join(File.dirname(__FILE__))
-require '<%= @name %>/version'
+require '<%= @tool_name %>/version'
 require 'cog'
 
-# Inject this tools templates onto the cog template lookup path
-# Do not remove this line
-Cog::Config.instance.tool_templates_path = File.expand_path(File.join(__FILE__, '..', '..', 'cog', 'templates'))
-
-# Set the template which is used to create generators for this tool
-# Do not remove this line
-Cog::Config.instance.tool_generator_template = '<%= @name %>/generator.rb'
-
-# Custom cog tool <%= @name %> 
-module <%= @module_name %> 
-
+# Custom cog tool <%= @tool_name %> 
+module <%= @tool_module %> 
+  
   # Root of the DSL
   # Feel free to rename this to something more appropriate
   def self.widget(generator_name, &block)
@@ -36,7 +28,7 @@ module <%= @module_name %>
     end
     
     def generate
-      stamp '<%= @name %>/<%= @name %>.txt', "generated_#{@generator_name}.txt"
+      stamp '<%= @tool_name %>/<%= @tool_name %>.txt', "generated_#{@generator_name}.txt"
     end
   end
 end
