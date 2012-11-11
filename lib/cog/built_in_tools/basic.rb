@@ -1,9 +1,9 @@
 module Cog
-  module Tools
+  module BuiltInTools
 
     # The default +cog+ tool.
     # Creates generator/template pairs.
-    module BasicTool
+    module Basic
     end
     
   end
