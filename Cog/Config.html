@@ -95,7 +95,7 @@
   
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/cog/config.rb<span class="defines">,<br />
-  lib/cog/config/cogfile.rb</span>
+  lib/cog/config/tool.rb,<br /> lib/cog/config/cogfile.rb</span>
 </dd>
   
 </dl>
@@ -121,7 +121,7 @@ to determine where to find things, and where to put them. When
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Config/Cogfile.html" title="Cog::Config::Cogfile (class)">Cogfile</a></span>, <span class='object_link'><a href="Config/CogfileError.html" title="Cog::Config::CogfileError (class)">CogfileError</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Config/Cogfile.html" title="Cog::Config::Cogfile (class)">Cogfile</a></span>, <span class='object_link'><a href="Config/CogfileError.html" title="Cog::Config::CogfileError (class)">CogfileError</a></span>, <span class='object_link'><a href="Config/Tool.html" title="Cog::Config::Tool (class)">Tool</a></span>
     
   
 </p>
@@ -131,6 +131,35 @@ to determine where to find things, and where to put them. When
 
   <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
   <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#active_tool-instance_method" title="#active_tool (instance method)">- (Tool) <strong>active_tool</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The active tool affects the creation of new generators.</p>
+</div></span>
+  
+</li>
+
     
       <li class="public ">
   <span class="summary_signature">
@@ -306,60 +335,6 @@ to determine where to find things, and where to put them. When
 </li>
 
     
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#tool_generator_template-instance_method" title="#tool_generator_template (instance method)">- (String) <strong>tool_generator_template</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>A value which is set by the active tool.</p>
-</div></span>
-  
-</li>
-
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#tool_templates_path%3D-instance_method" title="#tool_templates_path= (instance method)">- (Object) <strong>tool_templates_path</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-    
-      <span class="note title writeonly">writeonly</span>
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-    
   </ul>
 
 
@@ -372,6 +347,30 @@ to determine where to find things, and where to put them. When
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cog_templates_path-class_method" title="cog_templates_path (class method)">+ (Object) <strong>cog_templates_path</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Location of the built-in templates.</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -415,7 +414,31 @@ to determine where to find things, and where to put them. When
 
   
     <span class="summary_desc"><div class='inline'>
-<p>The singleton instance.</p>
+<p>Find or create the singleton <span class='object_link'><a href="" title="Cog::Config (class)">Config</a></span> instance.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#instance%3D-class_method" title="instance= (class method)">+ (nil) <strong>instance=</strong>(config) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Explicitly set the singleton Config instance.</p>
 </div></span>
   
 </li>
@@ -429,6 +452,32 @@ to determine where to find things, and where to put them. When
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Config) <strong>initialize</strong>(cogfile_path = nil) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of Config.</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -448,7 +497,7 @@ to determine where to find things, and where to put them. When
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Are we operating in the context of a project?.</p>
+<p>Whether or not we operating in the context of a project.</p>
 </div></span>
   
 </li>
@@ -478,9 +527,118 @@ to determine where to find things, and where to put them. When
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tools-instance_method" title="#tools (instance method)">- (Array&lt;Tool&gt;) <strong>tools</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A sorted list of available tools.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Cog::Config (class)">Config</a></span></tt>) <strong>initialize</strong>(cogfile_path = nil) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>A new instance of Config</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>cogfile_path</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if provided the <span class='object_link'><a href="Config/Cogfile.html" title="Cog::Config::Cogfile (class)">Cogfile</a></span> at the given path is used to initialize this
+instance, and <span class='object_link'><a href="#project%3F-instance_method" title="Cog::Config#project? (method)">#project?</a></span> will be <code>true</code></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 134</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_cogfile_path identifier id'>cogfile_path</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='rubyid_@project_root ivar id'>@project_root</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_@tools ivar id'>@tools</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='rubyid_@language ivar id'>@language</span> <span class='assign token'>=</span> <span class='string val'>'c++'</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
+    <span class='rubyid_@cogfile_path ivar id'>@cogfile_path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
+    <span class='rubyid_@project_root ivar id'>@project_root</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_dirname identifier id'>dirname</span> <span class='rubyid_@cogfile_path ivar id'>@cogfile_path</span>
+    <span class='rubyid_cogfile identifier id'>cogfile</span> <span class='assign token'>=</span> <span class='rubyid_Cogfile constant id'>Cogfile</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_self self kw'>self</span>
+    <span class='rubyid_cogfile identifier id'>cogfile</span><span class='dot token'>.</span><span class='rubyid_interpret identifier id'>interpret</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
 
   <div id="instance_attr_details" class="attr_details">
     <h2>Instance Attribute Details</h2>
@@ -488,7 +646,69 @@ to determine where to find things, and where to put them. When
       
       <span id=""></span>
       <div class="method_details first">
-  <h3 class="signature first" id="cogfile_path-instance_method">
+  <h3 class="signature first" id="active_tool-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Config/Tool.html" title="Cog::Config::Tool (class)">Tool</a></span></tt>) <strong>active_tool</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The active tool affects the creation of new generators</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Config/Tool.html" title="Cog::Config::Tool (class)">Tool</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the active tool affects the creation of new generators</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 32</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_active_tool identifier id'>active_tool</span>
+  <span class='rubyid_@active_tool ivar id'>@active_tool</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="cogfile_path-instance_method">
   
     - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>cogfile_path</strong>  <span class="extras">(readonly)</span>
   
@@ -531,12 +751,12 @@ to determine where to find things, and where to put them. When
       <pre class="lines">
 
 
-13
 14
-15</pre>
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 14</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
   <span class='rubyid_@cogfile_path ivar id'>@cogfile_path</span>
@@ -593,12 +813,12 @@ to determine where to find things, and where to put them. When
       <pre class="lines">
 
 
-16
 17
-18</pre>
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 17</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_language identifier id'>language</span>
   <span class='rubyid_@language ivar id'>@language</span>
@@ -655,12 +875,12 @@ to determine where to find things, and where to put them. When
       <pre class="lines">
 
 
-19
 20
-21</pre>
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 20</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_generators_path identifier id'>project_generators_path</span>
   <span class='rubyid_@project_generators_path ivar id'>@project_generators_path</span>
@@ -717,12 +937,12 @@ to determine where to find things, and where to put them. When
       <pre class="lines">
 
 
-22
 23
-24</pre>
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 23</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_root identifier id'>project_root</span>
   <span class='rubyid_@project_root ivar id'>@project_root</span>
@@ -779,12 +999,12 @@ to determine where to find things, and where to put them. When
       <pre class="lines">
 
 
-25
 26
-27</pre>
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 26</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_source_path identifier id'>project_source_path</span>
   <span class='rubyid_@project_source_path ivar id'>@project_source_path</span>
@@ -841,139 +1061,15 @@ to determine where to find things, and where to put them. When
       <pre class="lines">
 
 
-28
 29
-30</pre>
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 29</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_templates_path identifier id'>project_templates_path</span>
   <span class='rubyid_@project_templates_path ivar id'>@project_templates_path</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id="tool_generator_template=-instance_method"></span>
-      <div class="method_details ">
-  <h3 class="signature " id="tool_generator_template-instance_method">
-  
-    - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>tool_generator_template</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>A value which is set by the active tool</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>a value which is set by the active tool</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-39
-40
-41</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 39</span>
-
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_tool_generator_template identifier id'>tool_generator_template</span>
-  <span class='rubyid_@tool_generator_template ivar id'>@tool_generator_template</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id=""></span>
-      <div class="method_details ">
-  <h3 class="signature " id="tool_templates_path=-instance_method">
-  
-    - (<tt>Object</tt>) <strong>tool_templates_path=</strong>(value)  <span class="extras">(writeonly)</span>
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>value</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>a value which is set by the active tool</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-36
-37
-38</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 36</span>
-
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_tool_templates_path= identifier id'>tool_templates_path=</span><span class='lparen token'>(</span><span class='rubyid_value identifier id'>value</span><span class='rparen token'>)</span>
-  <span class='rubyid_@tool_templates_path ivar id'>@tool_templates_path</span> <span class='assign token'>=</span> <span class='rubyid_value identifier id'>value</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -989,7 +1085,49 @@ to determine where to find things, and where to put them. When
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="gem_dir-class_method">
+  <h3 class="signature first" id="cog_templates_path-class_method">
+  
+    + (<tt>Object</tt>) <strong>cog_templates_path</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Location of the built-in templates</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+128
+129
+130</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 128</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_cog_templates_path identifier id'>cog_templates_path</span>
+  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_gem_dir identifier id'>gem_dir</span><span class='comma token'>,</span> <span class='string val'>'templates'</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="gem_dir-class_method">
   
     + (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>gem_dir</strong> 
   
@@ -1032,19 +1170,19 @@ to determine where to find things, and where to put them. When
       <pre class="lines">
 
 
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65</pre>
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 116</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_gem_dir identifier id'>gem_dir</span>
   <span class='rubyid_spec identifier id'>spec</span> <span class='assign token'>=</span> <span class='rubyid_Gem constant id'>Gem</span><span class='dot token'>.</span><span class='rubyid_loaded_specs identifier id'>loaded_specs</span><span class='lbrack token'>[</span><span class='string val'>'cog'</span><span class='rbrack token'>]</span>
@@ -1074,15 +1212,15 @@ to determine where to find things, and where to put them. When
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>The singleton instance</p>
+<p>Find or create the singleton <span class='object_link'><a href="" title="Cog::Config (class)">Cog::Config</a></span> instance.</p>
 
-<p>Initialized using the Cogfile for the current project, if any can be found.
-If not, then <span class='object_link'><a href="#project%3F-instance_method" title="Cog::Config#project? (method)">#project?</a></span> will be <code>false</code> and all the
-<code>project_...</code> attributes will be <code>nil</code>.</p>
+<p>Initialized using the <span class='object_link'><a href="Config/Cogfile.html" title="Cog::Config::Cogfile (class)">Cogfile</a></span> for the current project, if any can be
+found. If not, <span class='object_link'><a href="#project%3F-instance_method" title="Cog::Config#project? (method)">#project?</a></span> will be <code>false</code> and all the
+<code>project_...</code> methods will return <code>nil</code>.</p>
 
-<p>The Cogfile will be looked for in the present working directory. If none is
-found there the parent directory will be checked, and then the grandparent,
-and so on.</p>
+<p>The <span class='object_link'><a href="Config/Cogfile.html" title="Cog::Config::Cogfile (class)">Cogfile</a></span> will be looked for in the present working directory. If none
+is found there the parent directory will be checked, and then the
+grandparent, and so on.</p>
 
 
   </div>
@@ -1101,7 +1239,7 @@ and so on.</p>
       
         &mdash;
         <div class='inline'>
-<p>the singleton Config instance</p>
+<p>the singleton instance</p>
 </div>
       
     </li>
@@ -1114,35 +1252,29 @@ and so on.</p>
       <pre class="lines">
 
 
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97
-98
-99</pre>
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 157</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span>
   <span class='rubyid_return return kw'>return</span> <span class='rubyid_@instance ivar id'>@instance</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@instance ivar id'>@instance</span>
-  <span class='rubyid_@instance ivar id'>@instance</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
   
   <span class='comment val'># Attempt to find a Cogfile</span>
   <span class='rubyid_parts identifier id'>parts</span> <span class='assign token'>=</span> <span class='rubyid_Dir constant id'>Dir</span><span class='dot token'>.</span><span class='rubyid_pwd identifier id'>pwd</span><span class='dot token'>.</span><span class='rubyid_split identifier id'>split</span> <span class='rubyid_File constant id'>File</span><span class='colon2 op'>::</span><span class='rubyid_SEPARATOR constant id'>SEPARATOR</span>
@@ -1151,16 +1283,91 @@ and so on.</p>
     <span class='rubyid_i identifier id'>i</span> <span class='opasgn op'>-=</span> <span class='integer val'>1</span>
   <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_path identifier id'>path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_parts identifier id'>parts</span><span class='dot token'>.</span><span class='rubyid_slice identifier id'>slice</span><span class='lparen token'>(</span><span class='integer val'>0</span><span class='comma token'>,</span> <span class='rubyid_i identifier id'>i</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='lbrack token'>[</span><span class='string val'>'Cogfile'</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_i identifier id'>i</span> <span class='geq op'>&gt;=</span> <span class='integer val'>0</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_path identifier id'>path</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
-    <span class='rubyid_@instance ivar id'>@instance</span><span class='dot token'>.</span><span class='rubyid_instance_eval identifier id'>instance_eval</span> <span class='rubyid_do do kw'>do</span>
-      <span class='rubyid_@cogfile_path ivar id'>@cogfile_path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_path identifier id'>path</span>
-      <span class='rubyid_@project_root ivar id'>@project_root</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_dirname identifier id'>dirname</span> <span class='rubyid_@cogfile_path ivar id'>@cogfile_path</span>
-      <span class='rubyid_cogfile identifier id'>cogfile</span> <span class='assign token'>=</span> <span class='rubyid_Cogfile constant id'>Cogfile</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_self self kw'>self</span>
-      <span class='rubyid_cogfile identifier id'>cogfile</span><span class='dot token'>.</span><span class='rubyid_interpret identifier id'>interpret</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span>
   
-  <span class='rubyid_@instance ivar id'>@instance</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_path identifier id'>path</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
+    <span class='rubyid_@instance ivar id'>@instance</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_path identifier id'>path</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_@instance ivar id'>@instance</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="instance=-class_method">
+  
+    + (<tt>nil</tt>) <strong>instance=</strong>(config) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Explicitly set the singleton Config instance.</p>
+
+<p>The singleton must not already be set.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>config</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Cog::Config (class)">Config</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the instance to set as the singleton</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+181
+182
+183
+184</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 181</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='assign token'>=</span><span class='lparen token'>(</span><span class='rubyid_config identifier id'>config</span><span class='rparen token'>)</span>
+  <span class='rubyid_throw identifier id'>throw</span> <span class='symbol val'>:ConfigInstanceAlreadySet</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_@instance ivar id'>@instance</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+  <span class='rubyid_@instance ivar id'>@instance</span> <span class='assign token'>=</span> <span class='rubyid_config identifier id'>config</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -1186,7 +1393,7 @@ and so on.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Are we operating in the context of a project?</p>
+<p>Whether or not we operating in the context of a project</p>
 
 
   </div>
@@ -1205,7 +1412,7 @@ and so on.</p>
       
         &mdash;
         <div class='inline'>
-<p>are we operating in the context of a project?</p>
+<p>whether or not we operating in the context of a project</p>
 </div>
       
     </li>
@@ -1218,12 +1425,12 @@ and so on.</p>
       <pre class="lines">
 
 
-31
-32
-33</pre>
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 35</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project? fid id'>project?</span>
   <span class='notop op'>!</span><span class='rubyid_@project_root ivar id'>@project_root</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
@@ -1251,13 +1458,11 @@ and so on.</p>
 <p>Templates should be looked for in the following order as determined by the
 list returned from this method</p>
 <ul><li>
-<p><span class='object_link'><a href="#project_templates_path-instance_method" title="Cog::Config#project_templates_path (method)">#project_templates_path</a></span>, present if we are in the context of a
-<span class='object_link'><a href="#project%3F-instance_method" title="Cog::Config#project? (method)">#project?</a></span></p>
+<p><span class='object_link'><a href="#project_templates_path-instance_method" title="Cog::Config#project_templates_path (method)">#project_templates_path</a></span> which is present if <span class='object_link'><a href="#project%3F-instance_method" title="Cog::Config#project? (method)">#project?</a></span></p>
 </li><li>
-<p>tool templates, present if we are in the context of a tool (i.e. a tool has
-set <span class='object_link'><a href="#tool_templates_path%3D-instance_method" title="Cog::Config#tool_templates_path= (method)">#tool_templates_path=</a></span>)</p>
+<p><span class='object_link'><a href="Config/Tool.html#templates_path-instance_method" title="Cog::Config::Tool#templates_path (method)">Cog::Config::Tool#templates_path</a></span> for each registered tool (in no particular order)</p>
 </li><li>
-<p><code>cog</code> built-in templates, always present</p>
+<p><span class='object_link'><a href="#cog_templates_path-class_method" title="Cog::Config.cog_templates_path (method)">cog_templates_path</a></span> which is <strong>always</strong> present</p>
 </li></ul>
 
 
@@ -1290,15 +1495,81 @@ set <span class='object_link'><a href="#tool_templates_path%3D-instance_method" 
       <pre class="lines">
 
 
+48
+49
 50
 51
-52</pre>
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 48</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_template_paths identifier id'>template_paths</span>
-  <span class='lbrack token'>[</span><span class='rubyid_@project_templates_path ivar id'>@project_templates_path</span><span class='comma token'>,</span> <span class='rubyid_@tool_templates_path ivar id'>@tool_templates_path</span><span class='comma token'>,</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_gem_dir identifier id'>gem_dir</span><span class='comma token'>,</span> <span class='string val'>'templates'</span><span class='rparen token'>)</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span>
+  <span class='rubyid_paths identifier id'>paths</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rubyid_@project_templates_path ivar id'>@project_templates_path</span><span class='rbrack token'>]</span>
+  <span class='rubyid_paths identifier id'>paths</span> <span class='opasgn op'>+=</span> <span class='rubyid_tools identifier id'>tools</span><span class='dot token'>.</span><span class='rubyid_collect identifier id'>collect</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_tool identifier id'>tool</span><span class='bitor op'>|</span> <span class='rubyid_tool identifier id'>tool</span><span class='dot token'>.</span><span class='rubyid_templates_path identifier id'>templates_path</span><span class='rbrace token'>}</span>
+  <span class='rubyid_paths identifier id'>paths</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_cog_templates_path identifier id'>cog_templates_path</span>
+  <span class='rubyid_paths identifier id'>paths</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tools-instance_method">
+  
+    - (<tt>Array&lt;<span class='object_link'><a href="Config/Tool.html" title="Cog::Config::Tool (class)">Tool</a></span>&gt;</tt>) <strong>tools</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>A sorted list of available tools</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Config/Tool.html" title="Cog::Config::Tool (class)">Tool</a></span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a sorted list of available tools</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 56</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_tools identifier id'>tools</span>
+  <span class='rubyid_@tools ivar id'>@tools</span><span class='dot token'>.</span><span class='rubyid_values identifier id'>values</span><span class='dot token'>.</span><span class='rubyid_sort identifier id'>sort</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -1311,7 +1582,7 @@ set <span class='object_link'><a href="#tool_templates_path%3D-instance_method" 
 </div>
 
     <div id="footer">
-  Generated on Tue Nov  6 22:31:16 2012 by
+  Generated on Sat Nov 10 22:52:28 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
