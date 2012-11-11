@@ -16,7 +16,8 @@ module Cog
     # Get the template with the given name
     # @param path [String] path to template file relative one of the {Config#template_paths}
     # @option opt [Boolean] :absolute (false) is the +path+ argument absolute?
-    # @return [ERB] an instance of {http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html ERB}
+    # @option opt [Boolean] :as_path (false) return the template as an ERB instance (+false+) or an absolute path to the file (+true+)
+    # @return [ERB, String] an instance of {http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html ERB} or an absolute path to the template
     def get_template(path, opt={})
       path += '.erb'
       fullpath = if opt[:absolute]
@@ -28,7 +29,11 @@ module Cog
         end
       end
       raise Errors::NoSuchTemplate.new path unless File.exists? fullpath
-      ERB.new File.read(fullpath), 0, '>'
+      if opt[:as_path]
+        File.expand_path fullpath
+      else
+        ERB.new File.read(fullpath), 0, '>'
+      end
     end
     
     # Stamp a template into a file or return it as a string
@@ -64,6 +69,7 @@ module Cog
     # @return [nil]
     def copy_if_missing(src, dest, opt={})
       unless File.exists? dest
+        touch_path File.dirname(dest), opt
         FileUtils.cp src, dest
         STDOUT.write "Created #{dest.relative_to_project_root}\n".color(:green) unless opt[:quiet]
       end
@@ -78,6 +84,18 @@ module Cog
         FileUtils.mkdir_p path
         STDOUT.write "Created #{path.relative_to_project_root}\n".color(:green) unless opt[:quiet]
       end
+      nil
+    end
+    
+    # Create the file at the given path,
+    # Creates directories along the path as required.
+    # @param path [String] a file system path representing a file
+    # @option opt [Boolean] :quiet (false) suppress writing to STDOUT?
+    # @return [nil]
+    def touch_file(path, opt={})
+      touch_path File.dirname(path), opt
+      FileUtils.touch path
+      STDOUT.write "Created #{path.relative_to_project_root}\n".color(:green) unless opt[:quiet]
       nil
     end
     

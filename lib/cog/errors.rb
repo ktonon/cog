@@ -38,7 +38,9 @@ module Cog
       "a file or directory at the given path already exists, cannot create anything there"
     end
 
-    define_error :DuplicateGenerator, 'generator name'
+    define_error :DuplicateGenerator, 'generator'
+    
+    define_error :DuplicateTemplate, 'template'
 
     define_error :DuplicateTool, 'tool'
 

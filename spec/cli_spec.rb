@@ -40,6 +40,14 @@ describe 'The command line interface' do
     it 'running `cog tool` will not fail' do
       @cog.run(:tool).should_not complain
     end
+    
+    it 'running `cog template` will not fail' do
+      @cog.run(:template).should_not complain
+    end
+    
+    it 'running `cog template new piggy.txt` will fail' do
+      @cog.run(:template, :new , 'piggy.txt').should complain
+    end
   end
   
   context 'in a project that has just been initialized' do
@@ -61,6 +69,18 @@ describe 'The command line interface' do
     
     it 'running `cog generator new piggy` should create a generator named piggy' do
       @cog.run(:generator, :new, :piggy).should make(generator(:piggy))
+    end
+    
+    it 'running `cog template new piggy.txt` should create a template named piggy.txt.erb' do
+      @cog.run(:template, :new, 'piggy.txt').should make(template('piggy.txt.erb'))
+    end
+    
+    it 'running `cog template new warning.h` should not override the built-in template' do
+      @cog.run(:template, :new, 'warning.h').should complain
+    end
+
+    it 'running `cog template new --force-override warning.h` should override the built-in template' do
+      @cog.run(:template, :new, '--force-override', 'warning.h').should make(template('warning.h.erb'))
     end
   end
   

@@ -19,7 +19,7 @@ module Cog
       # @param args [Array<String>] arguments to pass to +cog+
       # @return [Invocation] an object which can be used with custom {Matchers}
       def run(*args)
-        args = [@cog] + args
+        args = [@cog, '--colorless'] + args
         Invocation.new(args.collect {|x| x.to_s}, :tools => @tools)
       end
     end

@@ -12,6 +12,15 @@ class String
   # @return [String] this string as a file system path relative to the +prefix+
   def relative_to(prefix)
     return dup if prefix.nil?
-    start_with?(prefix) ? slice(prefix.length+1..-1) : dup
+    start_with?(prefix.to_s) ? slice(prefix.to_s.length+1..-1) : dup
+  end
+  
+  # @param ext [String] file extension to remove from the end of this string
+  # @return [String] a copy of this string with the given extension removed. Does nothing if this string does not edit with the extension
+  def without_extension(ext)
+    return dup if ext.nil?
+    ext = ext.to_s
+    ext = '.' + ext unless ext.start_with? '.'
+    end_with?(ext) ? slice(0..(-ext.length - 1)) : dup
   end
 end

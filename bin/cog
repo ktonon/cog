@@ -24,6 +24,9 @@ arg_name 'name'
 default_value 'basic'
 flag :tool
 
+desc 'Suppress the use of color in output'
+switch :colorless
+
 desc 'Add cog to the project in the present working directory'
 command :init do |c|
 
@@ -93,7 +96,7 @@ command :tool do |c|
 end
 
 desc 'Manage templates'
-command :template do |c|
+command [:template, :tm] do |c|
   
   c.default_command :list
   
@@ -104,9 +107,27 @@ command :template do |c|
       puts x.join "\n" unless x.empty?
     end
   end
+  
+  c.desc 'Create a new project template'
+  c.command :new do |sub|
+    sub.desc 'Force override of existing built-in or tool templates'
+    sub.switch ['force-override', :f]
+    
+    sub.action do |gopt, opt, args|
+      args.each do |name|
+        begin
+          Cog::Controllers::TemplateController.create name, :force_override => opt[:f]
+        rescue Cog::Errors::DuplicateTemplate => e
+          STDERR.write "Use --force-override to copy the original template into your project templates\n"
+          raise
+        end
+      end
+    end
+  end
 end
 
 pre do |gopt, command, opt, args|
+  Sickill::Rainbow.enabled = false if gopt[:colorless]
   if gopt[:cogfile] && !File.exists?(gopt[:cogfile])
     STDERR.write "No such Cogfile at #{gopt[:cogfile]}\n"
     false
