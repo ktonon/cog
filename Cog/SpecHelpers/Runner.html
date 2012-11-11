@@ -408,7 +408,7 @@
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers/runner.rb', line 21</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_run identifier id'>run</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='rubyid_args identifier id'>args</span><span class='rparen token'>)</span>
-  <span class='rubyid_args identifier id'>args</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rubyid_@cog ivar id'>@cog</span><span class='rbrack token'>]</span> <span class='plus op'>+</span> <span class='rubyid_args identifier id'>args</span>
+  <span class='rubyid_args identifier id'>args</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rubyid_@cog ivar id'>@cog</span><span class='comma token'>,</span> <span class='string val'>'--colorless'</span><span class='rbrack token'>]</span> <span class='plus op'>+</span> <span class='rubyid_args identifier id'>args</span>
   <span class='rubyid_Invocation constant id'>Invocation</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_args identifier id'>args</span><span class='dot token'>.</span><span class='rubyid_collect identifier id'>collect</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_x identifier id'>x</span><span class='bitor op'>|</span> <span class='rubyid_x identifier id'>x</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='symbol val'>:tools</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_@tools ivar id'>@tools</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
@@ -422,7 +422,7 @@
 </div>
 
     <div id="footer">
-  Generated on Sat Nov 10 22:52:29 2012 by
+  Generated on Sun Nov 11 10:27:47 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

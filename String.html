@@ -162,6 +162,30 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#without_extension-instance_method" title="#without_extension (instance method)">- (String) <strong>without_extension</strong>(ext) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A copy of this string with the given extension removed.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -245,7 +269,7 @@
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_relative_to identifier id'>relative_to</span><span class='lparen token'>(</span><span class='rubyid_prefix identifier id'>prefix</span><span class='rparen token'>)</span>
   <span class='rubyid_return return kw'>return</span> <span class='rubyid_dup identifier id'>dup</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_prefix identifier id'>prefix</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-  <span class='rubyid_start_with? fid id'>start_with?</span><span class='lparen token'>(</span><span class='rubyid_prefix identifier id'>prefix</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='rubyid_slice identifier id'>slice</span><span class='lparen token'>(</span><span class='rubyid_prefix identifier id'>prefix</span><span class='dot token'>.</span><span class='rubyid_length identifier id'>length</span><span class='plus op'>+</span><span class='float val'>1</span><span class='dot2 op'>..</span><span class='integer val'>-1</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_dup identifier id'>dup</span>
+  <span class='rubyid_start_with? fid id'>start_with?</span><span class='lparen token'>(</span><span class='rubyid_prefix identifier id'>prefix</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='rubyid_slice identifier id'>slice</span><span class='lparen token'>(</span><span class='rubyid_prefix identifier id'>prefix</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='rubyid_length identifier id'>length</span><span class='plus op'>+</span><span class='float val'>1</span><span class='dot2 op'>..</span><span class='integer val'>-1</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_dup identifier id'>dup</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -315,12 +339,100 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="without_extension-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="String (class)">String</a></span></tt>) <strong>without_extension</strong>(ext) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>A copy of this string with the given extension removed. Does nothing if
+this string does not edit with the extension</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>ext</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>file extension to remove from the end of this string</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a copy of this string with the given extension removed. Does nothing if
+this string does not edit with the extension</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20
+21
+22
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/helpers/string.rb', line 20</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_without_extension identifier id'>without_extension</span><span class='lparen token'>(</span><span class='rubyid_ext identifier id'>ext</span><span class='rparen token'>)</span>
+  <span class='rubyid_return return kw'>return</span> <span class='rubyid_dup identifier id'>dup</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+  <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span>
+  <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='string val'>'.'</span> <span class='plus op'>+</span> <span class='rubyid_ext identifier id'>ext</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_start_with? fid id'>start_with?</span> <span class='string val'>'.'</span>
+  <span class='rubyid_end_with? fid id'>end_with?</span><span class='lparen token'>(</span><span class='rubyid_ext identifier id'>ext</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='rubyid_slice identifier id'>slice</span><span class='lparen token'>(</span><span class='integer val'>0</span><span class='dot2 op'>..</span><span class='lparen token'>(</span><span class='minus op'>-</span><span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_length identifier id'>length</span> <span class='minus op'>-</span> <span class='integer val'>1</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='rubyid_dup identifier id'>dup</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
     <div id="footer">
-  Generated on Sat Nov 10 22:52:29 2012 by
+  Generated on Sun Nov 11 10:27:47 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
