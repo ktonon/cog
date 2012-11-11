@@ -65,14 +65,18 @@ module Cog
     def register_tools
       # Register built-in tools
       [:basic].each do |built_in|
-        require File.join(Config.gem_dir, 'lib', 'cog', 'tools', built_in.to_s, 'cog_tool.rb')
+        require File.join(Config.gem_dir, 'lib', 'cog', 'built_in_tools', built_in.to_s, 'cog_tool.rb')
       end
       # Register custom tools defined in COG_TOOLS
       (ENV['COG_TOOLS'] || '').split(':').each do |path|
         explicit = path.end_with? '.rb'
         @next_tool_was_required_explicitly = explicit
         path = "#{path}/cog_tool" unless explicit
-        require path
+        begin
+          require path
+        rescue LoadError
+          raise Errors::CouldNotLoadTool.new path
+        end
       end
       nil
     end

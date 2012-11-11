@@ -23,7 +23,7 @@ module Cog
           else
             instance_eval &block
           end
-          "(#{arg} => #{@value}) #{msg}"
+          "#{msg} (#{arg} => #{@value})"
         end
       end
     end
@@ -32,23 +32,25 @@ module Cog
       "the action requires a project, but no Cogfile was found"
     end
     
+    define_error :CouldNotLoadTool, 'tool'
+    
     define_error :DestinationAlreadyExists, 'path' do
       "a file or directory at the given path already exists, cannot create anything there"
     end
 
     define_error :DuplicateGenerator, 'generator name'
 
-    define_error :DuplicateTool, 'tool name'
+    define_error :DuplicateTool, 'tool'
 
     define_error :InvalidToolConfiguration, 'path to cog_tool.rb file' do
       "invalid directory structure for a cog tool"
     end
     
-    define_error :NoSuchGenerator, 'generator name'
+    define_error :NoSuchGenerator, 'generator'
 
-    define_error :NoSuchTemplate, 'template path'
+    define_error :NoSuchTemplate, 'template'
 
-    define_error :NoSuchTool, 'tool name' do
+    define_error :NoSuchTool, 'tool' do
       "no such tool, make sure it appears in the COG_TOOLS environment variable"
     end
     
