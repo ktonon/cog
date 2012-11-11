@@ -8,13 +8,13 @@ _It is still in early development! I would not recommend using it until this mes
 Get it
 ------
 
-From a terminal
+Install the [cog gem](https://rubygems.org/gems/cog) from a terminal
 
 ```bash
 $ gem install cog
 ```
 
-or in your Gemfile
+or place this in your Gemfile
 
 ```ruby
 gem "cog", "~> 0.1.1"
