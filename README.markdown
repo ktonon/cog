@@ -17,7 +17,7 @@ $ gem install cog
 or place this in your Gemfile
 
 ```ruby
-gem "cog", "~> 0.1.1"
+gem "cog", "~> 0.1.2"
 ```
 
 Prepare a project

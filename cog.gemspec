@@ -15,6 +15,8 @@ spec = Gem::Specification.new do |s|
   s.executables << 'cog'
   s.add_dependency('gli')
   s.add_dependency('rainbow')
+  s.add_dependency('active_support')
+  s.add_dependency('i18n')
   s.add_development_dependency('rake')
   s.add_development_dependency('yard')
 end

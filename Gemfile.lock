@@ -1,8 +1,10 @@
 PATH
   remote: .
   specs:
-    cog (0.1.1)
+    cog (0.1.2)
+      active_support
       gli
+      i18n
       rainbow
 
 GEM
