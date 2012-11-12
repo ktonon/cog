@@ -5,7 +5,10 @@ which uses code generation.
 
 This project is in BETA now. It has enough functionality to be useful and changes to the existing interface are not anticipated. Any such changes will be documented in release notes. More work still needs to be done extending the tools system.
 
-Here is a [video introduction to cog](http://youtu.be/lH_q0aPqRzo).
+See also
+
+* [video introduction to cog](http://youtu.be/lH_q0aPqRzo).
+* [API docs](http://ktonon.github.com/cog/Cog.html)
 
 Get it
 ------
