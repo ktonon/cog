@@ -3,7 +3,12 @@
 `cog` is a command line utility that makes it a bit easier to organize a project
 which uses code generation.
 
-_It is still in early development! I would not recommend using it until this message gets removed._
+This project is in BETA now. It has enough functionality to be useful and changes to the existing interface are not anticipated. Any such changes will be documented in release notes. More work still needs to be done extending the tools system.
+
+See also
+
+* [video introduction to cog](http://youtu.be/lH_q0aPqRzo).
+* [API docs](http://ktonon.github.com/cog/Cog.html)
 
 Get it
 ------
