@@ -16,10 +16,9 @@ module Cog
       def self.list(opt={})
         cts = Helpers::CascadingTemplateSet.new
         cts.add_templates 'built-in', :built_in, Config.cog_templates_path, opt
-        Config.instance.tools.each do |tool|
-          unless tool.templates_path.nil?
-            cts.add_templates tool.name, :tool, tool.templates_path, opt
-          end
+        tool = Config.instance.active_tool
+        unless tool.templates_path.nil?
+          cts.add_templates tool.name, :tool, tool.templates_path, opt
         end
         if Config.instance.project?
           cts.add_templates 'project', :project, Config.instance.project_templates_path, opt

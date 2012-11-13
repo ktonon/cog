@@ -10,7 +10,13 @@ module <%= @tool_module %>
   def self.widget(generator_name, &block)
     w = Widget.new generator_name
     block.call w
-    w.generate
+    
+    # Activate <%= @tool_name %> while rendering templates
+    # so that cog will be able to find <%= @tool_name %> templates
+    Cog::Config.instance.activate_tool '<%= @tool_name %>' do
+      w.generate
+    end
+    
     nil
   end
 

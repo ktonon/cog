@@ -29,7 +29,9 @@ module Cog
     attr_reader :project_templates_path
     
     # @return [Tool] the active tool affects the creation of new generators
-    attr_reader :active_tool
+    def active_tool
+      @active_tools.last
+    end
     
     # @return [Boolean] whether or not we operating in the context of a project
     def project?
@@ -46,10 +48,7 @@ module Cog
     #
     # @return [Array<String>] a list of directories order with ascending priority
     def template_paths
-      paths = [@project_templates_path]
-      paths += tools.collect {|tool| tool.templates_path}
-      paths << Config.cog_templates_path
-      paths.compact
+      [@project_templates_path, active_tool && active_tool.templates_path, Config.cog_templates_path].compact
     end
     
     # @return [Array<Tool>] a sorted list of available tools
@@ -100,15 +99,20 @@ module Cog
       @tools.member? name
     end
     
-    # Activate the registered tool with the given name
-    # @api developer
+    # Activate the registered tool with the given name with the scope of the provided block.
+    # If no block is provided, the tool will remain active indefinitely.
     # @param name [String] name of the registered tool to activate
+    # @yield the tool will be active within this block
     # @return [nil]
-    def activate_tool(name)
-      throw :ToolAlreadyActivated unless @active_tool.nil?
+    def activate_tool(name, &block)
+      name = name.to_s
       raise Errors::NoSuchTool.new(name) unless tool_registered?(name)
       @tools[name].load
-      @active_tool = @tools[name]
+      @active_tools << @tools[name]
+      if block
+        block.call
+        @active_tools.pop
+      end
     end
     
     # Location of the installed cog gem
@@ -134,6 +138,7 @@ module Cog
     def initialize(cogfile_path = nil)
       @project_root = nil
       @tools = {}
+      @active_tools = []
       @language = 'c++'
       if cogfile_path
         @cogfile_path = File.expand_path cogfile_path
