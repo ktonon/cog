@@ -3,11 +3,11 @@
 `cog` is a command line utility that makes it a bit easier to organize a project
 which uses code generation.
 
-This project is in BETA now. It has enough functionality to be useful and changes to the existing interface are not anticipated. Any such changes will be documented in release notes. More work still needs to be done extending the tools system.
+__This project is still under development__
 
 See also
 
-* [video introduction to cog](http://youtu.be/lH_q0aPqRzo).
+* [Video introduction to cog](http://youtu.be/lH_q0aPqRzo)
 * [API docs](http://ktonon.github.com/cog/Cog.html)
 
 Get it
@@ -282,7 +282,13 @@ module Cons
   def self.widget(generator_name, &block)
     w = Widget.new generator_name
     block.call w
-    w.generate
+
+    # Activate cons while rendering templates
+    # so that cog will be able to find cons templates
+    Cog::Config.instance.activate_tool 'cons' do
+      w.generate
+    end
+
     nil
   end
 
