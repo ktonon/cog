@@ -135,35 +135,6 @@ to determine where to find things, and where to put them. When
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#active_tool-instance_method" title="#active_tool (instance method)">- (Tool) <strong>active_tool</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-      <span class="note title readonly">readonly</span>
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>The active tool affects the creation of new generators.</p>
-</div></span>
-  
-</li>
-
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#cogfile_path-instance_method" title="#cogfile_path (instance method)">- (String) <strong>cogfile_path</strong> </a>
     
 
@@ -456,6 +427,55 @@ to determine where to find things, and where to put them. When
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#activate_tool-instance_method" title="#activate_tool (instance method)">- (nil) <strong>activate_tool</strong>(name) { ... }</a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Activate the registered tool with the given name with the scope of the
+provided block.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#active_tool-instance_method" title="#active_tool (instance method)">- (Tool) <strong>active_tool</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The active tool affects the creation of new generators.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#initialize-instance_method" title="#initialize (instance method)">- (Config) <strong>initialize</strong>(cogfile_path = nil) </a>
     
 
@@ -606,24 +626,26 @@ instance, and <span class='object_link'><a href="#project%3F-instance_method" ti
       <pre class="lines">
 
 
-134
-135
-136
-137
 138
 139
 140
 141
 142
 143
-144</pre>
+144
+145
+146
+147
+148
+149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 138</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_cogfile_path identifier id'>cogfile_path</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
   <span class='rubyid_@project_root ivar id'>@project_root</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
   <span class='rubyid_@tools ivar id'>@tools</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='rubyid_@active_tools ivar id'>@active_tools</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
   <span class='rubyid_@language ivar id'>@language</span> <span class='assign token'>=</span> <span class='string val'>'c++'</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
     <span class='rubyid_@cogfile_path ivar id'>@cogfile_path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
@@ -646,69 +668,7 @@ instance, and <span class='object_link'><a href="#project%3F-instance_method" ti
       
       <span id=""></span>
       <div class="method_details first">
-  <h3 class="signature first" id="active_tool-instance_method">
-  
-    - (<tt><span class='object_link'><a href="Config/Tool.html" title="Cog::Config::Tool (class)">Tool</a></span></tt>) <strong>active_tool</strong>  <span class="extras">(readonly)</span>
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>The active tool affects the creation of new generators</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Config/Tool.html" title="Cog::Config::Tool (class)">Tool</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>the active tool affects the creation of new generators</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-32
-33
-34</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 32</span>
-
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_active_tool identifier id'>active_tool</span>
-  <span class='rubyid_@active_tool ivar id'>@active_tool</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id=""></span>
-      <div class="method_details ">
-  <h3 class="signature " id="cogfile_path-instance_method">
+  <h3 class="signature first" id="cogfile_path-instance_method">
   
     - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>cogfile_path</strong>  <span class="extras">(readonly)</span>
   
@@ -1110,12 +1070,12 @@ instance, and <span class='object_link'><a href="#project%3F-instance_method" ti
       <pre class="lines">
 
 
-128
-129
-130</pre>
+132
+133
+134</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 132</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_cog_templates_path identifier id'>cog_templates_path</span>
   <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_gem_dir identifier id'>gem_dir</span><span class='comma token'>,</span> <span class='string val'>'templates'</span>
@@ -1170,19 +1130,19 @@ instance, and <span class='object_link'><a href="#project%3F-instance_method" ti
       <pre class="lines">
 
 
-116
-117
-118
-119
 120
 121
 122
 123
 124
-125</pre>
+125
+126
+127
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 120</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_gem_dir identifier id'>gem_dir</span>
   <span class='rubyid_spec identifier id'>spec</span> <span class='assign token'>=</span> <span class='rubyid_Gem constant id'>Gem</span><span class='dot token'>.</span><span class='rubyid_loaded_specs identifier id'>loaded_specs</span><span class='lbrack token'>[</span><span class='string val'>'cog'</span><span class='rbrack token'>]</span>
@@ -1252,11 +1212,6 @@ grandparent, and so on.</p>
       <pre class="lines">
 
 
-157
-158
-159
-160
-161
 162
 163
 164
@@ -1268,10 +1223,15 @@ grandparent, and so on.</p>
 170
 171
 172
-173</pre>
+173
+174
+175
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 157</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 162</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span>
   <span class='rubyid_return return kw'>return</span> <span class='rubyid_@instance ivar id'>@instance</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@instance ivar id'>@instance</span>
@@ -1357,13 +1317,13 @@ grandparent, and so on.</p>
       <pre class="lines">
 
 
-181
-182
-183
-184</pre>
+186
+187
+188
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 181</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 186</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='assign token'>=</span><span class='lparen token'>(</span><span class='rubyid_config identifier id'>config</span><span class='rparen token'>)</span>
   <span class='rubyid_throw identifier id'>throw</span> <span class='symbol val'>:ConfigInstanceAlreadySet</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_@instance ivar id'>@instance</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
@@ -1382,7 +1342,189 @@ grandparent, and so on.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="project?-instance_method">
+  <h3 class="signature first" id="activate_tool-instance_method">
+  
+    - (<tt>nil</tt>) <strong>activate_tool</strong>(name) { ... }
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Activate the registered tool with the given name with the scope of the
+provided block. If no block is provided, the tool will remain active
+indefinitely.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>name of the registered tool to activate</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Yields:</p>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>the tool will be active within this block</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Errors::NoSuchTool</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 107</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_activate_tool identifier id'>activate_tool</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_NoSuchTool constant id'>NoSuchTool</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_tool_registered? fid id'>tool_registered?</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_@tools ivar id'>@tools</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_load identifier id'>load</span>
+  <span class='rubyid_@active_tools ivar id'>@active_tools</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_@tools ivar id'>@tools</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_block identifier id'>block</span>
+    <span class='rubyid_block identifier id'>block</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span>
+    <span class='rubyid_@active_tools ivar id'>@active_tools</span><span class='dot token'>.</span><span class='rubyid_pop identifier id'>pop</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="active_tool-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Config/Tool.html" title="Cog::Config::Tool (class)">Tool</a></span></tt>) <strong>active_tool</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The active tool affects the creation of new generators</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Config/Tool.html" title="Cog::Config::Tool (class)">Tool</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the active tool affects the creation of new generators</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 32</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_active_tool identifier id'>active_tool</span>
+  <span class='rubyid_@active_tools ivar id'>@active_tools</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="project?-instance_method">
   
     - (<tt>Boolean</tt>) <strong>project?</strong> 
   
@@ -1425,12 +1567,12 @@ grandparent, and so on.</p>
       <pre class="lines">
 
 
-35
-36
-37</pre>
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 37</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project? fid id'>project?</span>
   <span class='notop op'>!</span><span class='rubyid_@project_root ivar id'>@project_root</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
@@ -1495,21 +1637,15 @@ list returned from this method</p>
       <pre class="lines">
 
 
-48
-49
 50
 51
-52
-53</pre>
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 50</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_template_paths identifier id'>template_paths</span>
-  <span class='rubyid_paths identifier id'>paths</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rubyid_@project_templates_path ivar id'>@project_templates_path</span><span class='rbrack token'>]</span>
-  <span class='rubyid_paths identifier id'>paths</span> <span class='opasgn op'>+=</span> <span class='rubyid_tools identifier id'>tools</span><span class='dot token'>.</span><span class='rubyid_collect identifier id'>collect</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_tool identifier id'>tool</span><span class='bitor op'>|</span> <span class='rubyid_tool identifier id'>tool</span><span class='dot token'>.</span><span class='rubyid_templates_path identifier id'>templates_path</span><span class='rbrace token'>}</span>
-  <span class='rubyid_paths identifier id'>paths</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_cog_templates_path identifier id'>cog_templates_path</span>
-  <span class='rubyid_paths identifier id'>paths</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span>
+  <span class='lbrack token'>[</span><span class='rubyid_@project_templates_path ivar id'>@project_templates_path</span><span class='comma token'>,</span> <span class='rubyid_active_tool identifier id'>active_tool</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_active_tool identifier id'>active_tool</span><span class='dot token'>.</span><span class='rubyid_templates_path identifier id'>templates_path</span><span class='comma token'>,</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_cog_templates_path identifier id'>cog_templates_path</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -1561,12 +1697,12 @@ list returned from this method</p>
       <pre class="lines">
 
 
+55
 56
-57
-58</pre>
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 55</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_tools identifier id'>tools</span>
   <span class='rubyid_@tools ivar id'>@tools</span><span class='dot token'>.</span><span class='rubyid_values identifier id'>values</span><span class='dot token'>.</span><span class='rubyid_sort identifier id'>sort</span>
@@ -1582,7 +1718,7 @@ list returned from this method</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Nov 12 18:45:17 2012 by
+  Generated on Mon Nov 12 19:46:04 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

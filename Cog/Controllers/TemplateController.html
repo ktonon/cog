@@ -285,6 +285,7 @@ project override be created?</p>
       <pre class="lines">
 
 
+33
 34
 35
 36
@@ -304,11 +305,10 @@ project override be created?</p>
 50
 51
 52
-53
-54</pre>
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/controllers/template_controller.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/controllers/template_controller.rb', line 33</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_create identifier id'>create</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_ActionRequiresProject constant id'>ActionRequiresProject</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>'create template'</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_project? fid id'>project?</span>
@@ -439,8 +439,7 @@ project override be created?</p>
 24
 25
 26
-27
-28</pre>
+27</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/controllers/template_controller.rb', line 16</span>
@@ -448,10 +447,9 @@ project override be created?</p>
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_opt identifier id'>opt</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_cts identifier id'>cts</span> <span class='assign token'>=</span> <span class='rubyid_Helpers constant id'>Helpers</span><span class='colon2 op'>::</span><span class='rubyid_CascadingTemplateSet constant id'>CascadingTemplateSet</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
   <span class='rubyid_cts identifier id'>cts</span><span class='dot token'>.</span><span class='rubyid_add_templates identifier id'>add_templates</span> <span class='string val'>'built-in'</span><span class='comma token'>,</span> <span class='symbol val'>:built_in</span><span class='comma token'>,</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_cog_templates_path identifier id'>cog_templates_path</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span>
-  <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_tools identifier id'>tools</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_tool identifier id'>tool</span><span class='bitor op'>|</span>
-    <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_tool identifier id'>tool</span><span class='dot token'>.</span><span class='rubyid_templates_path identifier id'>templates_path</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-      <span class='rubyid_cts identifier id'>cts</span><span class='dot token'>.</span><span class='rubyid_add_templates identifier id'>add_templates</span> <span class='rubyid_tool identifier id'>tool</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='symbol val'>:tool</span><span class='comma token'>,</span> <span class='rubyid_tool identifier id'>tool</span><span class='dot token'>.</span><span class='rubyid_templates_path identifier id'>templates_path</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span>
-    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_tool identifier id'>tool</span> <span class='assign token'>=</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_active_tool identifier id'>active_tool</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_tool identifier id'>tool</span><span class='dot token'>.</span><span class='rubyid_templates_path identifier id'>templates_path</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+    <span class='rubyid_cts identifier id'>cts</span><span class='dot token'>.</span><span class='rubyid_add_templates identifier id'>add_templates</span> <span class='rubyid_tool identifier id'>tool</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='symbol val'>:tool</span><span class='comma token'>,</span> <span class='rubyid_tool identifier id'>tool</span><span class='dot token'>.</span><span class='rubyid_templates_path identifier id'>templates_path</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span>
   <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_project? fid id'>project?</span>
     <span class='rubyid_cts identifier id'>cts</span><span class='dot token'>.</span><span class='rubyid_add_templates identifier id'>add_templates</span> <span class='string val'>'project'</span><span class='comma token'>,</span> <span class='symbol val'>:project</span><span class='comma token'>,</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_project_templates_path identifier id'>project_templates_path</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span>
@@ -469,7 +467,7 @@ project override be created?</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Nov 12 18:45:16 2012 by
+  Generated on Mon Nov 12 19:46:03 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

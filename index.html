@@ -66,7 +66,14 @@
 <p><code>cog</code> is a command line utility that makes it a bit easier to organize a project
 which uses code generation.</p>
 
-<p><em>It is still in early development! I would not recommend using it until this message gets removed.</em></p>
+<p><strong>This project is still under development</strong></p>
+
+<p>See also</p>
+
+<ul>
+<li><a href="http://youtu.be/lH_q0aPqRzo">Video introduction to cog</a></li>
+<li><a href="http://ktonon.github.com/cog/Cog.html">API docs</a></li>
+</ul>
 
 <h2>Get it</h2>
 
@@ -318,7 +325,13 @@ Here is what the root tool file <code>cons.rb</code> will look like</p>
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_widget identifier id'>widget</span><span class='lparen token'>(</span><span class='rubyid_generator_name identifier id'>generator_name</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
     <span class='rubyid_w identifier id'>w</span> <span class='assign token'>=</span> <span class='rubyid_Widget constant id'>Widget</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_generator_name identifier id'>generator_name</span>
     <span class='rubyid_block identifier id'>block</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span> <span class='rubyid_w identifier id'>w</span>
-    <span class='rubyid_w identifier id'>w</span><span class='dot token'>.</span><span class='rubyid_generate identifier id'>generate</span>
+
+    <span class='comment val'># Activate cons while rendering templates</span>
+    <span class='comment val'># so that cog will be able to find cons templates</span>
+    <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_activate_tool identifier id'>activate_tool</span> <span class='string val'>'cons'</span> <span class='rubyid_do do kw'>do</span>
+      <span class='rubyid_w identifier id'>w</span><span class='dot token'>.</span><span class='rubyid_generate identifier id'>generate</span>
+    <span class='rubyid_end end kw'>end</span>
+
     <span class='rubyid_nil nil kw'>nil</span>
   <span class='rubyid_end end kw'>end</span>
 
@@ -348,7 +361,7 @@ Here is what the root tool file <code>cons.rb</code> will look like</p>
 </div></div>
 
     <div id="footer">
-  Generated on Mon Nov 12 18:45:14 2012 by
+  Generated on Mon Nov 12 19:46:01 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
