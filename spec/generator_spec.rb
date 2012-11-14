@@ -36,7 +36,7 @@ describe Cog::Generator do
     end
     
     it 'should be able to find built-in templates' do
-      stamp('warning.h').should =~ /do not edit this/i
+      stamp('warning').should =~ /do not edit this/i
     end
     
   end

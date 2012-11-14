@@ -10,10 +10,11 @@ include GLI::App
 
 program_desc 'This is a utility to help you write code generators.'
 
-# version Cog::VERSION
+desc 'Current version of cog'
+version Cog::VERSION
 
 desc 'Output more detailed information when running a command'
-switch [:verbose, :v]
+switch [:verbose]
 
 desc 'Set the Cogfile explicitly'
 arg_name 'path'
@@ -22,7 +23,7 @@ flag :cogfile
 desc 'Set the active tool'
 arg_name 'name'
 default_value 'basic'
-flag :tool
+flag [:tool, :t]
 
 desc 'Suppress the use of color in output'
 switch :colorless
@@ -51,8 +52,16 @@ command [:generator, :gen] do |c|
   c.desc 'Create a new project generator'
   c.arg_name 'name'
   c.command :new do |sub|
+    sub.desc 'Specify a target language other than the default'
+    sub.default_value 'in Cogfile'
+    sub.flag [:language, :l]
+    
     sub.action do |gopt, opt, args|
       args.each do |name|
+        if opt[:language] && opt[:language] != 'in Cogfile'
+          lang = Cog::Languages.get_language opt[:language]
+          Cog::Config.instance.target_language = lang
+        end
         Cog::Controllers::GeneratorController.create name
       end
     end
@@ -124,6 +133,24 @@ command [:template, :tm] do |c|
       end
     end
   end
+end
+
+desc 'Review supported languages'
+command [:language, :lang] do |c|
+  
+  c.default_command :list
+  
+  c.desc 'List the supported languages'
+  c.command :list do |sub|
+    sub.action do
+      summary = Cog::Config.instance.language_summary
+      w = summary.collect {|info| info.name.length}.max
+      summary.each do |info|
+        puts info.to_s(w)
+      end
+    end
+  end
+  
 end
 
 pre do |gopt, command, opt, args|

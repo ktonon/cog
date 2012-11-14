@@ -34,7 +34,7 @@ describe 'The command line interface' do
     end
     
     it 'running `cog run` will fail' do
-      @cog.run(:run).should complain
+      @cog.run(:generator, :run).should complain
     end
     
     it 'running `cog tool` will not fail' do
@@ -62,7 +62,7 @@ describe 'The command line interface' do
     it 'running `cog generator` should not list anything' do
       @cog.run(:generator).should_not do_something
     end
-
+  
     it 'running `cog generator new` should do nothing' do
       @cog.run(:generator, :new).should_not do_something
     end
@@ -70,17 +70,45 @@ describe 'The command line interface' do
     it 'running `cog generator new piggy` should create a generator named piggy' do
       @cog.run(:generator, :new, :piggy).should make(generator(:piggy))
     end
+
+    it 'running `cog generator new piggy` should create c++ templates' do
+      @cog.run(:generator, :new, :piggy).should make(template('piggy.cpp.erb'))
+    end
+
+    it 'running `cog generator new --language=c# piggy` should create c# templates' do
+      @cog.run(:generator, :new, '--language=c#', :piggy).should make(template('piggy.cs.erb'))
+    end
     
     it 'running `cog template new piggy.txt` should create a template named piggy.txt.erb' do
       @cog.run(:template, :new, 'piggy.txt').should make(template('piggy.txt.erb'))
     end
     
-    it 'running `cog template new warning.h` should not override the built-in template' do
-      @cog.run(:template, :new, 'warning.h').should complain
+    it 'running `cog template new warning` should not override the built-in template' do
+      @cog.run(:template, :new, 'warning').should complain
     end
-
-    it 'running `cog template new --force-override warning.h` should override the built-in template' do
-      @cog.run(:template, :new, '--force-override', 'warning.h').should make(template('warning.h.erb'))
+      
+    it 'running `cog template new --force-override warning` should override the built-in template' do
+      @cog.run(:template, :new, '--force-override', 'warning').should make(template('warning.erb'))
+    end
+  end
+  
+  context 'in a project which generates in multiple languages' do
+    before :each do
+      use_fixture :lang
+    end
+    
+    def read(ext)
+      File.new(generated_file("generated_warn.#{ext}")).read
+    end
+    
+    it 'should determine the language based on the template extension' do
+      @cog.run(:gen, :run).should make(generated_file('generated_warn.h'))
+      [:h, :c, :hpp, :cpp, :java, :cs, :php, :js].each do |ext|
+        read(ext).should == "/*\nWARNING\n */"
+      end
+      read(:rb).should == "=begin\nWARNING\n=end"
+      read(:py).should == "'''\nWARNING\n'''"
+      File.new(generated_file("generated_warn")).read.should == 'WARNING'
     end
   end
   

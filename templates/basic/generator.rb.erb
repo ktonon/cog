@@ -4,8 +4,10 @@ class <%= camelized %>
   include Cog::Generator
   
   def generate
-    @some_context = :my_context_value
-    stamp '<%= name %>.txt', 'generated_<%= name %>.txt'
+    @class = '<%= name.gsub ' ', '' %>'
+<% @language.module_extensions.each do |ext| %>
+    stamp '<%= name %>.<%= ext %>', 'generated_<%= name %>.<%= ext %>'
+<% end %>
   end
 end
 

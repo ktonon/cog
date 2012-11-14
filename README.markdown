@@ -19,12 +19,6 @@ Install the [cog gem](https://rubygems.org/gems/cog) from a terminal
 $ gem install cog
 ```
 
-or place this in your Gemfile
-
-```ruby
-gem "cog", "~> 0.1.2"
-```
-
 Prepare a project
 -----------------
 

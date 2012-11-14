@@ -40,7 +40,7 @@ module Cog
             original = get_template name, :as_path => true
             return if original == dest # Nothing to create
             if opt[:force_override]
-              copy_if_missing original, dest
+              copy_file_if_missing original, dest
             else
               raise Errors::DuplicateTemplate.new original
             end

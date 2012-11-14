@@ -9,5 +9,17 @@ project_templates_path 'cog/templates'
 # Define the directory to which project source code is generated
 project_source_path 'src'
 
-# Define the default language in which to generated application source code
-language 'c++'
+# Explicitly specify a mapping from file extensions to languages
+#
+# key => value pairs from this mapping will override the default
+# language map supplied by +cog+
+#
+# Type `cog language list` to see a list of supported languages
+# and the current file extension mappings
+language_extensions({
+  # :h => 'c++',
+  })
+
+# Define the target language which should be used when
+# creating generators, and no language is explicitly specified
+default_target_language 'c++'
