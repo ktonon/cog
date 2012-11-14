@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: Cog::Languages
+  
+    &mdash; Documentation by YARD 0.8.3
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (L)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Cog.html" title="Cog (module)">Cog</a></span></span>
+     &raquo; 
+    <span class="title">Languages</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: Cog::Languages
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/cog/languages.rb<span class="defines">,<br />
+  lib/cog/languages/language.rb,<br /> lib/cog/languages/c_language.rb,<br /> lib/cog/languages/java_language.rb,<br /> lib/cog/languages/ruby_language.rb,<br /> lib/cog/languages/p_h_p_language.rb,<br /> lib/cog/languages/python_language.rb,<br /> lib/cog/languages/c_sharp_language.rb,<br /> lib/cog/languages/java_script_language.rb,<br /> lib/cog/languages/c_plus_plus_language.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Submodules define helpers for the target languages supported by
+<code>cog</code></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Languages/CLanguage.html" title="Cog::Languages::CLanguage (class)">CLanguage</a></span>, <span class='object_link'><a href="Languages/CPlusPlusLanguage.html" title="Cog::Languages::CPlusPlusLanguage (class)">CPlusPlusLanguage</a></span>, <span class='object_link'><a href="Languages/CSharpLanguage.html" title="Cog::Languages::CSharpLanguage (class)">CSharpLanguage</a></span>, <span class='object_link'><a href="Languages/JavaLanguage.html" title="Cog::Languages::JavaLanguage (class)">JavaLanguage</a></span>, <span class='object_link'><a href="Languages/JavaScriptLanguage.html" title="Cog::Languages::JavaScriptLanguage (class)">JavaScriptLanguage</a></span>, <span class='object_link'><a href="Languages/Language.html" title="Cog::Languages::Language (class)">Language</a></span>, <span class='object_link'><a href="Languages/PHPLanguage.html" title="Cog::Languages::PHPLanguage (class)">PHPLanguage</a></span>, <span class='object_link'><a href="Languages/PythonLanguage.html" title="Cog::Languages::PythonLanguage (class)">PythonLanguage</a></span>, <span class='object_link'><a href="Languages/RubyLanguage.html" title="Cog::Languages::RubyLanguage (class)">RubyLanguage</a></span>
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="DEFAULT_LANGUAGE_EXTENSION_MAP-constant" class="">DEFAULT_LANGUAGE_EXTENSION_MAP =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>A mapping from file extensions to languages identifiers</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a mapping from file extensions to languages identifiers</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace token'>{</span>
+  <span class='symbol val'>:c</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'c'</span><span class='comma token'>,</span>
+  <span class='symbol val'>:cpp</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'c++'</span><span class='comma token'>,</span>
+  <span class='symbol val'>:cs</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'c#'</span><span class='comma token'>,</span>
+  <span class='symbol val'>:h</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'c'</span><span class='comma token'>,</span>
+  <span class='symbol val'>:hpp</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'c++'</span><span class='comma token'>,</span>
+  <span class='symbol val'>:java</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'java'</span><span class='comma token'>,</span>
+  <span class='symbol val'>:js</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'javascript'</span><span class='comma token'>,</span>
+  <span class='symbol val'>:php</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'php'</span><span class='comma token'>,</span>
+  <span class='symbol val'>:py</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'python'</span><span class='comma token'>,</span>
+  <span class='symbol val'>:rb</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'ruby'</span><span class='comma token'>,</span>
+<span class='rbrace token'>}</span>
+</pre></dd>
+      
+        <dt id="ALIAS-constant" class="">ALIAS =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>A mapping from language aliases to language identifiers</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a mapping from language aliases to language identifiers</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace token'>{</span>
+  <span class='string val'>'c++'</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'c_plus_plus'</span><span class='comma token'>,</span>
+  <span class='string val'>'c#'</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'c_sharp'</span><span class='comma token'>,</span>
+  <span class='string val'>'php'</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'p_h_p'</span><span class='comma token'>,</span>
+  <span class='string val'>'javascript'</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'java_script'</span><span class='comma token'>,</span>
+<span class='rbrace token'>}</span>
+</pre></dd>
+      
+        <dt id="REV_ALIAS-constant" class="">REV_ALIAS =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>A mapping of language identifiers to lists of aliases</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a mapping of language identifiers to lists of aliases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_language-class_method" title="get_language (class method)">+ (Language) <strong>get_language</strong>(lang_id) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A language helper corresponding to the given identifier.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="get_language-class_method">
+  
+    + (<tt><span class='object_link'><a href="Languages/Language.html" title="Cog::Languages::Language (class)">Language</a></span></tt>) <strong>get_language</strong>(lang_id) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>A language helper corresponding to the given identifier</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>lang_id</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a langauge identifier</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Languages/Language.html" title="Cog::Languages::Language (class)">Language</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a language helper corresponding to the given identifier</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Errors::NoSuchLanguage</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+40
+41
+42
+43
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/languages.rb', line 40</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_get_language identifier id'>get_language</span><span class='lparen token'>(</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rparen token'>)</span>
+  <span class='rubyid_lang_id identifier id'>lang_id</span> <span class='assign token'>=</span> <span class='rubyid_Languages constant id'>Languages</span><span class='colon2 op'>::</span><span class='rubyid_ALIAS constant id'>ALIAS</span><span class='lbrack token'>[</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='rubyid_lang_id identifier id'>lang_id</span>
+  <span class='rubyid_require identifier id'>require</span> <span class='dstring node'>&quot;cog/languages/#{lang_id.to_s.downcase}_language&quot;</span>
+  <span class='rubyid_Languages constant id'>Languages</span><span class='dot token'>.</span><span class='rubyid_instance_eval identifier id'>instance_eval</span> <span class='lbrace token'>{</span><span class='rubyid_const_get identifier id'>const_get</span> <span class='dstring node'>&quot;#{lang_id.camelize}Language&quot;</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
+<span class='rubyid_rescue rescue kw'>rescue</span> <span class='rubyid_LoadError constant id'>LoadError</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_NoSuchLanguage constant id'>NoSuchLanguage</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_lang_id identifier id'>lang_id</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Tue Nov 13 20:45:26 2012 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.3 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

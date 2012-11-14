@@ -145,7 +145,7 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#language-instance_method" title="#language (instance method)">- (Object) <strong>language</strong>(lang) </a>
+      <a href="#default_target_language-instance_method" title="#default_target_language (instance method)">- (Object) <strong>default_target_language</strong>(lang_id) </a>
     
 
     
@@ -160,7 +160,8 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Define the default language in which to generated application source code.</p>
+<p>Define the target language which should be used when creating generators,
+and no language is explicitly specified.</p>
 </div></span>
   
 </li>
@@ -169,7 +170,31 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#project_generators_path-instance_method" title="#project_generators_path (instance method)">- (Object) <strong>project_generators_path</strong>(path, absolute = false) </a>
+      <a href="#language_extensions-instance_method" title="#language_extensions (instance method)">- (nil) <strong>language_extensions</strong>(map) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Explicitly specify a mapping from file extensions to languages.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#project_generators_path-instance_method" title="#project_generators_path (instance method)">- (nil) <strong>project_generators_path</strong>(path, absolute = false) </a>
     
 
     
@@ -193,7 +218,7 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#project_source_path-instance_method" title="#project_source_path (instance method)">- (Object) <strong>project_source_path</strong>(path, absolute = false) </a>
+      <a href="#project_source_path-instance_method" title="#project_source_path (instance method)">- (nil) <strong>project_source_path</strong>(path, absolute = false) </a>
     
 
     
@@ -217,7 +242,7 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#project_templates_path-instance_method" title="#project_templates_path (instance method)">- (Object) <strong>project_templates_path</strong>(path, absolute = false) </a>
+      <a href="#project_templates_path-instance_method" title="#project_templates_path (instance method)">- (nil) <strong>project_templates_path</strong>(path, absolute = false) </a>
     
 
     
@@ -248,9 +273,9 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="language-instance_method">
+  <h3 class="signature first" id="default_target_language-instance_method">
   
-    - (<tt>Object</tt>) <strong>language</strong>(lang) 
+    - (<tt>Object</tt>) <strong>default_target_language</strong>(lang_id) 
   
 
   
@@ -259,7 +284,8 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Define the default language in which to generated application source code</p>
+<p>Define the target language which should be used when creating generators,
+and no language is explicitly specified</p>
 
 
   </div>
@@ -270,7 +296,7 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
   
     <li>
       
-        <span class='name'>lang</span>
+        <span class='name'>lang_id</span>
       
       
         <span class='type'>(<tt><span class='object_link'><a href="../../String.html" title="String (class)">String</a></span></tt>)</span>
@@ -279,7 +305,7 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
       
         &mdash;
         <div class='inline'>
-<p>a code for the language. Acceptable values are <code>c++</code></p>
+<p>a language identifier</p>
 </div>
       
     </li>
@@ -293,19 +319,101 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
       <pre class="lines">
 
 
-61
-62
-63
-64
-65</pre>
+83
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 83</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_language identifier id'>language</span><span class='lparen token'>(</span><span class='rubyid_lang identifier id'>lang</span><span class='rparen token'>)</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_default_target_language identifier id'>default_target_language</span><span class='lparen token'>(</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rparen token'>)</span>
   <span class='rubyid_@config ivar id'>@config</span><span class='dot token'>.</span><span class='rubyid_instance_eval identifier id'>instance_eval</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_@language ivar id'>@language</span> <span class='assign token'>=</span> <span class='rubyid_lang identifier id'>lang</span>
+    <span class='rubyid_@target_language ivar id'>@target_language</span> <span class='assign token'>=</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Languages constant id'>Languages</span><span class='dot token'>.</span><span class='rubyid_get_language identifier id'>get_language</span><span class='lparen token'>(</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="language_extensions-instance_method">
+  
+    - (<tt>nil</tt>) <strong>language_extensions</strong>(map) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Explicitly specify a mapping from file extensions to languages</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>map</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>key-value pairs from this mapping will override the default language map
+supplied by <code>cog</code></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+73
+74
+75
+76
+77
+78</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 73</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_language_extensions identifier id'>language_extensions</span><span class='lparen token'>(</span><span class='rubyid_map identifier id'>map</span><span class='rparen token'>)</span>
+  <span class='rubyid_@config ivar id'>@config</span><span class='dot token'>.</span><span class='rubyid_instance_eval identifier id'>instance_eval</span> <span class='rubyid_do do kw'>do</span>
+    <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='dot token'>.</span><span class='rubyid_update identifier id'>update</span> <span class='rubyid_map identifier id'>map</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_nil nil kw'>nil</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -316,7 +424,7 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
       <div class="method_details ">
   <h3 class="signature " id="project_generators_path-instance_method">
   
-    - (<tt>Object</tt>) <strong>project_generators_path</strong>(path, absolute = false) 
+    - (<tt>nil</tt>) <strong>project_generators_path</strong>(path, absolute = false) 
   
 
   
@@ -370,6 +478,19 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -377,19 +498,21 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
       <pre class="lines">
 
 
-35
-36
-37
-38
-39</pre>
+41
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 41</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_generators_path identifier id'>project_generators_path</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span><span class='assign token'>=</span><span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
   <span class='rubyid_@config ivar id'>@config</span><span class='dot token'>.</span><span class='rubyid_instance_eval identifier id'>instance_eval</span> <span class='rubyid_do do kw'>do</span>
     <span class='rubyid_@project_generators_path ivar id'>@project_generators_path</span> <span class='assign token'>=</span> <span class='rubyid_absolute identifier id'>absolute</span> <span class='integer val'>? </span><span class='rubyid_path identifier id'>path</span> <span class='colon op'>:</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_project_root identifier id'>project_root</span><span class='comma token'>,</span> <span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_nil nil kw'>nil</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -400,7 +523,7 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
       <div class="method_details ">
   <h3 class="signature " id="project_source_path-instance_method">
   
-    - (<tt>Object</tt>) <strong>project_source_path</strong>(path, absolute = false) 
+    - (<tt>nil</tt>) <strong>project_source_path</strong>(path, absolute = false) 
   
 
   
@@ -454,6 +577,19 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -461,19 +597,21 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
       <pre class="lines">
 
 
-53
-54
-55
-56
-57</pre>
+63
+64
+65
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 63</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_source_path identifier id'>project_source_path</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span><span class='assign token'>=</span><span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
   <span class='rubyid_@config ivar id'>@config</span><span class='dot token'>.</span><span class='rubyid_instance_eval identifier id'>instance_eval</span> <span class='rubyid_do do kw'>do</span>
     <span class='rubyid_@project_source_path ivar id'>@project_source_path</span> <span class='assign token'>=</span> <span class='rubyid_absolute identifier id'>absolute</span> <span class='integer val'>? </span><span class='rubyid_path identifier id'>path</span> <span class='colon op'>:</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_project_root identifier id'>project_root</span><span class='comma token'>,</span> <span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_nil nil kw'>nil</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -484,7 +622,7 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
       <div class="method_details ">
   <h3 class="signature " id="project_templates_path-instance_method">
   
-    - (<tt>Object</tt>) <strong>project_templates_path</strong>(path, absolute = false) 
+    - (<tt>nil</tt>) <strong>project_templates_path</strong>(path, absolute = false) 
   
 
   
@@ -538,6 +676,19 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -545,19 +696,21 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
       <pre class="lines">
 
 
-44
-45
-46
-47
-48</pre>
+52
+53
+54
+55
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 52</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_templates_path identifier id'>project_templates_path</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span><span class='assign token'>=</span><span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
   <span class='rubyid_@config ivar id'>@config</span><span class='dot token'>.</span><span class='rubyid_instance_eval identifier id'>instance_eval</span> <span class='rubyid_do do kw'>do</span>
     <span class='rubyid_@project_templates_path ivar id'>@project_templates_path</span> <span class='assign token'>=</span> <span class='rubyid_absolute identifier id'>absolute</span> <span class='integer val'>? </span><span class='rubyid_path identifier id'>path</span> <span class='colon op'>:</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_project_root identifier id'>project_root</span><span class='comma token'>,</span> <span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
   <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_nil nil kw'>nil</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -570,7 +723,7 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
 </div>
 
     <div id="footer">
-  Generated on Mon Nov 12 19:46:05 2012 by
+  Generated on Tue Nov 13 20:45:30 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

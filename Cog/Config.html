@@ -95,7 +95,7 @@
   
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/cog/config.rb<span class="defines">,<br />
-  lib/cog/config/tool.rb,<br /> lib/cog/config/cogfile.rb</span>
+  lib/cog/config/tool.rb,<br /> lib/cog/config/cogfile.rb,<br /> lib/cog/config/lang_info.rb</span>
 </dd>
   
 </dl>
@@ -121,7 +121,7 @@ to determine where to find things, and where to put them. When
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Config/Cogfile.html" title="Cog::Config::Cogfile (class)">Cogfile</a></span>, <span class='object_link'><a href="Config/CogfileError.html" title="Cog::Config::CogfileError (class)">CogfileError</a></span>, <span class='object_link'><a href="Config/Tool.html" title="Cog::Config::Tool (class)">Tool</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Config/Cogfile.html" title="Cog::Config::Cogfile (class)">Cogfile</a></span>, <span class='object_link'><a href="Config/CogfileError.html" title="Cog::Config::CogfileError (class)">CogfileError</a></span>, <span class='object_link'><a href="Config/LangInfo.html" title="Cog::Config::LangInfo (class)">LangInfo</a></span>, <span class='object_link'><a href="Config/Tool.html" title="Cog::Config::Tool (class)">Tool</a></span>
     
   
 </p>
@@ -156,35 +156,6 @@ to determine where to find things, and where to put them. When
   
     <span class="summary_desc"><div class='inline'>
 <p>Path to the project’s <span class='object_link'><a href="Config/Cogfile.html" title="Cog::Config::Cogfile (class)">Cogfile</a></span>.</p>
-</div></span>
-  
-</li>
-
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#language-instance_method" title="#language (instance method)">- (String) <strong>language</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-      <span class="note title readonly">readonly</span>
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Default language in which to generated application source code.</p>
 </div></span>
   
 </li>
@@ -301,6 +272,34 @@ to determine where to find things, and where to put them. When
   
     <span class="summary_desc"><div class='inline'>
 <p>Directory in which to find custom project templates.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#target_language-instance_method" title="#target_language (instance method)">- (Languages::Lanugage) <strong>target_language</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Target language which should be used when creating generators, and no
+language is explicitly specified.</p>
 </div></span>
   
 </li>
@@ -427,6 +426,30 @@ to determine where to find things, and where to put them. When
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#activate_language-instance_method" title="#activate_language (instance method)">- (Object) <strong>activate_language</strong>(opt = {}) { ... }</a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Activate a given language within the scope of the provided block.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#activate_tool-instance_method" title="#activate_tool (instance method)">- (nil) <strong>activate_tool</strong>(name) { ... }</a>
     
 
@@ -444,6 +467,30 @@ to determine where to find things, and where to put them. When
     <span class="summary_desc"><div class='inline'>
 <p>Activate the registered tool with the given name with the scope of the
 provided block.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#active_language-instance_method" title="#active_language (instance method)">- (String) <strong>active_language</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The target language which is currently active.</p>
 </div></span>
   
 </li>
@@ -494,6 +541,30 @@ provided block.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>A new instance of Config.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#language_summary-instance_method" title="#language_summary (instance method)">- (Array&lt;LangInfo&gt;) <strong>language_summary</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Current configuration of supported languages.</p>
 </div></span>
   
 </li>
@@ -626,27 +697,31 @@ instance, and <span class='object_link'><a href="#project%3F-instance_method" ti
       <pre class="lines">
 
 
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149</pre>
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 138</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 180</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_cogfile_path identifier id'>cogfile_path</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
   <span class='rubyid_@project_root ivar id'>@project_root</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
   <span class='rubyid_@tools ivar id'>@tools</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
-  <span class='rubyid_@active_tools ivar id'>@active_tools</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-  <span class='rubyid_@language ivar id'>@language</span> <span class='assign token'>=</span> <span class='string val'>'c++'</span>
+  <span class='rubyid_@active_tools ivar id'>@active_tools</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span> <span class='comment val'># active tool stack</span>
+  <span class='rubyid_@target_language ivar id'>@target_language</span> <span class='assign token'>=</span> <span class='rubyid_Languages constant id'>Languages</span><span class='colon2 op'>::</span><span class='rubyid_Language constant id'>Language</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
+  <span class='rubyid_@active_languages ivar id'>@active_languages</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rubyid_Languages constant id'>Languages</span><span class='colon2 op'>::</span><span class='rubyid_Language constant id'>Language</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='rbrack token'>]</span> <span class='comment val'># active language stack</span>
+  <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span> <span class='assign token'>=</span> <span class='rubyid_Languages constant id'>Languages</span><span class='colon2 op'>::</span><span class='rubyid_DEFAULT_LANGUAGE_EXTENSION_MAP constant id'>DEFAULT_LANGUAGE_EXTENSION_MAP</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
     <span class='rubyid_@cogfile_path ivar id'>@cogfile_path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
     <span class='rubyid_@project_root ivar id'>@project_root</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_dirname identifier id'>dirname</span> <span class='rubyid_@cogfile_path ivar id'>@cogfile_path</span>
@@ -711,77 +786,15 @@ instance, and <span class='object_link'><a href="#project%3F-instance_method" ti
       <pre class="lines">
 
 
-14
-15
-16</pre>
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 16</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
   <span class='rubyid_@cogfile_path ivar id'>@cogfile_path</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id=""></span>
-      <div class="method_details ">
-  <h3 class="signature " id="language-instance_method">
-  
-    - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>language</strong>  <span class="extras">(readonly)</span>
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Default language in which to generated application source code</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>default language in which to generated application source code</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-17
-18
-19</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 17</span>
-
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_language identifier id'>language</span>
-  <span class='rubyid_@language ivar id'>@language</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -835,12 +848,12 @@ instance, and <span class='object_link'><a href="#project%3F-instance_method" ti
       <pre class="lines">
 
 
+19
 20
-21
-22</pre>
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 19</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_generators_path identifier id'>project_generators_path</span>
   <span class='rubyid_@project_generators_path ivar id'>@project_generators_path</span>
@@ -897,12 +910,12 @@ instance, and <span class='object_link'><a href="#project%3F-instance_method" ti
       <pre class="lines">
 
 
+22
 23
-24
-25</pre>
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 22</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_root identifier id'>project_root</span>
   <span class='rubyid_@project_root ivar id'>@project_root</span>
@@ -959,12 +972,12 @@ instance, and <span class='object_link'><a href="#project%3F-instance_method" ti
       <pre class="lines">
 
 
+25
 26
-27
-28</pre>
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 25</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_source_path identifier id'>project_source_path</span>
   <span class='rubyid_@project_source_path ivar id'>@project_source_path</span>
@@ -1021,15 +1034,79 @@ instance, and <span class='object_link'><a href="#project%3F-instance_method" ti
       <pre class="lines">
 
 
+28
 29
-30
-31</pre>
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 28</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_templates_path identifier id'>project_templates_path</span>
   <span class='rubyid_@project_templates_path ivar id'>@project_templates_path</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="target_language=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="target_language-instance_method">
+  
+    - (<tt>Languages::Lanugage</tt>) <strong>target_language</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Target language which should be used when creating generators, and no
+language is explicitly specified</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Languages::Lanugage</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>target language which should be used when creating generators, and no
+language is explicitly specified</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31
+32
+33</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 31</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_target_language identifier id'>target_language</span>
+  <span class='rubyid_@target_language ivar id'>@target_language</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -1070,12 +1147,12 @@ instance, and <span class='object_link'><a href="#project%3F-instance_method" ti
       <pre class="lines">
 
 
-132
-133
-134</pre>
+174
+175
+176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 132</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 174</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_cog_templates_path identifier id'>cog_templates_path</span>
   <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_gem_dir identifier id'>gem_dir</span><span class='comma token'>,</span> <span class='string val'>'templates'</span>
@@ -1130,19 +1207,19 @@ instance, and <span class='object_link'><a href="#project%3F-instance_method" ti
       <pre class="lines">
 
 
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129</pre>
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 162</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_gem_dir identifier id'>gem_dir</span>
   <span class='rubyid_spec identifier id'>spec</span> <span class='assign token'>=</span> <span class='rubyid_Gem constant id'>Gem</span><span class='dot token'>.</span><span class='rubyid_loaded_specs identifier id'>loaded_specs</span><span class='lbrack token'>[</span><span class='string val'>'cog'</span><span class='rbrack token'>]</span>
@@ -1212,26 +1289,26 @@ grandparent, and so on.</p>
       <pre class="lines">
 
 
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178</pre>
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 162</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 206</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span>
   <span class='rubyid_return return kw'>return</span> <span class='rubyid_@instance ivar id'>@instance</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@instance ivar id'>@instance</span>
@@ -1317,13 +1394,13 @@ grandparent, and so on.</p>
       <pre class="lines">
 
 
-186
-187
-188
-189</pre>
+230
+231
+232
+233</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 186</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 230</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='assign token'>=</span><span class='lparen token'>(</span><span class='rubyid_config identifier id'>config</span><span class='rparen token'>)</span>
   <span class='rubyid_throw identifier id'>throw</span> <span class='symbol val'>:ConfigInstanceAlreadySet</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_@instance ivar id'>@instance</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
@@ -1342,7 +1419,181 @@ grandparent, and so on.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="activate_tool-instance_method">
+  <h3 class="signature first" id="activate_language-instance_method">
+  
+    - (<tt>Object</tt>) <strong>activate_language</strong>(opt = {}) { ... }
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Activate a given language within the scope of the provided block. Either
+provide <code>:id</code> or <code>:ext</code> but not both. If the
+extension does not match any of the supported languages, the
+<span class='object_link'><a href="#active_language-instance_method" title="Cog::Config#active_language (method)">#active_language</a></span> will not change, but the block will still be called.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opt</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>opt</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:id</span>
+          <span class="type">(<tt>:String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>nil</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the lanuage identifier. Type <code>cog language list</code> to see the
+possible values</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:ext</span>
+          <span class="type">(<tt>:String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>nil</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>a file extension which will map to a language identifier. Type <code>cog
+language map</code> to see mapped extensions</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Yields:</p>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>within this block the <span class='object_link'><a href="#active_language-instance_method" title="Cog::Config#active_language (method)">#active_language</a></span> will be set to the desired value</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the value returned by the block</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 131</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_activate_language identifier id'>activate_language</span><span class='lparen token'>(</span><span class='rubyid_opt identifier id'>opt</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='rubyid_lang_id identifier id'>lang_id</span> <span class='assign token'>=</span> <span class='rubyid_if if kw'>if</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:ext</span><span class='rbrack token'>]</span>
+    <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:ext</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span>
+    <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_slice identifier id'>slice</span><span class='lparen token'>(</span><span class='float val'>1</span><span class='dot2 op'>..</span><span class='integer val'>-1</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_start_with? fid id'>start_with?</span><span class='lparen token'>(</span><span class='string val'>'.'</span><span class='rparen token'>)</span>
+    <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='lbrack token'>[</span><span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='rbrack token'>]</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_lang_id identifier id'>lang_id</span>
+    <span class='rubyid_@active_languages ivar id'>@active_languages</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_Languages constant id'>Languages</span><span class='dot token'>.</span><span class='rubyid_get_language identifier id'>get_language</span><span class='lparen token'>(</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rparen token'>)</span>
+    <span class='rubyid_r identifier id'>r</span> <span class='assign token'>=</span> <span class='rubyid_block identifier id'>block</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span>
+    <span class='rubyid_@active_languages ivar id'>@active_languages</span><span class='dot token'>.</span><span class='rubyid_pop identifier id'>pop</span>
+    <span class='rubyid_r identifier id'>r</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_block identifier id'>block</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="activate_tool-instance_method">
   
     - (<tt>nil</tt>) <strong>activate_tool</strong>(name) { ... }
   
@@ -1433,19 +1684,19 @@ indefinitely.</p>
       <pre class="lines">
 
 
-107
-108
-109
-110
-111
-112
-113
 114
 115
-116</pre>
+116
+117
+118
+119
+120
+121
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 114</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_activate_tool identifier id'>activate_tool</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
   <span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span>
@@ -1456,6 +1707,66 @@ indefinitely.</p>
     <span class='rubyid_block identifier id'>block</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span>
     <span class='rubyid_@active_tools ivar id'>@active_tools</span><span class='dot token'>.</span><span class='rubyid_pop identifier id'>pop</span>
   <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="active_language-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>active_language</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The target language which is currently active</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the target language which is currently active</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 34</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_active_language identifier id'>active_language</span>
+  <span class='rubyid_@active_languages ivar id'>@active_languages</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -1507,15 +1818,87 @@ indefinitely.</p>
       <pre class="lines">
 
 
-32
-33
-34</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 39</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_active_tool identifier id'>active_tool</span>
   <span class='rubyid_@active_tools ivar id'>@active_tools</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="language_summary-instance_method">
+  
+    - (<tt>Array&lt;<span class='object_link'><a href="Config/LangInfo.html" title="Cog::Config::LangInfo (class)">LangInfo</a></span>&gt;</tt>) <strong>language_summary</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Current configuration of supported languages</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Config/LangInfo.html" title="Cog::Config::LangInfo (class)">LangInfo</a></span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>current configuration of supported languages</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+150
+151
+152
+153
+154
+155
+156
+157
+158</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 150</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_language_summary identifier id'>language_summary</span>
+  <span class='rubyid_summary identifier id'>summary</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+  <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='dot token'>.</span><span class='rubyid_each_pair identifier id'>each_pair</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_ext identifier id'>ext</span><span class='comma token'>,</span> <span class='rubyid_lang_id identifier id'>lang_id</span><span class='bitor op'>|</span>
+    <span class='rubyid_lang_id identifier id'>lang_id</span> <span class='assign token'>=</span> <span class='rubyid_Languages constant id'>Languages</span><span class='colon2 op'>::</span><span class='rubyid_ALIAS constant id'>ALIAS</span><span class='lbrack token'>[</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='rubyid_lang_id identifier id'>lang_id</span>
+    <span class='rubyid_summary identifier id'>summary</span><span class='lbrack token'>[</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='rubyid_LangInfo constant id'>LangInfo</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='comma token'>,</span> <span class='rubyid_Languages constant id'>Languages</span><span class='colon2 op'>::</span><span class='rubyid_REV_ALIAS constant id'>REV_ALIAS</span><span class='lbrack token'>[</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='rubyid_summary identifier id'>summary</span><span class='lbrack token'>[</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_extensions identifier id'>extensions</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_ext identifier id'>ext</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_summary identifier id'>summary</span><span class='dot token'>.</span><span class='rubyid_values identifier id'>values</span><span class='dot token'>.</span><span class='rubyid_sort identifier id'>sort</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -1567,12 +1950,12 @@ indefinitely.</p>
       <pre class="lines">
 
 
-37
-38
-39</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 44</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project? fid id'>project?</span>
   <span class='notop op'>!</span><span class='rubyid_@project_root ivar id'>@project_root</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
@@ -1637,12 +2020,12 @@ list returned from this method</p>
       <pre class="lines">
 
 
-50
-51
-52</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 57</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_template_paths identifier id'>template_paths</span>
   <span class='lbrack token'>[</span><span class='rubyid_@project_templates_path ivar id'>@project_templates_path</span><span class='comma token'>,</span> <span class='rubyid_active_tool identifier id'>active_tool</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_active_tool identifier id'>active_tool</span><span class='dot token'>.</span><span class='rubyid_templates_path identifier id'>templates_path</span><span class='comma token'>,</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_cog_templates_path identifier id'>cog_templates_path</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span>
@@ -1697,12 +2080,12 @@ list returned from this method</p>
       <pre class="lines">
 
 
-55
-56
-57</pre>
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 62</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_tools identifier id'>tools</span>
   <span class='rubyid_@tools ivar id'>@tools</span><span class='dot token'>.</span><span class='rubyid_values identifier id'>values</span><span class='dot token'>.</span><span class='rubyid_sort identifier id'>sort</span>
@@ -1718,7 +2101,7 @@ list returned from this method</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Nov 12 19:46:04 2012 by
+  Generated on Tue Nov 13 20:45:29 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
