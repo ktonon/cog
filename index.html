@@ -131,8 +131,20 @@ it</p>
 <span class='comment val'># Define the directory to which project source code is generated</span>
 <span class='rubyid_project_source_path identifier id'>project_source_path</span> <span class='string val'>'src'</span>
 
-<span class='comment val'># Define the default language in which to generated application source code</span>
-<span class='rubyid_language identifier id'>language</span> <span class='string val'>'c++'</span>
+<span class='comment val'># Explicitly specify a mapping from file extensions to languages</span>
+<span class='comment val'>#</span>
+<span class='comment val'># key =&gt; value pairs from this mapping will override the default</span>
+<span class='comment val'># language map supplied by +cog+</span>
+<span class='comment val'>#</span>
+<span class='comment val'># Type `cog language list` to see a list of supported languages</span>
+<span class='comment val'># and the current file extension mappings</span>
+<span class='rubyid_language_extensions identifier id'>language_extensions</span><span class='lparen token'>(</span><span class='lbrace token'>{</span>
+  <span class='comment val'># :h =&gt; 'c++',</span>
+  <span class='rbrace token'>}</span><span class='rparen token'>)</span>
+
+<span class='comment val'># Define the target language which should be used when</span>
+<span class='comment val'># creating generators, and no language is explicitly specified</span>
+<span class='rubyid_default_target_language identifier id'>default_target_language</span> <span class='string val'>'c++'</span>
 </code></pre>
 
 <h2>Generators</h2>
@@ -144,10 +156,15 @@ been initialized</p>
 
 <pre class="code bash"><code>$ cog generator new my_generator
 Created cog/generators/my_generator.rb
-Created cog/templates/my_generator.txt.erb
+Created cog/templates/my_generator.cpp.erb
+Created cog/templates/my_generator.hpp.erb
 </code></pre>
 
-<p>This is what <code>my_generator.rb</code> will look like</p>
+<p>Notice that a generator with C++ templates was created. That is because the
+<a href="http://ktonon.github.com/cog/Cog/Config/Cogfile.html#default_target_language-instance_method">default_target_language</a>
+in the Cogfile was set to <code>c++</code>. You can see a list of other possible settings by running <code>cog language list</code>.</p>
+
+<p>Here is what <code>my_generator.rb</code> will look like</p>
 
 <pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
 
@@ -155,8 +172,9 @@ Created cog/templates/my_generator.txt.erb
   <span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
 
   <span class='rubyid_def def kw'>def</span> <span class='rubyid_generate identifier id'>generate</span>
-    <span class='rubyid_@some_context ivar id'>@some_context</span> <span class='assign token'>=</span> <span class='symbol val'>:my_context_value</span>
-    <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'my_generator.txt'</span><span class='comma token'>,</span> <span class='string val'>'generated_my_generator.txt'</span>
+    <span class='rubyid_@class ivar id'>@class</span> <span class='assign token'>=</span> <span class='string val'>'my_generator'</span>
+    <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'my_generator.cpp'</span><span class='comma token'>,</span> <span class='string val'>'generated_my_generator.cpp'</span>
+    <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'my_generator.hpp'</span><span class='comma token'>,</span> <span class='string val'>'generated_my_generator.hpp'</span>
   <span class='rubyid_end end kw'>end</span>
 <span class='rubyid_end end kw'>end</span>
 
@@ -178,20 +196,43 @@ The <a href="http://ktonon.github.com/cog/Cog/Config.html#project_templates_path
 is in the <a href="http://ktonon.github.com/cog/Cog/Config.html#template_paths-instance_method">template_paths</a>
 and takes the highest precedence.</p>
 
-<p>This is what <code>my_generator.txt.erb</code> will look like</p>
+<p>This is what <code>my_generator.hpp.erb</code> will look like</p>
 
-<pre class="code rhtml"><code>This is some context: &lt;%= @some_context %&gt;!
+<pre class="code c++"><code>&lt;%= warning %&gt; 
+
+class &lt;%= @class %&gt;
+{
+    &lt;%= @class %&gt;();
+};
 </code></pre>
 
 <p>Now that you have a generator, you can run it like this</p>
 
-<pre class="code bash"><code>$ cog run my_generator
-Created src/generated_my_generator.txt
+<pre class="code bash"><code>$ cog gen run my_generator
+Created src/generated_my_generator.cpp
+Created src/generated_my_generator.hpp
 </code></pre>
 
 <p>and the contents of the generated file will be</p>
 
-<pre class="code text"><code>This is some context: my_context_value!
+<pre class="code c++"><code>/*
+-------------------------------------------------------------------------------
+
+  WARNING
+
+  This is a generated file. DO NOT EDIT THIS FILE! Your changes will
+  be lost the next time this file is regenerated.
+
+  This file was generated using cog
+  https://github.com/ktonon/cog
+
+-------------------------------------------------------------------------------
+ */ 
+
+class my_generator
+{
+    my_generator();
+};
 </code></pre>
 
 <p>You can also list the project&#39;s generators like this</p>
@@ -199,9 +240,9 @@ Created src/generated_my_generator.txt
 <pre class="code bash"><code>$ cog gen list
 my_generator
 
-$ cog gen new fishy
+$ cog gen new --language=c# fishy
 Created cog/generators/fishy.rb
-Created cog/templates/fishy.txt.erb
+Created cog/templates/fishy.cs.erb
 
 $ cog generator list
 fishy
@@ -210,8 +251,8 @@ my_generator
 
 <p>You can run all of the project&#39;s generators by excluding the generator name, like this</p>
 
-<pre class="code bash"><code>$ cog run
-Created src/generated_fishy.txt
+<pre class="code bash"><code>$ cog gen run
+Created src/generated_fishy.cs
 </code></pre>
 
 <p>In this case, both generators are run, but the original <code>my_generator</code> hasn&#39;t changed, so the generated file <code>generated_my_generator.txt</code> will not be touched.</p>
@@ -356,7 +397,7 @@ Here is what the root tool file <code>cons.rb</code> will look like</p>
 </div></div>
 
     <div id="footer">
-  Generated on Tue Nov 13 20:45:25 2012 by
+  Generated on Tue Nov 13 21:07:55 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
