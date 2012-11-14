@@ -103,7 +103,7 @@ describe 'The command line interface' do
     
     it 'should determine the language based on the template extension' do
       @cog.run(:gen, :run).should make(generated_file('generated_warn.h'))
-      [:h, :c, :hpp, :cpp, :java, :cs, :php, :js].each do |ext|
+      [:h, :c, :hpp, :cpp, :java, :cs, :js].each do |ext|
         read(ext).should == "/*\nWARNING\n */"
       end
       read(:rb).should == "=begin\nWARNING\n=end"

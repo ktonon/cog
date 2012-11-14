@@ -11,9 +11,15 @@ module Cog
         text
       end
       
-      # @return a set of extensions needed to define a module in this language
+      # @return [Array<String>] a set of extensions needed to define a module in this language
       def module_extensions
         [:txt]
+      end
+      
+      # @param name [String] name of the scope to use
+      # @return [String] a using statement for the named scope
+      def use_named_scope(name)
+        ""
       end
       
       # @param name [String] name of the scope

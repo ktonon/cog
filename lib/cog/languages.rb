@@ -15,7 +15,6 @@ module Cog
       :hpp => 'c++',
       :java => 'java',
       :js => 'javascript',
-      :php => 'php',
       :py => 'python',
       :rb => 'ruby',
     }
@@ -24,7 +23,6 @@ module Cog
     ALIAS = {
       'c++' => 'c_plus_plus',
       'c#' => 'c_sharp',
-      'php' => 'p_h_p',
       'javascript' => 'java_script',
     }
     

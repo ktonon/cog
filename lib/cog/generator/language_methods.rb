@@ -42,17 +42,26 @@ module Cog
         lines.join "\n"
       end
 
-      # @param name [String] name of the module
-      # @return [String] an include guard statement for the active language
-      def include_guard_begin(name = nil)
-        scope_begin Scope.new(:include_guard, name)
+      # @param name [String] name of the scope to use
+      # @return [String] a using statement for the named scope
+      def use_named_scope(name)
+        Config.instance.active_language.use_named_scope(name)
       end
-    
+
+      # @param name [String] name of the scope
+      # @return [String] a scope begin statement
       def named_scope_begin(name = nil)
         scope_begin Scope.new(:named_scope, name)
       end
 
       alias :named_scope_end :scope_end
+
+      # @param name [String] name of the module
+      # @return [String] an include guard statement for the active language
+      def include_guard_begin(name = nil)
+        scope_begin Scope.new(:include_guard, name)
+      end
+
       alias :include_guard_end :scope_end
       
     end
