@@ -10,8 +10,8 @@ module Cog
       attr_accessor :tools
       
       # @param path_to_cl_app [String] path 
-      def initialize(path_to_cl_app)
-        @cog = File.expand_path path_to_cl_app
+      def initialize
+        @cog = File.expand_path File.join(File.dirname(__FILE__), '..', '..', '..', 'bin', 'cog')
         @tools = []
       end
 
