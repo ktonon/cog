@@ -39,7 +39,7 @@ end
 desc 'Manage project generators'
 command [:generator, :gen] do |c|
   
-  c.default_command :list
+  c.default_command :run
   
   c.desc 'List project generators'
   c.command :list do |sub|
