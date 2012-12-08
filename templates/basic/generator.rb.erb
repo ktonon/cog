@@ -1,14 +1,10 @@
 require 'cog'
+include Cog::Generator
 
-class <%= camelized %> 
-  include Cog::Generator
-  
-  def generate
-    @class = '<%= name.gsub ' ', '' %>'
+# Setup the template context
+@class = '<%= name.gsub ' ', '' %>'
+
+# Render the templates
 <% @language.module_extensions.each do |ext| %>
-    stamp '<%= name %>.<%= ext %>', 'generated_<%= name %>.<%= ext %>'
+stamp '<%= name %>.<%= ext %>', 'generated_<%= name %>.<%= ext %>'
 <% end %>
-  end
-end
-
-<%= camelized %>.new.generate

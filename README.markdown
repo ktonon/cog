@@ -3,12 +3,11 @@
 `cog` is a command line utility that makes it a bit easier to organize a project
 which uses code generation.
 
-__This project is still under development__
-
-See also
+The documentation on this page is synchronized with the git repository. For docs on the currently released gem (0.1.4) see [ktonon.github.com/cog](http://ktonon.github.com/cog/frames.html). See also the following resources,
 
 * [Video introduction to cog](http://youtu.be/lH_q0aPqRzo)
-* [API docs](http://ktonon.github.com/cog/Cog.html)
+
+Note that _this project is still under development_.
 
 Get it
 ------
@@ -112,34 +111,24 @@ Here is what `my_generator.rb` will look like
 
 ```ruby
 require 'cog'
+include Cog::Generator
 
-class MyGenerator 
-  include Cog::Generator
-  
-  def generate
-    @class = 'my_generator'
-    stamp 'my_generator.cpp', 'generated_my_generator.cpp'
-    stamp 'my_generator.hpp', 'generated_my_generator.hpp'
-  end
-end
+# Setup the template context
+@class = 'my_generator'
 
-MyGenerator.new.generate
+# Render the templates
+stamp 'my_generator.cpp', 'generated_my_generator.cpp'
+stamp 'my_generator.hpp', 'generated_my_generator.hpp'
 ```
 
-The important part is the last line. Just requiring this file causes it to run the generation procedure.
-
 The inclusion of the mixin
-[Cog::Generator](http://ktonon.github.com/cog/Cog/Generator.html) is a
-convenience, but is practically always done (either explicitly or implicitly). It provides an interface for easily
+[Cog::Generator](http://ktonon.github.com/cog/Cog/Generator.html) provides an interface for easily
 generating source code from templates. The
 [stamp](http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp) method
 is particularly useful. If finds an [ERB template](http://www.stuartellis.eu/articles/erb/)
 in the [template_paths](http://ktonon.github.com/cog/Cog/Config.html#template_paths-instance_method)
 and renders it to a file under the
 [project_source_path](http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method).
-The [project_templates_path](http://ktonon.github.com/cog/Cog/Config.html#project_templates_path-instance_method)
-is in the [template_paths](http://ktonon.github.com/cog/Cog/Config.html#template_paths-instance_method)
-and takes the highest precedence.
 
 This is what `my_generator.hpp.erb` will look like
 
@@ -198,10 +187,10 @@ fishy
 my_generator
 ```
 
-You can run all of the project's generators by excluding the generator name, like this
+You can run all of the project's generators by excluding the generator name. You don't even need to specify the `run` sub-command in this case, as it is the default. So very concisely,
 
 ```bash
-$ cog gen run
+$ cog gen
 Created src/generated_fishy.cs
 ```
 
