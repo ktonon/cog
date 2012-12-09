@@ -1,13 +1,14 @@
 source :rubygems
 gemspec
 
-gem "i18n"
-gem "gli"
-gem "rainbow"
-gem "rake"
-gem "rspec"
 gem "active_support"
-
-# Documentation
-gem "yard"
+gem "gli"
+gem "i18n"
+gem "rainbow"
 gem "redcarpet"
+gem "rspec"
+
+group :test, :development do
+  gem "rake"
+  gem "yard"
+end

@@ -30,7 +30,7 @@ module Cog
     # @return [Languages::Lanugage] target language which should be used when creating generators, and no language is explicitly specified
     attr_accessor :target_language
     
-    # @return [String] the target language which is currently active
+    # @return [Languages::Language] language which is active in the current context
     def active_language
       @active_languages.last
     end
@@ -144,6 +144,14 @@ module Cog
       else
         block.call
       end
+    end
+    
+    # @param ext [String] the file extension
+    # @return [Languages::Language, nil] the language for the given extension
+    def language_for_extension(ext)
+      ext = ext.to_s.downcase.to_sym
+      lang_id = @language_extension_map[ext]
+      Languages.get_language lang_id unless lang_id.nil?
     end
     
     # @return [Array<LangInfo>] current configuration of supported languages

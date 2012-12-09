@@ -3,7 +3,7 @@ require 'cog/languages/language'
 module Cog
   module Languages
     
-    class RubyLanguage < Language
+    class QtProjectLanguage < Language
 
       # @param nested_pattern [String] regular expression pattern (as a string) to embed in the regular expression which matches one line comments in this language
       # @return [Regexp] pattern for matching one line comments in this language
@@ -13,27 +13,25 @@ module Cog
 
       # @return [Array<String>] a set of extensions needed to define a module in this language
       def module_extensions
-        [:rb]
+        [:pro]
       end
       
-      # @param name [String] name of the scope
-      # @return [String] begin a named scope
+      # @return [String] ignored for Qt Project files
       def named_scope_begin(name)
-        "module #{name}"
+        ""
       end
 
-      # @param name [String] name of the scope
-      # @return [String] end the given named scope
+      # @return [String] ignored for Qt Project files
       def named_scope_end(name)
-        "end # module #{name}"
+        ""
       end
       
-      # @return [String] ignored for ruby
+      # @return [String] ignored for Qt Project files
       def include_guard_begin(name)
         ""
       end
       
-      # @return [String] ignored for ruby
+      # @return [String] ignored for Qt Project files
       def include_guard_end(name)
         ""
       end
@@ -44,10 +42,6 @@ module Cog
         "# #{text}"
       end
       
-      def multi_line_comment(text)
-        "=begin\n#{text}\n=end"
-      end
-
     end
   end
 end

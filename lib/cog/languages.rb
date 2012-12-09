@@ -15,6 +15,7 @@ module Cog
       :hpp => 'c++',
       :java => 'java',
       :js => 'javascript',
+      :pro => 'qt',
       :py => 'python',
       :rb => 'ruby',
     }
@@ -24,6 +25,7 @@ module Cog
       'c++' => 'c_plus_plus',
       'c#' => 'c_sharp',
       'javascript' => 'java_script',
+      'qt' => 'qt_project',
     }
     
     # @return [Hash] a mapping of language identifiers to lists of aliases

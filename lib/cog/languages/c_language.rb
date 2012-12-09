@@ -5,12 +5,12 @@ module Cog
     
     class CLanguage < Language
 
-      # @param text [String] some text which should be rendered as a comment
-      # @return [String] a comment appropriate for this language
-      def comment(text)
-        "/*\n#{text}\n */"
+      # @param nested_pattern [String] regular expression pattern (as a string) to embed in the regular expression which matches one line comments in this language
+      # @return [Regexp] pattern for matching one line comments in this language
+      def comment_pattern(nested_pattern)
+        /^\s*(?:\/\/|\/\*)\s*#{nested_pattern}\s*(?:\*\/)?\s*$/i
       end
-      
+
       # @return [Array<String>] a set of extensions needed to define a module in this language
       def module_extensions
         [:c, :h]
@@ -36,6 +36,16 @@ module Cog
       # @return [String] an include guard end statement
       def include_guard_end(name)
         "#endif // #{name}"
+      end
+
+      protected
+      
+      def one_line_comment(text)
+        "// #{text}"
+      end
+      
+      def multi_line_comment(text)
+        "/*\n#{text}\n */"
       end
 
     end

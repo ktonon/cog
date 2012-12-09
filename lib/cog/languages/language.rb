@@ -4,11 +4,21 @@ module Cog
     # Interface that must be supported by all +cog+ language helpers.
     # This base class corresponds to a plain text language.
     class Language
+
+      # @param nested_pattern [String] regular expression pattern (as a string) to embed in the regular expression which matches one line comments in this language
+      # @return [Regexp] pattern for matching one line comments in this language
+      def comment_pattern(nested_pattern)
+        /^\s*#{nested_pattern}\s$/
+      end
       
       # @param text [String] some text which should be rendered as a comment
       # @return [String] a comment appropriate for this language
       def comment(text)
-        text
+        if text =~ /\n/
+          multi_line_comment text
+        else
+          one_line_comment text
+        end
       end
       
       # @return [Array<String>] a set of extensions needed to define a module in this language
@@ -46,6 +56,18 @@ module Cog
         ""
       end
 
+      protected
+      
+      def one_line_comment(text)
+        text
+      end
+      
+      def multi_line_comment(text)
+        text.split("\n").collect do |line|
+          one_line_comment line
+        end.join "\n"
+      end
+      
     end
   end
 end

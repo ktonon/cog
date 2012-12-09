@@ -20,10 +20,11 @@ describe 'projects' do
     it 'should determine the language based on the template extension' do
       @cog.run(:gen, :run).should make(generated_file('generated_warn.h'))
       [:h, :c, :hpp, :cpp, :java, :cs, :js].each do |ext|
-        read(ext).should == "/*\nWARNING\n */"
+        read(ext).should == "// WARNING"
       end
-      read(:rb).should == "=begin\nWARNING\n=end"
-      read(:py).should == "'''\nWARNING\n'''"
+      [:rb, :py, :pro].each do |ext|
+        read(ext).should == "# WARNING"
+      end
       File.new(generated_file("generated_warn")).read.should == 'WARNING'
     end
   end

@@ -64,5 +64,9 @@ module Cog
       "scope stack underflow: this can happen if you have too many *_end calls in a template"
     end
     
+    define_error :SnippetExpansionUnterminated, 'location' do
+      "a snippet expansion in the given file is missing the 'cog: end' terminator"
+    end
+    
   end
 end
