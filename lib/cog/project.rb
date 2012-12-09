@@ -8,7 +8,7 @@ module Cog
     # Search through all project files for cog directives, and remember them so that generators can refer to them later
     def gather_cog_directives
       @snippets ||= {}
-      @snippet_pattern ||= "cog:\\s*snippet\\s*\\(\\s*(.*?)\\s*\\)(\\s*\\{)?"
+      @snippet_pattern ||= "cog\\s*:\\s*snippet\\s*\\(\\s*(.*?)\\s*\\)(\\s*\\{)?"
       exts = Config.instance.language_summary.collect(&:extensions).flatten
       sources = Dir.glob "#{Config.instance.project_source_path}/**/*.{#{exts.join ','}}"
       sources.each do |filename|
@@ -48,9 +48,9 @@ module Cog
       ext = File.extname(filename).slice(1..-1)
       lang = Config.instance.language_for_extension ext
       
-      snip_pattern = lang.comment_pattern("cog:\\s*snippet\\s*\\(\\s*(#{key})\\s*\\)(?:\\s*([{]))?")
-      end_pattern = lang.comment_pattern("cog:\\s*[}]")
-      not_end_pattern = lang.comment_pattern("cog:\\s*(?!\\s*[}]).*$")
+      snip_pattern = lang.comment_pattern("cog\\s*:\\s*snippet\\s*\\(\\s*(#{key})\\s*\\)(?:\\s*([{]))?")
+      end_pattern = lang.comment_pattern("cog\\s*:\\s*[}]")
+      not_end_pattern = lang.comment_pattern("cog\\s*:\\s*(?!\\s*[}]).*$")
       
       s = FileScanner.new filename
       updated = if match = s.read_until(snip_pattern, index)
