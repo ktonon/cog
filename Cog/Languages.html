@@ -80,7 +80,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/cog/languages.rb<span class="defines">,<br />
-  lib/cog/languages/language.rb,<br /> lib/cog/languages/c_language.rb,<br /> lib/cog/languages/java_language.rb,<br /> lib/cog/languages/ruby_language.rb,<br /> lib/cog/languages/p_h_p_language.rb,<br /> lib/cog/languages/python_language.rb,<br /> lib/cog/languages/c_sharp_language.rb,<br /> lib/cog/languages/java_script_language.rb,<br /> lib/cog/languages/c_plus_plus_language.rb</span>
+  lib/cog/languages/language.rb,<br /> lib/cog/languages/c_language.rb,<br /> lib/cog/languages/java_language.rb,<br /> lib/cog/languages/ruby_language.rb,<br /> lib/cog/languages/python_language.rb,<br /> lib/cog/languages/c_sharp_language.rb,<br /> lib/cog/languages/qt_project_language.rb,<br /> lib/cog/languages/java_script_language.rb,<br /> lib/cog/languages/c_plus_plus_language.rb</span>
 </dd>
   
 </dl>
@@ -104,7 +104,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Languages/CLanguage.html" title="Cog::Languages::CLanguage (class)">CLanguage</a></span>, <span class='object_link'><a href="Languages/CPlusPlusLanguage.html" title="Cog::Languages::CPlusPlusLanguage (class)">CPlusPlusLanguage</a></span>, <span class='object_link'><a href="Languages/CSharpLanguage.html" title="Cog::Languages::CSharpLanguage (class)">CSharpLanguage</a></span>, <span class='object_link'><a href="Languages/JavaLanguage.html" title="Cog::Languages::JavaLanguage (class)">JavaLanguage</a></span>, <span class='object_link'><a href="Languages/JavaScriptLanguage.html" title="Cog::Languages::JavaScriptLanguage (class)">JavaScriptLanguage</a></span>, <span class='object_link'><a href="Languages/Language.html" title="Cog::Languages::Language (class)">Language</a></span>, <span class='object_link'><a href="Languages/PHPLanguage.html" title="Cog::Languages::PHPLanguage (class)">PHPLanguage</a></span>, <span class='object_link'><a href="Languages/PythonLanguage.html" title="Cog::Languages::PythonLanguage (class)">PythonLanguage</a></span>, <span class='object_link'><a href="Languages/RubyLanguage.html" title="Cog::Languages::RubyLanguage (class)">RubyLanguage</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Languages/CLanguage.html" title="Cog::Languages::CLanguage (class)">CLanguage</a></span>, <span class='object_link'><a href="Languages/CPlusPlusLanguage.html" title="Cog::Languages::CPlusPlusLanguage (class)">CPlusPlusLanguage</a></span>, <span class='object_link'><a href="Languages/CSharpLanguage.html" title="Cog::Languages::CSharpLanguage (class)">CSharpLanguage</a></span>, <span class='object_link'><a href="Languages/JavaLanguage.html" title="Cog::Languages::JavaLanguage (class)">JavaLanguage</a></span>, <span class='object_link'><a href="Languages/JavaScriptLanguage.html" title="Cog::Languages::JavaScriptLanguage (class)">JavaScriptLanguage</a></span>, <span class='object_link'><a href="Languages/Language.html" title="Cog::Languages::Language (class)">Language</a></span>, <span class='object_link'><a href="Languages/PythonLanguage.html" title="Cog::Languages::PythonLanguage (class)">PythonLanguage</a></span>, <span class='object_link'><a href="Languages/QtProjectLanguage.html" title="Cog::Languages::QtProjectLanguage (class)">QtProjectLanguage</a></span>, <span class='object_link'><a href="Languages/RubyLanguage.html" title="Cog::Languages::RubyLanguage (class)">RubyLanguage</a></span>
     
   
 </p>
@@ -153,7 +153,7 @@
   <span class='symbol val'>:hpp</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'c++'</span><span class='comma token'>,</span>
   <span class='symbol val'>:java</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'java'</span><span class='comma token'>,</span>
   <span class='symbol val'>:js</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'javascript'</span><span class='comma token'>,</span>
-  <span class='symbol val'>:php</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'php'</span><span class='comma token'>,</span>
+  <span class='symbol val'>:pro</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'qt'</span><span class='comma token'>,</span>
   <span class='symbol val'>:py</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'python'</span><span class='comma token'>,</span>
   <span class='symbol val'>:rb</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'ruby'</span><span class='comma token'>,</span>
 <span class='rbrace token'>}</span>
@@ -194,8 +194,8 @@
         <dd><pre class="code"><span class='lbrace token'>{</span>
   <span class='string val'>'c++'</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'c_plus_plus'</span><span class='comma token'>,</span>
   <span class='string val'>'c#'</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'c_sharp'</span><span class='comma token'>,</span>
-  <span class='string val'>'php'</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'p_h_p'</span><span class='comma token'>,</span>
   <span class='string val'>'javascript'</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'java_script'</span><span class='comma token'>,</span>
+  <span class='string val'>'qt'</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'qt_project'</span><span class='comma token'>,</span>
 <span class='rbrace token'>}</span>
 </pre></dd>
       
@@ -390,7 +390,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Nov 13 21:07:56 2012 by
+  Generated on Sun Dec  9 18:38:30 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

@@ -142,6 +142,30 @@ generated source code files, using the <span class='object_link'><a href="#stamp
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#snippet-instance_method" title="#snippet (instance method)">- (nil) <strong>snippet</strong>(key) { ... }</a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Provide a value for the snippet with the given key.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#stamp-instance_method" title="#stamp (instance method)">- (nil or String) <strong>stamp</strong>(template_path, destination = nil, opt = {}) </a>
     
 
@@ -176,7 +200,7 @@ generated source code files, using the <span class='object_link'><a href="#stamp
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Generator/LanguageMethods.html" title="Cog::Generator::LanguageMethods (module)">LanguageMethods</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Generator/LanguageMethods.html#end_all_scopes-instance_method" title="Cog::Generator::LanguageMethods#end_all_scopes (method)">#end_all_scopes</a></span>, <span class='object_link'><a href="Generator/LanguageMethods.html#include_guard_begin-instance_method" title="Cog::Generator::LanguageMethods#include_guard_begin (method)">#include_guard_begin</a></span>, <span class='object_link'><a href="Generator/LanguageMethods.html#named_scope_begin-instance_method" title="Cog::Generator::LanguageMethods#named_scope_begin (method)">#named_scope_begin</a></span>, <span class='object_link'><a href="Generator/LanguageMethods.html#scope_begin-instance_method" title="Cog::Generator::LanguageMethods#scope_begin (method)">#scope_begin</a></span>, <span class='object_link'><a href="Generator/LanguageMethods.html#scope_end-instance_method" title="Cog::Generator::LanguageMethods#scope_end (method)">#scope_end</a></span>, <span class='object_link'><a href="Generator/LanguageMethods.html#warning-instance_method" title="Cog::Generator::LanguageMethods#warning (method)">#warning</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Generator/LanguageMethods.html#end_all_scopes-instance_method" title="Cog::Generator::LanguageMethods#end_all_scopes (method)">#end_all_scopes</a></span>, <span class='object_link'><a href="Generator/LanguageMethods.html#include_guard_begin-instance_method" title="Cog::Generator::LanguageMethods#include_guard_begin (method)">#include_guard_begin</a></span>, <span class='object_link'><a href="Generator/LanguageMethods.html#named_scope_begin-instance_method" title="Cog::Generator::LanguageMethods#named_scope_begin (method)">#named_scope_begin</a></span>, <span class='object_link'><a href="Generator/LanguageMethods.html#scope_begin-instance_method" title="Cog::Generator::LanguageMethods#scope_begin (method)">#scope_begin</a></span>, <span class='object_link'><a href="Generator/LanguageMethods.html#scope_end-instance_method" title="Cog::Generator::LanguageMethods#scope_end (method)">#scope_end</a></span>, <span class='object_link'><a href="Generator/LanguageMethods.html#use_named_scope-instance_method" title="Cog::Generator::LanguageMethods#use_named_scope (method)">#use_named_scope</a></span>, <span class='object_link'><a href="Generator/LanguageMethods.html#warning-instance_method" title="Cog::Generator::LanguageMethods#warning (method)">#warning</a></span></p>
 
   
   
@@ -206,7 +230,108 @@ generated source code files, using the <span class='object_link'><a href="#stamp
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="stamp-instance_method">
+  <h3 class="signature first" id="snippet-instance_method">
+  
+    - (<tt>nil</tt>) <strong>snippet</strong>(key) { ... }
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Provide a value for the snippet with the given key</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>key</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a unique identifier for the snippet</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Yields:</p>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>The return value of the provided block will be used to expand the snippet</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+79
+80
+81
+82
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/generator.rb', line 79</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_snippet identifier id'>snippet</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='rubyid_Project constant id'>Project</span><span class='dot token'>.</span><span class='rubyid_snippet_directives identifier id'>snippet_directives</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_index identifier id'>index</span><span class='bitor op'>|</span>
+    <span class='rubyid_if if kw'>if</span> <span class='rubyid_Project constant id'>Project</span><span class='dot token'>.</span><span class='rubyid_update_snippet_expansion identifier id'>update_snippet_expansion</span> <span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_index identifier id'>index</span><span class='comma token'>,</span> <span class='rubyid_block identifier id'>block</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span>
+      <span class='rubyid_STDOUT constant id'>STDOUT</span><span class='dot token'>.</span><span class='rubyid_write identifier id'>write</span> <span class='dstring node'>&quot;Updated #{filename.relative_to_project_root} - #{(index + 1).ordinalize} occurrence of snippet '#{key}'\n&quot;</span><span class='dot token'>.</span><span class='rubyid_color identifier id'>color</span> <span class='symbol val'>:white</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="stamp-instance_method">
   
     - (<tt>nil or <span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>) <strong>stamp</strong>(template_path, destination = nil, opt = {}) 
   
@@ -463,7 +588,7 @@ returned as a string</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Nov 13 21:07:56 2012 by
+  Generated on Sun Dec  9 18:38:30 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
