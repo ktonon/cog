@@ -1,0 +1,25 @@
+# All paths are relative to the directory containing this file.
+
+# Define the directory in which to find project generators
+project_generators_path 'cog/generators'
+
+# Define the directory in which to find custom project templates
+project_templates_path 'cog/templates'
+
+# Define the directory to which project source code is generated
+project_source_path 'src'
+
+# Explicitly specify a mapping from file extensions to languages
+#
+# key => value pairs from this mapping will override the default
+# language map supplied by +cog+
+#
+# Type `cog language list` to see a list of supported languages
+# and the current file extension mappings
+language_extensions({
+  # :h => 'c++',
+  })
+
+# Define the target language which should be used when
+# creating generators, and no language is explicitly specified
+default_target_language 'c++'
