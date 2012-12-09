@@ -65,7 +65,7 @@ module Cog
     end
     
     define_error :SnippetExpansionUnterminated, 'location' do
-      "a snippet expansion in the given file is missing the 'cog: end' terminator"
+      "a snippet expansion in the given file is missing the 'cog: }' terminator"
     end
     
   end
