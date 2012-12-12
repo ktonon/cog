@@ -318,8 +318,8 @@ generated source code files, using the <span class='object_link'><a href="#stamp
       <pre class="code"><span class="info file"># File 'lib/cog/generator.rb', line 79</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_snippet identifier id'>snippet</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
-  <span class='rubyid_Project constant id'>Project</span><span class='dot token'>.</span><span class='rubyid_snippet_directives identifier id'>snippet_directives</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_index identifier id'>index</span><span class='bitor op'>|</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_Project constant id'>Project</span><span class='dot token'>.</span><span class='rubyid_update_snippet_expansion identifier id'>update_snippet_expansion</span> <span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_index identifier id'>index</span><span class='comma token'>,</span> <span class='rubyid_block identifier id'>block</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span>
+  <span class='rubyid_Directives constant id'>Directives</span><span class='dot token'>.</span><span class='rubyid_snippets_for identifier id'>snippets_for</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_index identifier id'>index</span><span class='bitor op'>|</span>
+    <span class='rubyid_if if kw'>if</span> <span class='rubyid_Directives constant id'>Directives</span><span class='dot token'>.</span><span class='rubyid_update_snippet_expansion identifier id'>update_snippet_expansion</span> <span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_index identifier id'>index</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span>
       <span class='rubyid_STDOUT constant id'>STDOUT</span><span class='dot token'>.</span><span class='rubyid_write identifier id'>write</span> <span class='dstring node'>&quot;Updated #{filename.relative_to_project_root} - #{(index + 1).ordinalize} occurrence of snippet '#{key}'\n&quot;</span><span class='dot token'>.</span><span class='rubyid_color identifier id'>color</span> <span class='symbol val'>:white</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
@@ -588,7 +588,7 @@ returned as a string</p>
 </div>
 
     <div id="footer">
-  Generated on Sun Dec  9 18:38:30 2012 by
+  Generated on Tue Dec 11 22:53:20 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

@@ -118,10 +118,31 @@ an instance of <span class='object_link'><a href="../Config.html" title="Cog::Co
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><span class='rubyid_project_generators_path identifier id'>project_generators_path</span> <span class='string val'>'cog/generators'</span>
+      <pre class="example code"><span class='comment val'># All paths are relative to the directory containing this file.</span>
+
+<span class='comment val'># Define the directory in which to find project generators</span>
+<span class='rubyid_project_generators_path identifier id'>project_generators_path</span> <span class='string val'>'cog/generators'</span>
+
+<span class='comment val'># Define the directory in which to find custom project templates</span>
 <span class='rubyid_project_templates_path identifier id'>project_templates_path</span> <span class='string val'>'cog/templates'</span>
+
+<span class='comment val'># Define the directory to which project source code is generated</span>
 <span class='rubyid_project_source_path identifier id'>project_source_path</span> <span class='string val'>'src'</span>
-<span class='rubyid_language identifier id'>language</span> <span class='string val'>'c++'</span>
+
+<span class='comment val'># Explicitly specify a mapping from file extensions to languages</span>
+<span class='comment val'>#</span>
+<span class='comment val'># key =&gt; value pairs from this mapping will override the default</span>
+<span class='comment val'># language map supplied by +cog+</span>
+<span class='comment val'>#</span>
+<span class='comment val'># Type `cog language list` to see a list of supported languages</span>
+<span class='comment val'># and the current file extension mappings</span>
+<span class='rubyid_language_extensions identifier id'>language_extensions</span><span class='lparen token'>(</span><span class='lbrace token'>{</span>
+  <span class='comment val'># :h =&gt; 'c++',</span>
+<span class='rbrace token'>}</span><span class='rparen token'>)</span>
+
+<span class='comment val'># Define the target language which should be used when</span>
+<span class='comment val'># creating generators, and no language is explicitly specified</span>
+<span class='rubyid_default_target_language identifier id'>default_target_language</span> <span class='string val'>'c++'</span>
 </pre>
     
   </div>
@@ -319,14 +340,14 @@ and no language is explicitly specified</p>
       <pre class="lines">
 
 
-83
-84
-85
-86
-87</pre>
+104
+105
+106
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 104</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_default_target_language identifier id'>default_target_language</span><span class='lparen token'>(</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rparen token'>)</span>
   <span class='rubyid_@config ivar id'>@config</span><span class='dot token'>.</span><span class='rubyid_instance_eval identifier id'>instance_eval</span> <span class='rubyid_do do kw'>do</span>
@@ -399,15 +420,15 @@ supplied by <code>cog</code></p>
       <pre class="lines">
 
 
-73
-74
-75
-76
-77
-78</pre>
+94
+95
+96
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 94</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_language_extensions identifier id'>language_extensions</span><span class='lparen token'>(</span><span class='rubyid_map identifier id'>map</span><span class='rparen token'>)</span>
   <span class='rubyid_@config ivar id'>@config</span><span class='dot token'>.</span><span class='rubyid_instance_eval identifier id'>instance_eval</span> <span class='rubyid_do do kw'>do</span>
@@ -498,15 +519,15 @@ supplied by <code>cog</code></p>
       <pre class="lines">
 
 
-41
-42
-43
-44
-45
-46</pre>
+62
+63
+64
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 62</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_generators_path identifier id'>project_generators_path</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span><span class='assign token'>=</span><span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
   <span class='rubyid_@config ivar id'>@config</span><span class='dot token'>.</span><span class='rubyid_instance_eval identifier id'>instance_eval</span> <span class='rubyid_do do kw'>do</span>
@@ -597,15 +618,15 @@ supplied by <code>cog</code></p>
       <pre class="lines">
 
 
-63
-64
-65
-66
-67
-68</pre>
+84
+85
+86
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 84</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_source_path identifier id'>project_source_path</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span><span class='assign token'>=</span><span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
   <span class='rubyid_@config ivar id'>@config</span><span class='dot token'>.</span><span class='rubyid_instance_eval identifier id'>instance_eval</span> <span class='rubyid_do do kw'>do</span>
@@ -696,15 +717,15 @@ supplied by <code>cog</code></p>
       <pre class="lines">
 
 
-52
-53
-54
-55
-56
-57</pre>
+73
+74
+75
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/cogfile.rb', line 73</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_project_templates_path identifier id'>project_templates_path</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span><span class='assign token'>=</span><span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
   <span class='rubyid_@config ivar id'>@config</span><span class='dot token'>.</span><span class='rubyid_instance_eval identifier id'>instance_eval</span> <span class='rubyid_do do kw'>do</span>
@@ -723,7 +744,7 @@ supplied by <code>cog</code></p>
 </div>
 
     <div id="footer">
-  Generated on Sun Dec  9 18:38:36 2012 by
+  Generated on Tue Dec 11 22:53:26 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

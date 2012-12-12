@@ -63,10 +63,12 @@
 
     <div id="content"><div id='filecontents'><p><img src="http://ktonon.github.com/cog/images/cog-logo-small.png" alt="cog"></p>
 
-<p><code>cog</code> is a command line utility that makes it a bit easier to organize a project
-which uses code generation.</p>
+<p><code>cog</code> is a command line utility that makes it easy to organize a project which
+uses code generation.</p>
 
-<p>The documentation on this page is for the <a href="https://rubygems.org/gems/cog">currently released gem</a> (version 0.2.0).
+<p>The documentation on this page is synchronized with the git repository.
+For docs on the <a href="https://rubygems.org/gems/cog">currently released gem</a> (version 0.2.0)
+see <a href="http://ktonon.github.com/cog/frames.html">ktonon.github.com/cog</a>.
 See also the following resources,</p>
 
 <ul>
@@ -75,24 +77,15 @@ See also the following resources,</p>
 
 <p>Note that <em>this project is still under development</em>.</p>
 
-<h2>Table of contents</h2>
+<h2>Getting Started</h2>
 
-<ol>
-<li><a href="#getting-started">Getting Started</a> - Install <code>cog</code> and prepare a project</li>
-<li><a href="#generators">Generators</a> - Create ruby scripts which generate code</li>
-<li><a href="#templates">Templates</a> - Use ERB templates to help generators</li>
-<li><a href="#snippets">Snippets</a> - Generate code segments into otherwise manually maintained code</li>
-<li><a href="#tools">Tools</a> - Extend <code>cog</code> by writing tools</li>
-</ol>
-
-<h2 id="getting-started">Getting Started</h2>
-
-<p>Install the <code>cog</code> gem from a terminal</p>
+<p>Install the <code>cog</code> gem</p>
 
 <pre class="code bash"><code>$ gem install cog
 </code></pre>
 
-<p>Consider an existing project with the following directory layout</p>
+<p>Once installed prepare a project for use with <code>cog</code>. For example, consider a
+project with the following directory layout</p>
 
 <pre class="code text"><code>PROJECT_ROOT/
              Makefile
@@ -101,8 +94,8 @@ See also the following resources,</p>
                  ...
 </code></pre>
 
-<p>To use <code>cog</code> with this project, you would first open a terminal and change to
-the <code>PROJECT_ROOT</code> directory. Then enter</p>
+<p>To use <code>cog</code> with this project, you would open a terminal in the <code>PROJECT_ROOT</code>
+directory and enter</p>
 
 <pre class="code bash"><code>$ cog init
 Created Cogfile
@@ -110,7 +103,7 @@ Created cog/generators
 Created cog/templates
 </code></pre>
 
-<p>Now your project&#39;s directory layout will look like this</p>
+<p>The project would then look like this</p>
 
 <pre class="code text"><code>PROJECT_ROOT/
            + Cogfile
@@ -124,15 +117,20 @@ Created cog/templates
 </code></pre>
 
 <p>The <a href="http://ktonon.github.com/cog/Cog/Config/Cogfile.html">Cogfile</a> configures
-<code>cog</code> for use with your project. In short, it tells <code>cog</code> where to find generators and templates
-and where to put generated source code.</p>
+<code>cog</code> for use with the project. In short, it tells <code>cog</code> where to find
+generators and templates and where to put generated source code. By default,
+the <code>Cogfile</code> will point to the newly created generators and templates
+directories. Open the <code>Cogfile</code> to find out more, each setting is
+documented. Most settings can be left as-is, but the <a href="http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method">project_source_path</a>
+might need to be changed if the source files are not in a directory called <code>src</code>
+relative the directory containing the <code>Cogfile</code>.</p>
 
-<h2 id="generators">Generators</h2>
+<h2>Generators</h2>
 
-<p>A generator is a ruby file which resides in the <code>project_generators_path</code>
-and performs its work at the time it is required.
-A basic generator can be created using the command line tool once a project has
-been initialized</p>
+<p>A generator is a ruby file which resides in the
+<a href="http://ktonon.github.com/cog/Cog/Config.html#project_generators_path-instance_method">project_generators_path</a>
+and performs its work at the time it is required. A basic generator can be
+created using the command line tool once a project has been initialized</p>
 
 <pre class="code bash"><code>$ cog generator new my_generator
 Created cog/generators/my_generator.rb
@@ -140,11 +138,11 @@ Created cog/templates/my_generator.cpp.erb
 Created cog/templates/my_generator.hpp.erb
 </code></pre>
 
-<p>Notice that a generator with C++ templates was created. That is because the
+<p>Three files were created: a generator and two ERB template files. Notice that
+the templates are for C++. That is because the
 <a href="http://ktonon.github.com/cog/Cog/Config/Cogfile.html#default_target_language-instance_method">default_target_language</a>
-in the Cogfile was set to <code>c++</code>. You can see a list of other possible settings by running <code>cog language list</code>.</p>
-
-<p>Here is what <code>my_generator.rb</code> will look like</p>
+in the Cogfile was set to <code>c++</code>. You can see a list of other possible settings
+by running <code>cog language list</code>. Here is a listing of <code>my_generator.rb</code></p>
 
 <pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
 <span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
@@ -166,7 +164,7 @@ in the <a href="http://ktonon.github.com/cog/Cog/Config.html#template_paths-inst
 and renders it to a file under the
 <a href="http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method">project_source_path</a>.</p>
 
-<p>This is what <code>my_generator.hpp.erb</code> will look like</p>
+<p>Listing of <code>my_generator.hpp.erb</code></p>
 
 <pre class="code c++"><code>&lt;%= warning %&gt; 
 
@@ -176,14 +174,14 @@ class &lt;%= @class %&gt;
 };
 </code></pre>
 
-<p>Now that you have a generator, you can run it like this</p>
+<p>The generator would be executed like this</p>
 
 <pre class="code bash"><code>$ cog gen run my_generator
 Created src/generated_my_generator.cpp
 Created src/generated_my_generator.hpp
 </code></pre>
 
-<p>and the contents of the generated file will be</p>
+<p>Listing of <code>generated_my_generator.hpp</code></p>
 
 <pre class="code c++"><code>/*
 -------------------------------------------------------------------------------
@@ -205,7 +203,7 @@ class my_generator
 };
 </code></pre>
 
-<p>You can also list the project&#39;s generators like this</p>
+<p>Get a list of the project&#39;s generators like this</p>
 
 <pre class="code bash"><code>$ cog gen list
 my_generator
@@ -219,15 +217,17 @@ fishy
 my_generator
 </code></pre>
 
-<p>You can run all of the project&#39;s generators by excluding the generator name. You don&#39;t even need to specify the <code>run</code> sub-command in this case, as it is the default. So very concisely,</p>
+<p>Run all of the project&#39;s generators by excluding the generator name.
+The <code>run</code> sub-command is optional because it is the default</p>
 
 <pre class="code bash"><code>$ cog gen
 Created src/generated_fishy.cs
 </code></pre>
 
-<p>In this case, both generators are run, but the original <code>my_generator</code> hasn&#39;t changed, so the generated file <code>generated_my_generator.txt</code> will not be touched.</p>
+<p>In this case, both generators are run, but the original <code>my_generator</code> hasn&#39;t
+changed, so the generated file <code>generated_my_generator.txt</code> will not be touched.</p>
 
-<h2 id="templates">Templates</h2>
+<h2>Templates</h2>
 
 <p>In the example from the previous section, you may have noticed that the
 generator method <code>&lt;%= warning %&gt;</code> produced this text in the generated files</p>
@@ -247,58 +247,51 @@ generator method <code>&lt;%= warning %&gt;</code> produced this text in the gen
  */ 
 </code></pre>
 
-<p>If you look at the implementation of the <code>warning</code> method, you&#39;ll see that its
-just a shortcut for rendering the <code>warning.erb</code> template and passing it through
-a <code>comment</code> filter,</p>
+<p>If you look at the implementation of the <a href="http://ktonon.github.com/cog/Cog/Generator/LanguageMethods.html#warning-instance_method">warning</a>
+method, you&#39;ll see that its just a shortcut for rendering the <code>warning.erb</code>
+template and passing it through a <a href="http://ktonon.github.com/cog/Cog/Generator/Filters.html#comment-instance_method">comment</a>
+filter</p>
 
 <pre class="code ruby"><code><span class='rubyid_def def kw'>def</span> <span class='rubyid_warning identifier id'>warning</span>
   <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'warning'</span><span class='comma token'>,</span> <span class='symbol val'>:filter</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'comment'</span>
 <span class='rubyid_end end kw'>end</span>
 </code></pre>
 
-<p>This warning template is built-in with cog. You can see a list of the available
-templates,</p>
+<p>This warning template comes built-in with cog. You can see a list of the available
+templates, both built-in and project specific</p>
 
 <pre class="code bash"><code>$ cog template list
-[built-in] basic/generator.rb
-[built-in] basic/template.cpp.erb
-[built-in] basic/template.hpp.erb
-...
 [project]  my_generator.cpp
 [project]  my_generator.hpp
 [built-in] warning
 </code></pre>
 
-<p>If you don&#39;t like that warning message and want to use a different one you can
-override it,</p>
+<p>If you don&#39;t like the default warning message and want to use a different one you can
+override it</p>
 
 <pre class="code bash"><code>$ cog tm new --force-override warning
 Created cog/templates/warning.erb
 </code></pre>
 
-<p>Now when you list the templates, you&#39;ll see that the project template for
-warning overrides the built-in one,</p>
+<p>Listing the templates again would now show that there are two <code>warning.erb</code>
+templates and that the project version overrides the built-in version</p>
 
 <pre class="code bash"><code>$ cog tm
-[built-in]           basic/generator.rb
-[built-in]           basic/template.cpp.erb
-[built-in]           basic/template.hpp.erb
-...
 [project]            my_generator.cpp
 [project]            my_generator.hpp
 [built-in &lt; project] warning
 </code></pre>
 
-<h2 id="snippets">Snippets</h2>
+<h2>Snippets</h2>
 
-<p>In previous sections, you&#39;ve seen how the <code>stamp</code> method can be used to create
-files which are entirely generated. While this is useful, sometimes it might be
-more convenient to inject generated content directly into an otherwise manually
-maintained file. Such an injection should be able to update the generated
-content when it changes, but leave the rest of the file alone. <code>cog</code> provides
-this kind of functionality through snippets.</p>
-
-<p>Take the following generator as an example,</p>
+<p>As shown above, the
+<a href="http://ktonon.github.com/cog/Cog/Generator.html#stamp-instance_method">stamp</a>
+method can be used to create files which are entirely generated. While this is
+useful, it might at times be more convenient to inject generated content
+directly into an otherwise manually maintained file. Such an injection should
+be automatically updated when the generated content changes, but leave the rest
+of the file alone. <code>cog</code> provides this kind of functionality through snippets.
+For example, consider the following generator</p>
 
 <pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
 <span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
@@ -309,22 +302,14 @@ this kind of functionality through snippets.</p>
 <span class='rubyid_end end kw'>end</span>
 </code></pre>
 
-<p>This generator will add 10 new files to the project. These files will need to
-be included in the project&#39;s build script. It would be tedious to have to enter
-them manually and it would make more sense for the generator to maintain the
-list of build files. Depending on your build tool, you might be able to
-generate a partial build file and include it in the main one. Or you could just
-use a snippet to inject generated build instructions directly into an otherwise
-manually maintained build file.</p>
+<p>This generator would add 10 new files to a project. These files would need to
+be included in the project&#39;s build script. It would be tedious to enter them
+manually. It would make sense for the generator to maintain the list of build
+files. Depending on the build tool being used, it might be possible to generate
+a partial build file and include it by reference in the main build file.</p>
 
-<p>For example, consider a Qt project file,</p>
-
-<pre class="code text"><code>SOURCES += main.cpp Donkey.cpp
-HEADERS += Donkey.h
-</code></pre>
-
-<p>You can added a snippet hook into the project file as a special comment which
-<code>cog</code> will recognize,</p>
+<p>Another approach would be to use a snippet to inject the build instuctions for
+the generator into the main build file. For example, consider a Qt project file</p>
 
 <pre class="code text"><code>SOURCES += main.cpp Donkey.cpp
 HEADERS += Donkey.h
@@ -332,8 +317,10 @@ HEADERS += Donkey.h
 # cog: snippet(widget-files)
 </code></pre>
 
-<p>Now that you have the hook, <tt>&#39;widget-files&#39;</tt> in there, you need to
-provide a value for it. You do this in your generator with the <code>snippet</code> method,</p>
+<p>The last line is a comment that Qt will ignore, but which <code>cog</code> will recognize
+as a snippet hook named <tt>&#39;widget-files&#39;</tt>. Once the hook is in place,
+it&#39;s up to a generator to provide the content which will be injected beneath
+the hook. Consider again the generator from above, with a few modifications</p>
 
 <pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
 <span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
@@ -349,7 +336,12 @@ provide a value for it. You do this in your generator with the <code>snippet</co
 <span class='rubyid_end end kw'>end</span>
 </code></pre>
 
-<p>Once you&#39;ve done this, the next time you run your generator the snippet will be expanded,</p>
+<p>The <a href="http://ktonon.github.com/cog/Cog/Generator.html#snippet-instance_method">snippet</a>
+method takes the name of the hook as an argument. The expansion value is
+returned by the provided block. In this case a <code>stamp</code> was used to pull the
+content from a template, but a string could also be constructed in the block
+without using a template. Running this generator would now inject content
+beneath the snippet directive in the build file.</p>
 
 <pre class="code text"><code>SOURCES += main.cpp Donkey.cpp
 HEADERS += Donkey.h
@@ -357,13 +349,13 @@ HEADERS += Donkey.h
 # cog: snippet(widget-files) {
 SOURCES += widget_1.cpp widget_2.cpp widget_3.cpp widget_4.cpp widget_5.cpp
 HEADERS += widget_1.h widget_2.h widget_3.h widget_4.h widget_5.h
-# }
+# cog: }
 </code></pre>
 
-<p>Running the generator a second time will not modify the build file, since the
-snippet content won&#39;t have changed.</p>
+<p>Snippets are only updated when the generated content changes. So running the
+generator a second time would not touch the build file.</p>
 
-<h2 id="tools">Tools</h2>
+<h2>Tools</h2>
 
 <p>While its possible to place all the code for your generator in the
 <code>project_generators_path</code>, you might also consider writing a tool.</p>
@@ -499,7 +491,7 @@ Here is what the root tool file <code>cons.rb</code> will look like</p>
 </div></div>
 
     <div id="footer">
-  Generated on Sun Dec  9 18:38:29 2012 by
+  Generated on Tue Dec 11 22:53:19 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
