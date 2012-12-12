@@ -3,7 +3,7 @@ require 'cog/config'
 module Cog
   module Embeds
     
-    # Describes the environment of a cog directive including the file in which it was found, the line number, the language, an more.
+    # Describes the environment of an embed statement including the file in which it was found, the line number, the language, an more.
     class Context
       
       # @return [Fixnum] line number at which the directive was found

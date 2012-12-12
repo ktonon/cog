@@ -1,12 +1,6 @@
 module Cog
   module Embeds
 
-    # Nikki says:
-    #
-    # don't forget the
-    #          fndrtnsydfjmgjgkhuolupo;FTYYFYFYMFCCF
-    #
-    
     # Helper for scanning files for embed expansions
     class FileScanner
 

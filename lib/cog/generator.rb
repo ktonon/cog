@@ -74,7 +74,8 @@ module Cog
 
     # Provide a value for the embed with the given key
     # @param key [String] a unique identifier for the embed
-    # @yield The return value of the provided block will be used to expand the embed
+    # @yieldparam context [Embeds::Context] provides information about the environment in which the embed statement was found
+    # @yieldreturn The value which will be used to expand the embed (or replace the embedded content)
     # @return [nil]
     def embed(key, &block)
       Embeds.find(key) do |filename, index|

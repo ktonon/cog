@@ -4,7 +4,7 @@
 uses code generation.
 
 The documentation on this page is synchronized with the git repository.
-For docs on the [currently released gem](https://rubygems.org/gems/cog) (version 0.2.0)
+For docs on the [currently released gem](https://rubygems.org/gems/cog) (version 0.2.1)
 see [ktonon.github.com/cog](http://ktonon.github.com/cog/frames.html).
 See also the following resources,
 
