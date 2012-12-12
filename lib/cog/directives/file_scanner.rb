@@ -1,75 +1,11 @@
-require 'cog/config'
-
 module Cog
-  
-  # Methods for querying and manipulating project files
-  module Project
+  module Directives
 
-    # Search through all project files for cog directives, and remember them so that generators can refer to them later
-    def gather_cog_directives
-      @snippets ||= {}
-      @snippet_pattern ||= "cog\\s*:\\s*snippet\\s*\\(\\s*(.*?)\\s*\\)(\\s*\\{)?"
-      exts = Config.instance.language_summary.collect(&:extensions).flatten
-      sources = Dir.glob "#{Config.instance.project_source_path}/**/*.{#{exts.join ','}}"
-      sources.each do |filename|
-        ext = File.extname(filename).slice(1..-1)
-        lang = Config.instance.language_for_extension ext
-        w = File.read filename
-        w.scan(lang.comment_pattern(@snippet_pattern)) do |m|
-          key = m[0]
-          @snippets[key] ||= {}
-          @snippets[key][filename] ||= 0
-          @snippets[key][filename] += 1
-        end
-      end
-    end
-    
-    # @param key [String] snippet key for which to find directive occurrences
-    # @yieldparam filename [String] name of the file in which the snippet occurred
-    # @yieldparam index [Fixnum] occurrence index of the snippet, 0 for the first occurrence, 1 for the second, and so on
-    def snippet_directives(key)
-      x = @snippets[key]
-      unless x.nil?
-        x.keys.sort.each do |filename|
-          x[filename].times do |index|
-            yield filename, index
-          end
-        end
-      end
-    end
-    
-    # @param key [String] unique identifier for the snippet
-    # @param filename [String] file in which to look for the snippet
-    # @param index [Fixnum] occurrence of the snippet. 0 for first, 1 for second, ...
-    # @param value [String] expansion value to use as the update
-    # @return [Boolean] whether or not the expansion was updated
-    def update_snippet_expansion(key, filename, index, value)
-      value = value.rstrip
-      ext = File.extname(filename).slice(1..-1)
-      lang = Config.instance.language_for_extension ext
-      
-      snip_pattern = lang.comment_pattern("cog\\s*:\\s*snippet\\s*\\(\\s*(#{key})\\s*\\)(?:\\s*([{]))?")
-      end_pattern = lang.comment_pattern("cog\\s*:\\s*[}]")
-      not_end_pattern = lang.comment_pattern("cog\\s*:\\s*(?!\\s*[}]).*$")
-      
-      s = FileScanner.new filename
-      updated = if match = s.read_until(snip_pattern, index)
-        if match.nil? # snippet not found
-          false 
-        elsif match[2] == '{' # snippet already expanded
-          unless s.capture_until end_pattern, :but_not => not_end_pattern
-            raise Errors::SnippetExpansionUnterminated.new "#{filename.relative_to_project_root}:#{s.marked_line_number}"
-          end
-          s.replace_captured_text(value + "\n") if value != s.captured_text
-        else # snippet not yet expanded
-          snip_line = lang.comment "cog: snippet(#{match[1]}) {"
-          value = [snip_line, value, lang.comment("cog: }") + "\n"]
-          s.insert_at_mark value.join("\n")
-        end
-      end
-      s.close
-      updated
-    end
+    # Nikki says:
+    #
+    # don't forget the
+    #          fndrtnsydfjmgjgkhuolupo;FTYYFYFYMFCCF
+    #
     
     # Helper for scanning files for snippet expansions
     class FileScanner
@@ -92,7 +28,7 @@ module Cog
       # @return [nil]
       def mark!
         @mark = @f.pos
-        @marked_line_number = @f.lineno
+        @marked_line_number = @f.lineno + 1
       end
       
       def unmark!
@@ -161,13 +97,15 @@ module Cog
       end
       
       # @param value [String] value to replace the captured_text with
+      # @param opt [Boolean] :once (false) if once, the cog delimiters will be removed
       # @return [Boolean] whether or not the operation succeeded
-      def replace_captured_text(value)
+      def replace_captured_text(value, opt={})
         return false if @cap_begin_pos.nil? || @cap_end_pos.nil?
         @f.seek 0
-        tmp.write @f.read(@cap_begin_pos)
+        tmp.write @f.read(opt[:once] ? @mark : @cap_begin_pos)
         tmp.write value
         @f.seek @cap_end_pos
+        @f.readline if opt[:once]
         tmp.write @f.read
         tmp.close
         close
@@ -201,7 +139,5 @@ module Cog
       end
     end
     
-    extend self # Singleton
   end
-  
 end

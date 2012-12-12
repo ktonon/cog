@@ -73,7 +73,7 @@ command [:generator, :gen] do |c|
   c.command :run do |sub|
     sub.action do |gopt, opt, args|
       raise Cog::Errors::ActionRequiresProject.new('run generator') unless Cog::Config.instance.project?
-      Cog::Project.gather_cog_directives
+      Cog::Directives.gather_from_project
       args = Cog::Controllers::GeneratorController.list if args.empty?
       args.each do |name|
         Cog::Controllers::GeneratorController.run name

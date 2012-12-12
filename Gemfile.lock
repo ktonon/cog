@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cog (0.1.4)
+    cog (0.2.0)
       active_support
       gli
       i18n

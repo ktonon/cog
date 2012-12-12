@@ -77,8 +77,8 @@ module Cog
     # @yield The return value of the provided block will be used to expand the snippet
     # @return [nil]
     def snippet(key, &block)
-      Project.snippet_directives(key) do |filename, index|
-        if Project.update_snippet_expansion key, filename, index, block.call
+      Directives.snippets_for(key) do |filename, index|
+        if Directives.update_snippet_expansion key, filename, index, &block
           STDOUT.write "Updated #{filename.relative_to_project_root} - #{(index + 1).ordinalize} occurrence of snippet '#{key}'\n".color :white
         end
       end

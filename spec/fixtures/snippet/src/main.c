@@ -1,9 +1,17 @@
+// cog: snippet(contextual orange 3 cat) once {
+one
+// cog: }
+
 // cog: snippet(include-fruits)
 
-int main(int argc, char** argv)
-{
-    return 0;
-}
+// cog: snippet(one-time) once
+
+// cog: snippet(one-time-body)once{
+one time body
+// cog: }
+// cog: snippet(one-time-same-body) once {
+one time same body
+// cog: }
 
 // cog: snippet(twice)
 

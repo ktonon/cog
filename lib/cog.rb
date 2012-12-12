@@ -1,10 +1,10 @@
 require 'cog/config'
 require 'cog/controllers'
+require 'cog/directives'
 require 'cog/errors'
 require 'cog/generator'
 require 'cog/helpers'
 require 'cog/languages'
-require 'cog/project'
 require 'cog/version'
 
 # +cog+ is a command line utility that makes it a bit easier to organize a project
