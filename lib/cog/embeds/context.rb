@@ -1,24 +1,22 @@
 require 'cog/config'
 
 module Cog
-  module Directives
+  module Embeds
     
     # Describes the environment of a cog directive including the file in which it was found, the line number, the language, an more.
     class Context
       
       # @return [Fixnum] line number at which the directive was found
       attr_accessor :lineno
+      
+      # @return [String] the value for the given key
+      attr_reader :name
 
       # @param path [String] path to the file in which the cog directive was found
-      def initialize(path)
+      def initialize(name, path)
+        @name = name
         @options = {}
         @path = path
-      end
-            
-      # @param key [String] named arguments used with the directive
-      # @return [String] the value for the given key
-      def [](key)
-        @options[key]
       end
       
       # @return [Array<String>] arguments passed to the directive
@@ -71,6 +69,15 @@ module Cog
       # @param value [Array<String>] arguments used with the directive
       def args=(value)
         @args = value
+      end
+      
+      # @api developer
+      # @return [String]
+      def to_directive
+        x = "cog: #{name}"
+        x += args.join ' ' if args
+        x += " once" if once?
+        x
       end
       
     end

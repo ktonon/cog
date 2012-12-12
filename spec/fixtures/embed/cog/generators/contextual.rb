@@ -1,7 +1,7 @@
 require 'cog'
 include Cog::Generator
 
-snippet('contextual') do |c|
+embed('contextual') do |c|
   ["filename is #{c.filename}",
    "lineno is #{c.lineno}",
    "body was #{c.body}",

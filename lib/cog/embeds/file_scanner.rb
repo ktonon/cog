@@ -1,5 +1,5 @@
 module Cog
-  module Directives
+  module Embeds
 
     # Nikki says:
     #
@@ -7,7 +7,7 @@ module Cog
     #          fndrtnsydfjmgjgkhuolupo;FTYYFYFYMFCCF
     #
     
-    # Helper for scanning files for snippet expansions
+    # Helper for scanning files for embed expansions
     class FileScanner
 
       def initialize(filename)

@@ -72,14 +72,14 @@ module Cog
       nil
     end
 
-    # Provide a value for the snippet with the given key
-    # @param key [String] a unique identifier for the snippet
-    # @yield The return value of the provided block will be used to expand the snippet
+    # Provide a value for the embed with the given key
+    # @param key [String] a unique identifier for the embed
+    # @yield The return value of the provided block will be used to expand the embed
     # @return [nil]
-    def snippet(key, &block)
-      Directives.snippets_for(key) do |filename, index|
-        if Directives.update_snippet_expansion key, filename, index, &block
-          STDOUT.write "Updated #{filename.relative_to_project_root} - #{(index + 1).ordinalize} occurrence of snippet '#{key}'\n".color :white
+    def embed(key, &block)
+      Embeds.find(key) do |filename, index|
+        if Embeds.update key, filename, index, &block
+          STDOUT.write "Updated #{filename.relative_to_project_root} - #{(index + 1).ordinalize} occurrence of embed '#{key}'\n".color :white
         end
       end
     end

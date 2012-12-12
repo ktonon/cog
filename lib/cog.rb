@@ -1,6 +1,6 @@
 require 'cog/config'
 require 'cog/controllers'
-require 'cog/directives'
+require 'cog/embeds'
 require 'cog/errors'
 require 'cog/generator'
 require 'cog/helpers'

@@ -5,10 +5,10 @@ include Cog::Generator
 
 stamp 'fruit-files.pro', 'fruit-files.pro'
 
-snippet 'fruit-files' do
+embed 'fruit-files' do
   stamp 'fruit-files.pro'
 end
 
-snippet 'include-fruits' do
+embed 'include-fruits' do
   @fruits.collect {|f| "#include \"#{f}.h\""}.join "\n"
 end

@@ -18,7 +18,7 @@ Table of contents
 1. [Getting Started](#getting-started) - Install `cog` and prepare a project
 1. [Generators](#generators) - Create ruby scripts which generate code
 1. [Templates](#templates) - Use ERB templates to help generators
-1. [Snippets](#snippets) - Generate code segments into otherwise manually maintained code
+1. [Embeds](#embeds) - Generate code segments into otherwise manually maintained code
 1. [Tools](#tools) - Extend `cog` by writing tools
 
 Getting Started
@@ -245,8 +245,8 @@ $ cog tm
 [built-in < project] warning
 ```
 
-Snippets
---------
+Embeds
+------
 
 As shown above, the
 [stamp](http://ktonon.github.com/cog/Cog/Generator.html#stamp-instance_method)
@@ -254,7 +254,7 @@ method can be used to create files which are entirely generated. While this is
 useful, it might at times be more convenient to inject generated content
 directly into an otherwise manually maintained file. Such an injection should
 be automatically updated when the generated content changes, but leave the rest
-of the file alone. `cog` provides this kind of functionality through snippets.
+of the file alone. `cog` provides this kind of functionality through embeds.
 For example, consider the following generator
 
 ```ruby
@@ -273,18 +273,18 @@ manually. It would make sense for the generator to maintain the list of build
 files. Depending on the build tool being used, it might be possible to generate
 a partial build file and include it by reference in the main build file.
 
-Another approach would be to use a snippet to inject the build instuctions for
+Another approach would be to use a embed to inject the build instuctions for
 the generator into the main build file. For example, consider a Qt project file
 
 ```text
 SOURCES += main.cpp Donkey.cpp
 HEADERS += Donkey.h
 
-# cog: snippet(widget-files)
+# cog: widget-files
 ```
 
 The last line is a comment that Qt will ignore, but which `cog` will recognize
-as a snippet hook named <tt>'widget-files'</tt>. Once the hook is in place,
+as an embed hook named <tt>'widget-files'</tt>. Once the hook is in place,
 it's up to a generator to provide the content which will be injected beneath
 the hook. Consider again the generator from above, with a few modifications
 
@@ -298,29 +298,29 @@ include Cog::Generator
   stamp 'widget.h', "widget_#{i}.h"
 end
 
-snippet 'widget-files' do
+embed 'widget-files' do
   stamp 'widget.pro' # uses the @widgets context and returns a string
 end
 ```
 
-The [snippet](http://ktonon.github.com/cog/Cog/Generator.html#snippet-instance_method)
+The [embed](http://ktonon.github.com/cog/Cog/Generator.html#embed-instance_method)
 method takes the name of the hook as an argument. The expansion value is
 returned by the provided block. In this case a `stamp` was used to pull the
 content from a template, but a string could also be constructed in the block
 without using a template. Running this generator would now inject content
-beneath the snippet directive in the build file.
+beneath the embed directive in the build file.
 
 ```text
 SOURCES += main.cpp Donkey.cpp
 HEADERS += Donkey.h
 
-# cog: snippet(widget-files) {
+# cog: widget-files {
 SOURCES += widget_1.cpp widget_2.cpp widget_3.cpp widget_4.cpp widget_5.cpp
 HEADERS += widget_1.h widget_2.h widget_3.h widget_4.h widget_5.h
 # cog: }
 ```
 
-Snippets are only updated when the generated content changes. So running the
+Embeds are only updated when the generated content changes. So running the
 generator a second time would not touch the build file.
 
 Tools
