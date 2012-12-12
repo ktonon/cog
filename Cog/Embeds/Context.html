@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
-  Class: Cog::Directives::Context
+  Class: Cog::Embeds::Context
   
     &mdash; Documentation by YARD 0.8.3
   
@@ -32,7 +32,7 @@
       <div id="menu">
   
     <a href="../../_index.html">Index (C)</a> &raquo;
-    <span class='title'><span class='object_link'><a href="../../Cog.html" title="Cog (module)">Cog</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Directives.html" title="Cog::Directives (module)">Directives</a></span></span>
+    <span class='title'><span class='object_link'><a href="../../Cog.html" title="Cog (module)">Cog</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Embeds.html" title="Cog::Embeds (module)">Embeds</a></span></span>
      &raquo; 
     <span class="title">Context</span>
   
@@ -63,7 +63,7 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><h1>Class: Cog::Directives::Context
+    <div id="content"><h1>Class: Cog::Embeds::Context
   
   
   
@@ -78,7 +78,7 @@
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">Cog::Directives::Context</li>
+            <li class="next">Cog::Embeds::Context</li>
           
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
@@ -94,7 +94,7 @@
   
   
     <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/cog/directives/context.rb</dd>
+    <dd class="r2 last">lib/cog/embeds/context.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -102,8 +102,8 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Describes the environment of a cog directive including the file in which it
-was found, the line number, the language, an more.</p>
+<p>Describes the environment of an embed statement including the file in which
+it was found, the line number, the language, an more.</p>
 
 
   </div>
@@ -145,29 +145,21 @@ was found, the line number, the language, an more.</p>
 </li>
 
     
-  </ul>
-
-
-
-
-  
-    <h2>
-      Instance Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
-    </h2>
-
-    <ul class="summary">
-      
-        <li class="public ">
+      <li class="public ">
   <span class="summary_signature">
     
-      <a href="#%5B%5D-instance_method" title="#[] (instance method)">- (String) <strong>[]</strong>(key) </a>
+      <a href="#name-instance_method" title="#name (instance method)">- (String) <strong>name</strong> </a>
     
 
     
   </span>
   
   
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
   
   
   
@@ -181,6 +173,19 @@ was found, the line number, the language, an more.</p>
   
 </li>
 
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
       
         <li class="public ">
   <span class="summary_signature">
@@ -282,7 +287,7 @@ braces.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Context) <strong>initialize</strong>(path) </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Context) <strong>initialize</strong>(name, path) </a>
     
 
     
@@ -362,7 +367,7 @@ braces.</p>
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="Cog::Directives::Context (class)">Context</a></span></tt>) <strong>initialize</strong>(path) 
+    - (<tt><span class='object_link'><a href="" title="Cog::Embeds::Context (class)">Context</a></span></tt>) <strong>initialize</strong>(name, path) 
   
 
   
@@ -405,15 +410,17 @@ braces.</p>
       <pre class="lines">
 
 
-13
-14
-15
-16</pre>
+16
+17
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/context.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/context.rb', line 16</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
+  <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span>
   <span class='rubyid_@options ivar id'>@options</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
   <span class='rubyid_@path ivar id'>@path</span> <span class='assign token'>=</span> <span class='rubyid_path identifier id'>path</span>
 <span class='rubyid_end end kw'>end</span>
@@ -479,7 +486,7 @@ braces.</p>
 12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/context.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/context.rb', line 10</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_lineno identifier id'>lineno</span>
   <span class='rubyid_@lineno ivar id'>@lineno</span>
@@ -490,17 +497,12 @@ braces.</p>
 </table>
 </div>
     
-  </div>
-
-
-  <div id="instance_method_details" class="method_details_list">
-    <h2>Instance Method Details</h2>
-
-    
-      <div class="method_details first">
-  <h3 class="signature first" id="[]-instance_method">
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="name-instance_method">
   
-    - (<tt><span class='object_link'><a href="../../String.html" title="String (class)">String</a></span></tt>) <strong>[]</strong>(key) 
+    - (<tt><span class='object_link'><a href="../../String.html" title="String (class)">String</a></span></tt>) <strong>name</strong>  <span class="extras">(readonly)</span>
   
 
   
@@ -515,27 +517,7 @@ braces.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
   
-    <li>
-      
-        <span class='name'>key</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../../String.html" title="String (class)">String</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>named arguments used with the directive</p>
-</div>
-      
-    </li>
-  
-</ul>
-
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -561,15 +543,15 @@ braces.</p>
       <pre class="lines">
 
 
-20
-21
-22</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/context.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/context.rb', line 13</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='aref op'>[]</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='rparen token'>)</span>
-  <span class='rubyid_@options ivar id'>@options</span><span class='lbrack token'>[</span><span class='rubyid_key identifier id'>key</span><span class='rbrack token'>]</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_name identifier id'>name</span>
+  <span class='rubyid_@name ivar id'>@name</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -577,8 +559,15 @@ braces.</p>
 </table>
 </div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="args-instance_method">
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="args-instance_method">
   
     - (<tt>Array&lt;<span class='object_link'><a href="../../String.html" title="String (class)">String</a></span>&gt;</tt>) <strong>args</strong> 
   
@@ -621,12 +610,12 @@ braces.</p>
       <pre class="lines">
 
 
-25
-26
-27</pre>
+23
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/context.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/context.rb', line 23</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_args identifier id'>args</span>
   <span class='rubyid_@args ivar id'>@args</span>
@@ -694,12 +683,12 @@ braces.</p>
       <pre class="lines">
 
 
-34
-35
-36</pre>
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/context.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/context.rb', line 32</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_body identifier id'>body</span>
   <span class='rubyid_@body ivar id'>@body</span>
@@ -754,12 +743,12 @@ braces.</p>
       <pre class="lines">
 
 
-39
-40
-41</pre>
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/context.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/context.rb', line 37</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_extension identifier id'>extension</span>
   <span class='rubyid_@ext ivar id'>@ext</span> <span class='opasgn op'>||=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_extname identifier id'>extname</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_slice identifier id'>slice</span><span class='lparen token'>(</span><span class='float val'>1</span><span class='dot2 op'>..</span><span class='integer val'>-1</span><span class='rparen token'>)</span>
@@ -814,12 +803,12 @@ braces.</p>
       <pre class="lines">
 
 
-44
-45
-46</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/context.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/context.rb', line 42</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_filename identifier id'>filename</span>
   <span class='rubyid_@filename ivar id'>@filename</span> <span class='opasgn op'>||=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_basename identifier id'>basename</span> <span class='rubyid_@path ivar id'>@path</span>
@@ -874,12 +863,12 @@ braces.</p>
       <pre class="lines">
 
 
-49
-50
-51</pre>
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/context.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/context.rb', line 47</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_language identifier id'>language</span>
   <span class='rubyid_@lang ivar id'>@lang</span> <span class='opasgn op'>||=</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_language_for_extension identifier id'>language_for_extension</span> <span class='rubyid_extension identifier id'>extension</span>
@@ -934,12 +923,12 @@ braces.</p>
       <pre class="lines">
 
 
-54
-55
-56</pre>
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/context.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/context.rb', line 52</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_once? fid id'>once?</span>
   <span class='rubyid_@once ivar id'>@once</span>
@@ -955,7 +944,7 @@ braces.</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Dec 11 22:53:27 2012 by
+  Generated on Tue Dec 11 23:39:48 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

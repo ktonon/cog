@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
-  Class: Cog::Directives::FileScanner
+  Class: Cog::Embeds::FileScanner
   
     &mdash; Documentation by YARD 0.8.3
   
@@ -32,7 +32,7 @@
       <div id="menu">
   
     <a href="../../_index.html">Index (F)</a> &raquo;
-    <span class='title'><span class='object_link'><a href="../../Cog.html" title="Cog (module)">Cog</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Directives.html" title="Cog::Directives (module)">Directives</a></span></span>
+    <span class='title'><span class='object_link'><a href="../../Cog.html" title="Cog (module)">Cog</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Embeds.html" title="Cog::Embeds (module)">Embeds</a></span></span>
      &raquo; 
     <span class="title">FileScanner</span>
   
@@ -63,7 +63,7 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><h1>Class: Cog::Directives::FileScanner
+    <div id="content"><h1>Class: Cog::Embeds::FileScanner
   
   
   
@@ -78,7 +78,7 @@
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">Cog::Directives::FileScanner</li>
+            <li class="next">Cog::Embeds::FileScanner</li>
           
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
@@ -94,7 +94,7 @@
   
   
     <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/cog/directives/file_scanner.rb</dd>
+    <dd class="r2 last">lib/cog/embeds/file_scanner.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -102,7 +102,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Helper for scanning files for snippet expansions</p>
+<p>Helper for scanning files for embed expansions</p>
 
 
   </div>
@@ -410,7 +410,7 @@ encountered, or the end of the file is reached.</p>
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="Cog::Directives::FileScanner (class)">FileScanner</a></span></tt>) <strong>initialize</strong>(filename) 
+    - (<tt><span class='object_link'><a href="" title="Cog::Embeds::FileScanner (class)">FileScanner</a></span></tt>) <strong>initialize</strong>(filename) 
   
 
   
@@ -433,17 +433,17 @@ encountered, or the end of the file is reached.</p>
       <pre class="lines">
 
 
+7
+8
+9
+10
+11
+12
 13
-14
-15
-16
-17
-18
-19
-20</pre>
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/file_scanner.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/file_scanner.rb', line 7</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span>
   <span class='rubyid_@filename ivar id'>@filename</span> <span class='assign token'>=</span> <span class='rubyid_filename identifier id'>filename</span>
@@ -510,12 +510,12 @@ encountered, or the end of the file is reached.</p>
       <pre class="lines">
 
 
-40
-41
-42</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/file_scanner.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/file_scanner.rb', line 34</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_marked_line_number identifier id'>marked_line_number</span>
   <span class='rubyid_@marked_line_number ivar id'>@marked_line_number</span>
@@ -645,6 +645,12 @@ pattern :bad_pattern_found will be thrown</p>
       <pre class="lines">
 
 
+68
+69
+70
+71
+72
+73
 74
 75
 76
@@ -655,16 +661,10 @@ pattern :bad_pattern_found will be thrown</p>
 81
 82
 83
-84
-85
-86
-87
-88
-89
-90</pre>
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/file_scanner.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/file_scanner.rb', line 68</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_capture_until identifier id'>capture_until</span><span class='lparen token'>(</span><span class='rubyid_pattern identifier id'>pattern</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_@cap_begin_pos ivar id'>@cap_begin_pos</span> <span class='assign token'>=</span> <span class='rubyid_@f ivar id'>@f</span><span class='dot token'>.</span><span class='rubyid_pos identifier id'>pos</span>
@@ -733,14 +733,14 @@ pattern :bad_pattern_found will be thrown</p>
       <pre class="lines">
 
 
-93
-94
-95
-96
-97</pre>
+87
+88
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/file_scanner.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/file_scanner.rb', line 87</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_captured_text identifier id'>captured_text</span>
   <span class='rubyid_x identifier id'>x</span> <span class='assign token'>=</span> <span class='rubyid_@lines ivar id'>@lines</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>''</span><span class='rparen token'>)</span>
@@ -779,12 +779,12 @@ pattern :bad_pattern_found will be thrown</p>
       <pre class="lines">
 
 
-23
-24
-25</pre>
+17
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/file_scanner.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/file_scanner.rb', line 17</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_close identifier id'>close</span>
   <span class='rubyid_@f ivar id'>@f</span><span class='dot token'>.</span><span class='rubyid_close identifier id'>close</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_@f ivar id'>@f</span><span class='dot token'>.</span><span class='rubyid_closed? fid id'>closed?</span>
@@ -859,21 +859,21 @@ pattern :bad_pattern_found will be thrown</p>
       <pre class="lines">
 
 
+112
+113
+114
+115
+116
+117
 118
 119
 120
 121
 122
-123
-124
-125
-126
-127
-128
-129</pre>
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/file_scanner.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/file_scanner.rb', line 112</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_insert_at_mark identifier id'>insert_at_mark</span><span class='lparen token'>(</span><span class='rubyid_value identifier id'>value</span><span class='rparen token'>)</span>
   <span class='rubyid_return return kw'>return</span> <span class='rubyid_false false kw'>false</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@mark ivar id'>@mark</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
@@ -933,13 +933,13 @@ marked position</p>
       <pre class="lines">
 
 
-29
-30
-31
-32</pre>
+23
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/file_scanner.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/file_scanner.rb', line 23</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_mark! fid id'>mark!</span>
   <span class='rubyid_@mark ivar id'>@mark</span> <span class='assign token'>=</span> <span class='rubyid_@f ivar id'>@f</span><span class='dot token'>.</span><span class='rubyid_pos identifier id'>pos</span>
@@ -1034,6 +1034,12 @@ encountered, or the end of the file is reached</p>
       <pre class="lines">
 
 
+40
+41
+42
+43
+44
+45
 46
 47
 48
@@ -1041,16 +1047,10 @@ encountered, or the end of the file is reached</p>
 50
 51
 52
-53
-54
-55
-56
-57
-58
-59</pre>
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/file_scanner.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/file_scanner.rb', line 40</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_read_until identifier id'>read_until</span><span class='lparen token'>(</span><span class='rubyid_pattern identifier id'>pattern</span><span class='comma token'>,</span> <span class='rubyid_n identifier id'>n</span><span class='assign token'>=</span><span class='integer val'>0</span><span class='rparen token'>)</span>
   <span class='rubyid_i identifier id'>i</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
@@ -1136,14 +1136,14 @@ encountered, or the end of the file is reached</p>
       <pre class="lines">
 
 
-64
-65
-66
-67
-68</pre>
+58
+59
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/file_scanner.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/file_scanner.rb', line 58</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_readline_matches? fid id'>readline_matches?</span><span class='lparen token'>(</span><span class='rubyid_pattern identifier id'>pattern</span><span class='rparen token'>)</span>
   <span class='notop op'>!</span><span class='notop op'>!</span><span class='lparen token'>(</span><span class='rubyid_@f ivar id'>@f</span><span class='dot token'>.</span><span class='rubyid_readline identifier id'>readline</span> <span class='match op'>=~</span> <span class='rubyid_pattern identifier id'>pattern</span><span class='rparen token'>)</span>
@@ -1238,22 +1238,22 @@ encountered, or the end of the file is reached</p>
       <pre class="lines">
 
 
+96
+97
+98
+99
+100
+101
 102
 103
 104
 105
 106
 107
-108
-109
-110
-111
-112
-113
-114</pre>
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/file_scanner.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/file_scanner.rb', line 96</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_replace_captured_text identifier id'>replace_captured_text</span><span class='lparen token'>(</span><span class='rubyid_value identifier id'>value</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_return return kw'>return</span> <span class='rubyid_false false kw'>false</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@cap_begin_pos ivar id'>@cap_begin_pos</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span> <span class='orop op'>||</span> <span class='rubyid_@cap_end_pos ivar id'>@cap_end_pos</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
@@ -1289,13 +1289,13 @@ encountered, or the end of the file is reached</p>
       <pre class="lines">
 
 
-34
-35
-36
-37</pre>
+28
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/directives/file_scanner.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/embeds/file_scanner.rb', line 28</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_unmark! fid id'>unmark!</span>
   <span class='rubyid_@mark ivar id'>@mark</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
@@ -1312,7 +1312,7 @@ encountered, or the end of the file is reached</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Dec 11 22:53:29 2012 by
+  Generated on Tue Dec 11 23:39:50 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

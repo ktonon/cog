@@ -142,7 +142,7 @@ generated source code files, using the <span class='object_link'><a href="#stamp
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#snippet-instance_method" title="#snippet (instance method)">- (nil) <strong>snippet</strong>(key) { ... }</a>
+      <a href="#embed-instance_method" title="#embed (instance method)">- (nil) <strong>embed</strong>(key) {|context| ... }</a>
     
 
     
@@ -157,7 +157,7 @@ generated source code files, using the <span class='object_link'><a href="#stamp
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Provide a value for the snippet with the given key.</p>
+<p>Provide a value for the embed with the given key.</p>
 </div></span>
   
 </li>
@@ -230,9 +230,9 @@ generated source code files, using the <span class='object_link'><a href="#stamp
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="snippet-instance_method">
+  <h3 class="signature first" id="embed-instance_method">
   
-    - (<tt>nil</tt>) <strong>snippet</strong>(key) { ... }
+    - (<tt>nil</tt>) <strong>embed</strong>(key) {|context| ... }
   
 
   
@@ -241,7 +241,7 @@ generated source code files, using the <span class='object_link'><a href="#stamp
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Provide a value for the snippet with the given key</p>
+<p>Provide a value for the embed with the given key</p>
 
 
   </div>
@@ -261,15 +261,36 @@ generated source code files, using the <span class='object_link'><a href="#stamp
       
         &mdash;
         <div class='inline'>
-<p>a unique identifier for the snippet</p>
+<p>a unique identifier for the embed</p>
 </div>
       
     </li>
   
 </ul>
 
-<p class="tag_title">Yields:</p>
-<ul class="yield">
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>context</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Embeds/Context.html" title="Cog::Embeds::Context (class)">Embeds::Context</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>provides information about the environment in which the embed statement was
+found</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Yield Returns:</p>
+<ul class="yieldreturn">
   
     <li>
       
@@ -280,7 +301,8 @@ generated source code files, using the <span class='object_link'><a href="#stamp
       
         
         <div class='inline'>
-<p>The return value of the provided block will be used to expand the snippet</p>
+<p>The value which will be used to expand the embed (or replace the embedded
+content)</p>
 </div>
       
     </li>
@@ -306,21 +328,21 @@ generated source code files, using the <span class='object_link'><a href="#stamp
       <pre class="lines">
 
 
-79
 80
 81
 82
 83
 84
-85</pre>
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/generator.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/generator.rb', line 80</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_snippet identifier id'>snippet</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
-  <span class='rubyid_Directives constant id'>Directives</span><span class='dot token'>.</span><span class='rubyid_snippets_for identifier id'>snippets_for</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_index identifier id'>index</span><span class='bitor op'>|</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_Directives constant id'>Directives</span><span class='dot token'>.</span><span class='rubyid_update_snippet_expansion identifier id'>update_snippet_expansion</span> <span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_index identifier id'>index</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span>
-      <span class='rubyid_STDOUT constant id'>STDOUT</span><span class='dot token'>.</span><span class='rubyid_write identifier id'>write</span> <span class='dstring node'>&quot;Updated #{filename.relative_to_project_root} - #{(index + 1).ordinalize} occurrence of snippet '#{key}'\n&quot;</span><span class='dot token'>.</span><span class='rubyid_color identifier id'>color</span> <span class='symbol val'>:white</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_embed identifier id'>embed</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+  <span class='rubyid_Embeds constant id'>Embeds</span><span class='dot token'>.</span><span class='rubyid_find identifier id'>find</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_index identifier id'>index</span><span class='bitor op'>|</span>
+    <span class='rubyid_if if kw'>if</span> <span class='rubyid_Embeds constant id'>Embeds</span><span class='dot token'>.</span><span class='rubyid_update identifier id'>update</span> <span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_index identifier id'>index</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span>
+      <span class='rubyid_STDOUT constant id'>STDOUT</span><span class='dot token'>.</span><span class='rubyid_write identifier id'>write</span> <span class='dstring node'>&quot;Updated #{filename.relative_to_project_root} - #{(index + 1).ordinalize} occurrence of embed '#{key}'\n&quot;</span><span class='dot token'>.</span><span class='rubyid_color identifier id'>color</span> <span class='symbol val'>:white</span>
     <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 <span class='rubyid_end end kw'>end</span>
@@ -588,7 +610,7 @@ returned as a string</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Dec 11 22:53:20 2012 by
+  Generated on Tue Dec 11 23:39:43 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

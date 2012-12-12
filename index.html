@@ -66,8 +66,7 @@
 <p><code>cog</code> is a command line utility that makes it easy to organize a project which
 uses code generation.</p>
 
-<p>The documentation on this page is for the <a href="https://rubygems.org/gems/cog">currently released gem</a> (version 0.2.0)
-see <a href="http://ktonon.github.com/cog/frames.html">ktonon.github.com/cog</a>.
+<p>The documentation on this page is for the <a href="https://rubygems.org/gems/cog">currently released gem</a> (version 0.2.1).
 See also the following resources,</p>
 
 <ul>
@@ -281,7 +280,7 @@ templates and that the project version overrides the built-in version</p>
 [built-in &lt; project] warning
 </code></pre>
 
-<h2>Snippets</h2>
+<h2>Embeds</h2>
 
 <p>As shown above, the
 <a href="http://ktonon.github.com/cog/Cog/Generator.html#stamp-instance_method">stamp</a>
@@ -289,7 +288,7 @@ method can be used to create files which are entirely generated. While this is
 useful, it might at times be more convenient to inject generated content
 directly into an otherwise manually maintained file. Such an injection should
 be automatically updated when the generated content changes, but leave the rest
-of the file alone. <code>cog</code> provides this kind of functionality through snippets.
+of the file alone. <code>cog</code> provides this kind of functionality through embeds.
 For example, consider the following generator</p>
 
 <pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
@@ -307,17 +306,17 @@ manually. It would make sense for the generator to maintain the list of build
 files. Depending on the build tool being used, it might be possible to generate
 a partial build file and include it by reference in the main build file.</p>
 
-<p>Another approach would be to use a snippet to inject the build instuctions for
+<p>Another approach would be to use a embed to inject the build instuctions for
 the generator into the main build file. For example, consider a Qt project file</p>
 
 <pre class="code text"><code>SOURCES += main.cpp Donkey.cpp
 HEADERS += Donkey.h
 
-# cog: snippet(widget-files)
+# cog: widget-files
 </code></pre>
 
 <p>The last line is a comment that Qt will ignore, but which <code>cog</code> will recognize
-as a snippet hook named <tt>&#39;widget-files&#39;</tt>. Once the hook is in place,
+as an embed hook named <tt>&#39;widget-files&#39;</tt>. Once the hook is in place,
 it&#39;s up to a generator to provide the content which will be injected beneath
 the hook. Consider again the generator from above, with a few modifications</p>
 
@@ -330,28 +329,28 @@ the hook. Consider again the generator from above, with a few modifications</p>
   <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'widget.h'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;widget_#{i}.h&quot;</span>
 <span class='rubyid_end end kw'>end</span>
 
-<span class='rubyid_snippet identifier id'>snippet</span> <span class='string val'>'widget-files'</span> <span class='rubyid_do do kw'>do</span>
+<span class='rubyid_embed identifier id'>embed</span> <span class='string val'>'widget-files'</span> <span class='rubyid_do do kw'>do</span>
   <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'widget.pro'</span> <span class='comment val'># uses the @widgets context and returns a string</span>
 <span class='rubyid_end end kw'>end</span>
 </code></pre>
 
-<p>The <a href="http://ktonon.github.com/cog/Cog/Generator.html#snippet-instance_method">snippet</a>
+<p>The <a href="http://ktonon.github.com/cog/Cog/Generator.html#embed-instance_method">embed</a>
 method takes the name of the hook as an argument. The expansion value is
 returned by the provided block. In this case a <code>stamp</code> was used to pull the
 content from a template, but a string could also be constructed in the block
 without using a template. Running this generator would now inject content
-beneath the snippet directive in the build file.</p>
+beneath the embed directive in the build file.</p>
 
 <pre class="code text"><code>SOURCES += main.cpp Donkey.cpp
 HEADERS += Donkey.h
 
-# cog: snippet(widget-files) {
+# cog: widget-files {
 SOURCES += widget_1.cpp widget_2.cpp widget_3.cpp widget_4.cpp widget_5.cpp
 HEADERS += widget_1.h widget_2.h widget_3.h widget_4.h widget_5.h
 # cog: }
 </code></pre>
 
-<p>Snippets are only updated when the generated content changes. So running the
+<p>Embeds are only updated when the generated content changes. So running the
 generator a second time would not touch the build file.</p>
 
 <h2>Tools</h2>
@@ -490,7 +489,7 @@ Here is what the root tool file <code>cons.rb</code> will look like</p>
 </div></div>
 
     <div id="footer">
-  Generated on Tue Dec 11 22:53:19 2012 by
+  Generated on Tue Dec 11 23:39:42 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
