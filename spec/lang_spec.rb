@@ -22,7 +22,7 @@ describe 'projects' do
       [:h, :c, :hpp, :cpp, :java, :cs, :js].each do |ext|
         read(ext).should == "// WARNING"
       end
-      [:rb, :py, :pro].each do |ext|
+      [:rb, :py, :pro, :pri].each do |ext|
         read(ext).should == "# WARNING"
       end
       File.new(generated_file("generated_warn")).read.should == 'WARNING'

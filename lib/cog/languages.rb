@@ -1,5 +1,6 @@
 require 'cog/errors'
 require 'cog/languages/language'
+require 'cog/languages/mixins'
 
 module Cog
   
@@ -15,6 +16,7 @@ module Cog
       :hpp => 'c++',
       :java => 'java',
       :js => 'javascript',
+      :pri => 'qt',
       :pro => 'qt',
       :py => 'python',
       :rb => 'ruby',

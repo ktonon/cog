@@ -20,6 +20,18 @@ module Cog
           one_line_comment text
         end
       end
+
+      # @api developer
+      def one_line_comment(text)
+        text
+      end
+      
+      # @api developer
+      def multi_line_comment(text)
+        text.split("\n").collect do |line|
+          one_line_comment line
+        end.join "\n"
+      end
       
       # @return [Array<String>] a set of extensions needed to define a module in this language
       def module_extensions
@@ -56,18 +68,6 @@ module Cog
         ""
       end
 
-      protected
-      
-      def one_line_comment(text)
-        text
-      end
-      
-      def multi_line_comment(text)
-        text.split("\n").collect do |line|
-          one_line_comment line
-        end.join "\n"
-      end
-      
     end
   end
 end
