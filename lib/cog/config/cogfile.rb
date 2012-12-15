@@ -43,7 +43,7 @@ module Cog
         @config = config
       end
     
-      # Interpret the +Cogfile+ at {Config#cogfile_path}
+      # Interpret the +Cogfile+ at {Config::ProjectMethods#cogfile_path}
       # @api developer
       # @return [nil]
       def interpret
@@ -55,7 +55,7 @@ module Cog
     
       # Define the directory in which to find project generators
       # @param path [String] a file system path
-      # @param absolute [Boolean] if +false+, the path is relative to {Config#project_root}
+      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
       # @return [nil]
       def project_generators_path(path, absolute=false)
         @config.instance_eval do
@@ -66,7 +66,7 @@ module Cog
 
       # Define the directory in which to find custom project templates
       # @param path [String] a file system path
-      # @param absolute [Boolean] if +false+, the path is relative to {Config#project_root}
+      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
       # @return [nil]
       def project_templates_path(path, absolute=false)
         @config.instance_eval do
@@ -77,7 +77,7 @@ module Cog
 
       # Define the directory to which project source code is generated
       # @param path [String] a file system path
-      # @param absolute [Boolean] if +false+, the path is relative to {Config#project_root}
+      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
       # @return [nil]
       def project_source_path(path, absolute=false)
         @config.instance_eval do

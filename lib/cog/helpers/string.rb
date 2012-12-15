@@ -2,7 +2,7 @@ require 'cog/config'
 
 class String
   
-  # @return [String] strips {Cog::Config#project_root} from the beginning of this string
+  # @return [String] strips {Cog::Config::ProjectMethods#project_root} from the beginning of this string
   def relative_to_project_root
     return dup unless Cog.project?
     relative_to Cog.project_root

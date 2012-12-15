@@ -34,7 +34,7 @@ module Cog
     
     # Stamp a template into a file or return it as a string
     # @param template_path [String] path to template file relative one of the {Config#template_paths}
-    # @param destination [String] path to which the generated file should be written, relative to the {Config#project_source_path}
+    # @param destination [String] path to which the generated file should be written, relative to the {Config::ProjectMethods#project_source_path}
     # @option opt [Boolean] :absolute_template_path (false) is the +template_path+ absolute?
     # @option opt [Boolean] :absolute_destination (false) is the +destination+ absolute?
     # @option opt [String, Array<String>] :filter (nil) filter the result through the named methods

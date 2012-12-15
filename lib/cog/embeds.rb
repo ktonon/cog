@@ -12,15 +12,10 @@ module Cog
     # Search through all project files for cog embeds, and remember them so that generators can refer to them later
     def gather_from_project
       @embeds ||= {}
-      @embed_pattern ||= "cog\\s*:\\s*([-A-Za-z0-9_.]+)\\s*(?:\\(\\s*(.+?)\\s*\\))?(\\s*once\\s*)?(\\s*\\{)?"
-      exts = Cog.language_summary.collect(&:extensions).flatten
-      sources = Dir.glob "#{Cog.project_source_path}/**/*.{#{exts.join ','}}"
-      sources.each do |filename|
-        ext = File.extname(filename).slice(1..-1)
-        lang = Cog.language_for_extension ext
-        w = File.read filename
-        w.scan(lang.comment_pattern(@embed_pattern)) do |m|
-          hook = m[0].split.first
+      Cog.supported_project_files.each do |filename|
+        lang = Cog.language_for filename
+        File.read(filename).scan(statement '[-A-Za-z0-9_.]+', :lang => lang) do |m|
+          hook = m[0]
           @embeds[hook] ||= {}
           @embeds[hook][filename] ||= 0
           @embeds[hook][filename] += 1
@@ -51,12 +46,8 @@ module Cog
     # @return [Hash] whether or not the expansion was updated
     def update(c, &block)
       lang = Cog.active_language
-      snip_pattern = lang.comment_pattern("cog\\s*:\\s*(#{c.hook})\\s*(?:\\(\\s*(.+?)\\s*\\))?(\\s*once\\s*)?(?:\\s*([{]))?")
-      end_pattern = lang.comment_pattern("cog\\s*:\\s*[}]")
-      not_end_pattern = lang.comment_pattern("cog\\s*:\\s*(?!\\s*[}]).*$")
-      
       s = FileScanner.new c.path
-      updated = if match = s.read_until(snip_pattern, c.actual_index)
+      updated = if match = s.read_until(statement(c.hook), c.actual_index)
         if match.nil? # embed not found
           false
         else
@@ -64,7 +55,7 @@ module Cog
           c.args = match[2].split if match[2]
           c.once = !match[3].nil?
           if match[4] == '{' # embed already expanded
-            unless s.capture_until end_pattern, :but_not => not_end_pattern
+            unless s.capture_until end_statement, :but_not => anything_else
               raise Errors::SnippetExpansionUnterminated.new "#{c.path.relative_to_project_root}:#{s.marked_line_number}"
             end
             c.body = s.captured_text
@@ -85,6 +76,23 @@ module Cog
       s.close
       updated
     end
+    
+    private
+    
+    def statement(hook, opt={})
+      lang = opt[:lang] || Cog.active_language
+      lang.comment_pattern("cog\\s*:\\s*(#{hook})\\s*(?:\\(\\s*(.+?)\\s*\\))?(\\s*once\\s*)?(?:\\s*([{]))?")
+    end
+    
+    def end_statement
+      Cog.active_language.comment_pattern("cog\\s*:\\s*[}]")
+    end
+    
+    def anything_else
+      Cog.active_language.comment_pattern("cog\\s*:\\s*(?!\\s*[}]).*$")
+    end
+    
+    public
     
     extend self
 
