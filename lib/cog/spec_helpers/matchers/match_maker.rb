@@ -73,23 +73,27 @@ module Cog
         # @api developer
         # @return [String] positive interpretation of the {#message} block result
         def failure_message
-          msg = instance_eval &@msg_block
-          msg = msg.gsub /\[([^\|\]]*)(?:\|([^\]]*)\])?/, '\1'
-          "expected #{@invocation} #{msg}\n#{trace}"
+          _failure_message '\1'
         end
         
         # @api developer
         # @return [String] negative interpretation of the {#message} block result
         def negative_failure_message
-          msg = instance_eval &@msg_block
-          msg = msg.gsub /\[([^\|\]]*)(?:\|([^\]]*)\])?/, '\2'
-          "expected #{@invocation} #{msg}\n#{trace}"
+          _failure_message '\2'
         end
         
         # @api developer
         # @return [String] STDOUT and STDERR
         def trace
           "STDOUT:\n#{@lines.join "\n"}\nSTDERR:\n#{@error.join "\n"}"
+        end
+        
+        private
+        
+        def _failure_message(repl)
+          msg = instance_eval &@msg_block
+          msg = msg.gsub /\[([^\|\]]*)(?:\|([^\]]*)\])?/, '\2'
+          "expected #{@invocation} #{msg}\n#{trace}"
         end
       end
       

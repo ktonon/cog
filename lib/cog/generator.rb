@@ -78,7 +78,7 @@ module Cog
         end
       end
     end
-
+    
     private
     
     # @param template_path [String] path to template file relative one of the {Config#template_paths}
@@ -114,5 +114,10 @@ module Cog
       File.open(scratch, 'w') {|file| file.write text}
       block.call path, scratch
     end
+
+    public
+    
+    extend self
+    
   end
 end

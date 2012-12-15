@@ -16,11 +16,8 @@ module Cog
   # Prepare the project in the present working directory for use with +cog+
   # @return [nil]
   def self.initialize_project
-    Object.new.instance_eval do
-      extend Generator
-      copy_file_if_missing File.join(Cog.gem_dir, 'Default.cogfile'), 'Cogfile'
-      Cog.prepare :force_reset => true
-    end
+    Generator.copy_file_if_missing File.join(Cog.gem_dir, 'Default.cogfile'), 'Cogfile'
+    Cog.prepare :force_reset => true
     nil
   end
 

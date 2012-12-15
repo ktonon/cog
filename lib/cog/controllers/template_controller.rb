@@ -34,22 +34,19 @@ module Cog
         raise Errors::ActionRequiresProject.new('create template') unless Cog.project?
         name = name.without_extension :erb
         dest = File.join Cog.project_templates_path, "#{name}.erb"
-        Object.instance_eval do
-          extend Generator
-          begin
-            original = get_template name, :as_path => true
-            return if original == dest # Nothing to create
-            if opt[:force_override]
-              copy_file_if_missing original, dest
-            else
-              raise Errors::DuplicateTemplate.new original
-            end
-          rescue Errors::NoSuchTemplate
-            # No original, ok to create an empty template
-            touch_file dest
-          end
-          nil
+
+        original = Generator.get_template name, :as_path => true
+        return if original == dest # Nothing to create
+        if opt[:force_override]
+          Generator.copy_file_if_missing original, dest
+        else
+          raise Errors::DuplicateTemplate.new original
         end
+        nil
+      rescue Errors::NoSuchTemplate
+        # No original, ok to create an empty template
+        touch_file dest
+        nil
       end
       
     end
