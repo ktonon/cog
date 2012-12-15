@@ -5,24 +5,23 @@ require 'cog/errors'
 require 'cog/generator'
 require 'cog/helpers'
 require 'cog/languages'
+require 'cog/tool'
 require 'cog/version'
 
-# +cog+ is a command line utility that makes it a bit easier to organize a project
-# which uses code generation. These are the API docs, but you might want to read
-# the {https://github.com/ktonon/cog#readme general introduction} first.
+# This top level module serves as a singleton instance of the {Config} interface.
 module Cog
 
+  extend Config
+  
   # Prepare the project in the present working directory for use with +cog+
   # @return [nil]
   def self.initialize_project
     Object.new.instance_eval do
-      class << self ; include Generator ; end
-      copy_file_if_missing File.join(Config.gem_dir, 'Default.cogfile'), 'Cogfile'
-      config = Config.instance
-      touch_directory config.project_generators_path
-      touch_directory config.project_templates_path
-      nil
+      extend Generator
+      copy_file_if_missing File.join(Cog.gem_dir, 'Default.cogfile'), 'Cogfile'
+      Cog.prepare :force_reset => true
     end
+    nil
   end
 
 end

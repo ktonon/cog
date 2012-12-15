@@ -2,12 +2,10 @@ require 'active_support/core_ext'
 require 'cog/languages'
 
 module Cog
-  class Config
+  module Config
     
     # In your project's +Cogfile+, +self+ has been set to an instance of this class.
-    #
     # Typing <tt>cog init</tt> will create a +Cogfile+ in the present working directory.
-    # +Cogfile+ files are used to configure an instance of {Config}.
     #
     # @example
     #   # All paths are relative to the directory containing this file.

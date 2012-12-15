@@ -1,10 +1,6 @@
 require 'cog'
 include Cog::Generator
 
-# Setup the template context
-@class = '<%= name.gsub ' ', '' %>'
+# This is the <%= @name %> generator
 
-# Render the templates
-<% @language.module_extensions.each do |ext| %>
-stamp '<%= name %>.<%= ext %>', 'generated_<%= name %>.<%= ext %>'
-<% end %>
+# TODO: write some example code

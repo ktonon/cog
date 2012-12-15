@@ -13,7 +13,7 @@ module <%= @tool_module %>
     
     # Activate <%= @tool_name %> while rendering templates
     # so that cog will be able to find <%= @tool_name %> templates
-    Cog::Config.instance.activate_tool '<%= @tool_name %>' do
+    Cog.activate_tool '<%= @tool_name %>' do
       w.generate
     end
     

@@ -1,6 +1,7 @@
 module Cog
   module Embeds
 
+    # @api developer
     # Helper for scanning files for embed expansions
     class FileScanner
 

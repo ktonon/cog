@@ -9,7 +9,7 @@ module Cog
       # @param text [String] some text which should be rendered as a comment
       # @return [String] a comment appropriate for the current language context
       def comment(text)
-        Config.instance.active_language.comment text
+        Cog.active_language.comment text
       end
 
       # @api developer

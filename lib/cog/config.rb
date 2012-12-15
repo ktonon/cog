@@ -1,16 +1,14 @@
 require 'cog/config/cogfile'
-require 'cog/config/tool'
 require 'cog/config/lang_info'
 require 'cog/languages'
 require 'cog/errors'
+require 'cog/tool'
 
 module Cog
   
-  # This is a low level interface. It is mainly used by the {Generator} methods
-  # to determine where to find things, and where to put them. When +cog+ is used
-  # in a project the values of the singleton {Config.instance} should be configured using
-  # a {Cogfile}.
-  class Config
+  # This is a low level interface. It is mainly used by the {Generator} methods to determine where to find things, and where to put them.
+  # When +cog+ is used in a project it will be configured with a {Cogfile}. The Cogfile is processed during a call to {#prepare}.
+  module Config
         
     # @return [String] path to the project's {Cogfile}
     attr_reader :cogfile_path
@@ -51,11 +49,11 @@ module Cog
     #
     # * {#project_templates_path} which is present if {#project?}
     # * {Tool#templates_path} for each registered tool (in no particular order)
-    # * {Config.cog_templates_path} which is *always* present
+    # * {#cog_templates_path} which is *always* present
     #
     # @return [Array<String>] a list of directories order with ascending priority
     def template_paths
-      [@project_templates_path, active_tool && active_tool.templates_path, Config.cog_templates_path].compact
+      [@project_templates_path, active_tool && active_tool.templates_path, Cog.cog_templates_path].compact
     end
     
     # @return [Array<Tool>] a sorted list of available tools
@@ -71,7 +69,7 @@ module Cog
     def register_tools
       # Register built-in tools
       [:basic].each do |built_in|
-        require File.join(Config.gem_dir, 'lib', 'cog', 'built_in_tools', built_in.to_s, 'cog_tool.rb')
+        require File.join(Cog.gem_dir, 'lib', 'cog', 'built_in_tools', built_in.to_s, 'cog_tool.rb')
       end
       # Register custom tools defined in COG_TOOLS
       (ENV['COG_TOOLS'] || '').split(':').each do |path|
@@ -88,14 +86,31 @@ module Cog
     end
 
     # Define a new +cog+ tool
-    # @api developer
-    # @param path [String] path to the <tt>cog_tool.rb</tt> file
-    # @option opt [Boolean] :built_in (false) if +true+, then treat this tool as a built-in tool
-    # @yield [Tool] define the tool
+    # @param path [String] path to the <tt>cog_tool.rb</tt> file. This method should be called from the <tt>cog_tool.rb</tt> file, in which case <tt>__FILE__</tt> should be used as the argument
+    # @option opt [Boolean] :built_in (false) if +true+, then treat this tool as a built-in tool. If you are defininig a custom tool, leave this value as +false+
+    # @yield [Tool::DSL] define the tool
     # @return [nil]
+    # @example
+    #   require 'cog'
+    #   include Cog::Generator
+    # 
+    #   Cog.register_tool __FILE__ do |tool|
+    #
+    #     # Define a method which creates the generator
+    #     tool.stamp_generator do |name, dest|
+    #
+    #       # Setup context for the template
+    #       @name = name
+    #
+    #       # Create the generator file
+    #       stamp 'my_tool/generator.rb', dest, :absolute_destination => true
+    #
+    #     end
+    #   end
     def register_tool(path, opt={}, &block)
       tool = Tool.new path, :built_in => opt[:built_in], :explicit_require => @next_tool_was_required_explicitly
-      block.call tool
+      dsl = Tool::DSL.new tool
+      block.call dsl
       @tools[tool.name] = tool
       nil
     end
@@ -106,8 +121,7 @@ module Cog
       @tools.member? name
     end
     
-    # Activate the registered tool with the given name with the scope of the provided block.
-    # If no block is provided, the tool will remain active indefinitely.
+    # Activate the registered tool with the given name within the scope of the provided block. If no block is provided, the tool will remain active indefinitely.
     # @param name [String] name of the registered tool to activate
     # @yield the tool will be active within this block
     # @return [nil]
@@ -129,6 +143,7 @@ module Cog
     # @yield within this block the {#active_language} will be set to the desired value
     # @return [Object] the value returned by the block
     def activate_language(opt={}, &block)
+      throw :ActivateLanguageRequiresABlock if block.nil?
       lang_id = if opt[:ext]
         ext = opt[:ext].to_s
         ext = ext.slice(1..-1) if ext.start_with?('.')
@@ -167,7 +182,7 @@ module Cog
     
     # Location of the installed cog gem
     # @return [String] path to the cog gem
-    def self.gem_dir
+    def gem_dir
       spec = Gem.loaded_specs['cog']
       if spec.nil?
         # The current __FILE__ is:
@@ -179,66 +194,51 @@ module Cog
     end
     
     # Location of the built-in templates
-    def self.cog_templates_path
-      File.join Config.gem_dir, 'templates'
+    def cog_templates_path
+      File.join Cog.gem_dir, 'templates'
     end
 
-    # @param cogfile_path [String] if provided the {Cogfile} at the given path
-    #   is used to initialize this instance, and {#project?} will be +true+
-    def initialize(cogfile_path = nil)
+    # Must be called once before using cog.
+    # In the context of a command-line invocation, this method will be called automatically. Outside of that context, for example in a unit test, it will have to be called manually.
+    # @option opt [String] :cogfile_path (nil) explicitly specify the location of the project {Cogfile}. If not provided, it will be searched for. If none can be found, {#project?} will be +false+
+    # @option opt [Boolean] :force_reset (false) unless this is +true+, calling prepare a second time will fail
+    def prepare(opt={})
+      throw :ConfigInstanceAlreadyPrepared if @prepared && !opt[:force_reset]
+      @prepared = true
+      @cogfile_path = nil
       @project_root = nil
+      @project_generators_path = nil
+      @project_templates_path = nil
+      @project_source_path = nil
       @tools = {}
       @active_tools = [] # active tool stack
       @target_language = Languages::Language.new
       @active_languages = [Languages::Language.new] # active language stack
       @language_extension_map = Languages::DEFAULT_LANGUAGE_EXTENSION_MAP
-      if cogfile_path
-        @cogfile_path = File.expand_path cogfile_path
+      opt[:cogfile_path] ||= find_default_cogfile
+      if opt[:cogfile_path]
+        @cogfile_path = File.expand_path opt[:cogfile_path]
         @project_root = File.dirname @cogfile_path
         cogfile = Cogfile.new self
         cogfile.interpret
       end
     end
-
-    # Find or create the singleton {Config} instance.
-    #
-    # Initialized using the {Cogfile} for the current project, if any can be
-    # found. If not, {#project?} will be +false+ and all the <tt>project_...</tt>
-    # methods will return +nil+.
-    #
+    
+    private
+    
     # The {Cogfile} will be looked for in the present working directory. If none
     # is found there the parent directory will be checked, and then the
     # grandparent, and so on.
     # 
     # @return [Config] the singleton instance
-    def self.instance
-      return @instance if @instance
-      
-      # Attempt to find a Cogfile
+    def find_default_cogfile
       parts = Dir.pwd.split File::SEPARATOR
       i = parts.length
       while i >= 0 && !File.exists?(File.join(parts.slice(0, i) + ['Cogfile']))
         i -= 1
       end
       path = File.join(parts.slice(0, i) + ['Cogfile']) if i >= 0
-      
-      if path && File.exists?(path)
-        @instance = self.new path
-      else
-        @instance = self.new
-      end
+      (path && File.exists?(path)) ? path : nil
     end
-    
-    # Explicitly set the singleton Config instance.
-    #
-    # The singleton must not already be set.
-    #
-    # @param config [Config] the instance to set as the singleton
-    # @return [nil]
-    def self.instance=(config)
-      throw :ConfigInstanceAlreadySet unless @instance.nil?
-      @instance = config
-    end
-
   end
 end

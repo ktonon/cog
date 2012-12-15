@@ -17,10 +17,6 @@ describe 'projects' do
       @cog.run(:init).should make(cogfile_path)
     end
     
-    it 'running `cog init` should make a cog directory' do
-      @cog.run(:init).should make(cog_directory)
-    end
-    
     it 'running `cog generator` will fail' do
       @cog.run(:generator).should complain
     end

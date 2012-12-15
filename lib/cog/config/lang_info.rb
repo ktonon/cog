@@ -1,5 +1,5 @@
 module Cog
-  class Config
+  module Config
     
     # Describes configuration of a supported language
     class LangInfo

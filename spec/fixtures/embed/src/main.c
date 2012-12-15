@@ -2,6 +2,8 @@
 one
 // cog: }
 
+// cog: context-many once
+
 // cog: include-fruits
 
 // cog: one-time once
@@ -14,12 +16,14 @@ one time same body
 // cog: }
 
 // cog: twice
-
+// cog: context-many once
 /* cog: multiline */
 
     //   cog  :    spaces  (  with  args  ) 
 
 //cog:compact(with args)
+
+// cog: context-many once
 
 // cog: replace {
 int goingToGetReplaced = 1;
@@ -30,6 +34,8 @@ int goingToGetReplaced = 1;
 // cog: same {
 same stuff
 // cog: }
+
+// cog: context-many
 
 // cog: missing-terminator {
 some more code...

@@ -1,9 +1,11 @@
 require 'cog/config'
-require 'cog/embeds/context'
+require 'cog/embed_context'
 require 'cog/embeds/file_scanner'
+require 'cog/errors'
 
 module Cog
   
+  # @api developer
   # Methods for querying and manipulating project files
   module Embeds
 
@@ -11,49 +13,50 @@ module Cog
     def gather_from_project
       @embeds ||= {}
       @embed_pattern ||= "cog\\s*:\\s*([-A-Za-z0-9_.]+)\\s*(?:\\(\\s*(.+?)\\s*\\))?(\\s*once\\s*)?(\\s*\\{)?"
-      exts = Config.instance.language_summary.collect(&:extensions).flatten
-      sources = Dir.glob "#{Config.instance.project_source_path}/**/*.{#{exts.join ','}}"
+      exts = Cog.language_summary.collect(&:extensions).flatten
+      sources = Dir.glob "#{Cog.project_source_path}/**/*.{#{exts.join ','}}"
       sources.each do |filename|
         ext = File.extname(filename).slice(1..-1)
-        lang = Config.instance.language_for_extension ext
+        lang = Cog.language_for_extension ext
         w = File.read filename
         w.scan(lang.comment_pattern(@embed_pattern)) do |m|
-          key = m[0].split.first
-          @embeds[key] ||= {}
-          @embeds[key][filename] ||= 0
-          @embeds[key][filename] += 1
+          hook = m[0].split.first
+          @embeds[hook] ||= {}
+          @embeds[hook][filename] ||= 0
+          @embeds[hook][filename] += 1
         end
       end
     end
     
-    # @param key [String] embed key for which to find directive occurrences
-    # @yieldparam filename [String] name of the file in which the embed occurred
-    # @yieldparam index [Fixnum] occurrence index of the embed, 0 for the first occurrence, 1 for the second, and so on
-    def find(key)
-      x = @embeds[key]
+    # @param hook [String] embed hook for which to find directive occurrences
+    # @yieldparam context [EmbedContext] describes the context in which the embed statement was found
+    def find(hook)
+      x = @embeds[hook]
       unless x.nil?
         x.keys.sort.each do |filename|
-          x[filename].times do |index|
-            yield filename, index
+          c = EmbedContext.new hook, filename, x[filename]
+          Cog.activate_language :ext => c.extension do
+            c.count.times do |index|
+              c.index = index
+              yield c
+            end
           end
         end
       end
     end
     
-    # @param key [String] unique identifier for the embed
-    # @param filename [String] file in which to look for the embed
-    # @param index [Fixnum] occurrence of the embed. 0 for first, 1 for second, ...
-    # @yieldparam context [Context] describes the context in which the directive occurred
+    # @param c [EmbedContext] describes the context in which the embed statement was found
+    # @yieldparam context [EmbedContext] describes the context in which the embed statement was found
     # @yieldreturn [String] the value to substitute into the embed expansion 
-    # @return [Boolean] whether or not the expansion was updated
-    def update(key, filename, index, &block)
-      c = Context.new key, filename
-      snip_pattern = c.language.comment_pattern("cog\\s*:\\s*(#{key})\\s*(?:\\(\\s*(.+?)\\s*\\))?(\\s*once\\s*)?(?:\\s*([{]))?")
-      end_pattern = c.language.comment_pattern("cog\\s*:\\s*[}]")
-      not_end_pattern = c.language.comment_pattern("cog\\s*:\\s*(?!\\s*[}]).*$")
+    # @return [Hash] whether or not the expansion was updated
+    def update(c, &block)
+      lang = Cog.active_language
+      snip_pattern = lang.comment_pattern("cog\\s*:\\s*(#{c.hook})\\s*(?:\\(\\s*(.+?)\\s*\\))?(\\s*once\\s*)?(?:\\s*([{]))?")
+      end_pattern = lang.comment_pattern("cog\\s*:\\s*[}]")
+      not_end_pattern = lang.comment_pattern("cog\\s*:\\s*(?!\\s*[}]).*$")
       
-      s = FileScanner.new filename
-      updated = if match = s.read_until(snip_pattern, index)
+      s = FileScanner.new c.path
+      updated = if match = s.read_until(snip_pattern, c.actual_index)
         if match.nil? # embed not found
           false
         else
@@ -62,7 +65,7 @@ module Cog
           c.once = !match[3].nil?
           if match[4] == '{' # embed already expanded
             unless s.capture_until end_pattern, :but_not => not_end_pattern
-              raise Errors::SnippetExpansionUnterminated.new "#{filename.relative_to_project_root}:#{s.marked_line_number}"
+              raise Errors::SnippetExpansionUnterminated.new "#{c.path.relative_to_project_root}:#{s.marked_line_number}"
             end
             c.body = s.captured_text
             value = block.call(c).rstrip
@@ -71,9 +74,9 @@ module Cog
             end
           else # embed not yet expanded
             value = block.call(c).rstrip
-            snip_line = c.language.comment "#{c.to_directive} {"
+            snip_line = lang.comment "#{c.to_directive} {"
             unless c.once?
-              value = [snip_line, value, c.language.comment("cog: }")].join("\n")
+              value = [snip_line, value, lang.comment("cog: }")].join("\n")
             end
             s.insert_at_mark(value + "\n")
           end
@@ -83,7 +86,7 @@ module Cog
       updated
     end
     
-    extend self # Singleton
+    extend self
 
   end
 end

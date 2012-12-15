@@ -16,7 +16,7 @@ module Cog
       # @return [nil]
       def self.create(name)
         raise Errors::DestinationAlreadyExists.new(name) if File.exists?(name)
-        raise Errors::DuplicateTool.new(name) if Config.instance.tool_registered?(name)
+        raise Errors::DuplicateTool.new(name) if Cog.tool_registered?(name)
         Object.new.instance_eval do
           extend Generator
           @tool_name = name.to_s.downcase
@@ -42,7 +42,7 @@ module Cog
       # @param opt [Boolean] :verbose (false) list full paths to tools
       # @return [Array<String>] a list of available tools
       def self.list(opt={})
-        Config.instance.tools.collect do |tool|
+        Cog.tools.collect do |tool|
           opt[:verbose] ? tool.path : tool.name
         end
       end

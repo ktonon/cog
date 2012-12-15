@@ -26,6 +26,7 @@ describe 'projects' do
     it 'should make use of context' do
       @cog.run(:gen, :contextual).should_not complain
       x = read('main.c')
+      x.should =~ /hook is contextual/
       x.should =~ /filename is main.c/
       x.should =~ /lineno is 1/
       x.should =~ /body was one/
@@ -33,6 +34,18 @@ describe 'projects' do
       x.should =~ /\/\/ this is a comment/
       x.should =~ /orange\-3\-cat/
       x.should =~ /contextual is once/
+      x.should =~ /only occurrence is first and last/
+      x.should =~ /only occurrence index is 0/
+      x.should =~ /only occurrence count is 1/
+    end
+    
+    it 'should have correct index and count context with multiple hooks' do
+      @cog.run(:gen, :context_many).should_not complain
+      x = read('main.c')
+      x.should =~ /0 of 4 on line 5 is first but is not last/
+      x.should =~ /1 of 4 on line 19 is not first and is not last/
+      x.should =~ /2 of 4 on line 26 is not first and is not last/
+      x.should =~ /3 of 4 on line 38 is not first but is last/
     end
     
     it 'should replace once embeds with content only (i.e. remove the directive)' do
@@ -83,8 +96,8 @@ describe 'projects' do
     it 'should correct spacing when expanding for the first time' do
       @cog.run(:gen, :spaces, :compact).should_not complain
       x = read('main.c')
-      x.should =~ /\/\/ cog: spaces(with args) \{$/
-      x.should =~ /\/\/ cog: compact(with args) \{$/
+      x.should =~ /\/\/ cog: spaces\(with args\) \{$/
+      x.should =~ /\/\/ cog: compact\(with args\) \{$/
     end
     
     it 'should replace embed expansions which differ' do

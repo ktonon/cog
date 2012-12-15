@@ -68,5 +68,8 @@ module Cog
       "a embed expansion in the given file is missing the 'cog: }' terminator"
     end
     
+    define_error :ToolMissingDefinition, 'missing' do
+      "the tool was not fully defined"
+    end
   end
 end

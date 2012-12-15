@@ -1,15 +1,17 @@
 require 'cog'
+include Cog::Generator
 
 # Register <%= @tool_name %> as a tool with cog
-Cog::Config.instance.register_tool __FILE__ do |tool|
+Cog.register_tool __FILE__ do |tool|
 
-  # Define how new <%= @tool_name %> generators are created
-  #
-  # Add context as required by your generator template.
-  #
-  # When the block is executed, +self+ will be an instance of Cog::Config::Tool::GeneratorStamper
-  tool.stamp_generator do
-    stamp '<%= @tool_name %>/generator.rb', generator_dest, :absolute_destination => true
+  # Define a method which creates a <%= @tool_name %> generator
+  tool.stamp_generator do |name, dest|
+    
+    # Setup context for the template
+    @name = name # Generator name
+    
+    # Create the generator file
+    stamp '<%= @tool_name %>/generator.rb', dest, :absolute_destination => true
   end
   
 end

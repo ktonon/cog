@@ -1,4 +1,5 @@
 require 'cog/config'
+require 'cog/embeds'
 require 'cog/errors'
 require 'cog/generator/file_methods'
 require 'cog/generator/filters'
@@ -46,7 +47,7 @@ module Cog
       # Find and render the template
       t = get_template template_path, :absolute => opt[:absolute_template_path]
       b = opt[:binding] || binding
-      r = Config.instance.activate_language :ext => File.extname(template_path.to_s) do
+      r = Cog.activate_language :ext => File.extname(template_path.to_s) do
         t.result(b)
       end
       
@@ -58,7 +59,7 @@ module Cog
       return r if destination.nil?
 
       # Place it in a file
-      dest = opt[:absolute_destination] ? destination : File.join(Config.instance.project_source_path, destination)
+      dest = opt[:absolute_destination] ? destination : File.join(Cog.project_source_path, destination)
       FileUtils.mkpath File.dirname(dest) unless File.exists? dest
       scratch = "#{dest}.scratch"
       File.open(scratch, 'w') {|file| file.write r}
@@ -72,15 +73,18 @@ module Cog
       nil
     end
 
-    # Provide a value for the embed with the given key
-    # @param key [String] a unique identifier for the embed
-    # @yieldparam context [Embeds::Context] provides information about the environment in which the embed statement was found
+    # Provide a value for embeds with the given hook
+    # @param hook [String] hook name used in the embed statements
+    # @yieldparam context [Embeds::EmbedContext] provides information about the environment in which the embed statement was found
     # @yieldreturn The value which will be used to expand the embed (or replace the embedded content)
     # @return [nil]
-    def embed(key, &block)
-      Embeds.find(key) do |filename, index|
-        if Embeds.update key, filename, index, &block
-          STDOUT.write "Updated #{filename.relative_to_project_root} - #{(index + 1).ordinalize} occurrence of embed '#{key}'\n".color :white
+    def embed(hook, &block)
+      eaten = 0 # keep track of eaten statements so that the index can be adjusted
+      Embeds.find(hook) do |c|
+        c.eaten = eaten
+        if Embeds.update c, &block
+          eaten += 1 if c.once?
+          STDOUT.write "Updated #{c.path.relative_to_project_root} - #{(c.index + 1).ordinalize} occurrence of embed '#{c.hook}'\n".color :white
         end
       end
     end

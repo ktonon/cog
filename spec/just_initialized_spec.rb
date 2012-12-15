@@ -29,14 +29,6 @@ describe 'projects' do
       @cog.run(:generator, :new, :piggy).should make(generator(:piggy))
     end
 
-    it 'running `cog generator new piggy` should create c++ templates' do
-      @cog.run(:generator, :new, :piggy).should make(template('piggy.cpp.erb'))
-    end
-
-    it 'running `cog generator new --language=c# piggy` should create c# templates' do
-      @cog.run(:generator, :new, '--language=c#', :piggy).should make(template('piggy.cs.erb'))
-    end
-    
     it 'running `cog template new piggy.txt` should create a template named piggy.txt.erb' do
       @cog.run(:template, :new, 'piggy.txt').should make(template('piggy.txt.erb'))
     end

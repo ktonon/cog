@@ -30,49 +30,21 @@ Install the `cog` gem
 $ gem install cog
 ```
 
-Once installed prepare a project for use with `cog`. For example, consider a
-project with the following directory layout
-
-```text
-PROJECT_ROOT/
-             Makefile
-             src/
-                 main.cpp
-                 ...
-```
-
-To use `cog` with this project, you would open a terminal in the `PROJECT_ROOT`
-directory and enter
+Once installed prepare a project for use with `cog`. Open a terminal in the root directory
+of your project
 
 ```bash
 $ cog init
 Created Cogfile
-Created cog/generators
-Created cog/templates
 ```
 
-The project would then look like this
-
-```text
-PROJECT_ROOT/
-           + Cogfile
-             Makefile
-             src/
-                 main.cpp
-                 ...
-           + cog/
-           +     generators/
-           +     templates/
-```
-
-The [Cogfile](http://ktonon.github.com/cog/Cog/Config/Cogfile.html) configures
-`cog` for use with the project. In short, it tells `cog` where to find
-generators and templates and where to put generated source code. By default,
-the `Cogfile` will point to the newly created generators and templates
-directories. Open the `Cogfile` to find out more, each setting is
-documented. Most settings can be left as-is, but the [project_source_path](http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method)
-might need to be changed if the source files are not in a directory called `src`
-relative the directory containing the `Cogfile`.
+This will add a [Cogfile](http://ktonon.github.com/cog/Cog/Config/Cogfile.html)
+which configures `cog` for use with the project. In short, it tells `cog` where
+to find generators and templates and where to put generated source code. Open
+the `Cogfile` to find out more, each setting is documented. Most settings can
+be left as-is, but the
+[project_source_path](http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method) might need to be changed if the source files are not in
+a directory called `src` relative the directory containing the `Cogfile`.
 
 Generators
 ----------
@@ -375,7 +347,7 @@ The `cog_tool.rb` is particularly important. It defines the method which stamps 
 require 'cog'
 
 # Register cons as a tool with cog
-Cog::Config.instance.register_tool __FILE__ do |tool|
+Cog.register_tool __FILE__ do |tool|
 
   # Define how new cons generators are created
   #
@@ -436,7 +408,7 @@ module Cons
 
     # Activate cons while rendering templates
     # so that cog will be able to find cons templates
-    Cog::Config.instance.activate_tool 'cons' do
+    Cog.activate_tool 'cons' do
       w.generate
     end
 

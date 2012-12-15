@@ -60,7 +60,7 @@ command [:generator, :gen] do |c|
       args.each do |name|
         if opt[:language] && opt[:language] != 'in Cogfile'
           lang = Cog::Languages.get_language opt[:language]
-          Cog::Config.instance.target_language = lang
+          Cog.target_language = lang
         end
         Cog::Controllers::GeneratorController.create name
       end
@@ -72,7 +72,7 @@ command [:generator, :gen] do |c|
   c.arg_name 'name'
   c.command :run do |sub|
     sub.action do |gopt, opt, args|
-      raise Cog::Errors::ActionRequiresProject.new('run generator') unless Cog::Config.instance.project?
+      raise Cog::Errors::ActionRequiresProject.new('run generator') unless Cog.project?
       Cog::Embeds.gather_from_project
       args = Cog::Controllers::GeneratorController.list if args.empty?
       args.each do |name|
@@ -145,7 +145,7 @@ command [:language, :lang] do |c|
   c.desc 'List the supported languages'
   c.command :list do |sub|
     sub.action do
-      summary = Cog::Config.instance.language_summary
+      summary = Cog.language_summary
       w = summary.collect {|info| info.name.length}.max
       summary.each do |info|
         puts info.to_s(w)
@@ -161,10 +161,10 @@ pre do |gopt, command, opt, args|
     STDERR.write "No such Cogfile at #{gopt[:cogfile]}\n"
     false
   else
-    Cog::Config.instance = Cog::Config.new gopt[:cogfile] if gopt[:cogfile]
+    Cog.prepare :cogfile_path => gopt[:cogfile]
     unless command.name == :init
-      Cog::Config.instance.register_tools
-      Cog::Config.instance.activate_tool gopt[:tool]
+      Cog.register_tools
+      Cog.activate_tool gopt[:tool]
     end
     true
   end

@@ -10,6 +10,7 @@ describe Cog::Generator do
     
     before :each do
       use_fixture 'with_generators'
+      Cog.prepare :force_reset => true
       @cheeses = [:brie, :cheddar]
       @expected = @cheeses.collect {|c| "I like #{c} cheese.\n"}.join ''
     end

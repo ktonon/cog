@@ -17,7 +17,7 @@ module Cog
       # @return [String] the scope begin statement
       def scope_begin(scope)
         gcontext[:scopes] << scope
-        Config.instance.active_language.method("#{scope.type}_begin").call(scope.name)
+        Cog.active_language.method("#{scope.type}_begin").call(scope.name)
       end
       
       # End the scope, popping it off the scope stack
@@ -29,7 +29,7 @@ module Cog
           return nil
         end
         scope = gcontext[:scopes].pop
-        Config.instance.active_language.method("#{scope.type}_end").call(scope.name)
+        Cog.active_language.method("#{scope.type}_end").call(scope.name)
       end
       
       # End all scope currently on the stack
@@ -45,7 +45,7 @@ module Cog
       # @param name [String] name of the scope to use
       # @return [String] a using statement for the named scope
       def use_named_scope(name)
-        Config.instance.active_language.use_named_scope(name)
+        Cog.active_language.use_named_scope(name)
       end
 
       # @param name [String] name of the scope
