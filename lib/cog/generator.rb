@@ -65,7 +65,7 @@ module Cog
 
     # Provide a value for embeds with the given hook
     # @param hook [String] hook name used in the embed statements
-    # @yieldparam context [Embeds::EmbedContext] provides information about the environment in which the embed statement was found
+    # @yieldparam context [EmbedContext] provides information about the environment in which the embed statement was found
     # @yieldreturn The value which will be used to expand the embed (or replace the embedded content)
     # @return [nil]
     def embed(hook, &block)
