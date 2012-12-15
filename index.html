@@ -63,10 +63,13 @@
 
     <div id="content"><div id='filecontents'><p><img src="http://ktonon.github.com/cog/images/cog-logo-small.png" alt="cog"></p>
 
+<p><a href="https://codeclimate.com/github/ktonon/cog"><img src="https://codeclimate.com/badge.png" alt="Code Climate"></a></p>
+
 <p><code>cog</code> is a command line utility that makes it easy to organize a project which
 uses code generation.</p>
 
-<p>The documentation on this page is for the <a href="https://rubygems.org/gems/cog">currently released gem</a> (version 0.2.1).
+<p>The documentation on this page is for the currently released <a href="https://rubygems.org/gems/cog">gem</a> (version 0.2.2)
+see <a href="http://ktonon.github.com/cog/frames.html">ktonon.github.com/cog</a>.
 See also the following resources,</p>
 
 <ul>
@@ -82,46 +85,20 @@ See also the following resources,</p>
 <pre class="code bash"><code>$ gem install cog
 </code></pre>
 
-<p>Once installed prepare a project for use with <code>cog</code>. For example, consider a
-project with the following directory layout</p>
-
-<pre class="code text"><code>PROJECT_ROOT/
-             Makefile
-             src/
-                 main.cpp
-                 ...
-</code></pre>
-
-<p>To use <code>cog</code> with this project, you would open a terminal in the <code>PROJECT_ROOT</code>
-directory and enter</p>
+<p>Once installed prepare a project for use with <code>cog</code>. Open a terminal in the root directory
+of your project</p>
 
 <pre class="code bash"><code>$ cog init
 Created Cogfile
-Created cog/generators
-Created cog/templates
 </code></pre>
 
-<p>The project would then look like this</p>
-
-<pre class="code text"><code>PROJECT_ROOT/
-           + Cogfile
-             Makefile
-             src/
-                 main.cpp
-                 ...
-           + cog/
-           +     generators/
-           +     templates/
-</code></pre>
-
-<p>The <a href="http://ktonon.github.com/cog/Cog/Config/Cogfile.html">Cogfile</a> configures
-<code>cog</code> for use with the project. In short, it tells <code>cog</code> where to find
-generators and templates and where to put generated source code. By default,
-the <code>Cogfile</code> will point to the newly created generators and templates
-directories. Open the <code>Cogfile</code> to find out more, each setting is
-documented. Most settings can be left as-is, but the <a href="http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method">project_source_path</a>
-might need to be changed if the source files are not in a directory called <code>src</code>
-relative the directory containing the <code>Cogfile</code>.</p>
+<p>This will add a <a href="http://ktonon.github.com/cog/Cog/Config/Cogfile.html">Cogfile</a>
+which configures <code>cog</code> for use with the project. In short, it tells <code>cog</code> where
+to find generators and templates and where to put generated source code. Open
+the <code>Cogfile</code> to find out more, each setting is documented. Most settings can
+be left as-is, but the
+<a href="http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method">project_source_path</a> might need to be changed if the source files are not in
+a directory called <code>src</code> relative the directory containing the <code>Cogfile</code>.</p>
 
 <h2>Generators</h2>
 
@@ -132,56 +109,60 @@ created using the command line tool once a project has been initialized</p>
 
 <pre class="code bash"><code>$ cog generator new my_generator
 Created cog/generators/my_generator.rb
-Created cog/templates/my_generator.cpp.erb
-Created cog/templates/my_generator.hpp.erb
 </code></pre>
 
-<p>Three files were created: a generator and two ERB template files. Notice that
-the templates are for C++. That is because the
-<a href="http://ktonon.github.com/cog/Cog/Config/Cogfile.html#default_target_language-instance_method">default_target_language</a>
-in the Cogfile was set to <code>c++</code>. You can see a list of other possible settings
-by running <code>cog language list</code>. Here is a listing of <code>my_generator.rb</code></p>
+<p><code>my_generator.rb</code> will contain a bare minimum of code</p>
 
 <pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
 <span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
 
-<span class='comment val'># Setup the template context</span>
-<span class='rubyid_@class ivar id'>@class</span> <span class='assign token'>=</span> <span class='string val'>'my_generator'</span>
-
-<span class='comment val'># Render the templates</span>
-<span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'my_generator.cpp'</span><span class='comma token'>,</span> <span class='string val'>'generated_my_generator.cpp'</span>
-<span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'my_generator.hpp'</span><span class='comma token'>,</span> <span class='string val'>'generated_my_generator.hpp'</span>
+<span class='comment val'># This is the my_generator generator</span>
 </code></pre>
 
 <p>The inclusion of the mixin
 <a href="http://ktonon.github.com/cog/Cog/Generator.html">Cog::Generator</a> provides an interface for easily
-generating source code from templates. The
-<a href="http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp">stamp</a> method
+generating source code from templates. The <a href="http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp">stamp</a> method
 is particularly useful. If finds an <a href="http://www.stuartellis.eu/articles/erb/">ERB template</a>
 in the <a href="http://ktonon.github.com/cog/Cog/Config.html#template_paths-instance_method">template_paths</a>
 and renders it to a file under the
-<a href="http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method">project_source_path</a>.</p>
+<a href="http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method">project_source_path</a>.
+To use the <code>stamp</code> method first create a template</p>
 
-<p>Listing of <code>my_generator.hpp.erb</code></p>
+<pre class="code ruby"><code>$ <span class='rubyid_cog identifier id'>cog</span> <span class='rubyid_generator identifier id'>generator</span> <span class='rubyid_template identifier id'>template</span> <span class='rubyid_new identifier id'>new</span> <span class='rubyid_my_generator identifier id'>my_generator</span><span class='div op'>/</span><span class='rubyid_example identifier id'>example</span><span class='dot token'>.</span><span class='rubyid_c identifier id'>c</span>
+<span class='rubyid_Created constant id'>Created</span> <span class='rubyid_cog identifier id'>cog</span><span class='div op'>/</span><span class='rubyid_templates identifier id'>templates</span><span class='div op'>/</span><span class='rubyid_my_generator identifier id'>my_generator</span>
+<span class='rubyid_Created constant id'>Created</span> <span class='rubyid_cog identifier id'>cog</span><span class='div op'>/</span><span class='rubyid_templates identifier id'>templates</span><span class='div op'>/</span><span class='rubyid_my_generator identifier id'>my_generator</span><span class='div op'>/</span><span class='rubyid_example identifier id'>example</span><span class='dot token'>.</span><span class='rubyid_c identifier id'>c</span><span class='dot token'>.</span><span class='rubyid_erb identifier id'>erb</span>
+</code></pre>
 
-<pre class="code c++"><code>&lt;%= warning %&gt; 
+<p>The new template will be empty. Edit it with the following example</p>
 
-class &lt;%= @class %&gt;
+<pre class="code c"><code>&lt;%= warning %&gt; 
+
+void &lt;%= @method_name %&gt;()
 {
-    &lt;%= @class %&gt;();
-};
+    // ...
+}
+</code></pre>
+
+<p>Then modify <code>my_generator.rb</code> like this</p>
+
+<pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
+<span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
+
+<span class='comment val'># This is the my_generator generator</span>
+
+<span class='rubyid_@method_name ivar id'>@method_name</span> <span class='assign token'>=</span> <span class='string val'>'example'</span>
+<span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'my_generator/example.c'</span><span class='comma token'>,</span> <span class='string val'>'generated_example.c'</span>
 </code></pre>
 
 <p>The generator would be executed like this</p>
 
 <pre class="code bash"><code>$ cog gen run my_generator
-Created src/generated_my_generator.cpp
-Created src/generated_my_generator.hpp
+Created src/generated_example.c
 </code></pre>
 
-<p>Listing of <code>generated_my_generator.hpp</code></p>
+<p>Listing of <code>generated_example.c</code></p>
 
-<pre class="code c++"><code>/*
+<pre class="code c"><code>/*
 -------------------------------------------------------------------------------
 
   WARNING
@@ -195,35 +176,17 @@ Created src/generated_my_generator.hpp
 -------------------------------------------------------------------------------
  */ 
 
-class my_generator
+void example()
 {
-    my_generator();
-};
+    // ...
+}
 </code></pre>
 
 <p>Get a list of the project&#39;s generators like this</p>
 
 <pre class="code bash"><code>$ cog gen list
 my_generator
-
-$ cog gen new --language=c# fishy
-Created cog/generators/fishy.rb
-Created cog/templates/fishy.cs.erb
-
-$ cog generator list
-fishy
-my_generator
 </code></pre>
-
-<p>Run all of the project&#39;s generators by excluding the generator name.
-The <code>run</code> sub-command is optional because it is the default</p>
-
-<pre class="code bash"><code>$ cog gen
-Created src/generated_fishy.cs
-</code></pre>
-
-<p>In this case, both generators are run, but the original <code>my_generator</code> hasn&#39;t
-changed, so the generated file <code>generated_my_generator.txt</code> will not be touched.</p>
 
 <h2>Templates</h2>
 
@@ -259,8 +222,7 @@ filter</p>
 templates, both built-in and project specific</p>
 
 <pre class="code bash"><code>$ cog template list
-[project]  my_generator.cpp
-[project]  my_generator.hpp
+[project]  my_generator/example.c
 [built-in] warning
 </code></pre>
 
@@ -275,8 +237,7 @@ Created cog/templates/warning.erb
 templates and that the project version overrides the built-in version</p>
 
 <pre class="code bash"><code>$ cog tm
-[project]            my_generator.cpp
-[project]            my_generator.hpp
+[project]            my_generator/example.c
 [built-in &lt; project] warning
 </code></pre>
 
@@ -401,17 +362,19 @@ separated list. Each entry should take one of two formats, either</p>
 <p>The <code>cog_tool.rb</code> is particularly important. It defines the method which stamps new generators for the tool. It looks like this</p>
 
 <pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
+<span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
 
 <span class='comment val'># Register cons as a tool with cog</span>
-<span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_register_tool identifier id'>register_tool</span> <span class='rubyid___FILE__ __file__ kw'>__FILE__</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_tool identifier id'>tool</span><span class='bitor op'>|</span>
+<span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_register_tool identifier id'>register_tool</span> <span class='rubyid___FILE__ __file__ kw'>__FILE__</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_tool identifier id'>tool</span><span class='bitor op'>|</span>
 
-  <span class='comment val'># Define how new cons generators are created</span>
-  <span class='comment val'>#</span>
-  <span class='comment val'># Add context as required by your generator template.</span>
-  <span class='comment val'>#</span>
-  <span class='comment val'># When the block is executed, +self+ will be an instance of Cog::Config::Tool::GeneratorStamper</span>
-  <span class='rubyid_tool identifier id'>tool</span><span class='dot token'>.</span><span class='rubyid_stamp_generator identifier id'>stamp_generator</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'cons/generator.rb'</span><span class='comma token'>,</span> <span class='rubyid_generator_dest identifier id'>generator_dest</span><span class='comma token'>,</span> <span class='symbol val'>:absolute_destination</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span>
+  <span class='comment val'># Define a method which creates a cons generator</span>
+  <span class='rubyid_tool identifier id'>tool</span><span class='dot token'>.</span><span class='rubyid_stamp_generator identifier id'>stamp_generator</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_dest identifier id'>dest</span><span class='bitor op'>|</span>
+
+    <span class='comment val'># Setup context for the template</span>
+    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span> <span class='comment val'># Generator name</span>
+
+    <span class='comment val'># Create the generator file</span>
+    <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'cons/generator.rb'</span><span class='comma token'>,</span> <span class='rubyid_dest identifier id'>dest</span><span class='comma token'>,</span> <span class='symbol val'>:absolute_destination</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span>
   <span class='rubyid_end end kw'>end</span>
 
 <span class='rubyid_end end kw'>end</span>
@@ -460,7 +423,7 @@ Here is what the root tool file <code>cons.rb</code> will look like</p>
 
     <span class='comment val'># Activate cons while rendering templates</span>
     <span class='comment val'># so that cog will be able to find cons templates</span>
-    <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_activate_tool identifier id'>activate_tool</span> <span class='string val'>'cons'</span> <span class='rubyid_do do kw'>do</span>
+    <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_activate_tool identifier id'>activate_tool</span> <span class='string val'>'cons'</span> <span class='rubyid_do do kw'>do</span>
       <span class='rubyid_w identifier id'>w</span><span class='dot token'>.</span><span class='rubyid_generate identifier id'>generate</span>
     <span class='rubyid_end end kw'>end</span>
 
@@ -489,7 +452,7 @@ Here is what the root tool file <code>cons.rb</code> will look like</p>
 </div></div>
 
     <div id="footer">
-  Generated on Tue Dec 11 23:39:42 2012 by
+  Generated on Sat Dec 15 16:49:30 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

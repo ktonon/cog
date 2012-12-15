@@ -273,18 +273,16 @@
 17
 18
 19
-20
-21</pre>
+20</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/controllers/generator_controller.rb', line 15</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_create identifier id'>create</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_ActionRequiresProject constant id'>ActionRequiresProject</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>'create generator'</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_project? fid id'>project?</span>
-  <span class='rubyid_generator_dest identifier id'>generator_dest</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_project_generators_path identifier id'>project_generators_path</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{name}.rb&quot;</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_ActionRequiresProject constant id'>ActionRequiresProject</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>'create generator'</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_project? fid id'>project?</span>
+  <span class='rubyid_generator_dest identifier id'>generator_dest</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_project_generators_path identifier id'>project_generators_path</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{name}.rb&quot;</span>
   <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_DuplicateGenerator constant id'>DuplicateGenerator</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_generator_dest identifier id'>generator_dest</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_generator_dest identifier id'>generator_dest</span><span class='rparen token'>)</span>
-  <span class='rubyid_gs identifier id'>gs</span> <span class='assign token'>=</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_active_tool identifier id'>active_tool</span><span class='dot token'>.</span><span class='rubyid_generator_stamper identifier id'>generator_stamper</span>
-  <span class='rubyid_gs identifier id'>gs</span><span class='dot token'>.</span><span class='rubyid_stamp_generator identifier id'>stamp_generator</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_generator_dest identifier id'>generator_dest</span><span class='comma token'>,</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span>
+  <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_active_tool identifier id'>active_tool</span><span class='dot token'>.</span><span class='rubyid_stamp_generator identifier id'>stamp_generator</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_generator_dest identifier id'>generator_dest</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -396,18 +394,18 @@
       <pre class="lines">
 
 
+25
 26
 27
 28
-29
-30</pre>
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/controllers/generator_controller.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/controllers/generator_controller.rb', line 25</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_opt identifier id'>opt</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_ActionRequiresProject constant id'>ActionRequiresProject</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>'list generators'</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_project? fid id'>project?</span>
-  <span class='rubyid_x identifier id'>x</span> <span class='assign token'>=</span> <span class='rubyid_Dir constant id'>Dir</span><span class='dot token'>.</span><span class='rubyid_glob identifier id'>glob</span><span class='lparen token'>(</span><span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_project_generators_path identifier id'>project_generators_path</span><span class='comma token'>,</span> <span class='string val'>'*.rb'</span><span class='rparen token'>)</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_ActionRequiresProject constant id'>ActionRequiresProject</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>'list generators'</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_project? fid id'>project?</span>
+  <span class='rubyid_x identifier id'>x</span> <span class='assign token'>=</span> <span class='rubyid_Dir constant id'>Dir</span><span class='dot token'>.</span><span class='rubyid_glob identifier id'>glob</span><span class='lparen token'>(</span><span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_project_generators_path identifier id'>project_generators_path</span><span class='comma token'>,</span> <span class='string val'>'*.rb'</span><span class='rparen token'>)</span>
   <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:verbose</span><span class='rbrack token'>]</span> <span class='question op'>?</span> <span class='rubyid_x identifier id'>x</span> <span class='colon op'>:</span> <span class='lparen token'>(</span><span class='rubyid_x identifier id'>x</span><span class='dot token'>.</span><span class='rubyid_collect identifier id'>collect</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_path identifier id'>path</span><span class='bitor op'>|</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_basename identifier id'>basename</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_slice identifier id'>slice</span><span class='lparen token'>(</span><span class='integer val'>0</span><span class='dot2 op'>..</span><span class='integer val'>-4</span><span class='rparen token'>)</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
@@ -488,20 +486,20 @@
       <pre class="lines">
 
 
+34
 35
 36
 37
 38
 39
-40
-41</pre>
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/controllers/generator_controller.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/controllers/generator_controller.rb', line 34</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_run identifier id'>run</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_ActionRequiresProject constant id'>ActionRequiresProject</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>'run generator'</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_project? fid id'>project?</span>
-  <span class='rubyid_path identifier id'>path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_project_generators_path identifier id'>project_generators_path</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{name}.rb&quot;</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_ActionRequiresProject constant id'>ActionRequiresProject</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>'run generator'</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_project? fid id'>project?</span>
+  <span class='rubyid_path identifier id'>path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_project_generators_path identifier id'>project_generators_path</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{name}.rb&quot;</span>
   <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_NoSuchGenerator constant id'>NoSuchGenerator</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
   <span class='rubyid_require identifier id'>require</span> <span class='rubyid_path identifier id'>path</span>
   <span class='rubyid_nil nil kw'>nil</span>
@@ -517,7 +515,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Dec 11 23:39:45 2012 by
+  Generated on Sat Dec 15 16:49:35 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

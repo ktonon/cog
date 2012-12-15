@@ -80,7 +80,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/cog/languages.rb<span class="defines">,<br />
-  lib/cog/languages/language.rb,<br /> lib/cog/languages/c_language.rb,<br /> lib/cog/languages/ruby_language.rb,<br /> lib/cog/languages/java_language.rb,<br /> lib/cog/languages/python_language.rb,<br /> lib/cog/languages/c_sharp_language.rb,<br /> lib/cog/languages/qt_project_language.rb,<br /> lib/cog/languages/java_script_language.rb,<br /> lib/cog/languages/c_plus_plus_language.rb</span>
+  lib/cog/languages/mixins.rb,<br /> lib/cog/languages/language.rb,<br /> lib/cog/languages/c_language.rb,<br /> lib/cog/languages/java_language.rb,<br /> lib/cog/languages/ruby_language.rb,<br /> lib/cog/languages/python_language.rb,<br /> lib/cog/languages/c_sharp_language.rb,<br /> lib/cog/languages/qt_project_language.rb,<br /> lib/cog/languages/mixins/hash_comments.rb,<br /> lib/cog/languages/java_script_language.rb,<br /> lib/cog/languages/c_plus_plus_language.rb,<br /> lib/cog/languages/mixins/c_style_comments.rb</span>
 </dd>
   
 </dl>
@@ -101,6 +101,8 @@
 </div><h2>Defined Under Namespace</h2>
 <p class="children">
   
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Languages/Mixins.html" title="Cog::Languages::Mixins (module)">Mixins</a></span>
     
   
     
@@ -153,6 +155,7 @@
   <span class='symbol val'>:hpp</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'c++'</span><span class='comma token'>,</span>
   <span class='symbol val'>:java</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'java'</span><span class='comma token'>,</span>
   <span class='symbol val'>:js</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'javascript'</span><span class='comma token'>,</span>
+  <span class='symbol val'>:pri</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'qt'</span><span class='comma token'>,</span>
   <span class='symbol val'>:pro</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'qt'</span><span class='comma token'>,</span>
   <span class='symbol val'>:py</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'python'</span><span class='comma token'>,</span>
   <span class='symbol val'>:rb</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'ruby'</span><span class='comma token'>,</span>
@@ -361,16 +364,16 @@
       <pre class="lines">
 
 
-40
-41
 42
 43
 44
 45
-46</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/languages.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/languages.rb', line 42</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_get_language identifier id'>get_language</span><span class='lparen token'>(</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rparen token'>)</span>
   <span class='rubyid_lang_id identifier id'>lang_id</span> <span class='assign token'>=</span> <span class='rubyid_Languages constant id'>Languages</span><span class='colon2 op'>::</span><span class='rubyid_ALIAS constant id'>ALIAS</span><span class='lbrack token'>[</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='rubyid_lang_id identifier id'>lang_id</span>
@@ -390,7 +393,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Dec 11 23:39:43 2012 by
+  Generated on Sat Dec 15 16:49:31 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

@@ -606,7 +606,7 @@
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_scope_begin identifier id'>scope_begin</span><span class='lparen token'>(</span><span class='rubyid_scope identifier id'>scope</span><span class='rparen token'>)</span>
   <span class='rubyid_gcontext identifier id'>gcontext</span><span class='lbrack token'>[</span><span class='symbol val'>:scopes</span><span class='rbrack token'>]</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_scope identifier id'>scope</span>
-  <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_active_language identifier id'>active_language</span><span class='dot token'>.</span><span class='rubyid_method identifier id'>method</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{scope.type}_begin&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='lparen token'>(</span><span class='rubyid_scope identifier id'>scope</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_active_language identifier id'>active_language</span><span class='dot token'>.</span><span class='rubyid_method identifier id'>method</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{scope.type}_begin&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='lparen token'>(</span><span class='rubyid_scope identifier id'>scope</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -729,7 +729,7 @@ the stack is empty</p>
     <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span>
   <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_scope identifier id'>scope</span> <span class='assign token'>=</span> <span class='rubyid_gcontext identifier id'>gcontext</span><span class='lbrack token'>[</span><span class='symbol val'>:scopes</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_pop identifier id'>pop</span>
-  <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_active_language identifier id'>active_language</span><span class='dot token'>.</span><span class='rubyid_method identifier id'>method</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{scope.type}_end&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='lparen token'>(</span><span class='rubyid_scope identifier id'>scope</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_active_language identifier id'>active_language</span><span class='dot token'>.</span><span class='rubyid_method identifier id'>method</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{scope.type}_end&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span><span class='lparen token'>(</span><span class='rubyid_scope identifier id'>scope</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -809,7 +809,7 @@ the stack is empty</p>
       <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 47</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_use_named_scope identifier id'>use_named_scope</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_Config constant id'>Config</span><span class='dot token'>.</span><span class='rubyid_instance identifier id'>instance</span><span class='dot token'>.</span><span class='rubyid_active_language identifier id'>active_language</span><span class='dot token'>.</span><span class='rubyid_use_named_scope identifier id'>use_named_scope</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_active_language identifier id'>active_language</span><span class='dot token'>.</span><span class='rubyid_use_named_scope identifier id'>use_named_scope</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -882,7 +882,7 @@ the stack is empty</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Dec 11 23:39:45 2012 by
+  Generated on Sat Dec 15 16:49:34 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
