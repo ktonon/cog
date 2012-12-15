@@ -1,10 +1,12 @@
 ![cog](http://ktonon.github.com/cog/images/cog-logo-small.png)
 
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/ktonon/cog)
+
 `cog` is a command line utility that makes it easy to organize a project which
 uses code generation.
 
 The documentation on this page is synchronized with the git repository.
-For docs on the [currently released gem](https://rubygems.org/gems/cog) (version 0.2.1)
+For docs on the currently released [gem](https://rubygems.org/gems/cog) (version 0.2.2)
 see [ktonon.github.com/cog](http://ktonon.github.com/cog/frames.html).
 See also the following resources,
 
@@ -57,59 +59,65 @@ created using the command line tool once a project has been initialized
 ```bash
 $ cog generator new my_generator
 Created cog/generators/my_generator.rb
-Created cog/templates/my_generator.cpp.erb
-Created cog/templates/my_generator.hpp.erb
 ```
 
-Three files were created: a generator and two ERB template files. Notice that
-the templates are for C++. That is because the
-[default_target_language](http://ktonon.github.com/cog/Cog/Config/Cogfile.html#default_target_language-instance_method)
-in the Cogfile was set to `c++`. You can see a list of other possible settings
-by running `cog language list`. Here is a listing of `my_generator.rb`
+`my_generator.rb` will contain a bare minimum of code
 
 ```ruby
 require 'cog'
 include Cog::Generator
 
-# Setup the template context
-@class = 'my_generator'
-
-# Render the templates
-stamp 'my_generator.cpp', 'generated_my_generator.cpp'
-stamp 'my_generator.hpp', 'generated_my_generator.hpp'
+# This is the my_generator generator
 ```
 
 The inclusion of the mixin
 [Cog::Generator](http://ktonon.github.com/cog/Cog/Generator.html) provides an interface for easily
-generating source code from templates. The
-[stamp](http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp) method
+generating source code from templates. The [stamp](http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp) method
 is particularly useful. If finds an [ERB template](http://www.stuartellis.eu/articles/erb/)
 in the [template_paths](http://ktonon.github.com/cog/Cog/Config.html#template_paths-instance_method)
 and renders it to a file under the
 [project_source_path](http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method).
+To use the `stamp` method first create a template
 
-Listing of `my_generator.hpp.erb`
+```ruby
+$ cog generator template new my_generator/example.c
+Created cog/templates/my_generator
+Created cog/templates/my_generator/example.c.erb
+```
 
-```c++
+The new template will be empty. Edit it with the following example
+
+```c
 <%= warning %> 
 
-class <%= @class %>
+void <%= @method_name %>()
 {
-    <%= @class %>();
-};
+    // ...
+}
+```
+
+Then modify `my_generator.rb` like this
+
+```ruby
+require 'cog'
+include Cog::Generator
+
+# This is the my_generator generator
+
+@method_name = 'example'
+stamp 'my_generator/example.c', 'generated_example.c'
 ```
 
 The generator would be executed like this
 
 ```bash
 $ cog gen run my_generator
-Created src/generated_my_generator.cpp
-Created src/generated_my_generator.hpp
+Created src/generated_example.c
 ```
 
-Listing of `generated_my_generator.hpp`
+Listing of `generated_example.c`
 
-```c++
+```c
 /*
 -------------------------------------------------------------------------------
 
@@ -124,10 +132,10 @@ Listing of `generated_my_generator.hpp`
 -------------------------------------------------------------------------------
  */ 
 
-class my_generator
+void example()
 {
-	my_generator();
-};
+    // ...
+}
 ```
 
 Get a list of the project's generators like this
@@ -135,26 +143,7 @@ Get a list of the project's generators like this
 ```bash
 $ cog gen list
 my_generator
-
-$ cog gen new --language=c# fishy
-Created cog/generators/fishy.rb
-Created cog/templates/fishy.cs.erb
-
-$ cog generator list
-fishy
-my_generator
 ```
-
-Run all of the project's generators by excluding the generator name.
-The `run` sub-command is optional because it is the default
-
-```bash
-$ cog gen
-Created src/generated_fishy.cs
-```
-
-In this case, both generators are run, but the original `my_generator` hasn't
-changed, so the generated file `generated_my_generator.txt` will not be touched.
 
 Templates
 ---------
@@ -194,8 +183,7 @@ templates, both built-in and project specific
 
 ```bash
 $ cog template list
-[project]  my_generator.cpp
-[project]  my_generator.hpp
+[project]  my_generator/example.c
 [built-in] warning
 ```
 
@@ -212,8 +200,7 @@ templates and that the project version overrides the built-in version
 
 ```bash
 $ cog tm
-[project]            my_generator.cpp
-[project]            my_generator.hpp
+[project]            my_generator/example.c
 [built-in < project] warning
 ```
 
@@ -345,17 +332,19 @@ The `cog_tool.rb` is particularly important. It defines the method which stamps 
 
 ```ruby
 require 'cog'
+include Cog::Generator
 
 # Register cons as a tool with cog
 Cog.register_tool __FILE__ do |tool|
 
-  # Define how new cons generators are created
-  #
-  # Add context as required by your generator template.
-  #
-  # When the block is executed, +self+ will be an instance of Cog::Config::Tool::GeneratorStamper
-  tool.stamp_generator do
-    stamp 'cons/generator.rb', generator_dest, :absolute_destination => true
+  # Define a method which creates a cons generator
+  tool.stamp_generator do |name, dest|
+    
+    # Setup context for the template
+    @name = name # Generator name
+    
+    # Create the generator file
+    stamp 'cons/generator.rb', dest, :absolute_destination => true
   end
   
 end
