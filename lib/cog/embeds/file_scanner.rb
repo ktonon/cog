@@ -5,6 +5,10 @@ module Cog
     # Helper for scanning files for embed expansions
     class FileScanner
 
+      # @return [MatchData, nil] match data for the last matched pattern
+      attr_reader :match
+      
+      # @api developer
       def initialize(filename)
         @filename = filename
         @f = File.open filename, 'r'
@@ -12,13 +16,31 @@ module Cog
         @mark = nil
         @cap_begin_pos = nil
         @cap_end_pos = nil
+        @match = nil # The last match object
       end
-
+      
+      # @api developer
       # Closes the scanned file, if it is not already closed
       def close
         @f.close unless @f.closed?
       end
       
+      # Opens the given file for scanning.
+      # @param filename [String] path to the file which will be scanned
+      # @param pattern [Regexp] a pattern to test for
+      # @option opt [Fixnum] :occurrence (0) 0 for the first, 1 for the second, and so on
+      # @yieldparam scanner [FileScanner] a file scanner
+      # @yieldreturn [Object]
+      # @return [Object] the return value of the block
+      def self.scan(filename, pattern, opt={}, &block)
+        s = new filename
+        if s.read_until pattern, opt[:occurrence] || 0
+          val = block.call s
+        end
+        s.close
+        val
+      end
+
       # Remember this position. A later call to insert_at_mark will insert at this marked position
       # @return [nil]
       def mark!
@@ -37,20 +59,20 @@ module Cog
       # Advances the file until the (n+1)th occurence of the given pattern is encountered, or the end of the file is reached
       # @param pattern [Regexp] a pattern to test for
       # @param n [Fixnum] 0 for the first, 1 for the second, and so on
-      # @return [MatchData, nil] the match object if the pattern was found
+      # @return [Boolean] whether or not a match was found. Use {#match} to retrieve the match data
       def read_until(pattern, n=0)
         i = 0
         mark!
         while (line = @f.readline) && i <= n
-          if m = pattern.match(line)
-            return m if i == n
+          if @match = pattern.match(line)
+            return true if i == n
             i += 1
           end
           mark!
         end
       rescue EOFError
         unmark!
-        nil
+        false
       end
       
       # Advances the file by one line
