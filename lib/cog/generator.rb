@@ -37,38 +37,28 @@ module Cog
     # @param destination [String] path to which the generated file should be written, relative to the {Config::ProjectMethods#project_source_path}
     # @option opt [Boolean] :absolute_template_path (false) is the +template_path+ absolute?
     # @option opt [Boolean] :absolute_destination (false) is the +destination+ absolute?
-    # @option opt [String, Array<String>] :filter (nil) filter the result through the named methods
+    # @option opt [Binding] :binding (nil) an optional binding to use while evaluating the template
+    # @option opt [String, Array<String>] :filter (nil) name(s) of {Filters}
     # @option opt [Boolean] :quiet (false) suppress writing to STDOUT?
     # @return [nil or String] if +destination+ is not provided, the stamped template is returned as a string
     def stamp(template_path, destination=nil, opt={})
       # Ignore destination if its a hash, its meant to be opt
       opt, destination = destination, nil if destination.is_a? Hash
       
-      # Find and render the template
-      t = get_template template_path, :absolute => opt[:absolute_template_path]
-      b = opt[:binding] || binding
-      r = Cog.activate_language :ext => File.extname(template_path.to_s) do
-        t.result(b)
-      end
-      
-      # Run r through filters
-      f = opt[:filter]
-      f = [f].compact unless f.is_a?(Array)
-      f.each {|name| r = call_filter name, r }
-      
+      # Render and filter
+      r = find_and_render template_path, opt
+      r = filter_through r, opt[:filter]
       return r if destination.nil?
 
       # Place it in a file
-      dest = opt[:absolute_destination] ? destination : File.join(Cog.project_source_path, destination)
-      FileUtils.mkpath File.dirname(dest) unless File.exists? dest
-      scratch = "#{dest}.scratch"
-      File.open(scratch, 'w') {|file| file.write r}
-      if files_are_same? dest, scratch
-        FileUtils.rm scratch
-      else
-        updated = File.exists? dest
-        FileUtils.mv scratch, dest
-        STDOUT.write "#{updated ? :Updated : :Created} #{dest.relative_to_project_root}\n".color(updated ? :white : :green) unless opt[:quiet]
+      write_scratch_file(destination, r, opt[:absolute_destination]) do |path, scratch|
+        if files_are_same? path, scratch
+          FileUtils.rm scratch
+        else
+          updated = File.exists? path
+          FileUtils.mv scratch, path
+          STDOUT.write "#{updated ? :Updated : :Created} #{path.relative_to_project_root}\n".color(updated ? :white : :green) unless opt[:quiet]
+        end
       end
       nil
     end
@@ -89,5 +79,40 @@ module Cog
       end
     end
 
+    private
+    
+    # @param template_path [String] path to template file relative one of the {Config#template_paths}
+    # @option opt [Boolean] :absolute_template_path (false) is the +template_path+ absolute?
+    # @option opt [Binding] :binding (nil) an optional binding to use while evaluating the template
+    # @return [String] result of rendering the template
+    def find_and_render(template_path, opt={})
+      t = get_template template_path, :absolute => opt[:absolute_template_path]
+      b = opt[:binding] || binding
+      Cog.activate_language :ext => File.extname(template_path.to_s) do
+        t.result(b)
+      end
+    end
+    
+    # @param text [String] text to run through filters
+    # @param f [String, Array<String>] name(s) of {Filters}
+    def filter_through(text, f)
+      f = [f].compact unless f.is_a?(Array)
+      f.each {|name| text = call_filter name, text }
+      text
+    end
+    
+    # @param original [String] path to the original file
+    # @param text [String] text to write into the scratch file
+    # @param absolute [Boolean] is the path absolute or relative to the project root?
+    # @yieldparam original [String] absolute path to original file
+    # @yieldparam scratch [String] path to the scratch file
+    # @return [nil]
+    def write_scratch_file(original, text, absolute=false, &block)
+      path = absolute ? original : File.join(Cog.project_source_path, original)
+      FileUtils.mkpath File.dirname(path) unless File.exists? path
+      scratch = "#{path}.scratch"
+      File.open(scratch, 'w') {|file| file.write text}
+      block.call path, scratch
+    end
   end
 end
