@@ -1,5 +1,6 @@
 ![cog](http://ktonon.github.com/cog/images/cog-logo-small.png)
 
+[![Build Status](https://secure.travis-ci.org/ktonon/cog.png?branch=master)](https://travis-ci.org/ktonon/cog)
 [![Dependency Status](https://gemnasium.com/ktonon/cog.png)](https://gemnasium.com/ktonon/cog)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/ktonon/cog)
 

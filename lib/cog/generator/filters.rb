@@ -12,19 +12,17 @@ module Cog
         Cog.active_language.comment text
       end
 
-      # @api developer
-      # Adds a call_filter method which throws NoSuchFilter if
-      # the filter is invalid
-      def self.included(other)
-        valid_filters = Filters.instance_eval {instance_methods}
-        other.instance_eval do
-          define_method "call_filter" do |name, text|
-            raise Errors::NoSuchFilter.new(name) unless valid_filters.member?(name.to_s)
-            method(name).call text
-          end
-        end
+      # Call a filter by name
+      # @param name [Symbol] the filter to call
+      # @param text [String] the text to pass through the filter
+      # @return [String] the filtered text
+      def call_filter(name, text)
+        gcontext[:filters] ||= %w(comment)
+        name = name.to_s
+        raise Errors::NoSuchFilter.new(name) unless gcontext[:filters].member? name
+        method(name).call text
       end
-
+      
     end
   end
 end
