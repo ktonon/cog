@@ -1,5 +1,6 @@
 ![cog](http://ktonon.github.com/cog/images/cog-logo-small.png)
 
+[![Dependency Status](https://gemnasium.com/ktonon/cog.png)](https://gemnasium.com/ktonon/cog)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/ktonon/cog)
 
 `cog` is a command line utility that makes it easy to organize a project which
