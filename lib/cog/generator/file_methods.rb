@@ -15,7 +15,7 @@ module Cog
         fullpath = if opt[:absolute]
           path
         else
-          Cog.template_paths.inject('') do |found, prefix|
+          Cog.template_path.reverse.inject('') do |found, prefix|
             x = File.join prefix, path
             found.empty? && File.exists?(x) ? x : found
           end

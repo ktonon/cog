@@ -47,14 +47,14 @@ which configures `cog` for use with the project. In short, it tells `cog` where
 to find generators and templates and where to put generated source code. Open
 the `Cogfile` to find out more, each setting is documented. Most settings can
 be left as-is, but the
-[project_source_path](http://ktonon.github.com/cog/Cog/Config/ProjectMethods.html#project_source_path-instance_method) might need to be changed if the source files are not in
+[project_path](http://ktonon.github.com/cog/Cog/Config/ProjectMethods.html#project_path-instance_method) might need to be changed if the source files are not in
 a directory called `src` relative the directory containing the `Cogfile`.
 
 Generators
 ----------
 
 A generator is a ruby file which resides in the
-[project_generators_path](http://ktonon.github.com/cog/Cog/Config/ProjectMethods.html#project_generators_path-instance_method)
+[generator_path](http://ktonon.github.com/cog/Cog/Config/ProjectMethods.html#generator_path-instance_method)
 and performs its work at the time it is required. A basic generator can be
 created using the command line tool once a project has been initialized
 
@@ -78,7 +78,7 @@ generating source code from templates. The [stamp](http://ktonon.github.com/cog/
 is particularly useful. If finds an [ERB template](http://www.stuartellis.eu/articles/erb/)
 in the [template_paths](http://ktonon.github.com/cog/Cog/Config.html#template_paths-instance_method)
 and renders it to a file under the
-[project_source_path](http://ktonon.github.com/cog/Cog/Config/ProjectMethods.html#project_source_path-instance_method).
+[project_path](http://ktonon.github.com/cog/Cog/Config/ProjectMethods.html#project_path-instance_method).
 To use the `stamp` method first create a template
 
 ```ruby
@@ -288,7 +288,7 @@ Tools
 -----
 
 While its possible to place all the code for your generator in the
-`project_generators_path`, you might also consider writing a tool.
+`generator_path`, you might also consider writing a tool.
 
 A tool is a separately distributed ruby gem which can be registered with `cog`
 and contains templates for generator files. A tool should also provide a domain

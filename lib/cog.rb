@@ -4,7 +4,7 @@ require 'cog/embeds'
 require 'cog/errors'
 require 'cog/generator'
 require 'cog/helpers'
-require 'cog/languages'
+require 'cog/language'
 require 'cog/tool'
 require 'cog/version'
 

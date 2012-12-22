@@ -15,13 +15,8 @@ module Cog
       # @return [Array<String>] a list of templates
       def self.list(opt={})
         cts = Helpers::CascadingTemplateSet.new
-        cts.add_templates 'built-in', :built_in, Cog.cog_templates_path, opt
-        tool = Cog.active_tool
-        unless tool.templates_path.nil?
-          cts.add_templates tool.name, :tool, tool.templates_path, opt
-        end
-        if Cog.project?
-          cts.add_templates 'project', :project, Cog.project_templates_path, opt
+        Cog.template_path.each_with_index do |path, i|
+          cts.add_templates i.to_s, i.to_s, path
         end
         cts.to_a
       end
@@ -33,7 +28,7 @@ module Cog
       def self.create(name, opt={})
         raise Errors::ActionRequiresProject.new('create template') unless Cog.project?
         name = name.without_extension :erb
-        dest = File.join Cog.project_templates_path, "#{name}.erb"
+        dest = File.join Cog.template_path.last, "#{name}.erb"
 
         original = Generator.get_template name, :as_path => true
         return if original == dest # Nothing to create

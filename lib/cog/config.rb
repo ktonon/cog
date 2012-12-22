@@ -1,8 +1,8 @@
-require 'cog/config/cogfile'
+require 'cog/dsl/cogfile'
 require 'cog/config/language_methods'
 require 'cog/config/project_methods'
 require 'cog/config/tool_methods'
-require 'cog/languages'
+require 'cog/language'
 require 'cog/errors'
 require 'cog/tool'
 
@@ -36,13 +36,13 @@ module Cog
     #
     # Templates should be looked for in the following order as determined by the list returned from this method
     #
-    # * {#project_templates_path} which is present if {#project?}
+    # * {#template_path} which is present if {#project?}
     # * {Tool#templates_path} for each registered tool (in no particular order)
     # * {#cog_templates_path} which is *always* present
     #
     # @return [Array<String>] a list of directories order with ascending priority
     def template_paths
-      [@project_templates_path, active_tool && active_tool.templates_path, Cog.cog_templates_path].compact
+      [@template_path, active_tool && active_tool.templates_path, Cog.cog_templates_path].compact
     end
  
     # Must be called once before using cog.
@@ -52,32 +52,57 @@ module Cog
     def prepare(opt={})
       throw :ConfigInstanceAlreadyPrepared if @prepared && !opt[:force_reset]
       @prepared = true
-      @cogfile_path = nil
-      @project_root = nil
-      @project_generators_path = nil
-      @project_templates_path = nil
-      @project_source_path = nil
+      @generator_path = []
+      @template_path = []
+      @project_path = nil
       @tools = {}
       @active_tools = [] # active tool stack
-      @target_language = Languages::Language.new
-      @active_languages = [Languages::Language.new] # active language stack
-      @language_extension_map = Languages::DEFAULT_LANGUAGE_EXTENSION_MAP
-      opt[:cogfile_path] ||= find_default_cogfile
-      if opt[:cogfile_path]
-        @cogfile_path = File.expand_path opt[:cogfile_path]
+      @target_language = Language.new
+      @active_languages = [Language.new] # active language stack
+      @language = {}
+      @language_extension_map = {}
+      
+      process_cogfiles opt[:cogfile_path]
+      post_cogfile_processing
+      build_language_extension_map
+    end
+    
+    private
+    
+    def process_cogfiles(path)
+      @cogfile_path = path || find_default_cogfile
+      if @cogfile_path
+        @cogfile_path = File.expand_path cogfile_path
         @project_root = File.dirname @cogfile_path
-        cogfile = Cogfile.new self
+      end
+      [built_in_cogfile, @cogfile_path].compact.each do |path|
+        cogfile = Cogfile.new self, path
         cogfile.interpret
       end
     end
     
-    private
+    def post_cogfile_processing
+      @language.each_value do |lang|
+        if lang.comment_style != lang.key
+          other = @language[lang.comment_style]
+          lang.apply_comment_style other
+        end
+      end
+    end
+    
+    def build_language_extension_map
+      @language.each_value do |lang|
+        lang.extensions.each do |ext|
+          @language_extension_map[ext] = lang.key unless @language_extension_map.member?(ext)
+        end
+      end
+    end
     
     # The {Cogfile} will be looked for in the present working directory. If none
     # is found there the parent directory will be checked, and then the
     # grandparent, and so on.
     # 
-    # @return [Config] the singleton instance
+    # @return [Config, nil] the singleton instance
     def find_default_cogfile
       parts = Dir.pwd.split File::SEPARATOR
       i = parts.length
@@ -86,6 +111,11 @@ module Cog
       end
       path = File.join(parts.slice(0, i) + ['Cogfile']) if i >= 0
       (path && File.exists?(path)) ? path : nil
+    end
+    
+    # @return [String] path to the built-in cogfile
+    def built_in_cogfile
+      File.join gem_dir, 'BuiltIn.cogfile'
     end
   end
 end
