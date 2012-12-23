@@ -1,8 +1,3 @@
-require 'cog/config'
-require 'cog/errors'
-require 'cog/helpers'
-require 'rainbow'
-
 module Cog
   module Controllers
     
@@ -14,9 +9,9 @@ module Cog
       # @return [Boolean] was the generator successfully created?
       def self.create(name)
         raise Errors::ActionRequiresProject.new('create generator') unless Cog.project?
-        generator_dest = File.join Cog.generator_path.last, "#{name}.rb"
+        generator_dest = File.join Cog.project_generator_path, "#{name}.rb"
         raise Errors::DuplicateGenerator.new(generator_dest) if File.exists?(generator_dest)
-        Cog.active_tool.stamp_generator name, generator_dest
+        Cog.stamp_generator name, generator_dest
       end
 
       # List the available project generators
@@ -24,7 +19,7 @@ module Cog
       # @return [Array<String>] a list of generators
       def self.list(opt={})
         raise Errors::ActionRequiresProject.new('list generators') unless Cog.project?
-        x = Dir.glob(File.join Cog.generator_path.last, '*.rb')
+        x = Dir.glob(File.join Cog.project_generator_path, '*.rb')
         opt[:verbose] ? x : (x.collect {|path| File.basename(path).slice(0..-4)})
       end
 
@@ -33,7 +28,7 @@ module Cog
       # @return [nil]
       def self.run(name)
         raise Errors::ActionRequiresProject.new('run generator') unless Cog.project?
-        path = File.join Cog.generator_path.last, "#{name}.rb"
+        path = File.join Cog.project_generator_path, "#{name}.rb"
         raise Errors::NoSuchGenerator.new(name) unless File.exists?(path)
         require path
         nil

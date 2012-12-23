@@ -1,0 +1,17 @@
+require 'cog'
+include Cog::Generator
+
+# Register <%= @plugin_name %> as a plugin with cog
+Cog.register_plugin __FILE__ do |plugin|
+
+  # Define a method which creates a <%= @plugin_name %> generator
+  plugin.stamp_generator do |name, dest|
+    
+    # Setup context for the template
+    @name = name # Generator name
+    
+    # Create the generator file
+    stamp '<%= @plugin_name %>/generator.rb', dest, :absolute_destination => true
+  end
+  
+end

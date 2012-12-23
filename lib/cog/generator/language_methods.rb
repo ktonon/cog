@@ -1,11 +1,10 @@
-require 'cog/errors'
-require 'cog/generator/language_methods/scope'
-
 module Cog
   module Generator
     
     # Methods to help with generating language constructs
     module LanguageMethods
+      
+      autoload :Scope, 'cog/generator/language_methods/scope'
       
       # @return [String] a warning comment not to edit the generated file
       def warning

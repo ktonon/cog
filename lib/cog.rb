@@ -1,23 +1,34 @@
-require 'cog/config'
-require 'cog/controllers'
-require 'cog/embeds'
+require 'active_support/core_ext'
+require 'fileutils'
+require 'rainbow'
+
 require 'cog/errors'
-require 'cog/generator'
-require 'cog/helpers'
-require 'cog/language'
-require 'cog/tool'
-require 'cog/version'
+require 'cog/native_extensions'
 
 # This top level module serves as a singleton instance of the {Config} interface.
 module Cog
 
+  autoload :Config, 'cog/config'
+  autoload :Controllers, 'cog/controllers'
+  autoload :DSL, 'cog/dsl'
+  autoload :EmbedContext, 'cog/embed_context'
+  autoload :Embeds, 'cog/embeds'
+  autoload :Generator, 'cog/generator'
+  autoload :Helpers, 'cog/helpers'
+  autoload :Language, 'cog/language'
+  autoload :Plugin, 'cog/plugin'
+  autoload :VERSION, 'cog/version'
+  
   extend Config
   
   # Prepare the project in the present working directory for use with +cog+
   # @return [nil]
   def self.initialize_project
-    Generator.copy_file_if_missing File.join(Cog.gem_dir, 'Default.cogfile'), 'Cogfile'
-    Cog.prepare :force_reset => true
+    @cogfile_type = :project
+    Generator.stamp 'cog/Cogfile', 'Cogfile', :absolute_destination => true, :binding => binding, :once => true
+    
+    @cogfile_type = :user
+    Generator.stamp 'cog/Cogfile', user_cogfile, :absolute_destination => true, :binding => binding, :once => true
     nil
   end
 

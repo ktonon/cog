@@ -1,13 +1,11 @@
-require 'cog/controllers/generator_controller'
-require 'cog/controllers/template_controller'
-require 'cog/controllers/tool_controller'
-require 'cog/errors'
-
 module Cog
 
-  # Contains controllers for managing basic +cog+ objects like generators, templates, and tools
+  # Contains controllers for managing basic +cog+ objects like generators, templates, and plugins
   module Controllers
+    
+    autoload :GeneratorController, 'cog/controllers/generator_controller'
+    autoload :TemplateController, 'cog/controllers/template_controller'
+    autoload :PluginController, 'cog/controllers/plugin_controller'
+
   end
-
 end
-

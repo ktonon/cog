@@ -6,6 +6,7 @@ describe 'projects' do
   
   before :all do
     @cog = Cog::SpecHelpers::Runner.new
+    use_home_fixture :empty
   end
   
   context 'which generate in multiple languages' do

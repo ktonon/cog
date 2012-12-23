@@ -1,5 +1,3 @@
-require 'cog/config'
-
 module Cog
 
   # Describes the environment of an embed statement including the file in which it was found, the line number, the language, an more.

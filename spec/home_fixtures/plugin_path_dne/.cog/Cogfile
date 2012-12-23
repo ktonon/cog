@@ -1,0 +1,1 @@
+plugin_path '/some/directory/that/does/not/exist', true

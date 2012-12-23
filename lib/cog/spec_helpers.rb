@@ -1,6 +1,5 @@
 require 'cog/spec_helpers/runner'
 require 'cog/spec_helpers/matchers'
-require 'fileutils'
 
 module Cog
   
@@ -44,9 +43,14 @@ module Cog
       File.expand_path File.join(File.dirname(__FILE__), '..', '..', 'spec')
     end
     
-    # @return [String] directory of an active spec fixture.
+    # @return [String] directory of the active fixture.
     def active_fixture_dir
       File.join spec_root, 'active_fixture'
+    end
+    
+    # @return [String] directory of the active home fixture.
+    def active_home_fixture_dir
+      File.join spec_root, 'active_home_fixture'
     end
 
     # @return [String] path to the Cogfile in the active spec fixture
@@ -71,10 +75,10 @@ module Cog
       File.expand_path File.join(active_fixture_dir, 'cog', 'templates', "#{name}")
     end
     
-    # @param name [String] tool fixture identifier
-    # @return [String] path to the test tool with the given name
-    def tool(name)
-      File.expand_path File.join(spec_root, 'tools', name.to_s, 'lib', "#{name}.rb")
+    # @param name [String] plugin fixture identifier
+    # @return [String] path to the test plugin with the given name
+    def plugin(name)
+      File.expand_path File.join(spec_root, 'plugins', name.to_s, 'lib', "#{name}.rb")
     end
     
     # @param filename [String] name of a generated source file
@@ -89,16 +93,34 @@ module Cog
     # @return [nil]
     def use_fixture(name)
       path = File.join spec_root, 'fixtures', name.to_s
-      if File.exists?(path) && File.directory?(path)
-        FileUtils.rm_rf active_fixture_dir if File.exists? active_fixture_dir
-        FileUtils.cp_r path, active_fixture_dir
-        Dir.chdir active_fixture_dir
-      else
-        throw :invalid_fixture_name
-      end
+      copy_fixture path, active_fixture_dir
+      Dir.chdir active_fixture_dir
       nil
     end
     
+    # The next cog spec will execute in a fresh copy of the given home fixture
+    # Home fixture directories are stored in <tt>spec/home_fixtures</tt>
+    # @param name [String] name of the home fixture
+    # @return [nil]
+    def use_home_fixture(name)
+      path = File.join spec_root, 'home_fixtures', name.to_s
+      copy_fixture path, active_home_fixture_dir
+      nil
+    end
+    
+    private
+    
+    def copy_fixture(source, dest)
+      if File.exists?(source) && File.directory?(source)
+        FileUtils.rm_rf dest if File.exists? dest
+        FileUtils.cp_r source, dest
+      else
+        throw :invalid_fixture_name
+      end
+    end
+    
+    public
+    
+    extend self
   end
-  
 end

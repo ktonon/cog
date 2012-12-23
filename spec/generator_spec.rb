@@ -9,6 +9,7 @@ describe Cog::Generator do
   describe '#stamp' do
     
     before :each do
+      use_home_fixture :empty
       use_fixture 'with_generators'
       Cog.prepare :force_reset => true
       @cheeses = [:brie, :cheddar]

@@ -6,6 +6,7 @@ describe 'cog' do
   
   before :all do
     @cog = Cog::SpecHelpers::Runner.new
+    use_home_fixture :empty
   end
   
   it 'should print help when no args are passed' do

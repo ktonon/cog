@@ -11,6 +11,7 @@ describe 'projects' do
   describe 'which have just been initialized' do
     before :each do
       use_fixture :just_initialized
+      use_home_fixture :plugins
     end
     
     it 'running `cog init` should not do anything' do
@@ -33,12 +34,9 @@ describe 'projects' do
       @cog.run(:template, :new, 'piggy.txt').should make(template('piggy.txt.erb'))
     end
     
-    it 'running `cog template new warning` should not override the built-in template' do
-      @cog.run(:template, :new, 'warning').should complain
-    end
-      
-    it 'running `cog template new --force-override warning` should override the built-in template' do
-      @cog.run(:template, :new, '--force-override', 'warning').should make(template('warning.erb'))
+    it 'running `cog template new warning` should override the built-in template' do
+      @cog.run(:template, :new, 'warning').should_not complain
+      File.read(template('warning.erb')).should_not be_empty
     end
   end
   

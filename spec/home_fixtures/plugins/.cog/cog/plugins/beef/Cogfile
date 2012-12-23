@@ -1,0 +1,6 @@
+template_path 'plugin/templates'
+
+stamp_generator do |name, dest|
+  @name = name
+  Cog.stamp 'beef/generator.rb', dest, :absolute_destination => true, :binding => binding
+end

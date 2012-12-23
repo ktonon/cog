@@ -11,6 +11,7 @@ describe 'projects' do
   describe 'which have not yet been initialized' do
     before :each do
       use_fixture :uninitialized
+      use_home_fixture :empty
     end
     
     it 'running `cog init` should make a Cogfile' do
@@ -29,8 +30,8 @@ describe 'projects' do
       @cog.run(:generator, :run).should complain
     end
     
-    it 'running `cog tool` will not fail' do
-      @cog.run(:tool).should_not complain
+    it 'running `cog plugin` will not fail' do
+      @cog.run(:plugin).should_not complain
     end
     
     it 'running `cog template` will not fail' do

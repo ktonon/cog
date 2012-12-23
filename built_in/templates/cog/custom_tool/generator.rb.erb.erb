@@ -1,0 +1,9 @@
+<%% if Cog.active_plugin.explicit_require %>
+require '<%%= Cog.active_plugin.path %>'
+<%% else %>
+require '<%%= Cog.active_plugin.name %>'
+<%% end %>
+
+<%= @plugin_module %>.widget '<%%= @name %>' do |w|
+  w.context = 'this is the context'
+end

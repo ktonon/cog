@@ -1,5 +1,5 @@
-require 'cog/spec_helpers/matchers/match_maker'
 require 'rspec'
+require 'cog/spec_helpers/matchers/match_maker'
 
 module Cog
   module SpecHelpers

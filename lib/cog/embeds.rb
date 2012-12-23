@@ -1,14 +1,9 @@
-require 'cog/config'
-require 'cog/embed_context'
-require 'cog/embeds/file_scanner'
-require 'cog/errors'
-
 module Cog
   
   # @api developer
   # Methods for querying and manipulating project files
   module Embeds
-
+    
     # Search through all project files for cog embeds, and remember them so that generators can refer to them later
     def gather_from_project
       @embeds ||= {}
@@ -45,7 +40,7 @@ module Cog
     # @yieldreturn [String] the value to substitute into the embed expansion 
     # @return [Hash] whether or not the expansion was updated
     def update(c, &block)
-      FileScanner.scan(c.path, statement(c.hook), :occurrence => c.actual_index) do |s|
+      Helpers::FileScanner.scan(c.path, statement(c.hook), :occurrence => c.actual_index) do |s|
         c.lineno = s.marked_line_number
         c.args = s.match[2].split if s.match[2]
         c.once = !s.match[3].nil?

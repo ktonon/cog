@@ -1,0 +1,6 @@
+template_path 'plugin/templates'
+
+stamp_generator do |name, dest|
+  @name = name
+  stamp 'basic/generator.rb', dest, :absolute_destination => true
+end

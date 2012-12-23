@@ -1,5 +1,3 @@
-require 'cog/errors'
-
 module Cog
   module Generator
     

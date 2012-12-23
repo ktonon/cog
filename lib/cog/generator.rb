@@ -1,13 +1,3 @@
-require 'cog/config'
-require 'cog/embeds'
-require 'cog/errors'
-require 'cog/generator/file_methods'
-require 'cog/generator/filters'
-require 'cog/generator/language_methods'
-require 'cog/helpers'
-require 'erb'
-require 'rainbow'
-
 module Cog
   
   # This module defines an interface which can be used by generator objects.
@@ -16,6 +6,10 @@ module Cog
   #
   # @see https://github.com/ktonon/cog#generators Introduction to Generators
   module Generator
+    
+    autoload :FileMethods, 'cog/generator/file_methods'
+    autoload :Filters, 'cog/generator/filters'
+    autoload :LanguageMethods, 'cog/generator/language_methods'
 
     include FileMethods
     include Filters
@@ -37,6 +31,7 @@ module Cog
     # @param destination [String] path to which the generated file should be written, relative to the {Config::ProjectMethods#project_path}
     # @option opt [Boolean] :absolute_template_path (false) is the +template_path+ absolute?
     # @option opt [Boolean] :absolute_destination (false) is the +destination+ absolute?
+    # @option opt [Boolean] :once (false) if +true+, the file will not be updated if it already exists
     # @option opt [Binding] :binding (nil) an optional binding to use while evaluating the template
     # @option opt [String, Array<String>] :filter (nil) name(s) of {Filters}
     # @option opt [Boolean] :quiet (false) suppress writing to STDOUT?
@@ -52,7 +47,7 @@ module Cog
 
       # Place it in a file
       write_scratch_file(destination, r, opt[:absolute_destination]) do |path, scratch|
-        if files_are_same? path, scratch
+        if files_are_same?(path, scratch) || (opt[:once] && File.exists?(path))
           FileUtils.rm scratch
         else
           updated = File.exists? path

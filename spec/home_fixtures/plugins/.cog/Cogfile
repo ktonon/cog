@@ -1,0 +1,3 @@
+generator_path 'cog/generators'
+template_path 'cog/templates'
+plugin_path 'cog/plugins'

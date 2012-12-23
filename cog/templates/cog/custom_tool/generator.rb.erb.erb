@@ -1,9 +1,0 @@
-<%% if Cog.active_tool.explicit_require %>
-require '<%%= Cog.active_tool.path %>'
-<%% else %>
-require '<%%= Cog.active_tool.name %>'
-<%% end %>
-
-<%= @tool_module %>.widget '<%%= @name %>' do |w|
-  w.context = 'this is the context'
-end

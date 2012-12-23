@@ -32,7 +32,7 @@ module Cog
       "the action requires a project, but no Cogfile was found"
     end
     
-    define_error :CouldNotLoadTool, 'tool'
+    define_error :CouldNotLoadPlugin, 'plugin'
     
     define_error :DestinationAlreadyExists, 'path' do
       "a file or directory at the given path already exists, cannot create anything there"
@@ -40,12 +40,10 @@ module Cog
 
     define_error :DuplicateGenerator, 'generator'
     
-    define_error :DuplicateTemplate, 'template'
+    define_error :DuplicatePlugin, 'plugin'
 
-    define_error :DuplicateTool, 'tool'
-
-    define_error :InvalidToolConfiguration, 'path to cog_tool.rb file' do
-      "invalid directory structure for a cog tool"
+    define_error :InvalidPluginConfiguration, 'path to cog_plugin.rb file' do
+      "invalid directory structure for a cog plugin"
     end
     
     define_error :NoSuchFilter, 'filter'
@@ -56,9 +54,12 @@ module Cog
 
     define_error :NoSuchTemplate, 'template'
 
-    define_error :NoSuchTool, 'tool' do
-      "no such tool, make sure it appears in the COG_TOOLS environment variable"
+    define_error :NoSuchPlugin, 'plugin' do
+      "no such plugin, make sure it appears in the COG_TOOLS environment variable"
     end
+    
+    define_error :PluginPathDoesNotExist, 'plugin_path'
+    define_error :PluginPathIsNotADirectory, 'plugin_path'
     
     define_error :ScopeStackUnderflow, 'caller' do
       "scope stack underflow: this can happen if you have too many *_end calls in a template"
@@ -68,8 +69,8 @@ module Cog
       "a embed expansion in the given file is missing the 'cog: }' terminator"
     end
     
-    define_error :ToolMissingDefinition, 'missing' do
-      "the tool was not fully defined"
+    define_error :PluginMissingDefinition, 'missing' do
+      "the plugin was not fully defined"
     end
   end
 end

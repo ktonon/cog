@@ -2,9 +2,6 @@
 require 'gli'
 $LOAD_PATH << File.join(File.dirname(__FILE__), '..', 'lib')
 require 'cog'
-require 'active_support/core_ext'
-require 'fileutils'
-require 'rainbow'
 
 include GLI::App
 
@@ -20,10 +17,10 @@ desc 'Set the Cogfile explicitly'
 arg_name 'path'
 flag :cogfile
 
-desc 'Set the active tool'
+desc 'Set the active plugin'
 arg_name 'name'
 default_value 'basic'
-flag [:tool, :t]
+flag [:plugin, :p]
 
 desc 'Suppress the use of color in output'
 switch :colorless
@@ -82,25 +79,25 @@ command [:generator, :gen] do |c|
   end
 end
 
-desc 'List or create DSLs known as cog tools'
-command :tool do |c|
+desc 'List or create DSLs known as cog plugins'
+command :plugin do |c|
   
   c.default_command :list
   
-  c.desc 'List the available tools'
+  c.desc 'List the available plugins'
   c.command :list do |sub|
     sub.action do |gopt, opt, args|
-      x = Cog::Controllers::ToolController.list :verbose => gopt[:verbose]
+      x = Cog::Controllers::PluginController.list :verbose => gopt[:verbose]
       puts x.join "\n" unless x.empty?
     end
   end
   
-  c.desc 'Create a new tool'
-  c.arg_name 'tool_name'
+  c.desc 'Create a new plugin'
+  c.arg_name 'plugin_name'
   c.command :new do |sub|
     sub.action do |gopt, opt, args|
       args.each do |name|
-        Cog::Controllers::ToolController.create name
+        Cog::Controllers::PluginController.create name
       end
     end
   end
@@ -121,17 +118,10 @@ command [:template, :tm] do |c|
   
   c.desc 'Create a new project template'
   c.command :new do |sub|
-    sub.desc 'Force override of existing built-in or tool templates'
-    sub.switch ['force-override', :f]
-    
+
     sub.action do |gopt, opt, args|
       args.each do |name|
-        begin
-          Cog::Controllers::TemplateController.create name, :force_override => opt[:f]
-        rescue Cog::Errors::DuplicateTemplate => e
-          STDERR.write "Use --force-override to copy the original template into your project templates\n"
-          raise
-        end
+        Cog::Controllers::TemplateController.create name, :force_override => opt[:f]
       end
     end
   end
@@ -161,11 +151,11 @@ pre do |gopt, command, opt, args|
     STDERR.write "No such Cogfile at #{gopt[:cogfile]}\n"
     false
   else
-    Cog.prepare :cogfile_path => gopt[:cogfile]
-    unless command.name == :init
-      Cog.register_tools
-      Cog.activate_tool gopt[:tool]
-    end
+    Cog.prepare(
+      :minimal => command.name == :init,
+      :project_cogfile_path => gopt[:cogfile],
+      :active_plugin => gopt[:plugin]
+      )
     true
   end
 end

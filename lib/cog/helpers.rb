@@ -1,2 +1,8 @@
-require 'cog/helpers/cascading_template_set'
-require 'cog/helpers/string'
+module Cog
+  module Helpers
+    
+    autoload :CascadingSet, 'cog/helpers/cascading_set'
+    autoload :FileScanner, 'cog/helpers/file_scanner'
+
+  end
+end

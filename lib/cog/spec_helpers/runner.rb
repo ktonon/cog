@@ -6,13 +6,9 @@ module Cog
     # Points to the +cog+ command-line app
     class Runner
 
-      # Value of the COG_TOOLS environment variable for invocations returned from #run
-      attr_accessor :tools
-      
       # @param path_to_cl_app [String] path 
       def initialize
         @cog = File.expand_path File.join(File.dirname(__FILE__), '..', '..', '..', 'bin', 'cog')
-        @tools = []
       end
 
       # Run cog with the given arguments
@@ -20,7 +16,7 @@ module Cog
       # @return [Invocation] an object which can be used with custom {Matchers}
       def run(*args)
         args = [@cog, '--colorless'] + args
-        Invocation.new(args.collect {|x| x.to_s}, :tools => @tools)
+        Invocation.new(args.collect {|x| x.to_s})
       end
     end
     
@@ -31,10 +27,8 @@ module Cog
       
       # @api developer
       # @param cmd [Array<String>] path to +cog+ executable and arguments
-      # @option opt [Array<String>] :tools ([]) a list of tools to add to the +COG_TOOLS+ environment variable just before running the command with {#exec}
       def initialize(cmd, opt={})
         @cmd = cmd
-        @tools = (opt[:tools] || []).join ':'
       end
       
       # Execute the command
@@ -43,7 +37,7 @@ module Cog
       # @return [nil]
       def exec(&block)
         @cmd = ['bundle', 'exec'] + @cmd
-        ENV['COG_TOOLS'] = @tools
+        ENV['HOME'] = SpecHelpers.active_home_fixture_dir
         Open3.popen3 *@cmd do |i,o,e,t|
           block.call i,o,e
         end
@@ -52,7 +46,7 @@ module Cog
       # @api developer
       # @return [String] loggable representation
       def to_s
-        "`COG_TOOLS=#{@tools} #{@cmd.compact.join ' '}`"
+        "`#{@cmd.compact.join ' '}`"
       end
     end
     

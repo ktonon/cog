@@ -5,7 +5,7 @@ module Cog
     module FileMethods
       
       # Get the template with the given name
-      # @param path [String] path to template file relative one of the {Config#template_paths}
+      # @param path [String] path to file relative to the {Config#template_path}
       # @option opt [Boolean] :absolute (false) is the +path+ argument absolute?
       # @option opt [Boolean] :as_path (false) return the template as an ERB instance (+false+) or an absolute path to the file (+true+)
       # @return [ERB, String] an instance of {http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html ERB} or an absolute path to the template
