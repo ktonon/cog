@@ -4,21 +4,6 @@ module Cog
     # Manage a project's templates
     module TemplateController
 
-      # List the available templates
-      # @option opt [Boolean] :verbose (false) list full template paths
-      # @return [Array<String>] a list of templates
-      def self.list(opt={})
-        opt[:ext] = 'erb'
-        cs = Helpers::CascadingSet.new
-        Cog.template_path.each_with_cog_source do |source, type, path|
-          opt[:source] = source
-          opt[:type] = type
-          opt[:root_dir] = path
-          cs.add_sources opt
-        end
-        cs.to_a
-      end
-      
       # Create a new project template
       # @param name [String] name of the template, relative to the project's templates directory
       # @option opt [Boolean] :force_override (false) if a built-in or plugin template with the same name already exists, should a project override be created?
@@ -34,6 +19,21 @@ module Cog
         # No original, ok to create an empty template
         Generator.touch_file dest
         nil
+      end
+
+      # List the available templates
+      # @option opt [Boolean] :verbose (false) list full template paths
+      # @return [Array<String>] a list of templates
+      def self.list(opt={})
+        opt[:ext] = 'erb'
+        cs = Helpers::CascadingSet.new
+        Cog.template_path.each_with_cog_source do |source, type, path|
+          opt[:source] = source
+          opt[:type] = type
+          opt[:root_dir] = path
+          cs.add_sources opt
+        end
+        cs.to_a
       end
       
     end

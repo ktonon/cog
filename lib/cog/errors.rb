@@ -58,7 +58,10 @@ module Cog
       "no such plugin, make sure it appears in the COG_TOOLS environment variable"
     end
     
+    define_error :NotAPluginCogfile, 'cogfile_path'
+    
     define_error :PluginPathDoesNotExist, 'plugin_path'
+
     define_error :PluginPathIsNotADirectory, 'plugin_path'
     
     define_error :ScopeStackUnderflow, 'caller' do

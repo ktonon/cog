@@ -28,6 +28,11 @@ module Cog
         template_path.last if project?
       end
       
+      # @return [String,nil] directory in which to find project plugins, or +nil+ if not a {project?}
+      def project_plugin_path
+        @plugin_path.last if project?
+      end
+      
       # @return [Array<String>] list of paths to files in the {#project_path} which are written in a supported language
       def supported_project_files
         exts = Cog.language_extensions.join ','

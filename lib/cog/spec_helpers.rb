@@ -72,15 +72,15 @@ module Cog
     # @param name [String] template identifier (without the .erb extension)
     # @return [String] absolute file system path to the template
     def template(name)
-      File.expand_path File.join(active_fixture_dir, 'cog', 'templates', "#{name}")
+      File.expand_path File.join(active_fixture_dir, 'cog', 'templates', name.to_s)
     end
     
-    # @param name [String] plugin fixture identifier
-    # @return [String] path to the test plugin with the given name
+    # @param name [String] plugin name
+    # @return [String] absolute file system path to the plugin directory
     def plugin(name)
-      File.expand_path File.join(spec_root, 'plugins', name.to_s, 'lib', "#{name}.rb")
+      File.expand_path File.join(active_fixture_dir, 'cog', 'plugins', name.to_s)
     end
-    
+
     # @param filename [String] name of a generated source file
     # @return [String] absolute path to the generated file
     def generated_file(filename)

@@ -55,9 +55,9 @@ module Cog
       @prepared = true
       @generator_path = []
       @template_path = []
+      @plugin_path = []
       @project_path = nil
       @plugins = {}
-      @active_plugin = nil
       @target_language = Language.new
       @active_languages = [Language.new] # active language stack
       @language = {}
@@ -82,16 +82,19 @@ module Cog
       process_cogfile built_in_cogfile
       return if opt[:minimal]
       process_cogfile user_cogfile if File.exists? user_cogfile
-      if opt[:active_plugin]
-        activate_plugin opt[:active_plugin]
-        process_cogfile active_plugin.cogfile_path
+      process_cogfile @project_cogfile_path, :plugin_path_only => true if @project_cogfile_path
+      plugins.each do |plugin|
+        process_cogfile plugin.cogfile_path, :plugin => plugin, :active_plugin => (plugin.name == opt[:active_plugin])
       end
       process_cogfile @project_cogfile_path if @project_cogfile_path
     end
     
     # @param path [String] path to the cogfile
-    def process_cogfile(path)
-      cogfile = DSL::Cogfile.new self, path
+    # @option opt [Boolean] :plugin_path_only (false) only process +plugin_path+ calls in the given cogfile
+    # @option opt [Boolean] :active_plugin (false) process the +stamp_generator+ call in the given cogfile
+    # @option opt [Plugin] :plugin (nil) indicate that the cogfile is for the given plugin
+    def process_cogfile(path, opt={})
+      cogfile = DSL::Cogfile.new self, path, opt
       cogfile.interpret
     end
     

@@ -1,6 +1,3 @@
-require 'cog'
-include Cog::Generator
-
 embed('contextual') do |c|
   ["hook is #{c.hook}",
    "filename is #{c.filename}",

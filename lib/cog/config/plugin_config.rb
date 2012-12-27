@@ -4,16 +4,6 @@ module Cog
     # {Config} methods related to plugins
     module PluginConfig
       
-      # @return [Plugin] the active plugin affects the creation of new generators
-      attr_reader :active_plugin
-      
-      # Activate the plugin with the given name
-      # @return [nil]
-      def activate_plugin(name)
-        raise Errors::NoSuchPlugin.new name unless @plugins.member? name
-        @active_plugin = @plugins[name]
-      end
-      
       # @return [Array<Plugin>] a sorted list of available plugins
       def plugins
         @plugins.values.sort

@@ -10,11 +10,7 @@ module Cog
     
     # @return [String] path to the plugin's cogfile
     attr_reader :cogfile_path
-      
-    # @api developer
-    # @return [GeneratorStamper] 
-    attr_reader :generator_stamper
-      
+
     # @param cogfile_path [String] path to the plugin Cogfile
     def initialize(cogfile_path)
       unless File.exists?(cogfile_path)

@@ -1,6 +1,3 @@
-require 'cog'
-include Cog::Generator
-
 @fruits = %w(apple orange pear).sort
 
 stamp 'fruit-files.pro', 'fruit-files.pro'

@@ -14,6 +14,7 @@ module Cog
   autoload :EmbedContext, 'cog/embed_context'
   autoload :Embeds, 'cog/embeds'
   autoload :Generator, 'cog/generator'
+  autoload :GeneratorSandbox, 'cog/generator_sandbox'
   autoload :Helpers, 'cog/helpers'
   autoload :Language, 'cog/language'
   autoload :Plugin, 'cog/plugin'
@@ -25,9 +26,11 @@ module Cog
   # @return [nil]
   def self.initialize_project
     @cogfile_type = :project
+    @prefix = 'cog/'
     Generator.stamp 'cog/Cogfile', 'Cogfile', :absolute_destination => true, :binding => binding, :once => true
     
     @cogfile_type = :user
+    @prefix = ''
     Generator.stamp 'cog/Cogfile', user_cogfile, :absolute_destination => true, :binding => binding, :once => true
     nil
   end

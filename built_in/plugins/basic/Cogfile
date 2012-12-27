@@ -1,4 +1,4 @@
-template_path 'plugin/templates'
+template_path 'templates'
 
 stamp_generator do |name, dest|
   @name = name

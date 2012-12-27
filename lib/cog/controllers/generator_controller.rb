@@ -30,8 +30,7 @@ module Cog
         raise Errors::ActionRequiresProject.new('run generator') unless Cog.project?
         path = File.join Cog.project_generator_path, "#{name}.rb"
         raise Errors::NoSuchGenerator.new(name) unless File.exists?(path)
-        require path
-        nil
+        GeneratorSandbox.new(path).interpret
       end
       
     end
