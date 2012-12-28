@@ -10,7 +10,10 @@ module Cog
     
     # @return [String] path to the plugin's cogfile
     attr_reader :cogfile_path
-
+    
+    # @return [Block] the block to use to stamp the generator
+    attr_accessor :stamp_generator_block
+    
     # @param cogfile_path [String] path to the plugin Cogfile
     def initialize(cogfile_path)
       unless File.exists?(cogfile_path)
@@ -20,7 +23,7 @@ module Cog
       @path = File.dirname @cogfile_path
       @name = File.basename @path
     end
-      
+    
     # Sort plugins by name
     def <=>(other)
       @name <=> other.name

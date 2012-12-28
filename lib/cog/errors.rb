@@ -47,16 +47,10 @@ module Cog
     end
     
     define_error :NoSuchFilter, 'filter'
-    
     define_error :NoSuchGenerator, 'generator'
-    
     define_error :NoSuchLanguage, 'language'
-
     define_error :NoSuchTemplate, 'template'
-
-    define_error :NoSuchPlugin, 'plugin' do
-      "no such plugin, make sure it appears in the COG_TOOLS environment variable"
-    end
+    define_error :NoSuchPlugin, 'plugin'
     
     define_error :NotAPluginCogfile, 'cogfile_path'
     

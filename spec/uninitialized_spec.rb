@@ -18,20 +18,24 @@ describe 'projects' do
       @cog.run(:init).should make(cogfile_path)
     end
     
-    it 'running `cog generator` will fail' do
-      @cog.run(:generator).should complain
+    it 'running `cog generator` do nothing' do
+      @cog.run(:generator).should_not do_something
     end
   
     it 'running `cog generator new piggy` will fail' do
       @cog.run(:generator, :new, :piggy).should complain
     end
     
-    it 'running `cog run` will fail' do
-      @cog.run(:generator, :run).should complain
+    it 'running `cog run` do nothing' do
+      @cog.run(:generator, :run).should_not do_something
     end
     
     it 'running `cog plugin` will not fail' do
       @cog.run(:plugin).should_not complain
+    end
+
+    it 'running `cog plugin new foo` will fail' do
+      @cog.run(:plugin, :new, :foo).should complain
     end
     
     it 'running `cog template` will not fail' do

@@ -18,13 +18,13 @@ describe 'cog' do
     end
     
     it 'running `cog plugin` should only list the built-in plugins' do
-      @cog.run(:plugin).should output([:basic])
+      @cog.run(:plugin).should output(['[cog] basic'])
     end
     
     it 'running `cog plugin new foo` should create a new project plugin' do
       @cog.run(:init).should do_something
       @cog.run(:plugin, :new, :foo).should make(plugin(:foo))
-      @cog.run('-p', :foo, :gen, :new, :bar).should make(generator(:bar))
+      @cog.run(:gen, :new, '-p', :foo, :bar).should make(generator(:bar))
       @cog.run(:gen).should output(['TODO: write generator code for foo'])
     end
   end
@@ -32,7 +32,7 @@ describe 'cog' do
   context 'with a user plugin installed' do
     it 'running `cog plugin` should list that plugin and the built-in plugins in alphabetical order' do
       use_home_fixture :plugins
-      @cog.run(:plugin).should output([:basic, :beef])
+      @cog.run(:plugin).should output(['[cog]                 basic', '[active_home_fixture] beef'])
     end
   end
   

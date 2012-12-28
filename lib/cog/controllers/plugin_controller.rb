@@ -11,7 +11,7 @@ module Cog
       # @return [nil]
       def self.create(name)
         raise Errors::ActionRequiresProject.new('create plugin') unless Cog.project?
-        raise Errors::DuplicatePlugin.new(name) if Cog.plugin_registered?(name)
+        raise Errors::DuplicatePlugin.new(name) unless Cog.plugin(name).nil?
         @cogfile_type = :plugin
         @prefix = ''
         @cog_version = Cog::VERSION
@@ -27,9 +27,11 @@ module Cog
       # @param opt [Boolean] :verbose (false) list full paths to plugins
       # @return [Array<String>] a list of available plugins
       def self.list(opt={})
-        Cog.plugins.collect do |plugin|
-          opt[:verbose] ? plugin.path : plugin.name
+        cs = Helpers::CascadingSet.new
+        Cog.plugins.each do |plugin|
+          cs.add_plugin plugin
         end
+        cs.to_a
       end
 
     end

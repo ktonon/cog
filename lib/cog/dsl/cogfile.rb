@@ -12,7 +12,6 @@ module Cog
       # @param config [Config] the object which will be configured by this Cogfile
       # @param path [String] path to the cogfile
       # @option opt [Boolean] :plugin_path_only (false) only process +plugin_path+ calls in the given cogfile
-      # @option opt [Boolean] :active_plugin (false) process the +stamp_generator+ call in the given cogfile
       # @option opt [Plugin] :plugin (nil) indicate that the cogfile is for the given plugin
       def initialize(config, path, opt={})
         @cogfile_context = {
@@ -20,7 +19,6 @@ module Cog
           :cogfile_path => path,
           :cogfile_dir => File.dirname(path),
           :plugin_path_only => opt[:plugin_path_only],
-          :active_plugin => opt[:active_plugin],
           :plugin => opt[:plugin],
         }
       end
@@ -120,11 +118,8 @@ module Cog
       # @yieldreturn [nil]
       # @return [nil]
       def stamp_generator(&block)
-        return if @cogfile_context[:plugin_path_only]
-        return unless @cogfile_context[:active_plugin]
-        config_eval do
-          @stamp_generator_block = block
-        end
+        raise Errors::NotAPluginCogfile.new cogfile_path unless @cogfile_context[:plugin]
+        @cogfile_context[:plugin].stamp_generator_block = block
       end
       
       def cogfile_path
@@ -136,6 +131,7 @@ module Cog
       def config_eval(&block)
         @cogfile_context[:config].instance_eval &block
       end
+      
     end
   end
 end

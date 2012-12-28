@@ -29,4 +29,16 @@ class String
     ext = '.' + ext unless ext.start_with? '.'
     end_with?(ext) ? slice(0..(-ext.length - 1)) : dup
   end
+  
+  def cog_source_and_type
+    if start_with? Cog.project_root
+      [File.basename(Cog.project_root), :project]
+    elsif start_with? Cog.user_dir
+      [File.basename(ENV['HOME']), :user]
+    elsif start_with? Cog.gem_dir
+      ['cog', :built_in]
+    else
+      ['unknown', :unknown]
+    end
+  end
 end

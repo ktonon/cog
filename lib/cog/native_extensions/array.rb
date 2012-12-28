@@ -9,14 +9,8 @@ class Array
     each do |path|
       source, source_type = if plugin = path.relative_to_which_plugin?
         [plugin.name, :plugin]
-      elsif path.start_with? Cog.gem_dir
-        ['cog', :built_in]
-      elsif path.start_with? Cog.user_dir
-        [File.basename(ENV['HOME']), :user]
-      elsif path.start_with? Cog.project_root
-        [File.basename(Cog.project_root), :project]
       else
-        ['unknown', :unknown]
+        path.cog_source_and_type
       end
       block.call source, source_type, path
     end

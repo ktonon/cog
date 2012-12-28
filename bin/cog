@@ -17,11 +17,6 @@ desc 'Set the Cogfile explicitly'
 arg_name 'path'
 flag :cogfile
 
-desc 'Set the active plugin'
-arg_name 'name'
-default_value 'basic'
-flag [:plugin, :p]
-
 desc 'Suppress the use of color in output'
 switch :colorless
 
@@ -53,13 +48,18 @@ command [:generator, :gen] do |c|
     sub.default_value 'in Cogfile'
     sub.flag [:language, :l]
     
+    sub.desc 'Specify the plugin which will be used to create the generator'
+    sub.arg_name 'name'
+    sub.default_value 'basic'
+    sub.flag [:plugin, :p]
+    
     sub.action do |gopt, opt, args|
       args.each do |name|
         if opt[:language] && opt[:language] != 'in Cogfile'
           lang = Cog::Languages.get_language opt[:language]
           Cog.target_language = lang
         end
-        Cog::Controllers::GeneratorController.create name
+        Cog::Controllers::GeneratorController.create name, :plugin_name => opt[:plugin]
       end
     end
   end
@@ -69,11 +69,13 @@ command [:generator, :gen] do |c|
   c.arg_name 'name'
   c.command :run do |sub|
     sub.action do |gopt, opt, args|
-      raise Cog::Errors::ActionRequiresProject.new('run generator') unless Cog.project?
       Cog::Embeds.gather_from_project
-      args = Cog::Controllers::GeneratorController.list if args.empty?
-      args.each do |name|
-        Cog::Controllers::GeneratorController.run name
+      if args.empty?
+        Cog::Controllers::GeneratorController.run_all
+      else
+        args.each do |name|
+          Cog::Controllers::GeneratorController.run name
+        end
       end
     end
   end
@@ -153,8 +155,7 @@ pre do |gopt, command, opt, args|
   else
     Cog.prepare(
       :minimal => command.name == :init,
-      :project_cogfile_path => gopt[:cogfile],
-      :active_plugin => gopt[:plugin]
+      :project_cogfile_path => gopt[:cogfile]
       )
     true
   end

@@ -48,7 +48,6 @@ module Cog
     # Must be called once before using cog.
     # In the context of a command-line invocation, this method will be called automatically. Outside of that context, for example in a unit test, it will have to be called manually.
     # @option opt [Boolean] :minimal (false) only load the built-in Cogfile
-    # @option opt [String] :active_plugin (nil) name of the active plugin
     # @option opt [String] :project_cogfile_path (nil) explicitly specify the location of the project {Cogfile}. If not provided, it will be searched for. If none can be found, {#project?} will be +false+
     def prepare(opt={})
       throw :ConfigInstanceAlreadyPrepared if @prepared && !opt[:force_reset]
@@ -71,7 +70,6 @@ module Cog
     private
     
     # @option opt [Boolean] :minimal (false) only load the built-in Cogfile
-    # @option opt [String] :active_plugin (nil) name of the active plugin
     # @option opt [String] :project_cogfile_path (nil) project cogfile
     def process_cogfiles(opt={})
       @project_cogfile_path = opt[:project_cogfile_path] || find_default_cogfile
@@ -84,7 +82,7 @@ module Cog
       process_cogfile user_cogfile if File.exists? user_cogfile
       process_cogfile @project_cogfile_path, :plugin_path_only => true if @project_cogfile_path
       plugins.each do |plugin|
-        process_cogfile plugin.cogfile_path, :plugin => plugin, :active_plugin => (plugin.name == opt[:active_plugin])
+        process_cogfile plugin.cogfile_path, :plugin => plugin
       end
       process_cogfile @project_cogfile_path if @project_cogfile_path
     end

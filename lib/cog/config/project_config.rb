@@ -35,8 +35,12 @@ module Cog
       
       # @return [Array<String>] list of paths to files in the {#project_path} which are written in a supported language
       def supported_project_files
-        exts = Cog.language_extensions.join ','
-        Dir.glob "#{Cog.project_path}/**/*.{#{exts}}"
+        if project?
+          exts = Cog.language_extensions.join ','
+          Dir.glob "#{Cog.project_path}/**/*.{#{exts}}"
+        else
+          []
+        end
       end
       
     end
