@@ -26,20 +26,24 @@ describe 'projects' do
       @cog.run(:generator, :new, :piggy).should complain
     end
     
+    it 'running `cog gen list` should list built-in generators' do
+      @cog.run(:generator, :list).should output(/^\[cog\]\s+sort$/m)
+    end
+    
     it 'running `cog run` do nothing' do
       @cog.run(:generator, :run).should_not do_something
     end
     
-    it 'running `cog plugin` will not fail' do
-      @cog.run(:plugin).should_not complain
+    it 'running `cog plugin` should list built-in plugins' do
+      @cog.run(:plugin).should output(/^\[cog\]\s+basic$/m)
     end
 
     it 'running `cog plugin new foo` will fail' do
       @cog.run(:plugin, :new, :foo).should complain
     end
     
-    it 'running `cog template` will not fail' do
-      @cog.run(:template).should_not complain
+    it 'running `cog template` should list built-in templates' do
+      @cog.run(:template).should output(/^\[cog\]\s+warning$/m)
     end
     
     it 'running `cog template new piggy.txt` will fail' do

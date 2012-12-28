@@ -4,6 +4,11 @@ module Cog
     # {Config} methods related to plugins
     module PluginConfig
       
+      # @return [Plugin] the plugin registered for the given name
+      def plugin(name)
+        @plugins[name]
+      end
+    
       # @return [Array<Plugin>] a sorted list of available plugins
       def plugins
         @plugins.values.sort
@@ -21,12 +26,6 @@ module Cog
         nil
       end
 
-      # @api developer
-      # @return [Boolean] whether or not a plugin is registered with the given name
-      def plugin(name)
-        @plugins[name]
-      end
-    
     end
   end
 end

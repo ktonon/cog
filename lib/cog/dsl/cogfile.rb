@@ -39,7 +39,6 @@ module Cog
         return if @cogfile_context[:plugin_path_only]
         path = File.join @cogfile_context[:cogfile_dir], path unless absolute
         config_eval { @generator_path << path }
-        nil
       end
 
       # Define a directory in which to find templates
@@ -50,7 +49,6 @@ module Cog
         return if @cogfile_context[:plugin_path_only]
         path = File.join @cogfile_context[:cogfile_dir], path unless absolute
         config_eval { @template_path << path }
-        nil
       end
       
       # Define a directory in which to find plugins
@@ -64,7 +62,6 @@ module Cog
         if File.exists?(path)
           @cogfile_context[:config].register_plugins path
         end
-        nil
       end
 
       # Define the directory in which to generate code
@@ -75,7 +72,6 @@ module Cog
         return if @cogfile_context[:plugin_path_only]
         path = File.join @cogfile_context[:cogfile_dir], path unless absolute
         config_eval { @project_path = path }
-        nil
       end
 
       # Explicitly specify a mapping from file extensions to languages
@@ -88,7 +84,6 @@ module Cog
             @language_extension_map[key.to_s.downcase] = value
           end
         end
-        nil
       end
       
       # Define and register a language with cog
@@ -128,8 +123,10 @@ module Cog
 
       private
       
+      # @return [nil]
       def config_eval(&block)
         @cogfile_context[:config].instance_eval &block
+        nil
       end
       
     end

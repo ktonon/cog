@@ -42,13 +42,23 @@ module Cog
       end
       
       # The target {Invocation} should write the given list of lines to standard output
-      # @param x [Array<String>] a list of lines to match against standard output
+      # @param x [Array<String>, Regexp] a list of lines to match against standard output
       # @return [nil]
       def output(x)
         match_maker do
-          message { "to [write|not write] #{x.join "\n"} to STDOUT"}
+          message do
+            if x.is_a? Regexp
+              "to [write|not write] #{x.inspect} to STDOUT"
+            else
+              "to [write|not write] #{x.join "\n"} to STDOUT"
+            end
+          end
           test do
-            lines.zip(x).all? {|a, b| a.strip == b.to_s.strip}
+            if x.is_a? Regexp
+              x =~ lines.join("\n")
+            else
+              lines.zip(x).all? {|a, b| a.strip == b.to_s.strip}
+            end
           end
         end
       end

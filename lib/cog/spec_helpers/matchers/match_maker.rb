@@ -92,7 +92,7 @@ module Cog
         
         def _failure_message(repl)
           msg = instance_eval &@msg_block
-          msg = msg.gsub /\[([^\|\]]*)(?:\|([^\]]*)\])?/, '\2'
+          msg = msg.gsub /\[([^\|\]]*)(?:\|([^\]]*)\])?/, repl
           "expected #{@invocation} #{msg}\n#{trace}"
         end
       end
