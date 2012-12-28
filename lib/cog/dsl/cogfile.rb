@@ -31,39 +31,6 @@ module Cog
         nil
       end
     
-      # Define a directory in which to find generators
-      # @param path [String] a file system path
-      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
-      # @return [nil]
-      def generator_path(path, absolute=false)
-        return if @cogfile_context[:plugin_path_only]
-        path = File.join @cogfile_context[:cogfile_dir], path unless absolute
-        config_eval { @generator_path << path }
-      end
-
-      # Define a directory in which to find templates
-      # @param path [String] a file system path
-      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
-      # @return [nil]
-      def template_path(path, absolute=false)
-        return if @cogfile_context[:plugin_path_only]
-        path = File.join @cogfile_context[:cogfile_dir], path unless absolute
-        config_eval { @template_path << path }
-      end
-      
-      # Define a directory in which to find plugins
-      # @param path [String] a file system path
-      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
-      # @return [nil]
-      def plugin_path(path, absolute=false)
-        path = File.join @cogfile_context[:cogfile_dir], path unless absolute
-        raise Errors::PluginPathIsNotADirectory.new path if File.exists?(path) && !File.directory?(path)
-        config_eval { @plugin_path << path }
-        if File.exists?(path)
-          @cogfile_context[:config].register_plugins path
-        end
-      end
-
       # Define the directory in which to generate code
       # @param path [String] a file system path to a directory
       # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
@@ -72,6 +39,36 @@ module Cog
         return if @cogfile_context[:plugin_path_only]
         path = File.join @cogfile_context[:cogfile_dir], path unless absolute
         config_eval { @project_path = path }
+      end
+
+      # Define a directory in which to find generators
+      # @param path [String] a file system path
+      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
+      # @return [nil]
+      def generator_path(path, absolute=false)
+        return if @cogfile_context[:plugin_path_only]
+        add_config_path :generator, path, absolute
+      end
+
+      # Define a directory in which to find templates
+      # @param path [String] a file system path
+      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
+      # @return [nil]
+      def template_path(path, absolute=false)
+        return if @cogfile_context[:plugin_path_only]
+        add_config_path :template, path, absolute
+      end
+      
+      # Define a directory in which to find plugins
+      # @param path [String] a file system path
+      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
+      # @return [nil]
+      def plugin_path(path, absolute=false)
+        path = add_config_path :plugin, path, absolute
+        if File.exists?(path)
+          raise Errors::PluginPathIsNotADirectory.new path unless File.directory?(path)
+          @cogfile_context[:config].register_plugins path
+        end
       end
 
       # Explicitly specify a mapping from file extensions to languages
@@ -129,6 +126,12 @@ module Cog
         nil
       end
       
+      # @return [String] absolute path
+      def add_config_path(name, path, absolute)
+        path = File.join @cogfile_context[:cogfile_dir], path unless absolute
+        config_eval { instance_variable_get("@#{name}_path") << path }
+        path
+      end
     end
   end
 end
