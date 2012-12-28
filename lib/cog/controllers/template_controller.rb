@@ -9,9 +9,10 @@ module Cog
       # @option opt [Boolean] :force_override (false) if a built-in or plugin template with the same name already exists, should a project override be created?
       # @return [nil]
       def self.create(name, opt={})
-        raise Errors::ActionRequiresProject.new('create template') unless Cog.project?
+        prefix = Cog.project_template_path
+        raise Errors::ActionRequiresProjectTemplatePath.new('create template') unless prefix
         name = name.without_extension :erb
-        dest = File.join Cog.project_template_path, "#{name}.erb"
+        dest = File.join prefix, "#{name}.erb"
         original = Generator.get_template name, :as_path => true
         Generator.copy_file_if_missing original, dest
         nil

@@ -10,17 +10,22 @@ module Cog
       # @param name [String] name of the plugin to create. Should not conflict with other plugin names
       # @return [nil]
       def self.create(name)
-        raise Errors::ActionRequiresProject.new('create plugin') unless Cog.project?
         raise Errors::DuplicatePlugin.new(name) unless Cog.plugin(name).nil?
         @cogfile_type = :plugin
         @prefix = ''
         @cog_version = Cog::VERSION
         @plugin_name = name.to_s.underscore
         @plugin_module = name.to_s.camelize
+        prefix = Cog.project_plugin_path
+        prefix = prefix ? "#{prefix}/" : ''
         opt = { :absolute_destination => true, :binding => binding }
-        Generator.stamp 'cog/Cogfile', "#{Cog.project_plugin_path}/#{@plugin_name}/Cogfile", opt
-        Generator.stamp 'cog/plugin/plugin.rb', "#{Cog.project_plugin_path}/#{@plugin_name}/lib/#{@plugin_name}.rb", opt
-        Generator.stamp 'cog/plugin/generator.rb.erb', "#{Cog.project_plugin_path}/#{@plugin_name}/templates/#{@plugin_name}/generator.rb.erb", opt
+        [
+          ['Cogfile', 'Cogfile'],
+          ['plugin/plugin.rb', "lib/#{@plugin_name}.rb"],
+          ['plugin/generator.rb.erb', "templates/#{@plugin_name}/generator.rb.erb"],
+        ].each do |tm, dest|
+          Generator.stamp "cog/#{tm}", "#{prefix}#{@plugin_name}/#{dest}", opt
+        end
         nil
       end
 

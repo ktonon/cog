@@ -38,8 +38,8 @@ describe 'projects' do
       @cog.run(:plugin).should output(/^\[cog\]\s+basic$/m)
     end
 
-    it 'running `cog plugin new foo` will fail' do
-      @cog.run(:plugin, :new, :foo).should complain
+    it 'running `cog plugin new foo` should create a plugin in the current directory' do
+      @cog.run(:plugin, :new, :foo).should make('foo/Cogfile')
     end
     
     it 'running `cog template` should list built-in templates' do

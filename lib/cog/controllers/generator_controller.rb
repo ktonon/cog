@@ -10,12 +10,13 @@ module Cog
       # @return [Boolean] was the generator successfully created?
       def self.create(name, opt={})
         plugin = Cog.plugin(opt[:plugin_name])
+        prefix = Cog.project_generator_path
         raise Errors::NoSuchPlugin.new(opt[:plugin_name]) if plugin.nil?
         raise Errors::PluginMissingDefinition.new('stamp_generator') if plugin.stamp_generator_block.nil?
-        raise Errors::ActionRequiresProject.new('create generator') unless Cog.project?
-        generator_dest = File.join Cog.project_generator_path, "#{name}.rb"
-        raise Errors::DuplicateGenerator.new(generator_dest) if File.exists?(generator_dest)
-        plugin.stamp_generator_block.call name.to_s, generator_dest
+        raise Errors::ActionRequiresProjectGeneratorPath.new('create generator') unless prefix
+        dest = File.join prefix, "#{name}.rb"
+        raise Errors::DuplicateGenerator.new(dest) if File.exists?(dest)
+        plugin.stamp_generator_block.call name.to_s, dest
       end
 
       # List the available project generators

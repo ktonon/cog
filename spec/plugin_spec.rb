@@ -32,7 +32,7 @@ describe 'cog' do
   context 'with a user plugin installed' do
     it 'running `cog plugin` should list that plugin and the built-in plugins in alphabetical order' do
       use_home_fixture :plugins
-      @cog.run(:plugin).should output(['[cog]                 basic', '[active_home_fixture] beef'])
+      @cog.run(:plugin).should output(/\[cog\]\s+basic.*\[active_home_fixture\]\s+beef/m)
     end
   end
   

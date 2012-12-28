@@ -28,18 +28,11 @@ module Cog
       end
     end
 
-    define_error :ActionRequiresProject, 'action' do
-      "the action requires a project, but no Cogfile was found"
-    end
+    define_error :ActionRequiresProjectGeneratorPath, 'action'
+    define_error :ActionRequiresProjectTemplatePath, 'action'
+    define_error :ActionRequiresProjectPluginPath, 'action'
     
-    define_error :CouldNotLoadPlugin, 'plugin'
-    
-    define_error :DestinationAlreadyExists, 'path' do
-      "a file or directory at the given path already exists, cannot create anything there"
-    end
-
     define_error :DuplicateGenerator, 'generator'
-    
     define_error :DuplicatePlugin, 'plugin'
 
     define_error :InvalidPluginConfiguration, 'path to cog_plugin.rb file' do
@@ -54,8 +47,6 @@ module Cog
     
     define_error :NotAPluginCogfile, 'cogfile_path'
     
-    define_error :PluginPathDoesNotExist, 'plugin_path'
-
     define_error :PluginPathIsNotADirectory, 'plugin_path'
     
     define_error :ScopeStackUnderflow, 'caller' do

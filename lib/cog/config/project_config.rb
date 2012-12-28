@@ -20,17 +20,17 @@ module Cog
 
       # @return [String,nil] directory in which to find project generators, or +nil+ if not a {project?}
       def project_generator_path
-        generator_path.last if project?
+        path_if_for_project generator_path.last
       end
 
       # @return [String,nil] directory in which to find project templates, or +nil+ if not a {project?}
       def project_template_path
-        template_path.last if project?
+        path_if_for_project template_path.last
       end
       
       # @return [String,nil] directory in which to find project plugins, or +nil+ if not a {project?}
       def project_plugin_path
-        @plugin_path.last if project?
+        path_if_for_project plugin_path.last
       end
       
       # @return [Array<String>] list of paths to files in the {#project_path} which are written in a supported language
@@ -41,6 +41,12 @@ module Cog
         else
           []
         end
+      end
+      
+      private
+      
+      def path_if_for_project(path)
+        path if path && path.start_with?(@project_root)
       end
       
     end

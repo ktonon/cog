@@ -18,6 +18,9 @@ module Cog
     # @return [Array<String>] directories in which to find templates
     attr_reader :template_path
 
+    # @return [Array<String>] directories in which to find plugins
+    attr_reader :plugin_path
+
     # @return [String] Location of the installed cog gem
     def gem_dir
       spec = Gem.loaded_specs['cog']
