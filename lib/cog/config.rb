@@ -44,14 +44,21 @@ module Cog
     def default_cogfile_template
       File.join gem_dir, 'Default.cogfile'
     end
+
+    # @return [Boolean] when listing files, full paths should be shown
+    def show_fullpaths?
+      @fullpaths
+    end
     
     # Must be called once before using cog.
     # In the context of a command-line invocation, this method will be called automatically. Outside of that context, for example in a unit test, it will have to be called manually.
+    # @option opt [Boolean] :fullpaths (false) when listing files, full paths should be shown
     # @option opt [Boolean] :minimal (false) only load the built-in Cogfile
     # @option opt [String] :project_cogfile_path (nil) explicitly specify the location of the project {Cogfile}. If not provided, it will be searched for. If none can be found, {#project?} will be +false+
     def prepare(opt={})
       throw :ConfigInstanceAlreadyPrepared if @prepared && !opt[:force_reset]
       @prepared = true
+      @fullpaths = opt[:fullpaths]
       @generator_path = []
       @template_path = []
       @plugin_path = []

@@ -58,6 +58,21 @@ module Cog
         @info = {}
       end
 
+      # Look for sources in each of the given paths
+      # @param paths [Array<String>] a list of file system paths containing sources
+      # @option opt [String] :ext File extension of sources to glob for in each path
+      # @return [Array<String>] formatted listing of the sources
+      def self.process_paths(paths, opt={})
+        cs = Helpers::CascadingSet.new
+        paths.each_with_cog_source do |source, type, path|
+          opt[:source] = source
+          opt[:type] = type
+          opt[:root_dir] = path
+          cs.add_sources opt
+        end
+        cs.to_a
+      end
+      
       # @option opt [String] :source (nil) the name of the source
       # @option opt [Symbol] :type (nil) must be one of <tt>:built_in</tt>, <tt>:user</tt>, <tt>:plugin</tt>, or <tt>:project</tt>
       # @option opt [String] :root_dir (nil) directory in which to look for sources
@@ -65,7 +80,7 @@ module Cog
         Dir.glob("#{opt[:root_dir]}/**/*.#{opt[:ext]}") do |path|
           name = path.relative_to(opt[:root_dir]).slice(0..-(2 + opt[:ext].length))
           @info[name] ||= SourceInfo.new name
-          @info[name].path = path if opt[:verbose]
+          @info[name].path = path if Cog.show_fullpaths?
           @info[name].add_source opt[:source], opt[:type]
         end
       end
@@ -73,7 +88,7 @@ module Cog
       # @param plugin [Plugin] name of the plugin
       def add_plugin(plugin, opt={})
         @info[plugin.name] ||= SourceInfo.new plugin.name
-        @info[plugin.name].path = plugin.path if opt[:verbose]
+        @info[plugin.name].path = plugin.path if Cog.show_fullpaths?
         @info[plugin.name].add_source *plugin.path.cog_source_and_type
       end
       

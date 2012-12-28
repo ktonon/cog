@@ -22,18 +22,9 @@ module Cog
       end
 
       # List the available templates
-      # @option opt [Boolean] :verbose (false) list full template paths
       # @return [Array<String>] a list of templates
-      def self.list(opt={})
-        opt[:ext] = 'erb'
-        cs = Helpers::CascadingSet.new
-        Cog.template_path.each_with_cog_source do |source, type, path|
-          opt[:source] = source
-          opt[:type] = type
-          opt[:root_dir] = path
-          cs.add_sources opt
-        end
-        cs.to_a
+      def self.list
+        Helpers::CascadingSet.process_paths Cog.template_path, :ext => 'erb'
       end
       
     end

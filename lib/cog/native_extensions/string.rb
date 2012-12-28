@@ -2,15 +2,21 @@ class String
   
   # @return [String] strips {Cog::Config::ProjectMethods#project_root} from the beginning of this string
   def relative_to_project_root
-    return dup unless Cog.project?
-    relative_to Cog.project_root
+    if Cog.show_fullpaths?
+      File.expand_path self
+    else
+      Cog.project? ? relative_to(Cog.project_root) : dup
+    end
   end
   
   # @param prefix [String] path prefix to strip from the beginning of this string
   # @return [String] this string as a file system path relative to the +prefix+
   def relative_to(prefix)
-    return dup if prefix.nil?
-    start_with?(prefix.to_s) ? slice(prefix.to_s.length+1..-1) : dup
+    if Cog.show_fullpaths?
+      File.expand_path self
+    else
+      prefix && start_with?(prefix.to_s) ? slice(prefix.to_s.length+1..-1) : dup
+    end
   end
 
   # @return [Cog::Plugin,nil] if this string can be interpretted as a path relative to one of the registered cog plugins, return that plugin, otherwise return +nil+

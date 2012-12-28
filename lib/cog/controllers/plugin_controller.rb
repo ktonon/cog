@@ -24,7 +24,6 @@ module Cog
         nil
       end
 
-      # @param opt [Boolean] :verbose (false) list full paths to plugins
       # @return [Array<String>] a list of available plugins
       def self.list(opt={})
         cs = Helpers::CascadingSet.new

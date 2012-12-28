@@ -19,18 +19,9 @@ module Cog
       end
 
       # List the available project generators
-      # @option opt [Boolean] :verbose (false) list full paths to generator files
       # @return [Array<String>] a list of generators
-      def self.list(opt={})
-        opt[:ext] = 'rb'
-        cs = Helpers::CascadingSet.new
-        Cog.generator_path.each_with_cog_source do |source, type, path|
-          opt[:source] = source
-          opt[:type] = type
-          opt[:root_dir] = path
-          cs.add_sources opt
-        end
-        cs.to_a
+      def self.list
+        Helpers::CascadingSet.process_paths Cog.generator_path, :ext => 'rb'
       end
 
       # Run the generator with the given name

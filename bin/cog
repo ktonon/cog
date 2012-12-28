@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require 'gli'
-$LOAD_PATH << File.join(File.dirname(__FILE__), '..', 'lib')
 require 'cog'
 
 include GLI::App
@@ -10,8 +9,8 @@ program_desc 'This is a utility to help you write code generators.'
 desc 'Current version of cog'
 version Cog::VERSION
 
-desc 'Output more detailed information when running a command'
-switch [:verbose]
+desc 'When listing files, show the full path to the file'
+switch :fullpaths
 
 desc 'Set the Cogfile explicitly'
 arg_name 'path'
@@ -36,7 +35,7 @@ command [:generator, :gen] do |c|
   c.desc 'List project generators'
   c.command :list do |sub|
     sub.action do |gopt, opt, args|
-      x = Cog::Controllers::GeneratorController.list :verbose => gopt[:v]
+      x = Cog::Controllers::GeneratorController.list
       puts x.join "\n" unless x.empty?
     end
   end
@@ -89,7 +88,7 @@ command :plugin do |c|
   c.desc 'List the available plugins'
   c.command :list do |sub|
     sub.action do |gopt, opt, args|
-      x = Cog::Controllers::PluginController.list :verbose => gopt[:verbose]
+      x = Cog::Controllers::PluginController.list
       puts x.join "\n" unless x.empty?
     end
   end
@@ -113,7 +112,7 @@ command [:template, :tm] do |c|
   c.desc 'List the available templates'
   c.command :list do |sub|
     sub.action do |gopt, opt, args|
-      x = Cog::Controllers::TemplateController.list :verbose => gopt[:verbose]
+      x = Cog::Controllers::TemplateController.list
       puts x.join "\n" unless x.empty?
     end
   end
@@ -155,7 +154,8 @@ pre do |gopt, command, opt, args|
   else
     Cog.prepare(
       :minimal => command.name == :init,
-      :project_cogfile_path => gopt[:cogfile]
+      :project_cogfile_path => gopt[:cogfile],
+      :fullpaths => gopt[:fullpaths]
       )
     true
   end
