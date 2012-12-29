@@ -11,6 +11,7 @@ module Cog
       # @api developer
       # @param config [Config] the object which will be configured by this Cogfile
       # @param path [String] path to the cogfile
+      # @option opt [Boolean] :project (false) is this the project cogfile?
       # @option opt [Boolean] :plugin_path_only (false) only process +plugin_path+ calls in the given cogfile
       # @option opt [Plugin] :plugin (nil) indicate that the cogfile is for the given plugin
       def initialize(config, path, opt={})
@@ -18,6 +19,7 @@ module Cog
           :config => config,
           :cogfile_path => path,
           :cogfile_dir => File.dirname(path),
+          :project => opt[:project],
           :plugin_path_only => opt[:plugin_path_only],
           :plugin => opt[:plugin],
         }
@@ -130,7 +132,11 @@ module Cog
       def add_config_path(name, path, absolute)
         return if path.nil?
         path = File.join @cogfile_context[:cogfile_dir], path unless absolute
-        config_eval { instance_variable_get("@#{name}_path") << path }
+        is_project = @cogfile_context[:project]
+        config_eval do
+          instance_variable_set("@project_#{name}_path", path) if is_project
+          instance_variable_get("@#{name}_path") << path
+        end
         path
       end
     end

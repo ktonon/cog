@@ -37,7 +37,7 @@ class String
   end
   
   def cog_source_and_type
-    if start_with? Cog.project_root
+    if start_with?(Cog.project_root) || start_with?(Cog.project_template_path) || start_with?(Cog.project_generator_path) || start_with?(Cog.project_plugin_path)
       [File.basename(Cog.project_root), :project]
     elsif start_with? Cog.user_dir
       [File.basename(ENV['HOME']), :user]

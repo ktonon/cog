@@ -13,26 +13,20 @@ module Cog
       # @return [String] directory in which the project's {DSL::Cogfile} is found
       attr_reader :project_root
     
+      # @return [String,nil] directory in which to find project generators
+      attr_reader :project_generator_path
+
+      # @return [String,nil] directory in which to find project plugins
+      attr_reader :project_plugin_path
+
+      # @return [String,nil] directory in which to find project templates
+      attr_reader :project_template_path
+      
       # @return [Boolean] whether or not we operating in the context of a project
       def project?
         !@project_root.nil?
       end
 
-      # @return [String,nil] directory in which to find project generators, or +nil+ if not a {#project?}
-      def project_generator_path
-        path_if_for_project generator_path.last
-      end
-
-      # @return [String,nil] directory in which to find project templates, or +nil+ if not a {#project?}
-      def project_template_path
-        path_if_for_project template_path.last
-      end
-      
-      # @return [String,nil] directory in which to find project plugins, or +nil+ if not a {#project?}
-      def project_plugin_path
-        path_if_for_project plugin_path.last
-      end
-      
       # @return [Array<String>] list of paths to files in the {#project_path} which are written in a supported language
       def supported_project_files
         if project?

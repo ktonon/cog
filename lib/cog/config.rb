@@ -63,10 +63,13 @@ module Cog
       throw :ConfigInstanceAlreadyPrepared if @prepared && !opt[:force_reset]
       @prepared = true
       @fullpaths = opt[:fullpaths]
-      @generator_path = []
-      @template_path = []
-      @plugin_path = []
       @project_path = nil
+      @project_generator_path = nil
+      @project_plugin_path = nil
+      @project_template_path = nil
+      @generator_path = []
+      @plugin_path = []
+      @template_path = []
       @plugins = {}
       @target_language = Language.new
       @active_languages = [Language.new] # active language stack
@@ -95,7 +98,7 @@ module Cog
       plugins.each do |plugin|
         process_cogfile plugin.cogfile_path, :plugin => plugin
       end
-      process_cogfile @project_cogfile_path if @project_cogfile_path
+      process_cogfile @project_cogfile_path, :project => true if @project_cogfile_path
     end
     
     # @param path [String] path to the cogfile
