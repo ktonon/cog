@@ -30,7 +30,7 @@ module Cog
       end
 
       # @return [Array<String>] a list of available plugins
-      def self.list(opt={})
+      def self.list
         cs = Helpers::CascadingSet.new
         Cog.plugins.each do |plugin|
           cs.add_plugin plugin

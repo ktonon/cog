@@ -1,3 +1,4 @@
+# @api developer
 class Array
   
   # Iterate through each path in this array

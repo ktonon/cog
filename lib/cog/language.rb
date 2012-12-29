@@ -26,6 +26,12 @@ module Cog
       @multiline_comment_prefix = nil
       @multiline_comment_postfix = nil
       @extensions = []
+      identibitch = lambda {|name| ''}
+      @use_named_scope_block = identibitch
+      @named_scope_begin_block = identibitch
+      @named_scope_end_block = identibitch
+      @include_guard_begin_block = identibitch
+      @include_guard_end_block = identibitch
     end
       
     # @param nested_pattern [String] regular expression pattern (as a string) to embed in the regular expression which matches one line comments in this language
@@ -93,31 +99,31 @@ module Cog
     # @param name [String] name of the scope to use
     # @return [String] a using statement for the named scope
     def use_named_scope(name)
-      ""
+      @use_named_scope_block.call name
     end
       
     # @param name [String] name of the scope
     # @return [String] begin a named scope
     def named_scope_begin(name)
-      ""
+      @named_scope_begin_block.call name
     end
 
     # @param name [String] name of the scope
     # @return [String] end the given named scope
     def named_scope_end(name)
-      ""
+      @named_scope_end_block.call name
     end
       
     # @param name [String] name of the module to protect
     # @return [String] an include guard statement
     def include_guard_begin(name)
-      ""
+      @include_guard_begin_block.call name
     end
       
     # @param name [String] name of the module to protect
     # @return [String] an include guard end statement
     def include_guard_end(name)
-      ""
+      @include_guard_end_block.call name
     end
   end
 end

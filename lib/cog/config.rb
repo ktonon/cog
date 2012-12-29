@@ -1,7 +1,6 @@
 module Cog
   
   # This is a low level interface. It is mainly used by the {Generator} methods to determine where to find things, and where to put them.
-  # When +cog+ is used in a project it will be configured with a {DSL::Cogfile}. The Cogfile is processed during a call to {#prepare}.
   module Config
 
     autoload :LanguageConfig, 'cog/config/language_config'

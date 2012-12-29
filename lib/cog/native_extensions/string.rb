@@ -1,3 +1,4 @@
+# @api developer
 class String
   
   # @return [String] strips {Cog::Config::ProjectConfig#project_root} from the beginning of this string
@@ -35,7 +36,8 @@ class String
     ext = '.' + ext unless ext.start_with? '.'
     end_with?(ext) ? slice(0..(-ext.length - 1)) : dup
   end
-  
+
+  # @return [String, String] source and type, where type is one of <tt>:project</tt>, <tt>:user</tt>, <tt>:built_in</tt>, <tt>:gem</tt>, or <tt>:unknown</tt>
   def cog_source_and_type
     if start_with?(Cog.project_root) || start_with?(Cog.project_template_path) || start_with?(Cog.project_generator_path) || start_with?(Cog.project_plugin_path)
       [File.basename(Cog.project_root), :project]

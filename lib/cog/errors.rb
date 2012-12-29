@@ -45,8 +45,6 @@ module Cog
     define_error :NoSuchTemplate, 'template'
     define_error :NoSuchPlugin, 'plugin'
     
-    define_error :NotAPluginCogfile, 'cogfile_path'
-    
     define_error :PluginPathIsNotADirectory, 'plugin_path'
     
     define_error :ScopeStackUnderflow, 'caller' do

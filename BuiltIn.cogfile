@@ -14,6 +14,11 @@ language 'c++' do |l|
   l.name 'C++'
   l.comment_style :c
   l.extension :h, :hh, :hpp, :hxx, 'h++', :cc, :cpp, :cxx, 'c++'
+  l.use_named_scope {|name| "using namespace #{name};"}
+  l.named_scope_begin {|name| "namespace #{name} {"}
+  l.named_scope_end {|name| "} // namespace #{name}"}
+  l.include_guard_begin {|name| "#ifndef #{name.underscore.upcase}\n#define #{name.underscore.upcase}"}
+  l.include_guard_end {|name| "#endif"}
 end
 
 language 'c#' do |l|

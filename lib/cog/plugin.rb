@@ -1,5 +1,6 @@
 module Cog
 
+  # Describes a plugin found on the {Config#plugin_path}. The plugin {DSL::Cogfile} will have already been processed, and should have contained a call to {DSL::Cogfile#autoload_plugin}, which will make it's DSL available to generators via a {GeneratorSandbox}.
   class Plugin
       
     # @return [String] name of the plugin

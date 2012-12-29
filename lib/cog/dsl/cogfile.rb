@@ -87,7 +87,7 @@ module Cog
       
       # Define and register a language with cog
       # @param key [String] unique case-insensitive identifier
-      # @yieldparam lang_def [LanguageDefinition] an interface for defining the language
+      # @yieldparam lang [LanguageDSL] an interface for defining the language
       # @return [Object] the return value of the block
       def language(key, &block)
         return if @cogfile_context[:plugin_path_only]
@@ -100,19 +100,20 @@ module Cog
         r
       end
 
-      # Register an autoload variable
-      def autoload_plugin(name, path)
-        raise Errors::NotAPluginCogfile.new cogfile_path unless @cogfile_context[:plugin]
-        GeneratorSandbox.autoload_plugin(name, File.join(@cogfile_context[:plugin].path, path))
+      # Register an autoload variable in the class {GeneratorSandbox}. That way when generators are run as instances of a sandbox, they will be able to load plugins just by referencing them using the provided +identifier_name+.
+      # @param identifier_name [String] identifier by which the plugin can be referenced in generators
+      # @param path [String] path to the ruby file to load when the identifier is referenced (relative to the cogfile)
+      # @return [nil]
+      def autoload_plugin(identifier_name, path)
+        GeneratorSandbox.autoload_plugin(identifier_name, File.join(@cogfile_context[:plugin].path, path))
       end
       
-      # Define a block to call when stamping a generator
+      # Define a block to call when stamping a generator for a plugin. A call to this method should only be used in plugin cogfiles.
       # @yieldparam name [String] name of the generator to stamp
       # @yieldparam dest [String] file system path where the file will be created
       # @yieldreturn [nil]
       # @return [nil]
       def stamp_generator(&block)
-        raise Errors::NotAPluginCogfile.new cogfile_path unless @cogfile_context[:plugin]
         @cogfile_context[:plugin].stamp_generator_block = block
       end
       

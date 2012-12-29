@@ -5,7 +5,7 @@ require 'rainbow'
 require 'cog/errors'
 require 'cog/native_extensions'
 
-# This top level module serves as a singleton instance of the {Config} interface.
+# This top level module serves as a singleton instance of the {Config} interface. It is configured with various cogfiles, which are evaluated as instances of {DSL::Cogfile}.
 module Cog
 
   autoload :Config, 'cog/config'
