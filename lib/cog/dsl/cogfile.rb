@@ -80,7 +80,7 @@ module Cog
         return if @cogfile_context[:plugin_path_only]
         config_eval do
           map.each_pair do |key, value|
-            @language_extension_map[key.to_s.downcase] = value
+            @language_extension_map[key.to_s.downcase] = value.to_s.downcase
           end
         end
       end

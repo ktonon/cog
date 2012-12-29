@@ -99,6 +99,13 @@ module Cog
         nil
       end
       
+      # Borrow include guard notation from another language
+      # @param lang_key [String] use include guard notation from the language with the given key
+      # @return [nil]
+      def include_guard_style(lang_key)
+        lang_eval { @include_guard_style = lang_key.to_s.downcase }
+        nil
+      end
       
       # @api developer
       # Compute the comment pattern
@@ -110,7 +117,8 @@ module Cog
         end
         
         lang_eval do
-          @comment_style = key unless @comment_style
+          @include_guard_style ||= key
+          @comment_style ||= key
           @comment_pattern = if @comment_prefix && @multiline_comment_prefix
             '^\s*(?:%s|%s)\s*%%s\s*(?:%s)?\s*$' % [@comment_prefix, @multiline_comment_prefix, @multiline_comment_postfix].collect(&esc)
           elsif @comment_prefix

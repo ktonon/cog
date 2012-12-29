@@ -8,23 +8,26 @@ language :c do |l|
   l.comment '//'
   l.multiline_comment '/*', '*/'
   l.extension :c, :h
+  l.include_guard_begin {|name| "#ifndef #{name.underscore.upcase}\n#define #{name.underscore.upcase}"}
+  l.include_guard_end {|name| "#endif"}
 end
 
 language 'c++' do |l|
   l.name 'C++'
   l.comment_style :c
+  l.include_guard_style :c
   l.extension :h, :hh, :hpp, :hxx, 'h++', :cc, :cpp, :cxx, 'c++'
   l.use_named_scope {|name| "using namespace #{name};"}
   l.named_scope_begin {|name| "namespace #{name} {"}
   l.named_scope_end {|name| "} // namespace #{name}"}
-  l.include_guard_begin {|name| "#ifndef #{name.underscore.upcase}\n#define #{name.underscore.upcase}"}
-  l.include_guard_end {|name| "#endif"}
 end
 
 language 'c#' do |l|
   l.name 'C#'
   l.comment_style :c
   l.extension :cs
+  l.named_scope_begin {|name| "namespace #{name} {"}
+  l.named_scope_end {|name| "} // namespace #{name}"}
 end
 
 language :css do |l|
@@ -37,18 +40,24 @@ language :html do |l|
   l.name 'Hyper-text Markup Language'
   l.comment_style :xml
   l.extension :html
+  l.named_scope_begin {|name| "<div id='#{name}' class='cog-named-scope'>"}
+  l.named_scope_end {|name| "</div><!-- end of named scope #{name} -->"}
 end
 
 language :java do |l|
   l.name 'Java'
   l.comment_style :c
   l.extension :java
+  l.named_scope_begin {|name| "package #{name};"}
+  l.named_scope_end {|name| "// end of package #{name}"}
 end
 
 language :javascript do |l|
   l.name 'JavaScript'
   l.comment_style :c
   l.extension :js
+  l.named_scope_begin {|name| "var #{name} = { // named scope"}
+  l.named_scope_end {|name| "}; // end of named scope #{name}"}
 end
 
 language :objc do |l|
@@ -74,10 +83,14 @@ language :ruby do |l|
   l.comment '#'
   l.multiline_comment '=begin', '=end'
   l.extension :rb
+  l.named_scope_begin {|name| "module #{name} # named scope"}
+  l.named_scope_end {|name| "end # named scope #{name}"}
 end
 
 language :xml do |l|
   l.name 'Extensible Markup Language'
   l.multiline_comment '<!--', '-->'
   l.extension :xml
+  l.named_scope_begin {|name| "<cog:named-scope id='#{name}'>"}
+  l.named_scope_end {|name| "</cog:named-scope><!-- #{name} -->"}
 end

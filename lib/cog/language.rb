@@ -14,6 +14,9 @@ module Cog
     
     # @return [String] the style of comments used by this language
     attr_reader :comment_style
+    
+    # @return [String] the style of include guards used by this language
+    attr_reader :include_guard_style
       
     # @api developer
     # Initialize with default values
@@ -76,12 +79,20 @@ module Cog
     
     # @api developer
     # Called after all Cogfiles have been processed
-    # @option other [Language] map of keys to languages
+    # @param other [Language] language to borrow notation from
     def apply_comment_style(other)
       @comment_prefix = other.instance_eval {@comment_prefix}
       @multiline_comment_prefix = other.instance_eval {@multiline_comment_prefix}
       @multiline_comment_postfix = other.instance_eval {@multiline_comment_postfix}
       @comment_pattern = other.instance_eval {@comment_pattern}
+    end
+    
+    # @api developer
+    # Called after all Cogfiles have been processed
+    # @param other [Language] language to borrow notation from
+    def apply_include_guard_style(other)
+      @include_guard_begin_block = other.instance_eval {@include_guard_begin_block}
+      @include_guard_end_block = other.instance_eval {@include_guard_end_block}
     end
     
     # @param w [FixNum] width of the first column

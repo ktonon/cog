@@ -115,6 +115,10 @@ module Cog
           other = @language[lang.comment_style]
           lang.apply_comment_style other
         end
+        if lang.include_guard_style != lang.key
+          other = @language[lang.include_guard_style]
+          lang.apply_include_guard_style other
+        end
       end
     end
     
