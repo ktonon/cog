@@ -1,6 +1,7 @@
 generator_path 'built_in/generators'
 template_path 'built_in/templates'
 plugin_path 'built_in/plugins'
+plugin_path '..'
 
 language :c do |l|
   l.name 'C'

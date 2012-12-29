@@ -98,7 +98,7 @@ module Cog
         r
       end
 
-      # Register an autoload variable 
+      # Register an autoload variable
       def autoload_plugin(name, path)
         raise Errors::NotAPluginCogfile.new cogfile_path unless @cogfile_context[:plugin]
         GeneratorSandbox.autoload_plugin(name, File.join(@cogfile_context[:plugin].path, path))

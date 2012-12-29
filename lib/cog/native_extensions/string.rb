@@ -43,6 +43,8 @@ class String
       [File.basename(ENV['HOME']), :user]
     elsif start_with? Cog.gem_dir
       ['cog', :built_in]
+    elsif start_with? File.expand_path(File.join(Cog.gem_dir, '..'))
+      ['gem', :gem]
     else
       ['unknown', :unknown]
     end

@@ -22,6 +22,7 @@ module Cog
       @cogfile_path = File.expand_path cogfile_path
       @path = File.dirname @cogfile_path
       @name = File.basename @path
+      @name = $1 if /^(.+?)\-(\d|\.)+(rc2)?$/ =~ @name
     end
     
     # Sort plugins by name

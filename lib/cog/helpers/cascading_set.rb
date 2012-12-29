@@ -22,8 +22,10 @@ module Cog
         case type
         when :built_in
           text.color :cyan
+        when :gem
+          text.color :blue
         when :user
-          text.color(:black).background(:cyan)
+          text.color :green
         when :plugin
           text.color :yellow
         when :project
