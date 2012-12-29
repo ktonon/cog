@@ -4,13 +4,13 @@ module Cog
     # {Config} methods related to projects
     module ProjectConfig
       
-      # @return [String] path to the project's {Cogfile}
+      # @return [String] path to the project's {DSL::Cogfile}
       attr_reader :project_cogfile_path
 
       # @return [String] directory to which to place generated output
       attr_reader :project_path
 
-      # @return [String] directory in which the project's {Cogfile} is found
+      # @return [String] directory in which the project's {DSL::Cogfile} is found
       attr_reader :project_root
     
       # @return [Boolean] whether or not we operating in the context of a project
@@ -18,17 +18,17 @@ module Cog
         !@project_root.nil?
       end
 
-      # @return [String,nil] directory in which to find project generators, or +nil+ if not a {project?}
+      # @return [String,nil] directory in which to find project generators, or +nil+ if not a {#project?}
       def project_generator_path
         path_if_for_project generator_path.last
       end
 
-      # @return [String,nil] directory in which to find project templates, or +nil+ if not a {project?}
+      # @return [String,nil] directory in which to find project templates, or +nil+ if not a {#project?}
       def project_template_path
         path_if_for_project template_path.last
       end
       
-      # @return [String,nil] directory in which to find project plugins, or +nil+ if not a {project?}
+      # @return [String,nil] directory in which to find project plugins, or +nil+ if not a {#project?}
       def project_plugin_path
         path_if_for_project plugin_path.last
       end

@@ -1,7 +1,7 @@
 generator_path 'built_in/generators'
 template_path 'built_in/templates'
 plugin_path 'built_in/plugins'
-plugin_path '..'
+plugin_path Cog.gems_root_dir, true
 
 language :c do |l|
   l.name 'C'

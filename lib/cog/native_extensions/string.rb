@@ -1,6 +1,6 @@
 class String
   
-  # @return [String] strips {Cog::Config::ProjectMethods#project_root} from the beginning of this string
+  # @return [String] strips {Cog::Config::ProjectConfig#project_root} from the beginning of this string
   def relative_to_project_root
     if Cog.show_fullpaths?
       File.expand_path self

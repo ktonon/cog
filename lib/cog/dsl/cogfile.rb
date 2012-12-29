@@ -23,7 +23,7 @@ module Cog
         }
       end
     
-      # Interpret the +Cogfile+ at {Config::ProjectMethods#cogfile_path}
+      # Interpret the +Cogfile+ at {Config::ProjectConfig#cogfile_path}
       # @api developer
       # @return [nil]
       def interpret
@@ -33,7 +33,7 @@ module Cog
     
       # Define the directory in which to generate code
       # @param path [String] a file system path to a directory
-      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
+      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectConfig#project_root}
       # @return [nil]
       def project_path(path, absolute=false)
         return if @cogfile_context[:plugin_path_only]
@@ -43,7 +43,7 @@ module Cog
 
       # Define a directory in which to find generators
       # @param path [String] a file system path
-      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
+      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectConfig#project_root}
       # @return [nil]
       def generator_path(path, absolute=false)
         return if @cogfile_context[:plugin_path_only]
@@ -52,7 +52,7 @@ module Cog
 
       # Define a directory in which to find templates
       # @param path [String] a file system path
-      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
+      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectConfig#project_root}
       # @return [nil]
       def template_path(path, absolute=false)
         return if @cogfile_context[:plugin_path_only]
@@ -61,11 +61,11 @@ module Cog
       
       # Define a directory in which to find plugins
       # @param path [String] a file system path
-      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectMethods#project_root}
+      # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectConfig#project_root}
       # @return [nil]
       def plugin_path(path, absolute=false)
         path = add_config_path :plugin, path, absolute
-        if File.exists?(path)
+        if path && File.exists?(path)
           raise Errors::PluginPathIsNotADirectory.new path unless File.directory?(path)
           @cogfile_context[:config].register_plugins path
         end
@@ -114,20 +114,21 @@ module Cog
         @cogfile_context[:plugin].stamp_generator_block = block
       end
       
+      private
+      
       def cogfile_path
         @cogfile_context[:cogfile_path]
       end
 
-      private
-      
       # @return [nil]
       def config_eval(&block)
         @cogfile_context[:config].instance_eval &block
         nil
       end
       
-      # @return [String] absolute path
+      # @return [String,nil] absolute path
       def add_config_path(name, path, absolute)
+        return if path.nil?
         path = File.join @cogfile_context[:cogfile_dir], path unless absolute
         config_eval { instance_variable_get("@#{name}_path") << path }
         path

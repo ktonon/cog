@@ -1,7 +1,7 @@
 module Cog
   
   # This is a low level interface. It is mainly used by the {Generator} methods to determine where to find things, and where to put them.
-  # When +cog+ is used in a project it will be configured with a {Cogfile}. The Cogfile is processed during a call to {#prepare}.
+  # When +cog+ is used in a project it will be configured with a {DSL::Cogfile}. The Cogfile is processed during a call to {#prepare}.
   module Config
 
     autoload :LanguageConfig, 'cog/config/language_config'
@@ -33,6 +33,12 @@ module Cog
       end
     end
 
+    # @return [String,nil] if installed as a gem, return the parent directory of the gem's location
+    def gems_root_dir
+      x = gem_dir
+      File.expand_path(File.join(x, '..')) unless File.exists?(File.join(x, 'Gemfile'))
+    end
+
     # @return [String] Path to <tt>${HOME}/.cog</tt>
     def user_dir
       File.expand_path File.join(ENV['HOME'], '.cog')
@@ -43,11 +49,6 @@ module Cog
       File.join user_dir, 'Cogfile'
     end
     
-    # @return [String] Path to the default cogfile template
-    def default_cogfile_template
-      File.join gem_dir, 'Default.cogfile'
-    end
-
     # @return [Boolean] when listing files, full paths should be shown
     def show_fullpaths?
       @fullpaths
@@ -57,7 +58,7 @@ module Cog
     # In the context of a command-line invocation, this method will be called automatically. Outside of that context, for example in a unit test, it will have to be called manually.
     # @option opt [Boolean] :fullpaths (false) when listing files, full paths should be shown
     # @option opt [Boolean] :minimal (false) only load the built-in Cogfile
-    # @option opt [String] :project_cogfile_path (nil) explicitly specify the location of the project {Cogfile}. If not provided, it will be searched for. If none can be found, {#project?} will be +false+
+    # @option opt [String] :project_cogfile_path (nil) explicitly specify the location of the project {DSL::Cogfile}. If not provided, it will be searched for. If none can be found, {#project?} will be +false+
     def prepare(opt={})
       throw :ConfigInstanceAlreadyPrepared if @prepared && !opt[:force_reset]
       @prepared = true
@@ -123,7 +124,7 @@ module Cog
       end
     end
     
-    # The {Cogfile} will be looked for in the present working directory. If none
+    # The {DSL::Cogfile} will be looked for in the present working directory. If none
     # is found there the parent directory will be checked, and then the
     # grandparent, and so on.
     # 
