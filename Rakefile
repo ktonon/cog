@@ -5,7 +5,7 @@ require 'rspec/core/rake_task'
 require 'yard'
 
 YARD::Rake::YardocTask.new do |t|
-  t.files = ["lib/**/*.rb", "README.markdown"]
+  t.files = ["lib/**/*.rb", "README.md", "CHANGELOG.md"]
   t.options = [
     '--query', '@api.text != "unstable" && @api.text != "developer"', 
     '-p', 'yard-templates', '-t', 'default']
