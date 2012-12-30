@@ -86,7 +86,7 @@
   
   
     <dt class="r1">Included in:</dt>
-    <dd class="r1"><span class='object_link'><a href="" title="Cog::Generator (module)">Generator</a></span></dd>
+    <dd class="r1"><span class='object_link'><a href="DSL/Cogfile.html" title="Cog::DSL::Cogfile (class)">DSL::Cogfile</a></span>, <span class='object_link'><a href="" title="Cog::Generator (module)">Generator</a></span>, <span class='object_link'><a href="GeneratorSandbox.html" title="Cog::GeneratorSandbox (class)">GeneratorSandbox</a></span></dd>
     
   
   
@@ -215,7 +215,7 @@ generated source code files, using the <span class='object_link'><a href="#stamp
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Generator/Filters.html" title="Cog::Generator::Filters (module)">Filters</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Generator/Filters.html#comment-instance_method" title="Cog::Generator::Filters#comment (method)">#comment</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Generator/Filters.html#call_filter-instance_method" title="Cog::Generator::Filters#call_filter (method)">#call_filter</a></span>, <span class='object_link'><a href="Generator/Filters.html#comment-instance_method" title="Cog::Generator::Filters#comment (method)">#comment</a></span></p>
 
   
   
@@ -332,19 +332,19 @@ content)</p>
       <pre class="lines">
 
 
+66
+67
+68
+69
+70
 71
 72
 73
 74
-75
-76
-77
-78
-79
-80</pre>
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/generator.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/generator.rb', line 66</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_embed identifier id'>embed</span><span class='lparen token'>(</span><span class='rubyid_hook identifier id'>hook</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
   <span class='rubyid_eaten identifier id'>eaten</span> <span class='assign token'>=</span> <span class='integer val'>0</span> <span class='comment val'># keep track of eaten statements so that the index can be adjusted</span>
@@ -394,7 +394,7 @@ content)</p>
       
         &mdash;
         <div class='inline'>
-<p>path to template file relative one of the <span class='object_link'><a href="Config.html#template_paths-instance_method" title="Cog::Config#template_paths (method)">Config#template_paths</a></span></p>
+<p>path to template file relative to <span class='object_link'><a href="Config.html#template_path-instance_method" title="Cog::Config#template_path (method)">Config#template_path</a></span></p>
 </div>
       
     </li>
@@ -413,7 +413,7 @@ content)</p>
         &mdash;
         <div class='inline'>
 <p>path to which the generated file should be written, relative to the
-<span class='object_link'><a href="Config/ProjectMethods.html#project_source_path-instance_method" title="Cog::Config::ProjectMethods#project_source_path (method)">Config::ProjectMethods#project_source_path</a></span></p>
+<span class='object_link'><a href="Config/ProjectConfig.html#project_path-instance_method" title="Cog::Config::ProjectConfig#project_path (method)">Config::ProjectConfig#project_path</a></span></p>
 </div>
       
     </li>
@@ -481,6 +481,22 @@ content)</p>
         </li>
       
         <li>
+          <span class="name">:once</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>if <code>true</code>, the file will not be updated if it already exists</p>
+</div>
+          
+        </li>
+      
+        <li>
           <span class="name">:binding</span>
           <span class="type">(<tt>Binding</tt>)</span>
           <span class="default">
@@ -498,7 +514,7 @@ content)</p>
       
         <li>
           <span class="name">:filter</span>
-          <span class="type">(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>, <tt>Array&lt;<span class='object_link'><a href="../String.html" title="String (class)">String</a></span>&gt;</tt>)</span>
+          <span class="type">(<tt><span class='object_link'><a href="../String.html" title="String (class)">String</a></span></tt>, <tt><span class='object_link'><a href="../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="../String.html" title="String (class)">String</a></span>&gt;</tt>)</span>
           <span class="default">
             
               &mdash; default:
@@ -557,6 +573,11 @@ returned as a string</p>
       <pre class="lines">
 
 
+39
+40
+41
+42
+43
 44
 45
 46
@@ -572,15 +593,10 @@ returned as a string</p>
 56
 57
 58
-59
-60
-61
-62
-63
-64</pre>
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/generator.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/generator.rb', line 39</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_stamp identifier id'>stamp</span><span class='lparen token'>(</span><span class='rubyid_template_path identifier id'>template_path</span><span class='comma token'>,</span> <span class='rubyid_destination identifier id'>destination</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='comment val'># Ignore destination if its a hash, its meant to be opt</span>
@@ -593,7 +609,7 @@ returned as a string</p>
 
   <span class='comment val'># Place it in a file</span>
   <span class='rubyid_write_scratch_file identifier id'>write_scratch_file</span><span class='lparen token'>(</span><span class='rubyid_destination identifier id'>destination</span><span class='comma token'>,</span> <span class='rubyid_r identifier id'>r</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:absolute_destination</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_scratch identifier id'>scratch</span><span class='bitor op'>|</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_files_are_same? fid id'>files_are_same?</span> <span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_scratch identifier id'>scratch</span>
+    <span class='rubyid_if if kw'>if</span> <span class='rubyid_files_are_same? fid id'>files_are_same?</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_scratch identifier id'>scratch</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='lparen token'>(</span><span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:once</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
       <span class='rubyid_FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='rubyid_rm identifier id'>rm</span> <span class='rubyid_scratch identifier id'>scratch</span>
     <span class='rubyid_else else kw'>else</span>
       <span class='rubyid_updated identifier id'>updated</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span> <span class='rubyid_path identifier id'>path</span>
@@ -614,7 +630,7 @@ returned as a string</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Dec 15 16:54:45 2012 by
+  Generated on Sat Dec 29 22:52:52 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

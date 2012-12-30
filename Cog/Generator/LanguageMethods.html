@@ -229,7 +229,7 @@
     
 
     
-      (also: #named_scope_end, #include_guard_end)
+      (also: #include_guard_end, #named_scope_end)
     
   </span>
   
@@ -344,16 +344,16 @@
       <pre class="lines">
 
 
+36
 37
 38
 39
 40
 41
-42
-43</pre>
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 36</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_end_all_scopes identifier id'>end_all_scopes</span>
   <span class='rubyid_lines identifier id'>lines</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
@@ -434,12 +434,12 @@
       <pre class="lines">
 
 
+60
 61
-62
-63</pre>
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 60</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_include_guard_begin identifier id'>include_guard_begin</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
   <span class='rubyid_scope_begin identifier id'>scope_begin</span> <span class='rubyid_Scope constant id'>Scope</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:include_guard</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
@@ -516,12 +516,12 @@
       <pre class="lines">
 
 
+52
 53
-54
-55</pre>
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 52</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_named_scope_begin identifier id'>named_scope_begin</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
   <span class='rubyid_scope_begin identifier id'>scope_begin</span> <span class='rubyid_Scope constant id'>Scope</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:named_scope</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
@@ -596,13 +596,13 @@
       <pre class="lines">
 
 
+17
 18
 19
-20
-21</pre>
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 17</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_scope_begin identifier id'>scope_begin</span><span class='lparen token'>(</span><span class='rubyid_scope identifier id'>scope</span><span class='rparen token'>)</span>
   <span class='rubyid_gcontext identifier id'>gcontext</span><span class='lbrack token'>[</span><span class='symbol val'>:scopes</span><span class='rbrack token'>]</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_scope identifier id'>scope</span>
@@ -622,7 +622,7 @@
 
   
     <span class="aliases">Also known as:
-    <span class="names"><span id='named_scope_end-instance_method'>named_scope_end</span>, <span id='include_guard_end-instance_method'>include_guard_end</span></span>
+    <span class="names"><span id='include_guard_end-instance_method'>include_guard_end</span>, <span id='named_scope_end-instance_method'>named_scope_end</span></span>
     </span>
   
 
@@ -711,17 +711,17 @@ the stack is empty</p>
       <pre class="lines">
 
 
+25
 26
 27
 28
 29
 30
 31
-32
-33</pre>
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 25</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_scope_end identifier id'>scope_end</span><span class='lparen token'>(</span><span class='rubyid_opt identifier id'>opt</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_gcontext identifier id'>gcontext</span><span class='lbrack token'>[</span><span class='symbol val'>:scopes</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
@@ -801,12 +801,12 @@ the stack is empty</p>
       <pre class="lines">
 
 
+46
 47
-48
-49</pre>
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 46</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_use_named_scope identifier id'>use_named_scope</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
   <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_active_language identifier id'>active_language</span><span class='dot token'>.</span><span class='rubyid_use_named_scope identifier id'>use_named_scope</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
@@ -861,12 +861,12 @@ the stack is empty</p>
       <pre class="lines">
 
 
+10
 11
-12
-13</pre>
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/generator/language_methods.rb', line 10</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_warning identifier id'>warning</span>
   <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'warning'</span><span class='comma token'>,</span> <span class='symbol val'>:filter</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'comment'</span>
@@ -882,7 +882,7 @@ the stack is empty</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Dec 15 16:54:48 2012 by
+  Generated on Sat Dec 29 22:52:54 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

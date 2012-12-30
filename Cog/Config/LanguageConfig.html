@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
-  Module: Cog::Config::LanguageMethods
+  Module: Cog::Config::LanguageConfig
   
     &mdash; Documentation by YARD 0.8.3
   
@@ -34,7 +34,7 @@
     <a href="../../_index.html">Index (L)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../Cog.html" title="Cog (module)">Cog</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Config.html" title="Cog::Config (module)">Config</a></span></span>
      &raquo; 
-    <span class="title">LanguageMethods</span>
+    <span class="title">LanguageConfig</span>
   
 
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
@@ -63,7 +63,7 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><h1>Module: Cog::Config::LanguageMethods
+    <div id="content"><h1>Module: Cog::Config::LanguageConfig
   
   
   
@@ -83,7 +83,7 @@
   
   
     <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/cog/config/language_methods.rb</dd>
+    <dd class="r2 last">lib/cog/config/language_config.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -103,39 +103,6 @@
 
 
 
-  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
-  <ul class="summary">
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#target_language-instance_method" title="#target_language (instance method)">- (Languages::Lanugage) <strong>target_language</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Target language which should be used when creating generators, and no
-language is explicitly specified.</p>
-</div></span>
-  
-</li>
-
-    
-  </ul>
-
 
 
 
@@ -150,7 +117,7 @@ language is explicitly specified.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#activate_language-instance_method" title="#activate_language (instance method)">- (Object) <strong>activate_language</strong>(opt = {}) { ... }</a>
+      <a href="#activate_language-instance_method" title="#activate_language (instance method)">- (Object) <strong>activate_language</strong>(key, opt = {}) { ... }</a>
     
 
     
@@ -174,7 +141,7 @@ language is explicitly specified.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#active_language-instance_method" title="#active_language (instance method)">- (Languages::Language) <strong>active_language</strong> </a>
+      <a href="#active_language-instance_method" title="#active_language (instance method)">- (Language) <strong>active_language</strong> </a>
     
 
     
@@ -190,6 +157,30 @@ language is explicitly specified.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Language which is active in the current context.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#language-instance_method" title="#language (instance method)">- (Language) <strong>language</strong>(key) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The language for the given key.</p>
 </div></span>
   
 </li>
@@ -222,7 +213,7 @@ language is explicitly specified.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#language_for-instance_method" title="#language_for (instance method)">- (Languages::Language<sup>?</sup>) <strong>language_for</strong>(path) </a>
+      <a href="#language_for-instance_method" title="#language_for (instance method)">- (Language<sup>?</sup>) <strong>language_for</strong>(path) </a>
     
 
     
@@ -246,7 +237,7 @@ language is explicitly specified.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#language_summary-instance_method" title="#language_summary (instance method)">- (Array&lt;LangInfo&gt;) <strong>language_summary</strong> </a>
+      <a href="#language_summary-instance_method" title="#language_summary (instance method)">- (Array&lt;Language&gt;) <strong>language_summary</strong> </a>
     
 
     
@@ -271,75 +262,6 @@ language is explicitly specified.</p>
   
 
 
-  <div id="instance_attr_details" class="attr_details">
-    <h2>Instance Attribute Details</h2>
-    
-      
-      <span id="target_language=-instance_method"></span>
-      <div class="method_details first">
-  <h3 class="signature first" id="target_language-instance_method">
-  
-    - (<tt>Languages::Lanugage</tt>) <strong>target_language</strong> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Target language which should be used when creating generators, and no
-language is explicitly specified</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Languages::Lanugage</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>target language which should be used when creating generators, and no
-language is explicitly specified</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-10
-11
-12</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/language_methods.rb', line 10</span>
-
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_target_language identifier id'>target_language</span>
-  <span class='rubyid_@target_language ivar id'>@target_language</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
-
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -348,7 +270,7 @@ language is explicitly specified</p>
       <div class="method_details first">
   <h3 class="signature first" id="activate_language-instance_method">
   
-    - (<tt>Object</tt>) <strong>activate_language</strong>(opt = {}) { ... }
+    - (<tt>Object</tt>) <strong>activate_language</strong>(key, opt = {}) { ... }
   
 
   
@@ -358,9 +280,9 @@ language is explicitly specified</p>
   <div class="discussion">
     
 <p>Activate a given language within the scope of the provided block. Either
-provide <code>:id</code> or <code>:ext</code> but not both. If the
+provide <code>key</code> or <code>:ext</code> but not both. If the
 extension does not match any of the supported languages, the
-<span class='object_link'><a href="#active_language-instance_method" title="Cog::Config::LanguageMethods#active_language (method)">#active_language</a></span> will not change, but the block will still be called.</p>
+<span class='object_link'><a href="#active_language-instance_method" title="Cog::Config::LanguageConfig#active_language (method)">#active_language</a></span> will not change, but the block will still be called.</p>
 
 
   </div>
@@ -368,6 +290,23 @@ extension does not match any of the supported languages, the
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
+  
+    <li>
+      
+        <span class='name'>key</span>
+      
+      
+        <span class='type'>(<tt>:String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the lanuage identifier. Type <code>cog language list</code> to see the
+possible values</p>
+</div>
+      
+    </li>
   
     <li>
       
@@ -392,25 +331,10 @@ extension does not match any of the supported languages, the
   
     
     
+    
+    
     <p class="tag_title">Options Hash (<tt>opt</tt>):</p>
     <ul class="option">
-      
-        <li>
-          <span class="name">:id</span>
-          <span class="type">(<tt>:String</tt>)</span>
-          <span class="default">
-            
-              &mdash; default:
-              <tt>nil</tt>
-            
-          </span>
-          
-            &mdash; <div class='inline'>
-<p>the lanuage identifier. Type <code>cog language list</code> to see the
-possible values</p>
-</div>
-          
-        </li>
       
         <li>
           <span class="name">:ext</span>
@@ -444,7 +368,7 @@ language map</code> to see mapped extensions</p>
       
         
         <div class='inline'>
-<p>within this block the <span class='object_link'><a href="#active_language-instance_method" title="Cog::Config::LanguageMethods#active_language (method)">#active_language</a></span> will be set to the desired value</p>
+<p>within this block the <span class='object_link'><a href="#active_language-instance_method" title="Cog::Config::LanguageConfig#active_language (method)">#active_language</a></span> will be set to the desired value</p>
 </div>
       
     </li>
@@ -475,6 +399,11 @@ language map</code> to see mapped extensions</p>
       <pre class="lines">
 
 
+18
+19
+20
+21
+22
 23
 24
 25
@@ -488,26 +417,23 @@ language map</code> to see mapped extensions</p>
 33
 34
 35
-36
-37
-38
-39
-40</pre>
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/language_methods.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 18</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_activate_language identifier id'>activate_language</span><span class='lparen token'>(</span><span class='rubyid_opt identifier id'>opt</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_activate_language identifier id'>activate_language</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
   <span class='rubyid_throw identifier id'>throw</span> <span class='symbol val'>:ActivateLanguageRequiresABlock</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_block identifier id'>block</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-  <span class='rubyid_lang_id identifier id'>lang_id</span> <span class='assign token'>=</span> <span class='rubyid_if if kw'>if</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:ext</span><span class='rbrack token'>]</span>
-    <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:ext</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span>
+  <span class='rubyid_opt identifier id'>opt</span><span class='comma token'>,</span> <span class='rubyid_key identifier id'>key</span> <span class='assign token'>=</span> <span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_key identifier id'>key</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_Hash constant id'>Hash</span>
+  <span class='rubyid_key identifier id'>key</span> <span class='assign token'>=</span> <span class='rubyid_if if kw'>if</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:ext</span><span class='rbrack token'>]</span>
+    <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:ext</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span>
     <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_slice identifier id'>slice</span><span class='lparen token'>(</span><span class='float val'>1</span><span class='dot2 op'>..</span><span class='integer val'>-1</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_start_with? fid id'>start_with?</span><span class='lparen token'>(</span><span class='string val'>'.'</span><span class='rparen token'>)</span>
-    <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='lbrack token'>[</span><span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='rbrack token'>]</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
+    <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='lbrack token'>[</span><span class='rubyid_ext identifier id'>ext</span><span class='rbrack token'>]</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
   <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:id</span><span class='rbrack token'>]</span>
+    <span class='rubyid_key identifier id'>key</span>
   <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_lang_id identifier id'>lang_id</span>
-    <span class='rubyid_@active_languages ivar id'>@active_languages</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_Languages constant id'>Languages</span><span class='dot token'>.</span><span class='rubyid_get_language identifier id'>get_language</span><span class='lparen token'>(</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rparen token'>)</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_key identifier id'>key</span>
+    <span class='rubyid_@active_languages ivar id'>@active_languages</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_@language ivar id'>@language</span><span class='lbrack token'>[</span><span class='rubyid_key identifier id'>key</span><span class='rbrack token'>]</span>
     <span class='rubyid_r identifier id'>r</span> <span class='assign token'>=</span> <span class='rubyid_block identifier id'>block</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span>
     <span class='rubyid_@active_languages ivar id'>@active_languages</span><span class='dot token'>.</span><span class='rubyid_pop identifier id'>pop</span>
     <span class='rubyid_r identifier id'>r</span>
@@ -524,7 +450,7 @@ language map</code> to see mapped extensions</p>
       <div class="method_details ">
   <h3 class="signature " id="active_language-instance_method">
   
-    - (<tt><span class='object_link'><a href="../Languages/Language.html" title="Cog::Languages::Language (class)">Languages::Language</a></span></tt>) <strong>active_language</strong> 
+    - (<tt><span class='object_link'><a href="../Language.html" title="Cog::Language (class)">Language</a></span></tt>) <strong>active_language</strong> 
   
 
   
@@ -546,7 +472,7 @@ language map</code> to see mapped extensions</p>
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="../Languages/Language.html" title="Cog::Languages::Language (class)">Languages::Language</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Language.html" title="Cog::Language (class)">Language</a></span></tt>)</span>
       
       
       
@@ -565,12 +491,12 @@ language map</code> to see mapped extensions</p>
       <pre class="lines">
 
 
-13
-14
-15</pre>
+8
+9
+10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/language_methods.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 8</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_active_language identifier id'>active_language</span>
   <span class='rubyid_@active_languages ivar id'>@active_languages</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span>
@@ -582,9 +508,89 @@ language map</code> to see mapped extensions</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="language-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../Language.html" title="Cog::Language (class)">Language</a></span></tt>) <strong>language</strong>(key) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The language for the given key</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>key</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../../String.html" title="String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the language key</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Language.html" title="Cog::Language (class)">Language</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the language for the given key</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 45</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_language identifier id'>language</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='rparen token'>)</span>
+  <span class='rubyid_@language ivar id'>@language</span><span class='lbrack token'>[</span><span class='rubyid_key identifier id'>key</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="language_extensions-instance_method">
   
-    - (<tt>Array&lt;<span class='object_link'><a href="../../String.html" title="String (class)">String</a></span>&gt;</tt>) <strong>language_extensions</strong> 
+    - (<tt><span class='object_link'><a href="../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="../../String.html" title="String (class)">String</a></span>&gt;</tt>) <strong>language_extensions</strong> 
   
 
   
@@ -606,7 +612,7 @@ language map</code> to see mapped extensions</p>
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="../../String.html" title="String (class)">String</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="../../String.html" title="String (class)">String</a></span>&gt;</tt>)</span>
       
       
       
@@ -625,12 +631,12 @@ language map</code> to see mapped extensions</p>
       <pre class="lines">
 
 
-43
-44
-45</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/language_methods.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 39</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_language_extensions identifier id'>language_extensions</span>
   <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='dot token'>.</span><span class='rubyid_keys identifier id'>keys</span>
@@ -644,7 +650,7 @@ language map</code> to see mapped extensions</p>
       <div class="method_details ">
   <h3 class="signature " id="language_for-instance_method">
   
-    - (<tt><span class='object_link'><a href="../Languages/Language.html" title="Cog::Languages::Language (class)">Languages::Language</a></span></tt><sup>?</sup>) <strong>language_for</strong>(path) 
+    - (<tt><span class='object_link'><a href="../Language.html" title="Cog::Language (class)">Language</a></span></tt><sup>?</sup>) <strong>language_for</strong>(path) 
   
 
   
@@ -686,7 +692,7 @@ language map</code> to see mapped extensions</p>
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="../Languages/Language.html" title="Cog::Languages::Language (class)">Languages::Language</a></span></tt>, <tt>nil</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Language.html" title="Cog::Language (class)">Language</a></span></tt>, <tt>nil</tt>)</span>
       
       
       
@@ -705,25 +711,25 @@ language map</code> to see mapped extensions</p>
       <pre class="lines">
 
 
-49
-50
 51
 52
 53
 54
 55
-56</pre>
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/language_methods.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 51</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_language_for identifier id'>language_for</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
   <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_extname identifier id'>extname</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='rparen token'>)</span>
   <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_path identifier id'>path</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
   <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span>
   <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_slice identifier id'>slice</span><span class='lparen token'>(</span><span class='float val'>1</span><span class='dot2 op'>..</span><span class='integer val'>-1</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_start_with? fid id'>start_with?</span> <span class='string val'>'.'</span>
-  <span class='rubyid_lang_id identifier id'>lang_id</span> <span class='assign token'>=</span> <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='lbrack token'>[</span><span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='rbrack token'>]</span>
-  <span class='rubyid_Languages constant id'>Languages</span><span class='dot token'>.</span><span class='rubyid_get_language identifier id'>get_language</span> <span class='rubyid_lang_id identifier id'>lang_id</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_lang_id identifier id'>lang_id</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+  <span class='rubyid_key identifier id'>key</span> <span class='assign token'>=</span> <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='lbrack token'>[</span><span class='rubyid_ext identifier id'>ext</span><span class='rbrack token'>]</span>
+  <span class='rubyid_@language ivar id'>@language</span><span class='lbrack token'>[</span><span class='rubyid_key identifier id'>key</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_key identifier id'>key</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -734,7 +740,7 @@ language map</code> to see mapped extensions</p>
       <div class="method_details ">
   <h3 class="signature " id="language_summary-instance_method">
   
-    - (<tt>Array&lt;<span class='object_link'><a href="LangInfo.html" title="Cog::Config::LangInfo (class)">LangInfo</a></span>&gt;</tt>) <strong>language_summary</strong> 
+    - (<tt><span class='object_link'><a href="../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="../Language.html" title="Cog::Language (class)">Language</a></span>&gt;</tt>) <strong>language_summary</strong> 
   
 
   
@@ -756,7 +762,7 @@ language map</code> to see mapped extensions</p>
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="LangInfo.html" title="Cog::Config::LangInfo (class)">LangInfo</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../../Array.html" title="Array (class)">Array</a></span>&lt;<span class='object_link'><a href="../Language.html" title="Cog::Language (class)">Language</a></span>&gt;</tt>)</span>
       
       
       
@@ -775,27 +781,15 @@ language map</code> to see mapped extensions</p>
       <pre class="lines">
 
 
-59
-60
 61
 62
-63
-64
-65
-66
-67</pre>
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/language_methods.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 61</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_language_summary identifier id'>language_summary</span>
-  <span class='rubyid_summary identifier id'>summary</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
-  <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='dot token'>.</span><span class='rubyid_each_pair identifier id'>each_pair</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_ext identifier id'>ext</span><span class='comma token'>,</span> <span class='rubyid_lang_id identifier id'>lang_id</span><span class='bitor op'>|</span>
-    <span class='rubyid_lang_id identifier id'>lang_id</span> <span class='assign token'>=</span> <span class='rubyid_Languages constant id'>Languages</span><span class='colon2 op'>::</span><span class='rubyid_ALIAS constant id'>ALIAS</span><span class='lbrack token'>[</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='rubyid_lang_id identifier id'>lang_id</span>
-    <span class='rubyid_summary identifier id'>summary</span><span class='lbrack token'>[</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='rubyid_LangInfo constant id'>LangInfo</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='comma token'>,</span> <span class='rubyid_Languages constant id'>Languages</span><span class='colon2 op'>::</span><span class='rubyid_REV_ALIAS constant id'>REV_ALIAS</span><span class='lbrack token'>[</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
-    <span class='rubyid_summary identifier id'>summary</span><span class='lbrack token'>[</span><span class='rubyid_lang_id identifier id'>lang_id</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_extensions identifier id'>extensions</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_ext identifier id'>ext</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_summary identifier id'>summary</span><span class='dot token'>.</span><span class='rubyid_values identifier id'>values</span><span class='dot token'>.</span><span class='rubyid_sort identifier id'>sort</span>
+  <span class='rubyid_@language ivar id'>@language</span><span class='dot token'>.</span><span class='rubyid_values identifier id'>values</span><span class='dot token'>.</span><span class='rubyid_sort identifier id'>sort</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -808,7 +802,7 @@ language map</code> to see mapped extensions</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Dec 15 16:54:47 2012 by
+  Generated on Sat Dec 29 22:52:54 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

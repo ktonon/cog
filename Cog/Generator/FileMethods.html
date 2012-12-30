@@ -520,7 +520,7 @@ required.</p>
       
         &mdash;
         <div class='inline'>
-<p>path to template file relative one of the <span class='object_link'><a href="../Config.html#template_paths-instance_method" title="Cog::Config#template_paths (method)">Config#template_paths</a></span></p>
+<p>path to file relative to the <span class='object_link'><a href="../Config.html#template_path-instance_method" title="Cog::Config#template_path (method)">Config#template_path</a></span></p>
 </div>
       
     </li>
@@ -655,7 +655,7 @@ path to the file (<code>true</code>)</p>
   <span class='rubyid_fullpath identifier id'>fullpath</span> <span class='assign token'>=</span> <span class='rubyid_if if kw'>if</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:absolute</span><span class='rbrack token'>]</span>
     <span class='rubyid_path identifier id'>path</span>
   <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_template_paths identifier id'>template_paths</span><span class='dot token'>.</span><span class='rubyid_inject identifier id'>inject</span><span class='lparen token'>(</span><span class='string val'>''</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_found identifier id'>found</span><span class='comma token'>,</span> <span class='rubyid_prefix identifier id'>prefix</span><span class='bitor op'>|</span>
+    <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_template_path identifier id'>template_path</span><span class='dot token'>.</span><span class='rubyid_reverse identifier id'>reverse</span><span class='dot token'>.</span><span class='rubyid_inject identifier id'>inject</span><span class='lparen token'>(</span><span class='string val'>''</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_found identifier id'>found</span><span class='comma token'>,</span> <span class='rubyid_prefix identifier id'>prefix</span><span class='bitor op'>|</span>
       <span class='rubyid_x identifier id'>x</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_prefix identifier id'>prefix</span><span class='comma token'>,</span> <span class='rubyid_path identifier id'>path</span>
       <span class='rubyid_found identifier id'>found</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_x identifier id'>x</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='rubyid_x identifier id'>x</span> <span class='colon op'>:</span> <span class='rubyid_found identifier id'>found</span>
     <span class='rubyid_end end kw'>end</span>
@@ -933,7 +933,7 @@ required.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Dec 15 16:54:47 2012 by
+  Generated on Sat Dec 29 22:52:54 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

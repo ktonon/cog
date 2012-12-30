@@ -63,18 +63,18 @@
 
     <div id="content"><div id='filecontents'><p><img src="http://ktonon.github.com/cog/images/cog-logo-small.png" alt="cog"></p>
 
-<p><a href="https://codeclimate.com/github/ktonon/cog"><img src="https://codeclimate.com/badge.png" alt="Code Climate"></a></p>
+<p><a href="https://travis-ci.org/ktonon/cog"><img src="https://secure.travis-ci.org/ktonon/cog.png?branch=master" alt="Build Status"></a>
+<a href="https://gemnasium.com/ktonon/cog"><img src="https://gemnasium.com/ktonon/cog.png" alt="Dependency Status"></a>
+<a href="https://codeclimate.com/github/ktonon/cog"><img src="https://codeclimate.com/badge.png" alt="Code Climate"></a></p>
 
 <p><code>cog</code> is a command line utility that makes it easy to organize a project which
 uses code generation.</p>
 
-<p>The documentation on this page is synchronized with the git repository.
-For docs on the currently released <a href="https://rubygems.org/gems/cog">gem</a> (version 0.2.2)
-see <a href="http://ktonon.github.com/cog/frames.html">ktonon.github.com/cog</a>.
-See also the following resources,</p>
+<p>This <code>README</code> page is synchronized with the git repository. For other documentation see</p>
 
 <ul>
-<li><a href="http://youtu.be/lH_q0aPqRzo">Video introduction to cog</a></li>
+<li>The <a href="http://ktonon.github.com/cog/frames.html">API documentation</a> for the current <a href="https://rubygems.org/gems/cog">gem</a> (version 0.3.0)</li>
+<li>The <a href="https://github.com/ktonon/cog/blob/master/CHANGELOG.md">change log</a></li>
 </ul>
 
 <p>Note that <em>this project is still under development</em>.</p>
@@ -86,7 +86,7 @@ See also the following resources,</p>
 <li><a href="#generators">Generators</a> - Create ruby scripts which generate code</li>
 <li><a href="#templates">Templates</a> - Use ERB templates to help generators</li>
 <li><a href="#embeds">Embeds</a> - Generate code segments into otherwise manually maintained code</li>
-<li><a href="#tools">Tools</a> - Extend <code>cog</code> by writing tools</li>
+<li><a href="#plugins">Plugins</a> - Express your generators using DSLs</li>
 </ol>
 
 <h2>Getting Started</h2>
@@ -96,50 +96,36 @@ See also the following resources,</p>
 <pre class="code bash"><code>$ gem install cog
 </code></pre>
 
-<p>Once installed prepare a project for use with <code>cog</code>. Open a terminal in the root directory
-of your project</p>
+<p>Once installed prepare a project for use with <code>cog</code>. Open a terminal in the root directory of your project</p>
 
 <pre class="code bash"><code>$ cog init
 Created Cogfile
 </code></pre>
 
-<p>This will add a <a href="http://ktonon.github.com/cog/Cog/Config/Cogfile.html">Cogfile</a>
-which configures <code>cog</code> for use with the project. In short, it tells <code>cog</code> where
-to find generators and templates and where to put generated source code. Open
-the <code>Cogfile</code> to find out more, each setting is documented. Most settings can
-be left as-is, but the
-<a href="http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method">project_source_path</a> might need to be changed if the source files are not in
-a directory called <code>src</code> relative the directory containing the <code>Cogfile</code>.</p>
+<p>This will add a <a href="http://ktonon.github.com/cog/Cog/DSL/Cogfile.html">Cogfile</a> which configures <code>cog</code> for use with the project. In
+short, it tells <code>cog</code> where to find generators and templates and where to put
+generated source code. Open the <code>Cogfile</code> to find out more, each setting is
+documented. Most settings can be left as-is, but the <code>project_path</code> might
+need to be changed.</p>
 
 <h2>Generators</h2>
 
-<p>A generator is a ruby file which resides in the
-<a href="http://ktonon.github.com/cog/Cog/Config.html#project_generators_path-instance_method">project_generators_path</a>
-and performs its work at the time it is required. A basic generator can be
-created using the command line tool once a project has been initialized</p>
+<p>A generator is a ruby script which resides on the <a href="http://ktonon.github.com/cog/Cog/Config.html#generator_path-instance_method">generator_path</a>. A basic
+generator can be created using the command line tool once a project has been
+initialized</p>
 
 <pre class="code bash"><code>$ cog generator new my_generator
 Created cog/generators/my_generator.rb
 </code></pre>
 
-<p><code>my_generator.rb</code> will contain a bare minimum of code</p>
+<p><code>my_generator.rb</code> will contain a blank canvas. Generator scripts are evaluated
+as instances of <a href="http://ktonon.github.com/cog/Cog/GeneratorSandbox.html">GeneratorSandbox</a>. The sandbox includes the <a href="http://ktonon.github.com/cog/Cog/Generator.html">Generator</a>
+mixin, which provides an interface for easily generating source code from
+templates. The <a href="http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp">stamp</a> method is particularly useful. If finds an <a href="http://www.stuartellis.eu/articles/erb/">ERB</a>
+template on the <a href="http://ktonon.github.com/cog/Cog/Config.html#template_path-instance_method">template_path</a> and renders it to a file under the
+<a href="http://ktonon.github.com/cog/Cog/Config/ProjectConfig.html#project_path-instance_method">project_path</a>. To use the <a href="http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp">stamp</a> method first create a template</p>
 
-<pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
-<span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
-
-<span class='comment val'># This is the my_generator generator</span>
-</code></pre>
-
-<p>The inclusion of the mixin
-<a href="http://ktonon.github.com/cog/Cog/Generator.html">Cog::Generator</a> provides an interface for easily
-generating source code from templates. The <a href="http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp">stamp</a> method
-is particularly useful. If finds an <a href="http://www.stuartellis.eu/articles/erb/">ERB template</a>
-in the <a href="http://ktonon.github.com/cog/Cog/Config.html#template_paths-instance_method">template_paths</a>
-and renders it to a file under the
-<a href="http://ktonon.github.com/cog/Cog/Config.html#project_source_path-instance_method">project_source_path</a>.
-To use the <code>stamp</code> method first create a template</p>
-
-<pre class="code ruby"><code>$ <span class='rubyid_cog identifier id'>cog</span> <span class='rubyid_generator identifier id'>generator</span> <span class='rubyid_template identifier id'>template</span> <span class='rubyid_new identifier id'>new</span> <span class='rubyid_my_generator identifier id'>my_generator</span><span class='div op'>/</span><span class='rubyid_example identifier id'>example</span><span class='dot token'>.</span><span class='rubyid_c identifier id'>c</span>
+<pre class="code ruby"><code>$ <span class='rubyid_cog identifier id'>cog</span> <span class='rubyid_template identifier id'>template</span> <span class='rubyid_new identifier id'>new</span> <span class='rubyid_my_generator identifier id'>my_generator</span><span class='div op'>/</span><span class='rubyid_example identifier id'>example</span><span class='dot token'>.</span><span class='rubyid_c identifier id'>c</span>
 <span class='rubyid_Created constant id'>Created</span> <span class='rubyid_cog identifier id'>cog</span><span class='div op'>/</span><span class='rubyid_templates identifier id'>templates</span><span class='div op'>/</span><span class='rubyid_my_generator identifier id'>my_generator</span>
 <span class='rubyid_Created constant id'>Created</span> <span class='rubyid_cog identifier id'>cog</span><span class='div op'>/</span><span class='rubyid_templates identifier id'>templates</span><span class='div op'>/</span><span class='rubyid_my_generator identifier id'>my_generator</span><span class='div op'>/</span><span class='rubyid_example identifier id'>example</span><span class='dot token'>.</span><span class='rubyid_c identifier id'>c</span><span class='dot token'>.</span><span class='rubyid_erb identifier id'>erb</span>
 </code></pre>
@@ -156,12 +142,7 @@ void &lt;%= @method_name %&gt;()
 
 <p>Then modify <code>my_generator.rb</code> like this</p>
 
-<pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
-<span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
-
-<span class='comment val'># This is the my_generator generator</span>
-
-<span class='rubyid_@method_name ivar id'>@method_name</span> <span class='assign token'>=</span> <span class='string val'>'example'</span>
+<pre class="code ruby"><code><span class='rubyid_@method_name ivar id'>@method_name</span> <span class='assign token'>=</span> <span class='string val'>'example'</span>
 <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'my_generator/example.c'</span><span class='comma token'>,</span> <span class='string val'>'generated_example.c'</span>
 </code></pre>
 
@@ -193,80 +174,56 @@ void example()
 }
 </code></pre>
 
-<p>Get a list of the project&#39;s generators like this</p>
+<p>Get a list of the generators like this</p>
 
 <pre class="code bash"><code>$ cog gen list
-my_generator
+[my_app] my_generator
+[cog]    sort
 </code></pre>
 
 <h2>Templates</h2>
 
 <p>In the example from the previous section, you may have noticed that the
-generator method <code>&lt;%= warning %&gt;</code> produced this text in the generated files</p>
-
-<pre class="code c++"><code>/*
--------------------------------------------------------------------------------
-
-  WARNING
-
-  This is a generated file. DO NOT EDIT THIS FILE! Your changes will
-  be lost the next time this file is regenerated.
-
-  This file was generated using cog
-  https://github.com/ktonon/cog
-
--------------------------------------------------------------------------------
- */ 
-</code></pre>
-
-<p>If you look at the implementation of the <a href="http://ktonon.github.com/cog/Cog/Generator/LanguageMethods.html#warning-instance_method">warning</a>
+generator method <code>&lt;%= warning %&gt;</code> produced a warning message correctly
+formatted as a comment. If you look at the implementation of the <a href="http://ktonon.github.com/cog/Cog/Generator/LanguageMethods.html#warning-instance_method">warning</a>
 method, you&#39;ll see that its just a shortcut for rendering the <code>warning.erb</code>
-template and passing it through a <a href="http://ktonon.github.com/cog/Cog/Generator/Filters.html#comment-instance_method">comment</a>
-filter</p>
+template and passing it through a <a href="http://ktonon.github.com/cog/Cog/Generator/Filters.html#comment-instance_method">comment</a> filter.</p>
 
-<pre class="code ruby"><code><span class='rubyid_def def kw'>def</span> <span class='rubyid_warning identifier id'>warning</span>
-  <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'warning'</span><span class='comma token'>,</span> <span class='symbol val'>:filter</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'comment'</span>
-<span class='rubyid_end end kw'>end</span>
-</code></pre>
-
-<p>This warning template comes built-in with cog. You can see a list of the available
-templates, both built-in and project specific</p>
+<p>This <code>warning.erb</code> template comes built-in with cog. You can see a list of all the
+available templates like this</p>
 
 <pre class="code bash"><code>$ cog template list
-[project]  my_generator/example.c
-[built-in] warning
+[basic]  basic/generator.rb
+[cog]    cog/Cogfile
+[cog]    cog/plugin/generator.rb.erb
+[cog]    cog/plugin/plugin.rb
+[my_app] my_generator/example.c
+[cog]    warning
 </code></pre>
 
-<p>If you don&#39;t like the default warning message and want to use a different one you can
-override it</p>
+<p>Note that the <code>.erb</code> extensions are omitted from the listing. If you don&#39;t like
+the default warning message and want to use a different one you can override it</p>
 
-<pre class="code bash"><code>$ cog tm new --force-override warning
+<pre class="code bash"><code>$ cog tm new warning
 Created cog/templates/warning.erb
 </code></pre>
 
 <p>Listing the templates again would now show that there are two <code>warning.erb</code>
 templates and that the project version overrides the built-in version</p>
 
-<pre class="code bash"><code>$ cog tm
-[project]            my_generator/example.c
-[built-in &lt; project] warning
+<pre class="code bash"><code>[cog &lt; my_app] warning
 </code></pre>
 
 <h2>Embeds</h2>
 
-<p>As shown above, the
-<a href="http://ktonon.github.com/cog/Cog/Generator.html#stamp-instance_method">stamp</a>
-method can be used to create files which are entirely generated. While this is
-useful, it might at times be more convenient to inject generated content
-directly into an otherwise manually maintained file. Such an injection should
-be automatically updated when the generated content changes, but leave the rest
-of the file alone. <code>cog</code> provides this kind of functionality through embeds.
-For example, consider the following generator</p>
+<p>As shown above, the <a href="http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp">stamp</a> method can be used to create files which are
+entirely generated. While this is useful, it might at times be more convenient
+to inject generated content directly into an otherwise manually maintained
+file. Such an injection should be automatically updated when the generated
+content changes, but leave the rest of the file alone. <code>cog</code> provides this kind
+of functionality through embeds. For example, consider the following generator</p>
 
-<pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
-<span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
-
-<span class='float val'>1</span><span class='dot token'>.</span><span class='rubyid_upto identifier id'>upto</span><span class='lparen token'>(</span><span class='integer val'>5</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_i identifier id'>i</span><span class='bitor op'>|</span>
+<pre class="code ruby"><code><span class='float val'>1</span><span class='dot token'>.</span><span class='rubyid_upto identifier id'>upto</span><span class='lparen token'>(</span><span class='integer val'>5</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_i identifier id'>i</span><span class='bitor op'>|</span>
   <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'widget.cpp'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;widget_#{i}.cpp&quot;</span>
   <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'widget.h'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;widget_#{i}.h&quot;</span>
 <span class='rubyid_end end kw'>end</span>
@@ -292,10 +249,7 @@ as an embed hook named <tt>&#39;widget-files&#39;</tt>. Once the hook is in plac
 it&#39;s up to a generator to provide the content which will be injected beneath
 the hook. Consider again the generator from above, with a few modifications</p>
 
-<pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
-<span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
-
-<span class='rubyid_@widgets ivar id'>@widgets</span> <span class='assign token'>=</span> <span class='float val'>1</span><span class='dot token'>.</span><span class='rubyid_upto identifier id'>upto</span><span class='lparen token'>(</span><span class='integer val'>5</span><span class='rparen token'>)</span>
+<pre class="code ruby"><code><span class='rubyid_@widgets ivar id'>@widgets</span> <span class='assign token'>=</span> <span class='float val'>1</span><span class='dot token'>.</span><span class='rubyid_upto identifier id'>upto</span><span class='lparen token'>(</span><span class='integer val'>5</span><span class='rparen token'>)</span>
 <span class='rubyid_@widgets ivar id'>@widgets</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_i identifier id'>i</span><span class='bitor op'>|</span>
   <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'widget.cpp'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;widget_#{i}.cpp&quot;</span>
   <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'widget.h'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;widget_#{i}.h&quot;</span>
@@ -306,11 +260,10 @@ the hook. Consider again the generator from above, with a few modifications</p>
 <span class='rubyid_end end kw'>end</span>
 </code></pre>
 
-<p>The <a href="http://ktonon.github.com/cog/Cog/Generator.html#embed-instance_method">embed</a>
-method takes the name of the hook as an argument. The expansion value is
-returned by the provided block. In this case a <code>stamp</code> was used to pull the
-content from a template, but a string could also be constructed in the block
-without using a template. Running this generator would now inject content
+<p>The <a href="http://ktonon.github.com/cog/Cog/Generator.html#embed-instance_method">embed</a> method takes the name of the hook as an argument. The expansion
+value is returned by the provided block. In this case a <a href="http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp">stamp</a> was used to
+pull the content from a template, but a string could also be constructed in the
+block without using a template. Running this generator would now inject content
 beneath the embed directive in the build file.</p>
 
 <pre class="code text"><code>SOURCES += main.cpp Donkey.cpp
@@ -323,147 +276,74 @@ HEADERS += widget_1.h widget_2.h widget_3.h widget_4.h widget_5.h
 </code></pre>
 
 <p>Embeds are only updated when the generated content changes. So running the
-generator a second time would not touch the build file.</p>
+generator a second time would not touch the file.</p>
 
-<h2>Tools</h2>
+<h2>Plugins</h2>
 
-<p>While its possible to place all the code for your generator in the
-<code>project_generators_path</code>, you might also consider writing a tool.</p>
+<p>While it is possible to place all code generation logic into a generator
+script, you might also consider writing a <code>cog</code> plugin.</p>
 
-<p>A tool is a separately distributed ruby gem which can be registered with <code>cog</code>
-and contains templates for generator files. A tool should also provide a domain
-specific language (DSL) in which the generator files created by the tool are
-written.</p>
-
-<p>You can tell <code>cog</code> to help you get started writing a tool. For example, if you
-wanted to write a command line interface generation tool and call it <code>cons</code>, you
-would do this</p>
-
-<pre class="code bash"><code>$ cog tool new cons
-Created cons/lib/cons.rb
-Created cons/lib/cons/cog_tool.rb
-Created cons/lib/cons/version.rb
-Created cons/cog/templates/cons/generator.rb.erb
-Created cons/cog/templates/cons/cons.txt.erb
-Created cons/Gemfile
-Created cons/Rakefile
-Created cons/cons.gemspec
-Created cons/LICENSE
-Created cons/README.markdown
-</code></pre>
-
-<p>Tools are available across multiple projects. There are tools which come
-built-in with <code>cog</code> and there are custom tools. In the previous example <code>cons</code>
-was a custom tool. The set of custom tools are defined by the value of the
-<code>COG_TOOLS</code> environment variable. The value of this variable is a colon (<code>:</code>)
-separated list. Each entry should take one of two formats, either</p>
+<p>Very loosely, a plugin should provide</p>
 
 <ul>
-<li>The name of the tool. For example <code>cons</code>.</li>
-<li>File system path to the <code>cog_tool.rb</code> file. For example <code>/Users/ktonon/cons/lib/cons/cog_tool.rb</code>.  This form is useful during development of the tool itself.</li>
+<li>a <a href="http://jroller.com/rolsen/entry/building_a_dsl_in_ruby">domain specific language</a> in which generator scripts can be written</li>
+<li>a template for creating generators in that <code>DSL</code>
+
+<ul>
+<li>the purpose of the template is to help users of the plugin get started writing a generator</li>
+</ul></li>
 </ul>
 
-<p>The directory structure of the tool is important. In the previous example, <code>cog</code> will assumes that the following paths will not be renamed or moved with respect to each other</p>
+<p>You can tell <code>cog</code> to help you get started writing a plugin. For example, if
+you wanted to write a command line interface generation tool and call it
+<code>cons</code>, you would do this</p>
 
-<pre class="code ruby"><code><span class='rubyid_cons identifier id'>cons</span><span class='div op'>/</span><span class='rubyid_lib identifier id'>lib</span><span class='div op'>/</span><span class='rubyid_cons identifier id'>cons</span><span class='dot token'>.</span><span class='rubyid_rb identifier id'>rb</span>
-<span class='rubyid_cons identifier id'>cons</span><span class='div op'>/</span><span class='rubyid_lib identifier id'>lib</span><span class='div op'>/</span><span class='rubyid_cons identifier id'>cons</span><span class='div op'>/</span><span class='rubyid_cog_tool identifier id'>cog_tool</span><span class='dot token'>.</span><span class='rubyid_rb identifier id'>rb</span>
-<span class='rubyid_cons identifier id'>cons</span><span class='div op'>/</span><span class='rubyid_cog identifier id'>cog</span><span class='div op'>/</span><span class='rubyid_templates identifier id'>templates</span><span class='div op'>/</span>
+<pre class="code bash"><code>$ cog plugin new cons
+Created cog/plugins/cons/Cogfile
+Created cog/plugins/cons/lib/cons.rb
+Created cog/plugins/cons/templates/cons/generator.rb.erb
 </code></pre>
 
-<p>The <code>cog_tool.rb</code> is particularly important. It defines the method which stamps new generators for the tool. It looks like this</p>
+<p>When operating in the context of a project, the plugin will be created under
+the <a href="http://ktonon.github.com/cog/Cog/Config/ProjectConfig.html#project_plugin_path-instance_method">project_plugin_path</a>, and will be available to that project only.
+Outside the context of a project it would be created under the current working
+directory. If that directory is not on the <a href="http://ktonon.github.com/cog/Cog/Config.html#plugin_path-instance_method">plugin_path</a>, then <code>cog</code> will not
+know how to find it.</p>
 
-<pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
-<span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
+<p>If you want to share a plugin between multiple projects, you have a few options.</p>
 
-<span class='comment val'># Register cons as a tool with cog</span>
-<span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_register_tool identifier id'>register_tool</span> <span class='rubyid___FILE__ __file__ kw'>__FILE__</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_tool identifier id'>tool</span><span class='bitor op'>|</span>
+<ul>
+<li>distribute it as a gem
 
-  <span class='comment val'># Define a method which creates a cons generator</span>
-  <span class='rubyid_tool identifier id'>tool</span><span class='dot token'>.</span><span class='rubyid_stamp_generator identifier id'>stamp_generator</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_dest identifier id'>dest</span><span class='bitor op'>|</span>
+<ul>
+<li>make sure to include the Cogfile in the gem</li>
+</ul></li>
+<li>create the plugin under your <tt>${HOME}/.cog</tt> directory
 
-    <span class='comment val'># Setup context for the template</span>
-    <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span> <span class='comment val'># Generator name</span>
+<ul>
+<li>this directory and a user <code>Cogfile</code> are created the first time you run <code>cog init</code></li>
+</ul></li>
+</ul>
 
-    <span class='comment val'># Create the generator file</span>
-    <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'cons/generator.rb'</span><span class='comma token'>,</span> <span class='rubyid_dest identifier id'>dest</span><span class='comma token'>,</span> <span class='symbol val'>:absolute_destination</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span>
-  <span class='rubyid_end end kw'>end</span>
+<p>You can see a list of the available plugins like this</p>
 
-<span class='rubyid_end end kw'>end</span>
+<pre class="code bash"><code>$ cog plugin list
+[cog]    basic
+[my_app] cons
 </code></pre>
 
-<p>You can see a list of the available tools like this</p>
+<p>As noted before, a plugin should contain a template for making generators. In
+the above example, that is the <code>generator.rb.erb</code> template. The instructions
+for stamping the generator are in the plugin&#39;s <a href="http://ktonon.github.com/cog/Cog/DSL/Cogfile.html">Cogfile</a>. You can make a
+generator for a particular plugin like this</p>
 
-<pre class="code bash"><code>$ cog tool list
-basic
-cons
-</code></pre>
-
-<p>As noted before, a tool should contain a template for making generators. In the
-above example, that is the <code>generator.rb.erb</code> template. You can make a generator
-using a custom tool like this</p>
-
-<pre class="code bash"><code>$ cog --tool=cons gen new my_cons
+<pre class="code bash"><code>$ cog gen new -p cons my_cons
 Created cog/generators/my_cons.rb
-</code></pre>
-
-<p>This new generator will look something like this</p>
-
-<pre class="code ruby"><code><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cons'</span>
-
-<span class='rubyid_Cons constant id'>Cons</span><span class='dot token'>.</span><span class='rubyid_widget identifier id'>widget</span> <span class='string val'>'my_cons'</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_w identifier id'>w</span><span class='bitor op'>|</span>
-  <span class='rubyid_w identifier id'>w</span><span class='dot token'>.</span><span class='rubyid_context identifier id'>context</span> <span class='assign token'>=</span> <span class='string val'>'this is the context'</span>
-<span class='rubyid_end end kw'>end</span>
-</code></pre>
-
-<p>There is no explicit call to generate, but there is still a <code>generate</code> method on
-the <code>Widget</code> class and it is called automatically when the block terminates.
-Here is what the root tool file <code>cons.rb</code> will look like</p>
-
-<pre class="code ruby"><code><span class='rubyid_$LOAD_PATH gvar id'>$LOAD_PATH</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='rubyid___FILE__ __file__ kw'>__FILE__</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
-<span class='rubyid_require identifier id'>require</span> <span class='string val'>'cons/version'</span>
-<span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog'</span>
-
-<span class='comment val'># Custom cog tool cons </span>
-<span class='rubyid_module module kw'>module</span> <span class='rubyid_Cons constant id'>Cons</span> 
-
-  <span class='comment val'># Root of the DSL</span>
-  <span class='comment val'># Feel free to rename this to something more appropriate</span>
-  <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_widget identifier id'>widget</span><span class='lparen token'>(</span><span class='rubyid_generator_name identifier id'>generator_name</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
-    <span class='rubyid_w identifier id'>w</span> <span class='assign token'>=</span> <span class='rubyid_Widget constant id'>Widget</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_generator_name identifier id'>generator_name</span>
-    <span class='rubyid_block identifier id'>block</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span> <span class='rubyid_w identifier id'>w</span>
-
-    <span class='comment val'># Activate cons while rendering templates</span>
-    <span class='comment val'># so that cog will be able to find cons templates</span>
-    <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_activate_tool identifier id'>activate_tool</span> <span class='string val'>'cons'</span> <span class='rubyid_do do kw'>do</span>
-      <span class='rubyid_w identifier id'>w</span><span class='dot token'>.</span><span class='rubyid_generate identifier id'>generate</span>
-    <span class='rubyid_end end kw'>end</span>
-
-    <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_end end kw'>end</span>
-
-  <span class='comment val'># Root type of the DSL</span>
-  <span class='comment val'># You'll want to rename this to something more meaningful</span>
-  <span class='comment val'># and probably place it in a separate file.</span>
-  <span class='rubyid_class class kw'>class</span> <span class='rubyid_Widget constant id'>Widget</span>
-
-    <span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_Generator constant id'>Generator</span>
-
-    <span class='rubyid_attr_accessor identifier id'>attr_accessor</span> <span class='symbol val'>:context</span>
-
-    <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_generator_name identifier id'>generator_name</span><span class='rparen token'>)</span>
-      <span class='rubyid_@generator_name ivar id'>@generator_name</span> <span class='assign token'>=</span> <span class='rubyid_generator_name identifier id'>generator_name</span>
-    <span class='rubyid_end end kw'>end</span>
-
-    <span class='rubyid_def def kw'>def</span> <span class='rubyid_generate identifier id'>generate</span>
-      <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'cons/cons.txt'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;generated_#{@generator_name}.txt&quot;</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
 </code></pre>
 </div></div>
 
     <div id="footer">
-  Generated on Sat Dec 15 16:54:44 2012 by
+  Generated on Sat Dec 29 22:52:50 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

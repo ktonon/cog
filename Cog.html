@@ -84,7 +84,7 @@
   
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/cog.rb<span class="defines">,<br />
-  lib/cog/tool.rb,<br /> lib/cog/embeds.rb,<br /> lib/cog/config.rb,<br /> lib/cog/errors.rb,<br /> lib/cog/version.rb,<br /> lib/cog/tool/dsl.rb,<br /> lib/cog/languages.rb,<br /> lib/cog/generator.rb,<br /> lib/cog/controllers.rb,<br /> lib/cog/spec_helpers.rb,<br /> lib/cog/embed_context.rb,<br /> lib/cog/config/cogfile.rb,<br /> lib/cog/built_in_tools.rb,<br /> lib/cog/config/lang_info.rb,<br /> lib/cog/languages/mixins.rb,<br /> lib/cog/generator/filters.rb,<br /> lib/cog/languages/language.rb,<br /> lib/cog/config/tool_methods.rb,<br /> lib/cog/embeds/file_scanner.rb,<br /> lib/cog/spec_helpers/runner.rb,<br /> lib/cog/built_in_tools/basic.rb,<br /> lib/cog/languages/c_language.rb,<br /> lib/cog/spec_helpers/matchers.rb,<br /> lib/cog/generator/file_methods.rb,<br /> lib/cog/config/project_methods.rb,<br /> lib/cog/config/language_methods.rb,<br /> lib/cog/languages/java_language.rb,<br /> lib/cog/languages/ruby_language.rb,<br /> lib/cog/languages/python_language.rb,<br /> lib/cog/generator/language_methods.rb,<br /> lib/cog/languages/c_sharp_language.rb,<br /> lib/cog/controllers/tool_controller.rb,<br /> lib/cog/languages/qt_project_language.rb,<br /> lib/cog/languages/mixins/hash_comments.rb,<br /> lib/cog/helpers/cascading_template_set.rb,<br /> lib/cog/languages/java_script_language.rb,<br /> lib/cog/languages/c_plus_plus_language.rb,<br /> lib/cog/controllers/template_controller.rb,<br /> lib/cog/generator/language_methods/scope.rb,<br /> lib/cog/controllers/generator_controller.rb,<br /> lib/cog/spec_helpers/matchers/match_maker.rb,<br /> lib/cog/languages/mixins/c_style_comments.rb</span>
+  lib/cog/dsl.rb,<br /> lib/cog/embeds.rb,<br /> lib/cog/config.rb,<br /> lib/cog/errors.rb,<br /> lib/cog/plugin.rb,<br /> lib/cog/helpers.rb,<br /> lib/cog/version.rb,<br /> lib/cog/language.rb,<br /> lib/cog/generator.rb,<br /> lib/cog/controllers.rb,<br /> lib/cog/dsl/cogfile.rb,<br /> lib/cog/spec_helpers.rb,<br /> lib/cog/embed_context.rb,<br /> lib/cog/dsl/language_dsl.rb,<br /> lib/cog/generator/filters.rb,<br /> lib/cog/generator_sandbox.rb,<br /> lib/cog/spec_helpers/runner.rb,<br /> lib/cog/config/plugin_config.rb,<br /> lib/cog/helpers/file_scanner.rb,<br /> lib/cog/helpers/cascading_set.rb,<br /> lib/cog/spec_helpers/matchers.rb,<br /> lib/cog/config/project_config.rb,<br /> lib/cog/generator/file_methods.rb,<br /> lib/cog/config/language_config.rb,<br /> lib/cog/generator/language_methods.rb,<br /> lib/cog/controllers/plugin_controller.rb,<br /> lib/cog/controllers/template_controller.rb,<br /> lib/cog/generator/language_methods/scope.rb,<br /> lib/cog/controllers/generator_controller.rb,<br /> lib/cog/spec_helpers/matchers/match_maker.rb</span>
 </dd>
   
 </dl>
@@ -94,7 +94,8 @@
   <div class="discussion">
     
 <p>This top level module serves as a singleton instance of the <span class='object_link'><a href="Cog/Config.html" title="Cog::Config (module)">Config</a></span>
-interface.</p>
+interface. It is configured with various cogfiles, which are evaluated as
+instances of <span class='object_link'><a href="Cog/DSL/Cogfile.html" title="Cog::DSL::Cogfile (class)">DSL::Cogfile</a></span>.</p>
 
 
   </div>
@@ -106,11 +107,11 @@ interface.</p>
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cog/BuiltInTools.html" title="Cog::BuiltInTools (module)">BuiltInTools</a></span>, <span class='object_link'><a href="Cog/Config.html" title="Cog::Config (module)">Config</a></span>, <span class='object_link'><a href="Cog/Controllers.html" title="Cog::Controllers (module)">Controllers</a></span>, <span class='object_link'><a href="Cog/Errors.html" title="Cog::Errors (module)">Errors</a></span>, <span class='object_link'><a href="Cog/Generator.html" title="Cog::Generator (module)">Generator</a></span>, <span class='object_link'><a href="Cog/Helpers.html" title="Cog::Helpers (module)">Helpers</a></span>, <span class='object_link'><a href="Cog/Languages.html" title="Cog::Languages (module)">Languages</a></span>, <span class='object_link'><a href="Cog/SpecHelpers.html" title="Cog::SpecHelpers (module)">SpecHelpers</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cog/Config.html" title="Cog::Config (module)">Config</a></span>, <span class='object_link'><a href="Cog/Controllers.html" title="Cog::Controllers (module)">Controllers</a></span>, <span class='object_link'><a href="Cog/DSL.html" title="Cog::DSL (module)">DSL</a></span>, <span class='object_link'><a href="Cog/Errors.html" title="Cog::Errors (module)">Errors</a></span>, <span class='object_link'><a href="Cog/Generator.html" title="Cog::Generator (module)">Generator</a></span>, <span class='object_link'><a href="Cog/SpecHelpers.html" title="Cog::SpecHelpers (module)">SpecHelpers</a></span>
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Cog/EmbedContext.html" title="Cog::EmbedContext (class)">EmbedContext</a></span>, <span class='object_link'><a href="Cog/Tool.html" title="Cog::Tool (class)">Tool</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Cog/EmbedContext.html" title="Cog::EmbedContext (class)">EmbedContext</a></span>, <span class='object_link'><a href="Cog/GeneratorSandbox.html" title="Cog::GeneratorSandbox (class)">GeneratorSandbox</a></span>, <span class='object_link'><a href="Cog/Language.html" title="Cog::Language (class)">Language</a></span>, <span class='object_link'><a href="Cog/Plugin.html" title="Cog::Plugin (class)">Plugin</a></span>
     
   
 </p>
@@ -122,7 +123,7 @@ interface.</p>
         <dt id="VERSION-constant" class="">VERSION =
           
         </dt>
-        <dd><pre class="code"><span class='string val'>'0.2.2'</span>
+        <dd><pre class="code"><span class='string val'>'0.3.0'</span>
 </pre></dd>
       
     </dl>
@@ -135,13 +136,13 @@ interface.</p>
 
   <h2>Instance Attribute Summary</h2>
   
-  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Cog/Config/LanguageMethods.html" title="Cog::Config::LanguageMethods (module)">Config::LanguageMethods</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Cog/Config/LanguageMethods.html#target_language-instance_method" title="Cog::Config::LanguageMethods#target_language (method)">#target_language</a></span></p>
+  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Cog/Config.html" title="Cog::Config (module)">Config</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Cog/Config.html#generator_path-instance_method" title="Cog::Config#generator_path (method)">#generator_path</a></span>, <span class='object_link'><a href="Cog/Config.html#plugin_path-instance_method" title="Cog::Config#plugin_path (method)">#plugin_path</a></span>, <span class='object_link'><a href="Cog/Config.html#template_path-instance_method" title="Cog::Config#template_path (method)">#template_path</a></span></p>
 
   
   
-  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Cog/Config/ProjectMethods.html" title="Cog::Config::ProjectMethods (module)">Config::ProjectMethods</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Cog/Config/ProjectMethods.html#cogfile_path-instance_method" title="Cog::Config::ProjectMethods#cogfile_path (method)">#cogfile_path</a></span>, <span class='object_link'><a href="Cog/Config/ProjectMethods.html#project_generators_path-instance_method" title="Cog::Config::ProjectMethods#project_generators_path (method)">#project_generators_path</a></span>, <span class='object_link'><a href="Cog/Config/ProjectMethods.html#project_root-instance_method" title="Cog::Config::ProjectMethods#project_root (method)">#project_root</a></span>, <span class='object_link'><a href="Cog/Config/ProjectMethods.html#project_source_path-instance_method" title="Cog::Config::ProjectMethods#project_source_path (method)">#project_source_path</a></span>, <span class='object_link'><a href="Cog/Config/ProjectMethods.html#project_templates_path-instance_method" title="Cog::Config::ProjectMethods#project_templates_path (method)">#project_templates_path</a></span></p>
+  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Cog/Config/ProjectConfig.html" title="Cog::Config::ProjectConfig (module)">Config::ProjectConfig</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Cog/Config/ProjectConfig.html#project_cogfile_path-instance_method" title="Cog::Config::ProjectConfig#project_cogfile_path (method)">#project_cogfile_path</a></span>, <span class='object_link'><a href="Cog/Config/ProjectConfig.html#project_generator_path-instance_method" title="Cog::Config::ProjectConfig#project_generator_path (method)">#project_generator_path</a></span>, <span class='object_link'><a href="Cog/Config/ProjectConfig.html#project_path-instance_method" title="Cog::Config::ProjectConfig#project_path (method)">#project_path</a></span>, <span class='object_link'><a href="Cog/Config/ProjectConfig.html#project_plugin_path-instance_method" title="Cog::Config::ProjectConfig#project_plugin_path (method)">#project_plugin_path</a></span>, <span class='object_link'><a href="Cog/Config/ProjectConfig.html#project_root-instance_method" title="Cog::Config::ProjectConfig#project_root (method)">#project_root</a></span>, <span class='object_link'><a href="Cog/Config/ProjectConfig.html#project_template_path-instance_method" title="Cog::Config::ProjectConfig#project_template_path (method)">#project_template_path</a></span></p>
 
 
   
@@ -190,7 +191,7 @@ interface.</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Cog/Config.html" title="Cog::Config (module)">Config</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Cog/Config.html#cog_templates_path-instance_method" title="Cog::Config#cog_templates_path (method)">cog_templates_path</a></span>, <span class='object_link'><a href="Cog/Config.html#gem_dir-instance_method" title="Cog::Config#gem_dir (method)">gem_dir</a></span>, <span class='object_link'><a href="Cog/Config.html#prepare-instance_method" title="Cog::Config#prepare (method)">prepare</a></span>, <span class='object_link'><a href="Cog/Config.html#template_paths-instance_method" title="Cog::Config#template_paths (method)">template_paths</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Cog/Config.html#gem_dir-instance_method" title="Cog::Config#gem_dir (method)">gem_dir</a></span>, <span class='object_link'><a href="Cog/Config.html#gems_root_dir-instance_method" title="Cog::Config#gems_root_dir (method)">gems_root_dir</a></span>, <span class='object_link'><a href="Cog/Config.html#prepare-instance_method" title="Cog::Config#prepare (method)">prepare</a></span>, <span class='object_link'><a href="Cog/Config.html#show_fullpaths%3F-instance_method" title="Cog::Config#show_fullpaths? (method)">show_fullpaths?</a></span>, <span class='object_link'><a href="Cog/Config.html#user_cogfile-instance_method" title="Cog::Config#user_cogfile (method)">user_cogfile</a></span>, <span class='object_link'><a href="Cog/Config.html#user_dir-instance_method" title="Cog::Config#user_dir (method)">user_dir</a></span></p>
 
   
   
@@ -200,8 +201,8 @@ interface.</p>
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="Cog/Config/ToolMethods.html" title="Cog::Config::ToolMethods (module)">Config::ToolMethods</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Cog/Config/ToolMethods.html#activate_tool-instance_method" title="Cog::Config::ToolMethods#activate_tool (method)">#activate_tool</a></span>, <span class='object_link'><a href="Cog/Config/ToolMethods.html#active_tool-instance_method" title="Cog::Config::ToolMethods#active_tool (method)">#active_tool</a></span>, <span class='object_link'><a href="Cog/Config/ToolMethods.html#register_tool-instance_method" title="Cog::Config::ToolMethods#register_tool (method)">#register_tool</a></span>, <span class='object_link'><a href="Cog/Config/ToolMethods.html#tools-instance_method" title="Cog::Config::ToolMethods#tools (method)">#tools</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Cog/Config/PluginConfig.html" title="Cog::Config::PluginConfig (module)">Config::PluginConfig</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Cog/Config/PluginConfig.html#plugin-instance_method" title="Cog::Config::PluginConfig#plugin (method)">#plugin</a></span>, <span class='object_link'><a href="Cog/Config/PluginConfig.html#plugins-instance_method" title="Cog::Config::PluginConfig#plugins (method)">#plugins</a></span></p>
 
   
   
@@ -211,8 +212,8 @@ interface.</p>
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="Cog/Config/LanguageMethods.html" title="Cog::Config::LanguageMethods (module)">Config::LanguageMethods</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Cog/Config/LanguageMethods.html#activate_language-instance_method" title="Cog::Config::LanguageMethods#activate_language (method)">#activate_language</a></span>, <span class='object_link'><a href="Cog/Config/LanguageMethods.html#active_language-instance_method" title="Cog::Config::LanguageMethods#active_language (method)">#active_language</a></span>, <span class='object_link'><a href="Cog/Config/LanguageMethods.html#language_extensions-instance_method" title="Cog::Config::LanguageMethods#language_extensions (method)">#language_extensions</a></span>, <span class='object_link'><a href="Cog/Config/LanguageMethods.html#language_for-instance_method" title="Cog::Config::LanguageMethods#language_for (method)">#language_for</a></span>, <span class='object_link'><a href="Cog/Config/LanguageMethods.html#language_summary-instance_method" title="Cog::Config::LanguageMethods#language_summary (method)">#language_summary</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Cog/Config/LanguageConfig.html" title="Cog::Config::LanguageConfig (module)">Config::LanguageConfig</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Cog/Config/LanguageConfig.html#activate_language-instance_method" title="Cog::Config::LanguageConfig#activate_language (method)">#activate_language</a></span>, <span class='object_link'><a href="Cog/Config/LanguageConfig.html#active_language-instance_method" title="Cog::Config::LanguageConfig#active_language (method)">#active_language</a></span>, <span class='object_link'><a href="Cog/Config/LanguageConfig.html#language-instance_method" title="Cog::Config::LanguageConfig#language (method)">#language</a></span>, <span class='object_link'><a href="Cog/Config/LanguageConfig.html#language_extensions-instance_method" title="Cog::Config::LanguageConfig#language_extensions (method)">#language_extensions</a></span>, <span class='object_link'><a href="Cog/Config/LanguageConfig.html#language_for-instance_method" title="Cog::Config::LanguageConfig#language_for (method)">#language_for</a></span>, <span class='object_link'><a href="Cog/Config/LanguageConfig.html#language_summary-instance_method" title="Cog::Config::LanguageConfig#language_summary (method)">#language_summary</a></span></p>
 
   
   
@@ -222,8 +223,8 @@ interface.</p>
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="Cog/Config/ProjectMethods.html" title="Cog::Config::ProjectMethods (module)">Config::ProjectMethods</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Cog/Config/ProjectMethods.html#project%3F-instance_method" title="Cog::Config::ProjectMethods#project? (method)">#project?</a></span>, <span class='object_link'><a href="Cog/Config/ProjectMethods.html#supported_project_files-instance_method" title="Cog::Config::ProjectMethods#supported_project_files (method)">#supported_project_files</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Cog/Config/ProjectConfig.html" title="Cog::Config::ProjectConfig (module)">Config::ProjectConfig</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Cog/Config/ProjectConfig.html#project%3F-instance_method" title="Cog::Config::ProjectConfig#project? (method)">#project?</a></span>, <span class='object_link'><a href="Cog/Config/ProjectConfig.html#supported_project_files-instance_method" title="Cog::Config::ProjectConfig#supported_project_files (method)">#supported_project_files</a></span></p>
 
 
   <div id="class_method_details" class="method_details_list">
@@ -270,18 +271,28 @@ interface.</p>
       <pre class="lines">
 
 
-18
-19
-20
-21
-22</pre>
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/cog.rb', line 27</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_initialize_project identifier id'>initialize_project</span>
-  <span class='rubyid_Generator constant id'>Generator</span><span class='dot token'>.</span><span class='rubyid_copy_file_if_missing identifier id'>copy_file_if_missing</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_gem_dir identifier id'>gem_dir</span><span class='comma token'>,</span> <span class='string val'>'Default.cogfile'</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='string val'>'Cogfile'</span>
-  <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_prepare identifier id'>prepare</span> <span class='symbol val'>:force_reset</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span>
+  <span class='rubyid_@cogfile_type ivar id'>@cogfile_type</span> <span class='assign token'>=</span> <span class='symbol val'>:project</span>
+  <span class='rubyid_@prefix ivar id'>@prefix</span> <span class='assign token'>=</span> <span class='string val'>'cog/'</span>
+  <span class='rubyid_Generator constant id'>Generator</span><span class='dot token'>.</span><span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'cog/Cogfile'</span><span class='comma token'>,</span> <span class='string val'>'Cogfile'</span><span class='comma token'>,</span> <span class='symbol val'>:absolute_destination</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span><span class='comma token'>,</span> <span class='symbol val'>:binding</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_binding identifier id'>binding</span><span class='comma token'>,</span> <span class='symbol val'>:once</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span>
+  
+  <span class='rubyid_@cogfile_type ivar id'>@cogfile_type</span> <span class='assign token'>=</span> <span class='symbol val'>:user</span>
+  <span class='rubyid_@prefix ivar id'>@prefix</span> <span class='assign token'>=</span> <span class='string val'>''</span>
+  <span class='rubyid_Generator constant id'>Generator</span><span class='dot token'>.</span><span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'cog/Cogfile'</span><span class='comma token'>,</span> <span class='rubyid_user_cogfile identifier id'>user_cogfile</span><span class='comma token'>,</span> <span class='symbol val'>:absolute_destination</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span><span class='comma token'>,</span> <span class='symbol val'>:binding</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_binding identifier id'>binding</span><span class='comma token'>,</span> <span class='symbol val'>:once</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span>
   <span class='rubyid_nil nil kw'>nil</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
@@ -295,7 +306,7 @@ interface.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Dec 15 16:54:44 2012 by
+  Generated on Sat Dec 29 22:52:51 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
