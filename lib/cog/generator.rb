@@ -47,10 +47,11 @@ module Cog
 
       # Place it in a file
       write_scratch_file(destination, r, opt[:absolute_destination]) do |path, scratch|
-        if files_are_same?(path, scratch) || (opt[:once] && File.exists?(path))
+        updated = File.exists? path
+        Embeds.copy_keeps(path, scratch)
+        if files_are_same?(path, scratch) || (opt[:once] && updated)
           FileUtils.rm scratch
         else
-          updated = File.exists? path
           FileUtils.mv scratch, path
           STDOUT.write "#{updated ? :Updated : :Created} #{path.relative_to_project_root}\n".color(updated ? :white : :green) unless opt[:quiet]
         end

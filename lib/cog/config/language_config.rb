@@ -10,9 +10,10 @@ module Cog
       end
 
       # Activate a given language within the scope of the provided block.
-      # Either provide <tt>key</tt> or <tt>:ext</tt> but not both. If the extension does not match any of the supported languages, the {#active_language} will not change, but the block will still be called.
+      # Either provide <tt>key</tt>, <tt>:ext</tt>, or <tt>:filename</tt> but not more than one. If the extension does not match any of the supported languages, the {#active_language} will not change, but the block will still be called.
       # @param key [:String] the lanuage identifier. Type <tt>cog language list</tt> to see the possible values
       # @option opt [:String] :ext (nil) a file extension which will map to a language identifier. Type <tt>cog language map</tt> to see mapped extensions
+      # @option opt [:String] :filename (nil) a filename or path to file which will map to a language identifier
       # @yield within this block the {#active_language} will be set to the desired value
       # @return [Object] the value returned by the block
       def activate_language(key, opt={}, &block)
@@ -22,6 +23,9 @@ module Cog
           ext = opt[:ext].to_s.downcase
           ext = ext.slice(1..-1) if ext.start_with?('.')
           @language_extension_map[ext] unless ext.empty?
+        elsif opt[:filename]
+          ext = File.extname(opt[:filename]).slice(1..-1)
+          @language_extension_map[ext] unless ext.nil? || ext.empty?
         else
           key
         end

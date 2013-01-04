@@ -1,0 +1,25 @@
+# All paths are relative to the directory containing this file.
+
+# Define the directory to which code is generated
+project_path 'src'
+
+# Define a directory in which to find generators
+generator_path 'cog/generators'
+
+# Define a directory in which to find templates
+template_path 'cog/templates'
+
+# Define a directory in which to find plugins
+plugin_path 'cog/plugins'
+
+# Explicitly specify a mapping from file extensions to languages
+#
+# key => value pairs from this mapping will override the default
+# language map supplied by +cog+
+#
+# Type `cog language list` to see a list of supported languages
+# and the current file extension mappings
+language_extensions({
+  :h => 'c++',
+})
+

@@ -38,6 +38,7 @@ module Cog
       @path = path.to_s
       @count = count
       @eaten = 0
+      @index = 0
     end
       
     # @return [Array<String>] arguments provided with the embed statement
@@ -74,6 +75,9 @@ module Cog
       @once
     end
 
+    # @api developer
+    attr_accessor :keep_body
+    
     # @api developer
     # @param value [String, nil] set the body to this value
     def body=(value)
@@ -115,11 +119,11 @@ module Cog
     def actual_index
       @index - @eaten
     end
-      
+    
     # @api developer
     # @return [String]
-    def to_directive
-      x = "cog: #{hook}"
+    def to_statement(type='cog')
+      x = "#{type}: #{hook}"
       x += "(#{args.join ' '})" if args
       x += " once" if once?
       x

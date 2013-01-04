@@ -34,6 +34,7 @@ module Cog
     
     define_error :DuplicateGenerator, 'generator'
     define_error :DuplicatePlugin, 'plugin'
+    define_error :DuplicateKeep, 'keep'
 
     define_error :InvalidPluginConfiguration, 'path to cog_plugin.rb file' do
       "invalid directory structure for a cog plugin"
