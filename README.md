@@ -259,9 +259,11 @@ void MyClass::myMethod(int a, char b)
 ```
 
 Each keep statement must have a hook, which must be unique within the file in
-which it is found. The hook is used to identify the keep statement, in case the
-generator moves it to a different place in the file with respect to other keep
-statements. The corresponding generator template would look like this
+which it is found. In the above example the hook is the part after the opening
+<tt>keep:</tt>, that is `MyClass_myMethod_int_char`. The hook is used to
+identify the keep statement, in case the generator moves it to a different
+place in the file with respect to other keep statements. The corresponding
+generator template would look like this
 
 ```c++
 void MyClass::myMethod(int a, char b)

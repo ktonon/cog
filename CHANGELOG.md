@@ -1,3 +1,9 @@
+## 0.3.1 - January 5, 2013
+
+### New features
+
+- [Keeps][] preserve manually maintained code segments in a generated file
+
 ## 0.3.0 - December 29, 2012
 
 ### Backwards incompatible changes
@@ -37,6 +43,7 @@
 [Generator]:http://ktonon.github.com/cog/Cog/Generator.html
 [GeneratorSandbox]:http://ktonon.github.com/cog/Cog/GeneratorSandbox.html
 [LanguageDSL]:http://ktonon.github.com/cog/Cog/DSL/LanguageDSL.html
+[Keeps]:https://github.com/ktonon/cog#keeps
 
 [autoload_plugin]:http://ktonon.github.com/cog/Cog/DSL/Cogfile.html#autoload_plugin-instance_method
 [comment]:http://ktonon.github.com/cog/Cog/Generator/Filters.html#comment-instance_method
