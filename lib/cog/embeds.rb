@@ -12,26 +12,34 @@ module Cog
       end
     end
     
+    # @param original [String] file in which to search for keep statements
+    # @param scratch [String] file to which keep bodies will be copied (used to create the {EmbedContext} objects)
+    # @return [Hash] mapping from hooks to {EmbedContext} objects
+    def gather_keeps(original, scratch)
+      keeps = {}
+      gather_from_file(original, :type => 'keep').each_pair do |hook, count|
+        c = keeps[hook] = EmbedContext.new(hook, scratch, count[original])
+        raise Errors::DuplicateKeep.new :hook => hook if c.count > 1
+        Helpers::FileScanner.scan(original, statement('keep', hook)) do |s|
+          c.keep_body = if s.match[4] == '{'
+            s.capture_until end_statement('keep')
+            s.captured_text
+          else
+            ''
+          end
+        end
+      end
+      keeps
+    end
+    
     # Copy keep bodies from the original file to the scratch file
     # @param original [String] file in which to search for keep statements. If the original does not exist, then scratch will serve as the original (we do this so that the keeps will get expanded in any case)
     # @param scratch [String] file to which keep bodies will be copied
     # @return [nil]
     def copy_keeps(original, scratch)
-      keeps = {}
       Cog.activate_language(:filename => original) do
         original = scratch unless File.exists? original
-        gather_from_file(original, :type => 'keep').each_pair do |hook, count|
-          c = keeps[hook] = EmbedContext.new(hook, scratch, count[original])
-          raise Errors::DuplicateKeep.new :hook => hook if c.count > 1
-          Helpers::FileScanner.scan(original, statement('keep', hook)) do |s|
-            c.keep_body = if s.match[4] == '{'
-              s.capture_until end_statement('keep')
-              s.captured_text
-            else
-              ''
-            end
-          end
-        end
+        keeps = gather_keeps original, scratch
         keeps.each_pair do |hook, c|
           result = update c, :type => 'keep' do |c|
             c.keep_body
