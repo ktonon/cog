@@ -21,6 +21,7 @@ Table of contents
 1. [Generators](#generators) - Create ruby scripts which generate code
 1. [Templates](#templates) - Use ERB templates to help generators
 1. [Embeds](#embeds) - Generate code segments into otherwise manually maintained code
+1. [Keeps](#keeps) - Preserve manually maintained code segments in a generated file
 1. [Plugins](#plugins) - Express your generators using DSLs
 
 Getting Started
@@ -231,6 +232,45 @@ HEADERS += widget_1.h widget_2.h widget_3.h widget_4.h widget_5.h
 
 Embeds are only updated when the generated content changes. So running the
 generator a second time would not touch the file.
+
+Keeps
+-----
+
+Often the interface of a class will be automatically generated, but the
+implementation of the methods will need to be manually maintained. In most
+languages, this could be achieved with an abstract/impl split, where the
+abstract is generated, and the impl is manually maintained.
+
+With abstract/impl, the compiler will warn about missing or excess methods in
+the impl, as the abstract changes. But changes to the interface will still have
+to be manually maintained.
+
+You may prefer to keep manually maintained code inside a generated file. Such
+code segments should be preserved whenever that file is regenerated. In `cog`,
+these code segments are called _keeps_. Take the following generated file
+
+```c++
+void MyClass::myMethod(int a, char b)
+{
+    // keep: MyClass_myMethod_int_char {
+    // manually maintained code...
+    // keep: }
+}
+```
+
+Each keep statement must have a hook, which must be unique within the file in
+which it is found. The hook is used to identify the keep statement, in case the
+generator moves it to a different place in the file with respect to other keep
+statements. The corresponding generator template would look like this
+
+```c++
+void MyClass::myMethod(int a, char b)
+{
+    // keep: MyClass_myMethod_int_char
+}
+```
+
+It is important to note that keeps rely on the [stamp][] method.
 
 Plugins
 -------
