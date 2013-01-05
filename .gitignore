@@ -1,6 +1,7 @@
 .DS_Store
 .yardoc
 doc
+Gemfile.lock
 pkg
 spec/active_fixture
 spec/active_home_fixture
