@@ -22,7 +22,7 @@ module Cog
         original = scratch unless File.exists? original
         gather_from_file(original, :type => 'keep').each_pair do |hook, count|
           c = keeps[hook] = EmbedContext.new(hook, scratch, count[original])
-          raise Errors::DuplicateKeep.new hook if c.count > 1
+          raise Errors::DuplicateKeep.new :hook => hook if c.count > 1
           Helpers::FileScanner.scan(original, statement('keep', hook)) do |s|
             c.keep_body = if s.match[4] == '{'
               s.capture_until end_statement('keep')
@@ -33,9 +33,10 @@ module Cog
           end
         end
         keeps.each_pair do |hook, c|
-          update c, :type => 'keep' do |c|
+          result = update c, :type => 'keep' do |c|
             c.keep_body
           end
+          raise Errors::UnrecognizedKeepHook.new :hook => hook, :filename => original if result.nil?
         end
       end
     end
@@ -78,7 +79,7 @@ module Cog
     # @option opt [String] :type ('cog') one of <tt>'cog'</tt> or <tt>'keep'</tt>
     # @yieldparam context [EmbedContext] describes the context in which the embed statement was found
     # @yieldreturn [String] the value to substitute into the embed expansion 
-    # @return [Hash] whether or not the expansion was updated
+    # @return [Boolean,nil] +true+ if the statement was expanded or updated, +false+ if the statement was found, but not changed, +nil+ if it could not be found.
     def update(c, opt={}, &block)
       type = opt[:type] || 'cog'
       Helpers::FileScanner.scan(c.path, statement(type, c.hook), :occurrence => c.actual_index) do |s|
@@ -123,12 +124,14 @@ module Cog
     def update_body(c, s, opt={}, &block)
       type = opt[:type] || 'cog'
       unless s.capture_until end_statement(type), :but_not => anything_but_end(type)
-        raise Errors::SnippetExpansionUnterminated.new "#{c.path.relative_to_project_root}:#{s.marked_line_number}"
+        raise Errors::SnippetExpansionUnterminated.new :filename => c.path.relative_to_project_root, :line => s.marked_line_number
       end
       c.body = s.captured_text
       value = block.call(c).rstrip
       if c.once? || value != s.captured_text
         s.replace_captured_text(value + "\n", :once => c.once?)
+      else
+        false
       end
     end
     

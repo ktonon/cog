@@ -31,11 +31,13 @@ module Cog
       # @option opt [Fixnum] :occurrence (0) 0 for the first, 1 for the second, and so on
       # @yieldparam scanner [FileScanner] a file scanner
       # @yieldreturn [Object]
-      # @return [Object] the return value of the block
+      # @return [Object,nil] the return value of the block, or +nil+ if the pattern was not found
       def self.scan(filename, pattern, opt={}, &block)
         s = new filename
-        if s.read_until pattern, opt[:occurrence] || 0
-          val = block.call s
+        val = if s.read_until pattern, opt[:occurrence] || 0
+          block.call s
+        else
+          nil
         end
         s.close
         val

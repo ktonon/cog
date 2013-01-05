@@ -38,5 +38,10 @@ describe 'generated files' do
       File.should_not exist(generated_file('duped.c'))
     end
 
+    it "should fail when keep hooks go missing" do
+      File.should exist(generated_file('fewer.c'))
+      @cog.run(:gen, :fewer).should complain
+    end
+
   end
 end

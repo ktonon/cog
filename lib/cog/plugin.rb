@@ -18,7 +18,7 @@ module Cog
     # @param cogfile_path [String] path to the plugin Cogfile
     def initialize(cogfile_path)
       unless File.exists?(cogfile_path)
-        raise Errors::InvalidPluginConfiguration.new(cogfile_path)
+        raise Errors::InvalidPluginConfiguration.new :cogfile => cogfile_path
       end
       @cogfile_path = File.expand_path cogfile_path
       @path = File.dirname @cogfile_path
