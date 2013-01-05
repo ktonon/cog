@@ -261,6 +261,42 @@ HEADERS += widget_1.h widget_2.h widget_3.h widget_4.h widget_5.h
 <p>Embeds are only updated when the generated content changes. So running the
 generator a second time would not touch the file.</p>
 
+<h2>Keeps</h2>
+
+<p>Often the interface of a class will be automatically generated, but the
+implementation of the methods will need to be manually maintained. In most
+languages, this could be achieved with an abstract/impl split, where the
+abstract is generated, and the impl is manually maintained.</p>
+
+<p>With abstract/impl, the compiler will warn about missing or excess methods in
+the impl, as the abstract changes. But changes to the interface will still have
+to be manually maintained.</p>
+
+<p>You may prefer to keep manually maintained code inside a generated file. Such
+code segments should be preserved whenever that file is regenerated. In <code>cog</code>,
+these code segments are called <em>keeps</em>. Take the following generated file</p>
+
+<pre class="code c++"><code>void MyClass::myMethod(int a, char b)
+{
+    // keep: MyClass_myMethod_int_char {
+    // manually maintained code...
+    // keep: }
+}
+</code></pre>
+
+<p>Each keep statement must have a hook, which must be unique within the file in
+which it is found. The hook is used to identify the keep statement, in case the
+generator moves it to a different place in the file with respect to other keep
+statements. The corresponding generator template would look like this</p>
+
+<pre class="code c++"><code>void MyClass::myMethod(int a, char b)
+{
+    // keep: MyClass_myMethod_int_char
+}
+</code></pre>
+
+<p>It is important to note that keeps rely on the <a href="http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp">stamp</a> method.</p>
+
 <h2>Plugins</h2>
 
 <p>While it is possible to place all code generation logic into a generator
@@ -326,7 +362,7 @@ Created cog/generators/my_cons.rb
 </div></div>
 
     <div id="footer">
-  Generated on Sat Dec 29 23:01:46 2012 by
+  Generated on Sat Jan  5 00:07:07 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

@@ -280,9 +280,10 @@
   <div class="discussion">
     
 <p>Activate a given language within the scope of the provided block. Either
-provide <code>key</code> or <code>:ext</code> but not both. If the
-extension does not match any of the supported languages, the
-<span class='object_link'><a href="#active_language-instance_method" title="Cog::Config::LanguageConfig#active_language (method)">#active_language</a></span> will not change, but the block will still be called.</p>
+provide <code>key</code>, <code>:ext</code>, or <code>:filename</code> but
+not more than one. If the extension does not match any of the supported
+languages, the <span class='object_link'><a href="#active_language-instance_method" title="Cog::Config::LanguageConfig#active_language (method)">#active_language</a></span> will not change, but the block will still
+be called.</p>
 
 
   </div>
@@ -353,6 +354,22 @@ language map</code> to see mapped extensions</p>
           
         </li>
       
+        <li>
+          <span class="name">:filename</span>
+          <span class="type">(<tt>:String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>nil</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>a filename or path to file which will map to a language identifier</p>
+</div>
+          
+        </li>
+      
     </ul>
   
 
@@ -399,7 +416,6 @@ language map</code> to see mapped extensions</p>
       <pre class="lines">
 
 
-18
 19
 20
 21
@@ -417,10 +433,14 @@ language map</code> to see mapped extensions</p>
 33
 34
 35
-36</pre>
+36
+37
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 19</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_activate_language identifier id'>activate_language</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
   <span class='rubyid_throw identifier id'>throw</span> <span class='symbol val'>:ActivateLanguageRequiresABlock</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_block identifier id'>block</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
@@ -429,6 +449,9 @@ language map</code> to see mapped extensions</p>
     <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:ext</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span>
     <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_slice identifier id'>slice</span><span class='lparen token'>(</span><span class='float val'>1</span><span class='dot2 op'>..</span><span class='integer val'>-1</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_start_with? fid id'>start_with?</span><span class='lparen token'>(</span><span class='string val'>'.'</span><span class='rparen token'>)</span>
     <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='lbrack token'>[</span><span class='rubyid_ext identifier id'>ext</span><span class='rbrack token'>]</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
+  <span class='rubyid_elsif elsif kw'>elsif</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:filename</span><span class='rbrack token'>]</span>
+    <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_extname identifier id'>extname</span><span class='lparen token'>(</span><span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:filename</span><span class='rbrack token'>]</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_slice identifier id'>slice</span><span class='lparen token'>(</span><span class='float val'>1</span><span class='dot2 op'>..</span><span class='integer val'>-1</span><span class='rparen token'>)</span>
+    <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='lbrack token'>[</span><span class='rubyid_ext identifier id'>ext</span><span class='rbrack token'>]</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span> <span class='orop op'>||</span> <span class='rubyid_ext identifier id'>ext</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
   <span class='rubyid_else else kw'>else</span>
     <span class='rubyid_key identifier id'>key</span>
   <span class='rubyid_end end kw'>end</span>
@@ -571,12 +594,12 @@ language map</code> to see mapped extensions</p>
       <pre class="lines">
 
 
-45
-46
-47</pre>
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 49</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_language identifier id'>language</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='rparen token'>)</span>
   <span class='rubyid_@language ivar id'>@language</span><span class='lbrack token'>[</span><span class='rubyid_key identifier id'>key</span><span class='rbrack token'>]</span>
@@ -631,12 +654,12 @@ language map</code> to see mapped extensions</p>
       <pre class="lines">
 
 
-39
-40
-41</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 43</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_language_extensions identifier id'>language_extensions</span>
   <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='dot token'>.</span><span class='rubyid_keys identifier id'>keys</span>
@@ -711,17 +734,17 @@ language map</code> to see mapped extensions</p>
       <pre class="lines">
 
 
-51
-52
-53
-54
 55
 56
 57
-58</pre>
+58
+59
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 55</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_language_for identifier id'>language_for</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
   <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_extname identifier id'>extname</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='rparen token'>)</span>
@@ -781,12 +804,12 @@ language map</code> to see mapped extensions</p>
       <pre class="lines">
 
 
-61
-62
-63</pre>
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/config/language_config.rb', line 65</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_language_summary identifier id'>language_summary</span>
   <span class='rubyid_@language ivar id'>@language</span><span class='dot token'>.</span><span class='rubyid_values identifier id'>values</span><span class='dot token'>.</span><span class='rubyid_sort identifier id'>sort</span>
@@ -802,7 +825,7 @@ language map</code> to see mapped extensions</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Dec 29 23:01:50 2012 by
+  Generated on Sat Jan  5 00:07:11 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

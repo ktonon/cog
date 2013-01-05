@@ -332,7 +332,6 @@ content)</p>
       <pre class="lines">
 
 
-66
 67
 68
 69
@@ -341,10 +340,11 @@ content)</p>
 72
 73
 74
-75</pre>
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/generator.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/generator.rb', line 67</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_embed identifier id'>embed</span><span class='lparen token'>(</span><span class='rubyid_hook identifier id'>hook</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
   <span class='rubyid_eaten identifier id'>eaten</span> <span class='assign token'>=</span> <span class='integer val'>0</span> <span class='comment val'># keep track of eaten statements so that the index can be adjusted</span>
@@ -593,7 +593,8 @@ returned as a string</p>
 56
 57
 58
-59</pre>
+59
+60</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/generator.rb', line 39</span>
@@ -609,10 +610,11 @@ returned as a string</p>
 
   <span class='comment val'># Place it in a file</span>
   <span class='rubyid_write_scratch_file identifier id'>write_scratch_file</span><span class='lparen token'>(</span><span class='rubyid_destination identifier id'>destination</span><span class='comma token'>,</span> <span class='rubyid_r identifier id'>r</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:absolute_destination</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_scratch identifier id'>scratch</span><span class='bitor op'>|</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_files_are_same? fid id'>files_are_same?</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_scratch identifier id'>scratch</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='lparen token'>(</span><span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:once</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+    <span class='rubyid_updated identifier id'>updated</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span> <span class='rubyid_path identifier id'>path</span>
+    <span class='rubyid_Embeds constant id'>Embeds</span><span class='dot token'>.</span><span class='rubyid_copy_keeps identifier id'>copy_keeps</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_scratch identifier id'>scratch</span><span class='rparen token'>)</span>
+    <span class='rubyid_if if kw'>if</span> <span class='rubyid_files_are_same? fid id'>files_are_same?</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_scratch identifier id'>scratch</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='lparen token'>(</span><span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:once</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_updated identifier id'>updated</span><span class='rparen token'>)</span>
       <span class='rubyid_FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='rubyid_rm identifier id'>rm</span> <span class='rubyid_scratch identifier id'>scratch</span>
     <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_updated identifier id'>updated</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span> <span class='rubyid_path identifier id'>path</span>
       <span class='rubyid_FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='rubyid_mv identifier id'>mv</span> <span class='rubyid_scratch identifier id'>scratch</span><span class='comma token'>,</span> <span class='rubyid_path identifier id'>path</span>
       <span class='rubyid_STDOUT constant id'>STDOUT</span><span class='dot token'>.</span><span class='rubyid_write identifier id'>write</span> <span class='dstring node'>&quot;#{updated ? :Updated : :Created} #{path.relative_to_project_root}\n&quot;</span><span class='dot token'>.</span><span class='rubyid_color identifier id'>color</span><span class='lparen token'>(</span><span class='rubyid_updated identifier id'>updated</span> <span class='integer val'>? </span><span class='symbol val'>:white</span> <span class='colon op'>:</span> <span class='symbol val'>:green</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:quiet</span><span class='rbrack token'>]</span>
     <span class='rubyid_end end kw'>end</span>
@@ -630,7 +632,7 @@ returned as a string</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Dec 29 23:01:47 2012 by
+  Generated on Sat Jan  5 00:07:09 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
