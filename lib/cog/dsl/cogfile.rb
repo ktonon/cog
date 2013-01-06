@@ -33,12 +33,12 @@ module Cog
         nil
       end
     
-      # Define the directory in which to generate code
+      # Define the directory in which to generate code. A call to this method will be ignored if the containing cogfile is being treated as a plugin.
       # @param path [String] a file system path to a directory
       # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectConfig#project_root}
       # @return [nil]
       def project_path(path, absolute=false)
-        return if @cogfile_context[:plugin_path_only]
+        return if plugin_path_only? || plugin?
         path = File.join @cogfile_context[:cogfile_dir], path unless absolute
         config_eval { @project_path = path }
       end
@@ -48,7 +48,7 @@ module Cog
       # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectConfig#project_root}
       # @return [nil]
       def generator_path(path, absolute=false)
-        return if @cogfile_context[:plugin_path_only]
+        return if plugin_path_only?
         add_config_path :generator, path, absolute
       end
 
@@ -57,15 +57,16 @@ module Cog
       # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectConfig#project_root}
       # @return [nil]
       def template_path(path, absolute=false)
-        return if @cogfile_context[:plugin_path_only]
+        return if plugin_path_only?
         add_config_path :template, path, absolute
       end
       
-      # Define a directory in which to find plugins
+      # Define a directory in which to find plugins. A call to this method will be ignored if the containing cogfile is itself being treated as a plugin.
       # @param path [String] a file system path
       # @param absolute [Boolean] if +false+, the path is relative to {Config::ProjectConfig#project_root}
       # @return [nil]
       def plugin_path(path, absolute=false)
+        return if plugin?
         path = add_config_path :plugin, path, absolute
         if path && File.exists?(path)
           raise Errors::PluginPathIsNotADirectory.new path unless File.directory?(path)
@@ -77,7 +78,7 @@ module Cog
       # @param map [Hash] key-value pairs from this mapping will override the default language map supplied by +cog+
       # @return [nil]
       def language_extensions(map)
-        return if @cogfile_context[:plugin_path_only]
+        return if plugin_path_only?
         config_eval do
           map.each_pair do |key, value|
             @language_extension_map[key.to_s.downcase] = value.to_s.downcase
@@ -90,7 +91,7 @@ module Cog
       # @yieldparam lang [LanguageDSL] an interface for defining the language
       # @return [Object] the return value of the block
       def language(key, &block)
-        return if @cogfile_context[:plugin_path_only]
+        return if plugin_path_only?
         dsl = LanguageDSL.new key
         r = block.call dsl
         lang = dsl.finalize
@@ -100,25 +101,43 @@ module Cog
         r
       end
 
-      # Register an autoload variable in the class {GeneratorSandbox}. That way when generators are run as instances of a sandbox, they will be able to load plugins just by referencing them using the provided +identifier_name+.
+      # Register an autoload variable in the class {GeneratorSandbox}. That way when generators are run as instances of a sandbox, they will be able to load plugins just by referencing them using the provided +identifier_name+. A call to this method will be ignored unless the containing cogfile is being treated as a plugin.
       # @param identifier_name [String] identifier by which the plugin can be referenced in generators
       # @param path [String] path to the ruby file to load when the identifier is referenced (relative to the cogfile)
       # @return [nil]
       def autoload_plugin(identifier_name, path)
-        GeneratorSandbox.autoload_plugin(identifier_name, File.join(@cogfile_context[:plugin].path, path))
+        if plugin?
+          GeneratorSandbox.autoload_plugin(identifier_name, File.join(plugin.path, path))
+        end
       end
       
-      # Define a block to call when stamping a generator for a plugin. A call to this method should only be used in plugin cogfiles.
+      # Define a block to call when stamping a generator for a plugin. A call to this method will be ignored unless the containing cogfile is being treated as a plugin.
       # @yieldparam name [String] name of the generator to stamp
       # @yieldparam dest [String] file system path where the file will be created
       # @yieldreturn [nil]
       # @return [nil]
       def stamp_generator(&block)
-        @cogfile_context[:plugin].stamp_generator_block = block
+        plugin.stamp_generator_block = block if plugin?
       end
       
       private
       
+      # @return [Plugin,nil] the plugin description
+      def plugin
+        @cogfile_context[:plugin]
+      end
+      
+      # @return [Boolean] is this a plugin cogfile?
+      def plugin?
+        !@cogfile_context[:plugin].nil?
+      end
+      
+      # @return [Boolean] should only the {#plugin_path} call be processed?
+      def plugin_path_only?
+        @cogfile_context[:plugin_path_only]
+      end
+      
+      # @return [String] path to the cogfile
       def cogfile_path
         @cogfile_context[:cogfile_path]
       end
