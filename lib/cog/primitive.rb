@@ -14,7 +14,8 @@ class Symbol
   end
 end
 
-class Fixnum
+# Helpers for {Bignum} and {Fixnum}
+module Cognum
   # @return [String] literal representation in the {Cog::Config::LanguageConfig#active_language Cog.active_language}
   def to_lit
     Cog.active_language.to_integer(self) || Cog.active_language.to_long(self)
@@ -26,6 +27,14 @@ class Fixnum
     limit = 2 ** (bits - 1)
     self >= -limit && self < limit
   end
+end
+
+class Bignum
+  include Cognum
+end
+
+class Fixnum
+  include Cognum
 end
 
 class Float
