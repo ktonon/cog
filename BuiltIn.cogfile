@@ -10,6 +10,16 @@ language :c do |l|
   l.extension :c, :h
   l.include_guard_begin {|name| "#ifndef #{name.underscore.upcase}\n#define #{name.underscore.upcase}"}
   l.include_guard_end {|name| "#endif"}
+  l.reserved %w(auto break case char const continue default do double else enum extern float for goto if int long register return short signed sizeof static struct switch typedef union unsigned void volatile while _Packed)
+
+  l.map_boolean('bool') { |x| (!!x).inspect }
+  l.map_integer('int') { |x| x.to_i.inspect if x.to_i.signed?(16) }
+  l.map_long('long') { |x| x.to_i.inspect + "l" if x.to_i.signed?(32) }
+  l.map_float('float') { |x| x.to_f.inspect + "f" }
+  l.map_double('double') { |x| x.to_f.inspect }
+  l.map_char('char') { |x| x.to_s.length == 1 && "'#{x}'" }
+  l.map_string('char *') { |x| x.to_s.inspect }
+  l.map_null('void *') { |x| x.nil? && 'NULL' }
 end
 
 language 'c++' do |l|
@@ -20,6 +30,16 @@ language 'c++' do |l|
   l.use_named_scope {|name| "using namespace #{name};"}
   l.named_scope_begin {|name| "namespace #{name} {"}
   l.named_scope_end {|name| "} // namespace #{name}"}
+  l.reserved %w(INT_MAX INT_MIN MAX_RAND NULL and and_eq asm auto bitand bitor bool break case catch char cin class compl const const_cast continue cout default delete do double dynamic_cast else endl enum explicit extern false float for friend goto if include inline int iomanip iostream long main mutable namespace new not not_eq npos operator or or_eq private protected public register reinterpret_cast return short signed sizeof static static_cast std string struct switch template this throw true try typedef typeid typename union unsigned using virtual void volatile wchar_t while xor xor_eq")
+
+  l.map_boolean('bool') { |x| (!!x).inspect }
+  l.map_integer('int') { |x| x.to_i.inspect if x.to_i.signed?(16) }
+  l.map_long('long') { |x| x.to_i.inspect + "l" if x.to_i.signed?(32) }
+  l.map_float('float') { |x| x.to_f.inspect + "f" }
+  l.map_double('double') { |x| x.to_f.inspect }
+  l.map_char('char') { |x| x.to_s.length == 1 && "'#{x}'" }
+  l.map_string('std::string') { |x| x.to_s.inspect }
+  l.map_null('void *') { |x| x.nil? && 'NULL' }
 end
 
 language 'c#' do |l|
@@ -28,6 +48,16 @@ language 'c#' do |l|
   l.extension :cs
   l.named_scope_begin {|name| "namespace #{name} {"}
   l.named_scope_end {|name| "} // namespace #{name}"}
+  l.reserved %w(abstract as base bool break byte case catch char checked class const continue decimal default delegate do double else enum event explicit extern false finally fixed float for foreach goto if implicit in int interface internal is lock long namespace new null object operator out override params private protected public readonly ref return sbyte sealed short sizeof stackalloc static string struct switch this throw true try typeof uint ulong unchecked unsafe ushort using virtual void volatile while)
+
+  l.map_boolean('bool') { |x| (!!x).inspect }
+  l.map_integer('int') { |x| x.to_i.inspect if x.to_i.signed?(32) }
+  l.map_long('long') { |x| x.to_i.inspect + "L" }
+  l.map_float('float') { |x| x.to_f.inspect + "F" }
+  l.map_double('double') { |x| x.to_f.inspect }
+  l.map_char('char') { |x| x.to_s.length == 1 && "'#{x}'" }
+  l.map_string('string') { |x| x.to_s.inspect }
+  l.map_null('Object') { |x| x.nil? && 'null' }
 end
 
 language :css do |l|
@@ -50,6 +80,16 @@ language :java do |l|
   l.extension :java
   l.named_scope_begin {|name| "package #{name};"}
   l.named_scope_end {|name| "// end of package #{name}"}
+  l.reserved %w(abstract assert boolean break byte case catch char class const continue default do double else enum extends false final finally float for goto if implements import instanceof int interface long native new null package private protected public return short static strictfp super switch synchronized this throw throws transient true try void volatile while)
+
+  l.map_boolean('boolean') { |x| (!!x).inspect }
+  l.map_integer('int') { |x| x.to_i.inspect if x.to_i.signed?(32) }
+  l.map_long('long') { |x| x.to_i.inspect + "L" }
+  l.map_float('float') { |x| x.to_f.inspect + "f" }
+  l.map_double('double') { |x| x.to_f.inspect + "d" }
+  l.map_char('char') { |x| x.to_s.length == 1 && "'#{x}'" }
+  l.map_string('String') { |x| x.to_s.inspect }
+  l.map_null('Object') { |x| x.nil? && 'null' }
 end
 
 language :javascript do |l|
@@ -58,12 +98,32 @@ language :javascript do |l|
   l.extension :js
   l.named_scope_begin {|name| "var #{name} = { // named scope"}
   l.named_scope_end {|name| "}; // end of named scope #{name}"}
+  l.reserved %w(Array Date Infinity JavaArray JavaClass JavaObject JavaPackage Math NaN Number Object String abstract alert all anchor anchors area assign blur boolean break button byte case catch char checkbox class clearInterval clearTimeout clientInformation close closed confirm const constructor continue crypto debugger decodeURI decodeURIComponent default defaultStatus delete do document double element elements else embed embeds encodeURI encodeURIComponent enum escape eval event export extends false fileUpload final finally float focus for form forms frame frameRate frames function function getClass goto hasOwnProperty hidden history if image images implements import in innerHeight innerWidth instanceof int interface isFinite isNaN isPrototypeOf java layer layers length let link location long mimeTypes name native navigate navigator new null offscreenBuffering onbeforeunload onblur onclick oncontextmenu ondragdrop ondragdrop onerror onfocus onkeydown onkeypress onkeyup onload onmousedown onmousemove onmouseout onmouseover onmouseup onreset onsubmit onunload open opener option outerHeight outerWidth package packages pageXOffset pageYOffset parent parseFloat parseInt password pkcs11 plugin private prompt propertyIsEnum protected prototype public radio reset return screenX screenY scroll secure select self setInterval setTimeout short static status submit super switch synchronized taint text textarea this throw throws toString top transient true try typeof undefined unescape untaint valueOf var void volatile while window with)
+
+  l.map_boolean('Boolean') { |x| (!!x).inspect }
+  l.map_integer('Number') { |x| x.to_i.inspect }
+  l.map_long('Number') { |x| x.to_i.inspect }
+  l.map_float('Number') { |x| x.to_f.inspect }
+  l.map_double('Number') { |x| x.to_f.inspect }
+  l.map_char('String') { |x| x.to_s.inspect }
+  l.map_string('String') { |x| x.to_s.inspect }
+  l.map_null('Object') { |x| x.nil? && 'null' }
 end
 
 language :objc do |l|
   l.name 'Objective-C'
   l.comment_style :c
   l.extension :h, :m, :mm
+  l.reserved %w(@catch @class @dynamic @end @finally @implementation @interface @private @property @protected @protocol @public @selector @synthesize @throw @try BOOL Class IMP NO NULL Protocol SEL YES _Bool _Complex _Imaginery atomic auto break bycopy byref case char const continue default do double else enum extern float for goto id if in inline inout int long nil nonatomic oneway out register restrict retain return self short signed sizeof static struct super switch typedef union unsigned void volatile while)
+
+  l.map_boolean('BOOL') { |x| x ? 'YES' : 'NO' }
+  l.map_integer('int') { |x| x.to_i.inspect if x.to_i.signed?(16) }
+  l.map_long('long') { |x| x.to_i.inspect + "l" if x.to_i.signed?(32) }
+  l.map_float('float') { |x| x.to_f.inspect + "f" }
+  l.map_double('double') { |x| x.to_f.inspect }
+  l.map_char('char') { |x| x.to_s.length == 1 && "'#{x}'" }
+  l.map_string('NSString *') { |x| "@" + x.to_s.inspect }
+  l.map_null('id') { |x| x.nil? && 'nil' }
 end
 
 language :python do |l|
@@ -71,6 +131,16 @@ language :python do |l|
   l.comment '#'
   l.multiline_comment "'''", "'''"
   l.extension :py
+  l.reserved %w(Data False Float Int None Numeric Oxphys True acos and array asin assert atan break class close continue cos def del e elif else except exec exp fabs finally float floor for from global if import in input int is lambda log log10 not open or pass pi print raise range return sin sqrt tan try type while write zeros)
+
+  l.map_boolean('bool') { |x| x ? 'True' : 'False' }
+  l.map_integer('int') { |x| x.to_i.inspect }
+  l.map_long('int') { |x| x.to_i.inspect }
+  l.map_float('float') { |x| x.to_f.inspect }
+  l.map_double('float') { |x| x.to_f.inspect }
+  l.map_char('str') { |x| x.to_s.inspect }
+  l.map_string('str') { |x| x.to_s.inspect }
+  l.map_null('object') { |x| x.nil? && 'None' }
 end
 
 language :qt do |l|
@@ -85,6 +155,16 @@ language :ruby do |l|
   l.extension :rb
   l.named_scope_begin {|name| "module #{name} # named scope"}
   l.named_scope_end {|name| "end # named scope #{name}"}
+  l.reserved %w(BEGIN END __FILE__ __LINE__ alias and begin break case class def defined? do else elsif end ensure false for if in module next nill not or redo rescue retry return self super then true undef unless until when while)
+  
+  l.map_boolean('!!') { |x| (!!x).inspect }
+  l.map_integer('Fixnum') { |x| x.to_i.inspect }
+  l.map_long('Fixnum') { |x| x.to_i.inspect }
+  l.map_float('Float') { |x| x.to_f.inspect }
+  l.map_double('Float') { |x| x.to_f.inspect }
+  l.map_char('String') { |x| x.to_s.inspect }
+  l.map_string('String') { |x| x.to_s.inspect }
+  l.map_null('Object') { |x| x.nil? && 'nil' }
 end
 
 language :xml do |l|

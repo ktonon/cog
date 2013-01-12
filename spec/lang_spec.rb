@@ -12,7 +12,7 @@ describe 'projects' do
   context 'which generate in multiple languages' do
     before :all do
       use_fixture :lang
-      @cog.run(:gen, :run).should make(generated_file('generated_warn.h'))
+      @cog.run(:gen).should make(generated_file('generated_warn.h'))
     end
     
     def read(ext)

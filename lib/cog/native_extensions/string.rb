@@ -1,6 +1,6 @@
-# @api developer
 class String
   
+  # @api developer
   # @return [String] strips {Cog::Config::ProjectConfig#project_root} from the beginning of this string
   def relative_to_project_root
     if Cog.show_fullpaths?
@@ -10,6 +10,7 @@ class String
     end
   end
   
+  # @api developer
   # @param prefix [String] path prefix to strip from the beginning of this string
   # @return [String] this string as a file system path relative to the +prefix+
   def relative_to(prefix)
@@ -20,6 +21,7 @@ class String
     end
   end
 
+  # @api developer
   # @return [Cog::Plugin,nil] if this string can be interpretted as a path relative to one of the registered cog plugins, return that plugin, otherwise return +nil+
   def relative_to_which_plugin?
     Cog.plugins.each do |plugin|
@@ -28,6 +30,7 @@ class String
     nil
   end
   
+  # @api developer
   # @param ext [String] file extension to remove from the end of this string
   # @return [String] a copy of this string with the given extension removed. Does nothing if this string does not edit with the extension
   def without_extension(ext)
@@ -37,6 +40,7 @@ class String
     end_with?(ext) ? slice(0..(-ext.length - 1)) : dup
   end
 
+  # @api developer
   # @return [String, String] source and type, where type is one of <tt>:project</tt>, <tt>:user</tt>, <tt>:built_in</tt>, <tt>:gem</tt>, or <tt>:unknown</tt>
   def cog_source_and_type
     if start_with?(Cog.project_root) || start_with?(Cog.project_template_path) || start_with?(Cog.project_generator_path) || start_with?(Cog.project_plugin_path)

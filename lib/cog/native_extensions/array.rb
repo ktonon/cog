@@ -1,6 +1,6 @@
-# @api developer
 class Array
   
+  # @api developer
   # Iterate through each path in this array
   # @yieldparam source [String] readable label for the source. In the case of plugins, the plugin name
   # @yieldparam source_type [Symbol] one of :built_in, :user, :plugin, or :project

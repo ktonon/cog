@@ -21,17 +21,28 @@ switch :colorless
 
 desc 'Add cog to the project in the present working directory'
 command :init do |c|
-
   c.action do |gopt, opt, args|
     Cog.initialize_project
   end
 end
 
-desc 'Manage project generators'
+desc 'Run and manage project generators'
+long_desc 'Omit generator name to run all of them'
+arg_name 'name'
 command [:generator, :gen] do |c|
   
-  c.default_command :run
-  
+  c.default_desc 'Run generators'
+  c.action do |gopt, opt, args|
+    Cog::Embeds.gather_from_project
+    if args.empty?
+      Cog::Controllers::GeneratorController.run_all
+    else
+      args.each do |name|
+        Cog::Controllers::GeneratorController.run name
+      end
+    end
+  end
+
   c.desc 'List project generators'
   c.command :list do |sub|
     sub.action do |gopt, opt, args|
@@ -62,35 +73,15 @@ command [:generator, :gen] do |c|
       end
     end
   end
-  
-  c.desc 'Run project generators'
-  c.long_desc 'Omit generator name to run all of them'
-  c.arg_name 'name'
-  c.command :run do |sub|
-    sub.action do |gopt, opt, args|
-      Cog::Embeds.gather_from_project
-      if args.empty?
-        Cog::Controllers::GeneratorController.run_all
-      else
-        args.each do |name|
-          Cog::Controllers::GeneratorController.run name
-        end
-      end
-    end
-  end
 end
 
-desc 'List or create DSLs known as cog plugins'
-command :plugin do |c|
-  
-  c.default_command :list
-  
-  c.desc 'List the available plugins'
-  c.command :list do |sub|
-    sub.action do |gopt, opt, args|
-      x = Cog::Controllers::PluginController.list
-      puts x.join "\n" unless x.empty?
-    end
+desc 'List or create plugins'
+command [:plugin, :pl] do |c|
+    
+  c.default_desc 'List the available plugins'
+  c.action do |gopt, opt, args|
+    x = Cog::Controllers::PluginController.list
+    puts x.join "\n" unless x.empty?
   end
   
   c.desc 'Create a new plugin'
@@ -104,22 +95,17 @@ command :plugin do |c|
   end
 end
 
-desc 'Manage templates'
+desc 'List or create ERB templates'
 command [:template, :tm] do |c|
   
-  c.default_command :list
-  
-  c.desc 'List the available templates'
-  c.command :list do |sub|
-    sub.action do |gopt, opt, args|
-      x = Cog::Controllers::TemplateController.list
-      puts x.join "\n" unless x.empty?
-    end
+  c.default_desc 'List the available templates'
+  c.action do |gopt, opt, args|
+    x = Cog::Controllers::TemplateController.list
+    puts x.join "\n" unless x.empty?
   end
   
   c.desc 'Create a new project template'
   c.command :new do |sub|
-
     sub.action do |gopt, opt, args|
       args.each do |name|
         Cog::Controllers::TemplateController.create name, :force_override => opt[:f]
@@ -128,22 +114,15 @@ command [:template, :tm] do |c|
   end
 end
 
-desc 'Review supported languages'
-command [:language, :lang] do |c|
-  
-  c.default_command :list
-  
-  c.desc 'List the supported languages'
-  c.command :list do |sub|
-    sub.action do
-      summary = Cog.language_summary
-      w = summary.collect {|info| info.name.length}.max
-      summary.each do |info|
-        puts info.to_s(w)
-      end
+desc 'List supported languages'
+command :lang do |c|
+  c.action do
+    summary = Cog.language_summary
+    w = summary.collect {|info| info.name.length}.max
+    summary.each do |info|
+      puts info.to_s(w)
     end
   end
-  
 end
 
 pre do |gopt, command, opt, args|

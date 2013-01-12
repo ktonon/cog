@@ -58,6 +58,8 @@ module Cog
     
     define_error :PluginPathIsNotADirectory
     
+    define_error :PrimitiveNotSupported
+    
     define_error :ScopeStackUnderflow do
       "scope stack underflow: this can happen if you have too many *_end calls in a template"
     end

@@ -35,6 +35,9 @@ module Cog
       @named_scope_end_block = identibitch
       @include_guard_begin_block = identibitch
       @include_guard_end_block = identibitch
+      @reserved = []
+      @prim_ident = {} # :name => 'ident'
+      @prim_to_lit = {} # :name => to_literal_block
     end
       
     # @param nested_pattern [String] regular expression pattern (as a string) to embed in the regular expression which matches one line comments in this language
@@ -101,7 +104,7 @@ module Cog
       w ||= @name.length
       "#{@name.ljust w} -> #{@extensions.collect {|x| x.to_s}.sort.join ', '}"
     end
-
+    
     # Sort by name
     def <=>(other)
       @name <=> other.name
@@ -136,5 +139,75 @@ module Cog
     def include_guard_end(name)
       @include_guard_end_block.call name
     end
+    
+    # @param name [String] a potential identifier name
+    # @return [String] an escaped version of the identifier, if it conflicted with a reserved word in the language
+    def to_ident(name)
+      if @reserved.member? name.to_s
+        "#{name}_"
+      else
+        name.to_s
+      end
+    end
+    
+    # @param name [Symbol] name of a primitive cog type
+    # @return [String] the representation of a primitive cog type in the native language
+    # @example
+    #   # For Objective-C
+    #   lang.to_prim :boolean # => 'BOOL'
+    def to_prim(name)
+      ident = @prim_ident[name.to_sym]
+      raise Errors::PrimitiveNotSupported.new :type => name, :language => @name unless ident
+      ident
+    end
+
+    # @param obj [Object] a ruby object
+    # @return [String] boolean literal representation of the object in this language
+    def to_boolean(obj) ; try_to_lit(:boolean, obj) ; end
+
+    # @param obj [Object] a ruby object
+    # @return [String] integer literal representation of the object in this language
+    def to_integer(obj) ; try_to_lit(:integer, obj) ; end
+
+    # @param obj [Object] a ruby object
+    # @return [String] long literal representation of the object in this language
+    def to_long(obj) ; try_to_lit(:long, obj) ; end
+
+    # @param obj [Object] a ruby object
+    # @return [String] float literal representation of the object in this language
+    def to_float(obj) ; try_to_lit(:float, obj) ; end
+
+    # @param obj [Object] a ruby object
+    # @return [String] double literal representation of the object in this language
+    def to_double(obj) ; try_to_lit(:double, obj) ; end
+
+    # @param obj [Object] a ruby object
+    # @return [String] char literal representation of the object in this language
+    def to_char(obj) ; try_to_lit(:char, obj) ; end
+
+    # @param obj [Object] a ruby object
+    # @return [String] string literal representation of the object in this language
+    def to_string(obj) ; try_to_lit(:string, obj) ; end
+
+    # @param obj [Object] a ruby object
+    # @return [String] null literal representation of the object in this language
+    def to_null(obj) ; try_to_lit(:null, obj) ; end
+
+    # @param obj [Object] a ruby object
+    # @return [String] literal representation of the object in this language
+    def to_lit(obj)
+      return obj.to_lit if obj.respond_to?(:to_lit)
+      raise Errors::PrimitiveNotSupported.new :object => obj
+    end
+
+    private    
+    
+    # @api developer
+    def try_to_lit(name, obj)
+      to_lit_block = @prim_to_lit[name]
+      raise Errors::PrimitiveNotSupported.new :type => name, :language => @name unless to_lit_block
+      to_lit_block.call obj if to_lit_block
+    end
+    
   end
 end

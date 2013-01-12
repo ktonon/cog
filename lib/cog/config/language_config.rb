@@ -17,7 +17,6 @@ module Cog
       # @yield within this block the {#active_language} will be set to the desired value
       # @return [Object] the value returned by the block
       def activate_language(key, opt={}, &block)
-        throw :ActivateLanguageRequiresABlock if block.nil?
         opt, key = key, nil if key.is_a? Hash
         key = if opt[:ext]
           ext = opt[:ext].to_s.downcase
@@ -31,9 +30,11 @@ module Cog
         end
         if key
           @active_languages << @language[key]
-          r = block.call
-          @active_languages.pop
-          r
+          if block
+            r = block.call
+            @active_languages.pop
+            r
+          end
         else
           block.call
         end
