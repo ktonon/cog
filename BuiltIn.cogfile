@@ -8,6 +8,7 @@ language :c do |l|
   l.comment '//'
   l.multiline_comment '/*', '*/'
   l.extension :c, :h
+  l.seed_extension :c, :header => :h
   l.include_guard_begin {|name| "#ifndef #{name.underscore.upcase}\n#define #{name.underscore.upcase}"}
   l.include_guard_end {|name| "#endif"}
   l.reserved %w(auto break case char const continue default do double else enum extern float for goto if int long register return short signed sizeof static struct switch typedef union unsigned void volatile while _Packed)
@@ -20,6 +21,7 @@ language :c do |l|
   l.map_char('char') { |x| x.to_s.length == 1 && "'#{x}'" }
   l.map_string('char *') { |x| x.to_s.inspect }
   l.map_null('void *') { |x| x.nil? && 'NULL' }
+  l.map_void('void')
 end
 
 language 'c++' do |l|
@@ -27,6 +29,7 @@ language 'c++' do |l|
   l.comment_style :c
   l.include_guard_style :c
   l.extension :h, :hh, :hpp, :hxx, 'h++', :cc, :cpp, :cxx, 'c++'
+  l.seed_extension :cpp, :header => :h
   l.use_named_scope {|name| "using namespace #{name};"}
   l.named_scope_begin {|name| "namespace #{name} {"}
   l.named_scope_end {|name| "} // namespace #{name}"}
@@ -40,12 +43,14 @@ language 'c++' do |l|
   l.map_char('char') { |x| x.to_s.length == 1 && "'#{x}'" }
   l.map_string('std::string') { |x| x.to_s.inspect }
   l.map_null('void *') { |x| x.nil? && 'NULL' }
+  l.map_void('void')
 end
 
 language 'c#' do |l|
   l.name 'C#'
   l.comment_style :c
   l.extension :cs
+  l.seed_extension :cs
   l.named_scope_begin {|name| "namespace #{name} {"}
   l.named_scope_end {|name| "} // namespace #{name}"}
   l.reserved %w(abstract as base bool break byte case catch char checked class const continue decimal default delegate do double else enum event explicit extern false finally fixed float for foreach goto if implicit in int interface internal is lock long namespace new null object operator out override params private protected public readonly ref return sbyte sealed short sizeof stackalloc static string struct switch this throw true try typeof uint ulong unchecked unsafe ushort using virtual void volatile while)
@@ -58,6 +63,7 @@ language 'c#' do |l|
   l.map_char('char') { |x| x.to_s.length == 1 && "'#{x}'" }
   l.map_string('string') { |x| x.to_s.inspect }
   l.map_null('Object') { |x| x.nil? && 'null' }
+  l.map_void('void')
 end
 
 language :css do |l|
@@ -78,6 +84,7 @@ language :java do |l|
   l.name 'Java'
   l.comment_style :c
   l.extension :java
+  l.seed_extension :java
   l.named_scope_begin {|name| "package #{name};"}
   l.named_scope_end {|name| "// end of package #{name}"}
   l.reserved %w(abstract assert boolean break byte case catch char class const continue default do double else enum extends false final finally float for goto if implements import instanceof int interface long native new null package private protected public return short static strictfp super switch synchronized this throw throws transient true try void volatile while)
@@ -90,12 +97,14 @@ language :java do |l|
   l.map_char('char') { |x| x.to_s.length == 1 && "'#{x}'" }
   l.map_string('String') { |x| x.to_s.inspect }
   l.map_null('Object') { |x| x.nil? && 'null' }
+  l.map_void('void')
 end
 
 language :javascript do |l|
   l.name 'JavaScript'
   l.comment_style :c
   l.extension :js
+  l.seed_extension :js
   l.named_scope_begin {|name| "var #{name} = { // named scope"}
   l.named_scope_end {|name| "}; // end of named scope #{name}"}
   l.reserved %w(Array Date Infinity JavaArray JavaClass JavaObject JavaPackage Math NaN Number Object String abstract alert all anchor anchors area assign blur boolean break button byte case catch char checkbox class clearInterval clearTimeout clientInformation close closed confirm const constructor continue crypto debugger decodeURI decodeURIComponent default defaultStatus delete do document double element elements else embed embeds encodeURI encodeURIComponent enum escape eval event export extends false fileUpload final finally float focus for form forms frame frameRate frames function function getClass goto hasOwnProperty hidden history if image images implements import in innerHeight innerWidth instanceof int interface isFinite isNaN isPrototypeOf java layer layers length let link location long mimeTypes name native navigate navigator new null offscreenBuffering onbeforeunload onblur onclick oncontextmenu ondragdrop ondragdrop onerror onfocus onkeydown onkeypress onkeyup onload onmousedown onmousemove onmouseout onmouseover onmouseup onreset onsubmit onunload open opener option outerHeight outerWidth package packages pageXOffset pageYOffset parent parseFloat parseInt password pkcs11 plugin private prompt propertyIsEnum protected prototype public radio reset return screenX screenY scroll secure select self setInterval setTimeout short static status submit super switch synchronized taint text textarea this throw throws toString top transient true try typeof undefined unescape untaint valueOf var void volatile while window with)
@@ -114,6 +123,7 @@ language :objc do |l|
   l.name 'Objective-C'
   l.comment_style :c
   l.extension :h, :m, :mm
+  l.seed_extension :m, :header => :h
   l.reserved %w(@catch @class @dynamic @end @finally @implementation @interface @private @property @protected @protocol @public @selector @synthesize @throw @try BOOL Class IMP NO NULL Protocol SEL YES _Bool _Complex _Imaginery atomic auto break bycopy byref case char const continue default do double else enum extern float for goto id if in inline inout int long nil nonatomic oneway out register restrict retain return self short signed sizeof static struct super switch typedef union unsigned void volatile while)
 
   l.map_boolean('BOOL') { |x| x ? 'YES' : 'NO' }
@@ -124,6 +134,7 @@ language :objc do |l|
   l.map_char('char') { |x| x.to_s.length == 1 && "'#{x}'" }
   l.map_string('NSString *') { |x| "@" + x.to_s.inspect }
   l.map_null('id') { |x| x.nil? && 'nil' }
+  l.map_void('void')
 end
 
 language :python do |l|
@@ -131,6 +142,7 @@ language :python do |l|
   l.comment '#'
   l.multiline_comment "'''", "'''"
   l.extension :py
+  l.seed_extension :py
   l.reserved %w(Data False Float Int None Numeric Oxphys True acos and array asin assert atan break class close continue cos def del e elif else except exec exp fabs finally float floor for from global if import in input int is lambda log log10 not open or pass pi print raise range return sin sqrt tan try type while write zeros)
 
   l.map_boolean('bool') { |x| x ? 'True' : 'False' }
@@ -153,6 +165,7 @@ language :ruby do |l|
   l.comment '#'
   l.multiline_comment '=begin', '=end'
   l.extension :rb
+  l.seed_extension :rb
   l.named_scope_begin {|name| "module #{name} # named scope"}
   l.named_scope_end {|name| "end # named scope #{name}"}
   l.reserved %w(BEGIN END __FILE__ __LINE__ alias and begin break case class def defined? do else elsif end ensure false for if in module next nill not or redo rescue retry return self super then true undef unless until when while)

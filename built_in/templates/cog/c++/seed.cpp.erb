@@ -1,0 +1,11 @@
+<%= warning %> 
+
+#include "<%= header_path %>"
+
+<% if in_scope %>
+<%= use_named_scope in_scope %> 
+<% end %>
+
+<% features.each do |f| %>
+<%= f.stamp_method %> 
+<% end %>

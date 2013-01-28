@@ -1,0 +1,16 @@
+<%= warning %> 
+
+<%= guard %> 
+
+<% if in_scope %>
+<%= named_scope_begin in_scope %> 
+<% end %>
+
+class <%= name %> 
+{
+<% features.each do |f| %>
+<%= f.stamp_method %> 
+<% end %>
+};
+
+<%= end_all_scopes %> 

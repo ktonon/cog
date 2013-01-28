@@ -1,0 +1,7 @@
+<% unless abstract? %>
+<%= return_type.to_prim %> <%= seed.name %>::<%= name %>(<%= params.collect(&:stamp_decl).join ', ' %>)
+{
+    // keep: <%= keep_name %> 
+}
+
+<% end %>

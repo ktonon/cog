@@ -5,7 +5,10 @@ module Cog
 
     # @return [Array<String>] list of file extensions
     attr_reader :extensions
-      
+
+    attr_reader :seed_extension
+    attr_reader :seed_header
+    
     # @return [String] unique lower case identifier
     attr_reader :key
 

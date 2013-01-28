@@ -1,0 +1,7 @@
+    /**
+      <%= desc %> 
+<% params.each do |p| %>
+      @param <%= p.name %> <%= p.desc %> 
+<% end %>
+     */
+    <%= return_type.to_prim %> <%= name %>(<%= params.collect(&:stamp_decl).join ', ' %>)<% if abstract? %> = 0<% end %>;

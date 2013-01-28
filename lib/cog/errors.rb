@@ -34,6 +34,8 @@ module Cog
       end
     end
 
+    define_error :ActiveLanguageDoesNotSupportSeeds
+    
     define_error :ActionRequiresProjectGeneratorPath
     define_error :ActionRequiresProjectTemplatePath
     define_error :ActionRequiresProjectPluginPath

@@ -55,6 +55,13 @@ module Cog
         end  
       end
       
+      def seed_extension(ext, opt={})
+        lang_eval do
+          @seed_extension = ext.to_s.downcase
+          @seed_header = opt[:header].to_s.downcase if opt[:header]
+        end  
+      end
+      
       # Define a block to call when using a named scopes in this language
       # @yieldparam name [String] name of the scope to use
       # @yieldreturn [String] a using named scope statement in this language
@@ -185,6 +192,8 @@ module Cog
       # @yieldreturn [String,nil] the null literal representation of the given obj in this language, or +nil+ if the object can not be mapped
       # @return [nil]
       def map_null(ident, &block) ; map_primitive(:null, ident, &block) ; end
+      
+      def map_void(ident) ; map_primitive(:void, ident) ; end
       
       # @api developer
       # Compute the comment pattern

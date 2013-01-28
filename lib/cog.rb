@@ -19,6 +19,7 @@ module Cog
   autoload :Helpers, 'cog/helpers'
   autoload :Language, 'cog/language'
   autoload :Plugin, 'cog/plugin'
+  autoload :Seed, 'cog/seed'
   autoload :VERSION, 'cog/version'
   
   extend Config
@@ -36,4 +37,9 @@ module Cog
     nil
   end
 
+  def self.seed(name, &block)
+    s = DSL::SeedDSL.new name
+    block.call s unless block.nil?
+    s.seed
+  end
 end
