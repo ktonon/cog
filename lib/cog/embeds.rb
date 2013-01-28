@@ -136,7 +136,7 @@ module Cog
       end
       c.body = s.captured_text
       value = block.call(c).rstrip
-      if c.once? || value != s.captured_text
+      if c.once? || value.normalize_eol != s.captured_text.rstrip.normalize_eol
         s.replace_captured_text(value + "\n", :once => c.once?)
       else
         false
