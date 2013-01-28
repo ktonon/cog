@@ -1,3 +1,9 @@
+class String
+  def normalize_eol
+    gsub /(\r|\n|\r\n)/, "\n"
+  end
+end
+
 module Cog
   module Helpers
 
@@ -17,6 +23,13 @@ module Cog
         @cap_begin_pos = nil
         @cap_end_pos = nil
         @match = nil # The last match object
+        @win_fudge = if RUBY_PLATFORM =~ /(mswin|mingw)/
+          x = @f.readline.end_with? '\r\n'
+          @f.seek 0
+          x ? 0 : 1
+        else
+          0
+        end
       end
       
       # @api developer
@@ -43,10 +56,14 @@ module Cog
         val
       end
 
+      def win_fudge
+        (@f.lineno - 1) * @win_fudge
+      end
+      
       # Remember this position. A later call to insert_at_mark will insert at this marked position
       # @return [nil]
       def mark!
-        @mark = @f.pos
+        @mark = @f.pos - win_fudge
         @marked_line_number = @f.lineno + 1
       end
       
@@ -91,7 +108,7 @@ module Cog
       # @option opt [Array<Regexp>, Regexp] :but_not (nil) if a line matching any of the provided patterns is found before the desired pattern :bad_pattern_found will be thrown
       # @return [Boolean] whether or not the pattern was found
       def capture_until(pattern, opt={})
-        @cap_begin_pos = @f.pos
+        @cap_begin_pos = @f.pos - win_fudge
         but_not = opt[:but_not] || []
         but_not = [but_not] unless but_not.is_a?(Array)
         while line = @f.readline
@@ -102,7 +119,7 @@ module Cog
           end
           return true if line =~ pattern
           @lines << line
-          @cap_end_pos = @f.pos
+          @cap_end_pos = @f.pos # win_fudge not needed here
         end
       rescue EOFError
         false
@@ -111,7 +128,6 @@ module Cog
       # @return [String] text captured during capture_until. The last newline is stripped
       def captured_text
         x = @lines.join('')
-        x = x.slice(0..-2) if x =~ /\n$/
         x
       end
       
@@ -121,11 +137,11 @@ module Cog
       def replace_captured_text(value, opt={})
         return false if @cap_begin_pos.nil? || @cap_end_pos.nil?
         @f.seek 0
-        tmp.write @f.read(opt[:once] ? @mark : @cap_begin_pos)
-        tmp.write value
+        tmp.write @f.read(opt[:once] ? @mark : @cap_begin_pos).normalize_eol
+        tmp.write value.normalize_eol
         @f.seek @cap_end_pos
         @f.readline if opt[:once]
-        tmp.write @f.read
+        tmp.write @f.read.normalize_eol
         tmp.close
         close
         FileUtils.mv tmp_filename, @filename
@@ -137,10 +153,10 @@ module Cog
       def insert_at_mark(value)
         return false if @mark.nil?
         @f.seek 0
-        tmp.write @f.read(@mark)
-        tmp.write value
+        tmp.write @f.read(@mark).normalize_eol
+        tmp.write value.normalize_eol
         @f.readline # discard original
-        tmp.write @f.read
+        tmp.write @f.read.normalize_eol
         tmp.close
         close
         FileUtils.mv tmp_filename, @filename
