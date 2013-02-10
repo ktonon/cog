@@ -1,10 +1,9 @@
-CC=gcc
+CC=g++
 CFLAGS=-I.
-DEPS = hellomake.h
-OBJ = hellomake.o hellofunc.o 
+OBJ = lib/Dog.o lib/trainer.o
 
-%.o: %.c $(DEPS)
+%.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-hellomake: $(OBJ)
-	gcc -o $@ $^ $(CFLAGS)
+trainer: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)

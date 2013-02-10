@@ -12,6 +12,14 @@ class Symbol
   def to_prim
     Cog.active_language.to_prim(self)
   end
+  
+  # @return [String] assuming this symbol represents a cog primitive type, returns the literal representation of the default value for that type
+  # @example
+  #   # For Objective-C
+  #   :string.default_lit # => '@""'
+  def default_lit
+    Cog.active_language.default_lit_for(self)
+  end
 end
 
 # Helpers for {Bignum} and {Fixnum}

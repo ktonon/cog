@@ -10,7 +10,7 @@ module Cog
       
       # @api developer
       def initialize(seed, name, opt={})
-        @feature = Seed::Feature.new seed, name
+        @feature = Seed::Feature.new seed, name, opt
       end
 
       # Describe what this method does in one line

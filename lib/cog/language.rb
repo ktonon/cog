@@ -203,6 +203,32 @@ module Cog
       raise Errors::PrimitiveNotSupported.new :object => obj
     end
 
+    # @param name [Symbol] name of a primitive cog type
+    # @return [String] default value literal for the given primitive cog type
+    # @example
+    #   # For C++
+    #   lang.to_default_value :string # => '""'
+    def default_lit_for(name)
+      case name
+      when :boolean
+        to_boolean false
+      when :integer
+        to_integer 0
+      when :long
+        to_long 0
+      when :float
+        to_lit 0.0
+      when :double
+        to_double 0.0
+      when :char
+        to_char ''
+      when :string
+        to_string ''
+      when :null
+        to_null nil
+      end
+    end
+    
     private    
     
     # @api developer

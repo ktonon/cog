@@ -1,7 +1,11 @@
 <% unless abstract? %>
 <%= return_type.to_prim %> <%= seed.name %>::<%= name %>(<%= params.collect(&:stamp_decl).join ', ' %>)
 {
-    // keep: <%= keep_name %> 
+    // keep: <%= keep_name %> {
+<% if returns_a_value? %>
+    return <%= return_type.default_lit %>;
+<% end %>
+    // keep: }
 }
 
 <% end %>

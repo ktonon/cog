@@ -29,8 +29,29 @@ module Cog
         feature :destructor, &block
       end
       
+      # @api developer
+      def method_missing(meth, *args, &block)
+        meth = meth.to_s
+        if meth.end_with? '_feature'
+          opt = args.last.is_a?(Hash) ? args.pop : {}
+          if /(?:\b|_)(public|protected|private)(?:\b|_)/ =~ meth
+            opt[:access] = $1.to_sym
+          end
+          if /(?:\b|_)(abstract|virtual)(?:\b|_)/ =~ meth
+            opt[$1.to_sym] = true
+          end
+          args << opt
+          feature(*args, &block)
+        else
+          super
+        end
+      end
+      
       # Define a new feature for this seed
       # @param name [String] name of the feature
+      # @option opt [Symbol] :access (:private) one of `:public`, `:protected`, or `private`
+      # @option opt [Boolean] :abstract (false) is this an abstract feature? If so, no implementation will be generated
+      # @option opt [Boolean] :virtual (false) is this a virtual feature? Virtual features can be replaced in subclasses
       # @yieldparam f [FeatureDSL] use this to further specify the feature
       # @return [nil]
       def feature(name, opt={}, &block)
