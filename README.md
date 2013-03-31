@@ -23,6 +23,7 @@ Table of contents
 1. [Embeds](#embeds) - Generate code segments into otherwise manually maintained code
 1. [Keeps](#keeps) - Preserve manually maintained code segments in a generated file
 1. [Plugins](#plugins) - Express your generators using DSLs
+1. [Debugging](#debugging) - How to get a full stack trace
 
 Getting Started
 ---------------
@@ -328,6 +329,15 @@ $ cog gen new -p cons my_cons
 Created cog/generators/my_cons.rb
 ```
 
+Debugging
+---------
+
+The command-line interface to `cog` is provided by [GLI][]. The default error behaviour is a one-line summary. To get a full stack trace set the `GLI_DEBUG` environment variable to `true`
+
+```bash
+$ export GLI_DEBUG=true
+```
+
 [gem]:https://rubygems.org/gems/cog
 [docs]:http://ktonon.github.com/cog/frames.html
 [changelog]:https://github.com/ktonon/cog/blob/master/CHANGELOG.md
@@ -343,6 +353,7 @@ Created cog/generators/my_cons.rb
 [comment]:http://ktonon.github.com/cog/Cog/Generator/Filters.html#comment-instance_method
 [embed]:http://ktonon.github.com/cog/Cog/Generator.html#embed-instance_method
 [generator_path]:http://ktonon.github.com/cog/Cog/Config.html#generator_path-instance_method
+[GLI]:https://github.com/davetron5000/gli
 [plugin_path]:http://ktonon.github.com/cog/Cog/Config.html#plugin_path-instance_method
 [project_path]:http://ktonon.github.com/cog/Cog/Config/ProjectConfig.html#project_path-instance_method
 [project_plugin_path]:http://ktonon.github.com/cog/Cog/Config/ProjectConfig.html#project_plugin_path-instance_method
