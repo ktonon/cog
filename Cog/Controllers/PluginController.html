@@ -6,13 +6,13 @@
 <title>
   Module: Cog::Controllers::PluginController
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.6.1
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -269,26 +269,25 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/controllers/plugin_controller.rb', line 12</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_create identifier id'>create</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_DuplicatePlugin constant id'>DuplicatePlugin</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_plugin identifier id'>plugin</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-  <span class='rubyid_@cogfile_type ivar id'>@cogfile_type</span> <span class='assign token'>=</span> <span class='symbol val'>:plugin</span>
-  <span class='rubyid_@prefix ivar id'>@prefix</span> <span class='assign token'>=</span> <span class='string val'>''</span>
-  <span class='rubyid_@cog_version ivar id'>@cog_version</span> <span class='assign token'>=</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_VERSION constant id'>VERSION</span>
-  <span class='rubyid_@plugin_name ivar id'>@plugin_name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='rubyid_underscore identifier id'>underscore</span>
-  <span class='rubyid_@plugin_module ivar id'>@plugin_module</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='rubyid_camelize identifier id'>camelize</span>
-  <span class='rubyid_prefix identifier id'>prefix</span> <span class='assign token'>=</span> <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_project_plugin_path identifier id'>project_plugin_path</span>
-  <span class='rubyid_prefix identifier id'>prefix</span> <span class='assign token'>=</span> <span class='rubyid_prefix identifier id'>prefix</span> <span class='integer val'>? </span><span class='dstring node'>&quot;#{prefix}/&quot;</span> <span class='colon op'>:</span> <span class='string val'>''</span>
-  <span class='rubyid_opt identifier id'>opt</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span> <span class='symbol val'>:absolute_destination</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span><span class='comma token'>,</span> <span class='symbol val'>:binding</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_binding identifier id'>binding</span> <span class='rbrace token'>}</span>
-  <span class='lbrack token'>[</span>
-    <span class='lbrack token'>[</span><span class='string val'>'Cogfile'</span><span class='comma token'>,</span> <span class='string val'>'Cogfile'</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='lbrack token'>[</span><span class='string val'>'plugin/plugin.rb'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;lib/#{@plugin_name}.rb&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='lbrack token'>[</span><span class='string val'>'plugin/generator.rb.erb'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;templates/#{@plugin_name}/generator.rb.erb&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-  <span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_tm identifier id'>tm</span><span class='comma token'>,</span> <span class='rubyid_dest identifier id'>dest</span><span class='bitor op'>|</span>
-    <span class='rubyid_Generator constant id'>Generator</span><span class='dot token'>.</span><span class='rubyid_stamp identifier id'>stamp</span> <span class='dstring node'>&quot;cog/#{tm}&quot;</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{prefix}#{@plugin_name}/#{dest}&quot;</span><span class='comma token'>,</span> <span class='rubyid_opt identifier id'>opt</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_nil nil kw'>nil</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Errors</span><span class='op'>::</span><span class='const'>DuplicatePlugin</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='const'>Cog</span><span class='period'>.</span><span class='id identifier rubyid_plugin'>plugin</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='ivar'>@cogfile_type</span> <span class='op'>=</span> <span class='symbol'>:plugin</span>
+  <span class='ivar'>@prefix</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+  <span class='ivar'>@cog_version</span> <span class='op'>=</span> <span class='const'>Cog</span><span class='op'>::</span><span class='const'>VERSION</span>
+  <span class='ivar'>@plugin_name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_underscore'>underscore</span>
+  <span class='ivar'>@plugin_module</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_camelize'>camelize</span>
+  <span class='id identifier rubyid_prefix'>prefix</span> <span class='op'>=</span> <span class='const'>Cog</span><span class='period'>.</span><span class='id identifier rubyid_project_plugin_path'>project_plugin_path</span>
+  <span class='id identifier rubyid_prefix'>prefix</span> <span class='op'>=</span> <span class='id identifier rubyid_prefix'>prefix</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_prefix'>prefix</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_opt'>opt</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='symbol'>:absolute_destination</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='symbol'>:binding</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_binding'>binding</span> <span class='rbrace'>}</span>
+  <span class='lbracket'>[</span>
+    <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Cogfile</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Cogfile</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>plugin/plugin.rb</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lib/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@plugin_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>.rb</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>plugin/generator.rb.erb</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>templates/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@plugin_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>/generator.rb.erb</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_tm'>tm</span><span class='comma'>,</span> <span class='id identifier rubyid_dest'>dest</span><span class='op'>|</span>
+    <span class='const'>Generator</span><span class='period'>.</span><span class='id identifier rubyid_stamp'>stamp</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cog/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_tm'>tm</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_prefix'>prefix</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='ivar'>@plugin_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dest'>dest</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opt'>opt</span>
+  <span class='kw'>end</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -349,14 +348,13 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/controllers/plugin_controller.rb', line 33</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_list identifier id'>list</span>
-  <span class='rubyid_cs identifier id'>cs</span> <span class='assign token'>=</span> <span class='rubyid_Helpers constant id'>Helpers</span><span class='colon2 op'>::</span><span class='rubyid_CascadingSet constant id'>CascadingSet</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
-  <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_plugins identifier id'>plugins</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_plugin identifier id'>plugin</span><span class='bitor op'>|</span>
-    <span class='rubyid_cs identifier id'>cs</span><span class='dot token'>.</span><span class='rubyid_add_plugin identifier id'>add_plugin</span> <span class='rubyid_plugin identifier id'>plugin</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_cs identifier id'>cs</span><span class='dot token'>.</span><span class='rubyid_to_a identifier id'>to_a</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_list'>list</span>
+  <span class='id identifier rubyid_cs'>cs</span> <span class='op'>=</span> <span class='const'>Helpers</span><span class='op'>::</span><span class='const'>CascadingSet</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='const'>Cog</span><span class='period'>.</span><span class='id identifier rubyid_plugins'>plugins</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_plugin'>plugin</span><span class='op'>|</span>
+    <span class='id identifier rubyid_cs'>cs</span><span class='period'>.</span><span class='id identifier rubyid_add_plugin'>add_plugin</span> <span class='id identifier rubyid_plugin'>plugin</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_cs'>cs</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -367,9 +365,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sat Jan  5 00:07:12 2013 by
+  Generated on Thu Apr 18 19:15:46 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.8.7).
+  0.8.6.1 (ruby-2.0.0).
 </div>
 
   </body>

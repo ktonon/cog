@@ -2,17 +2,17 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.6.1
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -76,12 +76,12 @@ uses code generation.</p>
 
 <p>Install the <code>cog</code> gem</p>
 
-<pre class="code bash"><code>$ gem install cog
+<pre class="code bash"><code class="bash">$ gem install cog
 </code></pre>
 
 <p>Once installed prepare a project for use with <code>cog</code>. Open a terminal in the root directory of your project</p>
 
-<pre class="code bash"><code>$ cog init
+<pre class="code bash"><code class="bash">$ cog init
 Created Cogfile
 </code></pre>
 
@@ -97,7 +97,7 @@ need to be changed.</p>
 generator can be created using the command line tool once a project has been
 initialized</p>
 
-<pre class="code bash"><code>$ cog generator new my_generator
+<pre class="code bash"><code class="bash">$ cog generator new my_generator
 Created cog/generators/my_generator.rb
 </code></pre>
 
@@ -108,14 +108,14 @@ templates. The <a href="http://ktonon.github.com/cog/Cog/Generator.html#method-i
 template on the <a href="http://ktonon.github.com/cog/Cog/Config.html#template_path-instance_method">template_path</a> and renders it to a file under the
 <a href="http://ktonon.github.com/cog/Cog/Config/ProjectConfig.html#project_path-instance_method">project_path</a>. To use the <a href="http://ktonon.github.com/cog/Cog/Generator.html#method-i-stamp">stamp</a> method first create a template</p>
 
-<pre class="code ruby"><code>$ <span class='rubyid_cog identifier id'>cog</span> <span class='rubyid_template identifier id'>template</span> <span class='rubyid_new identifier id'>new</span> <span class='rubyid_my_generator identifier id'>my_generator</span><span class='div op'>/</span><span class='rubyid_example identifier id'>example</span><span class='dot token'>.</span><span class='rubyid_c identifier id'>c</span>
-<span class='rubyid_Created constant id'>Created</span> <span class='rubyid_cog identifier id'>cog</span><span class='div op'>/</span><span class='rubyid_templates identifier id'>templates</span><span class='div op'>/</span><span class='rubyid_my_generator identifier id'>my_generator</span>
-<span class='rubyid_Created constant id'>Created</span> <span class='rubyid_cog identifier id'>cog</span><span class='div op'>/</span><span class='rubyid_templates identifier id'>templates</span><span class='div op'>/</span><span class='rubyid_my_generator identifier id'>my_generator</span><span class='div op'>/</span><span class='rubyid_example identifier id'>example</span><span class='dot token'>.</span><span class='rubyid_c identifier id'>c</span><span class='dot token'>.</span><span class='rubyid_erb identifier id'>erb</span>
+<pre class="code ruby"><code class="ruby">$ cog template new my_generator/example.c
+Created cog/templates/my_generator
+Created cog/templates/my_generator/example.c.erb
 </code></pre>
 
 <p>The new template will be empty. Edit it with the following example</p>
 
-<pre class="code c"><code>&lt;%= warning %&gt; 
+<pre class="code c"><code class="c">&lt;%= warning %&gt; 
 
 void &lt;%= @method_name %&gt;()
 {
@@ -125,19 +125,19 @@ void &lt;%= @method_name %&gt;()
 
 <p>Then modify <code>my_generator.rb</code> like this</p>
 
-<pre class="code ruby"><code><span class='rubyid_@method_name ivar id'>@method_name</span> <span class='assign token'>=</span> <span class='string val'>'example'</span>
-<span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'my_generator/example.c'</span><span class='comma token'>,</span> <span class='string val'>'generated_example.c'</span>
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@method_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>example</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_stamp'>stamp</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>my_generator/example.c</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>generated_example.c</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
 <p>The generator would be executed like this</p>
 
-<pre class="code bash"><code>$ cog gen run my_generator
+<pre class="code bash"><code class="bash">$ cog gen run my_generator
 Created src/generated_example.c
 </code></pre>
 
 <p>Listing of <code>generated_example.c</code></p>
 
-<pre class="code c"><code>/*
+<pre class="code c"><code class="c">/*
 -------------------------------------------------------------------------------
 
   WARNING
@@ -159,7 +159,7 @@ void example()
 
 <p>Get a list of the generators like this</p>
 
-<pre class="code bash"><code>$ cog gen list
+<pre class="code bash"><code class="bash">$ cog gen list
 [my_app] my_generator
 [cog]    sort
 </code></pre>
@@ -175,7 +175,7 @@ template and passing it through a <a href="http://ktonon.github.com/cog/Cog/Gene
 <p>This <code>warning.erb</code> template comes built-in with cog. You can see a list of all the
 available templates like this</p>
 
-<pre class="code bash"><code>$ cog template list
+<pre class="code bash"><code class="bash">$ cog template list
 [basic]  basic/generator.rb
 [cog]    cog/Cogfile
 [cog]    cog/plugin/generator.rb.erb
@@ -187,14 +187,14 @@ available templates like this</p>
 <p>Note that the <code>.erb</code> extensions are omitted from the listing. If you don&#39;t like
 the default warning message and want to use a different one you can override it</p>
 
-<pre class="code bash"><code>$ cog tm new warning
+<pre class="code bash"><code class="bash">$ cog tm new warning
 Created cog/templates/warning.erb
 </code></pre>
 
 <p>Listing the templates again would now show that there are two <code>warning.erb</code>
 templates and that the project version overrides the built-in version</p>
 
-<pre class="code bash"><code>[cog &lt; my_app] warning
+<pre class="code bash"><code class="bash">[cog &lt; my_app] warning
 </code></pre>
 
 <h2>Embeds</h2>
@@ -206,10 +206,10 @@ file. Such an injection should be automatically updated when the generated
 content changes, but leave the rest of the file alone. <code>cog</code> provides this kind
 of functionality through embeds. For example, consider the following generator</p>
 
-<pre class="code ruby"><code><span class='float val'>1</span><span class='dot token'>.</span><span class='rubyid_upto identifier id'>upto</span><span class='lparen token'>(</span><span class='integer val'>5</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_i identifier id'>i</span><span class='bitor op'>|</span>
-  <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'widget.cpp'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;widget_#{i}.cpp&quot;</span>
-  <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'widget.h'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;widget_#{i}.h&quot;</span>
-<span class='rubyid_end end kw'>end</span>
+<pre class="code ruby"><code class="ruby"><span class='int'>1</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='int'>5</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+  <span class='id identifier rubyid_stamp'>stamp</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>widget.cpp</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>widget_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_i'>i</span><span class='embexpr_end'>}</span><span class='tstring_content'>.cpp</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_stamp'>stamp</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>widget.h</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>widget_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_i'>i</span><span class='embexpr_end'>}</span><span class='tstring_content'>.h</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span>
 </code></pre>
 
 <p>This generator would add 10 new files to a project. These files would need to
@@ -221,7 +221,7 @@ a partial build file and include it by reference in the main build file.</p>
 <p>Another approach would be to use a embed to inject the build instuctions for
 the generator into the main build file. For example, consider a Qt project file</p>
 
-<pre class="code text"><code>SOURCES += main.cpp Donkey.cpp
+<pre class="code text"><code class="text">SOURCES += main.cpp Donkey.cpp
 HEADERS += Donkey.h
 
 # cog: widget-files
@@ -232,15 +232,15 @@ as an embed hook named <tt>&#39;widget-files&#39;</tt>. Once the hook is in plac
 it&#39;s up to a generator to provide the content which will be injected beneath
 the hook. Consider again the generator from above, with a few modifications</p>
 
-<pre class="code ruby"><code><span class='rubyid_@widgets ivar id'>@widgets</span> <span class='assign token'>=</span> <span class='float val'>1</span><span class='dot token'>.</span><span class='rubyid_upto identifier id'>upto</span><span class='lparen token'>(</span><span class='integer val'>5</span><span class='rparen token'>)</span>
-<span class='rubyid_@widgets ivar id'>@widgets</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_i identifier id'>i</span><span class='bitor op'>|</span>
-  <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'widget.cpp'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;widget_#{i}.cpp&quot;</span>
-  <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'widget.h'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;widget_#{i}.h&quot;</span>
-<span class='rubyid_end end kw'>end</span>
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@widgets</span> <span class='op'>=</span> <span class='int'>1</span><span class='period'>.</span><span class='id identifier rubyid_upto'>upto</span><span class='lparen'>(</span><span class='int'>5</span><span class='rparen'>)</span>
+<span class='ivar'>@widgets</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+  <span class='id identifier rubyid_stamp'>stamp</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>widget.cpp</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>widget_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_i'>i</span><span class='embexpr_end'>}</span><span class='tstring_content'>.cpp</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_stamp'>stamp</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>widget.h</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>widget_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_i'>i</span><span class='embexpr_end'>}</span><span class='tstring_content'>.h</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span>
 
-<span class='rubyid_embed identifier id'>embed</span> <span class='string val'>'widget-files'</span> <span class='rubyid_do do kw'>do</span>
-  <span class='rubyid_stamp identifier id'>stamp</span> <span class='string val'>'widget.pro'</span> <span class='comment val'># uses the @widgets context and returns a string</span>
-<span class='rubyid_end end kw'>end</span>
+<span class='id identifier rubyid_embed'>embed</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>widget-files</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_stamp'>stamp</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>widget.pro</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># uses the @widgets context and returns a string
+</span><span class='kw'>end</span>
 </code></pre>
 
 <p>The <a href="http://ktonon.github.com/cog/Cog/Generator.html#embed-instance_method">embed</a> method takes the name of the hook as an argument. The expansion
@@ -249,7 +249,7 @@ pull the content from a template, but a string could also be constructed in the
 block without using a template. Running this generator would now inject content
 beneath the embed directive in the build file.</p>
 
-<pre class="code text"><code>SOURCES += main.cpp Donkey.cpp
+<pre class="code text"><code class="text">SOURCES += main.cpp Donkey.cpp
 HEADERS += Donkey.h
 
 # cog: widget-files {
@@ -276,7 +276,7 @@ to be manually maintained.</p>
 code segments should be preserved whenever that file is regenerated. In <code>cog</code>,
 these code segments are called <em>keeps</em>. Take the following generated file</p>
 
-<pre class="code c++"><code>void MyClass::myMethod(int a, char b)
+<pre class="code c++"><code class="c++">void MyClass::myMethod(int a, char b)
 {
     // keep: MyClass_myMethod_int_char {
     // manually maintained code...
@@ -285,11 +285,13 @@ these code segments are called <em>keeps</em>. Take the following generated file
 </code></pre>
 
 <p>Each keep statement must have a hook, which must be unique within the file in
-which it is found. The hook is used to identify the keep statement, in case the
-generator moves it to a different place in the file with respect to other keep
-statements. The corresponding generator template would look like this</p>
+which it is found. In the above example the hook is the part after the opening
+<tt>keep:</tt>, that is <code>MyClass_myMethod_int_char</code>. The hook is used to
+identify the keep statement, in case the generator moves it to a different
+place in the file with respect to other keep statements. The corresponding
+generator template would look like this</p>
 
-<pre class="code c++"><code>void MyClass::myMethod(int a, char b)
+<pre class="code c++"><code class="c++">void MyClass::myMethod(int a, char b)
 {
     // keep: MyClass_myMethod_int_char
 }
@@ -317,7 +319,7 @@ script, you might also consider writing a <code>cog</code> plugin.</p>
 you wanted to write a command line interface generation tool and call it
 <code>cons</code>, you would do this</p>
 
-<pre class="code bash"><code>$ cog plugin new cons
+<pre class="code bash"><code class="bash">$ cog plugin new cons
 Created cog/plugins/cons/Cogfile
 Created cog/plugins/cons/lib/cons.rb
 Created cog/plugins/cons/templates/cons/generator.rb.erb
@@ -346,7 +348,7 @@ know how to find it.</p>
 
 <p>You can see a list of the available plugins like this</p>
 
-<pre class="code bash"><code>$ cog plugin list
+<pre class="code bash"><code class="bash">$ cog plugin list
 [cog]    basic
 [my_app] cons
 </code></pre>
@@ -356,15 +358,22 @@ the above example, that is the <code>generator.rb.erb</code> template. The instr
 for stamping the generator are in the plugin&#39;s <a href="http://ktonon.github.com/cog/Cog/DSL/Cogfile.html">Cogfile</a>. You can make a
 generator for a particular plugin like this</p>
 
-<pre class="code bash"><code>$ cog gen new -p cons my_cons
+<pre class="code bash"><code class="bash">$ cog gen new -p cons my_cons
 Created cog/generators/my_cons.rb
+</code></pre>
+
+<h2>Debugging</h2>
+
+<p>The command-line interface to <code>cog</code> is provided by <a href="https://github.com/davetron5000/gli">GLI</a>. The default error behaviour is a one-line summary. To get a full stack trace set the <code>GLI_DEBUG</code> environment variable to <code>true</code></p>
+
+<pre class="code bash"><code class="bash">$ export GLI_DEBUG=true
 </code></pre>
 </div></div>
 
     <div id="footer">
-  Generated on Sat Jan  5 00:07:07 2013 by
+  Generated on Thu Apr 18 19:15:45 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.8.7).
+  0.8.6.1 (ruby-2.0.0).
 </div>
 
   </body>

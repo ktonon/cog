@@ -6,13 +6,13 @@
 <title>
   Class: Cog::DSL::Cogfile
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.6.1
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -106,8 +106,8 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>In your project’s <code>Cogfile</code>, <code>self</code> has been set to
-an instance of this class. Typing <code>cog init</code> will create a
+<p>In your project&#39;s <code>Cogfile</code>, <code>self</code> has been set
+to an instance of this class. Typing <code>cog init</code> will create a
 <code>Cogfile</code> in the present working directory.</p>
 
 
@@ -391,7 +391,8 @@ an instance of this class. Typing <code>cog init</code> will create a
 <p>Register an autoload variable in the class <span class='object_link'><a href="../GeneratorSandbox.html" title="Cog::GeneratorSandbox (class)">GeneratorSandbox</a></span>. That way
 when generators are run as instances of a sandbox, they will be able to
 load plugins just by referencing them using the provided
-<code>identifier_name</code>.</p>
+<code>identifier_name</code>. A call to this method will be ignored unless
+the containing cogfile is being treated as a plugin.</p>
 
 
   </div>
@@ -455,17 +456,20 @@ to the cogfile)</p>
       <pre class="lines">
 
 
-107
 108
-109</pre>
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/dsl/cogfile.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/dsl/cogfile.rb', line 108</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_autoload_plugin identifier id'>autoload_plugin</span><span class='lparen token'>(</span><span class='rubyid_identifier_name identifier id'>identifier_name</span><span class='comma token'>,</span> <span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
-  <span class='rubyid_GeneratorSandbox constant id'>GeneratorSandbox</span><span class='dot token'>.</span><span class='rubyid_autoload_plugin identifier id'>autoload_plugin</span><span class='lparen token'>(</span><span class='rubyid_identifier_name identifier id'>identifier_name</span><span class='comma token'>,</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_@cogfile_context ivar id'>@cogfile_context</span><span class='lbrack token'>[</span><span class='symbol val'>:plugin</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_autoload_plugin'>autoload_plugin</span><span class='lparen'>(</span><span class='id identifier rubyid_identifier_name'>identifier_name</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_plugin?'>plugin?</span>
+    <span class='const'>GeneratorSandbox</span><span class='period'>.</span><span class='id identifier rubyid_autoload_plugin'>autoload_plugin</span><span class='lparen'>(</span><span class='id identifier rubyid_identifier_name'>identifier_name</span><span class='comma'>,</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_plugin'>plugin</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -557,11 +561,10 @@ to the cogfile)</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/dsl/cogfile.rb', line 50</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_generator_path identifier id'>generator_path</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span><span class='assign token'>=</span><span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
-  <span class='rubyid_return return kw'>return</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@cogfile_context ivar id'>@cogfile_context</span><span class='lbrack token'>[</span><span class='symbol val'>:plugin_path_only</span><span class='rbrack token'>]</span>
-  <span class='rubyid_add_config_path identifier id'>add_config_path</span> <span class='symbol val'>:generator</span><span class='comma token'>,</span> <span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_generator_path'>generator_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_absolute'>absolute</span><span class='op'>=</span><span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_plugin_path_only?'>plugin_path_only?</span>
+  <span class='id identifier rubyid_add_config_path'>add_config_path</span> <span class='symbol'>:generator</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_absolute'>absolute</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -651,7 +654,6 @@ to the cogfile)</p>
       <pre class="lines">
 
 
-92
 93
 94
 95
@@ -660,22 +662,22 @@ to the cogfile)</p>
 98
 99
 100
-101</pre>
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/dsl/cogfile.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/dsl/cogfile.rb', line 93</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_language identifier id'>language</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
-  <span class='rubyid_return return kw'>return</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@cogfile_context ivar id'>@cogfile_context</span><span class='lbrack token'>[</span><span class='symbol val'>:plugin_path_only</span><span class='rbrack token'>]</span>
-  <span class='rubyid_dsl identifier id'>dsl</span> <span class='assign token'>=</span> <span class='rubyid_LanguageDSL constant id'>LanguageDSL</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_key identifier id'>key</span>
-  <span class='rubyid_r identifier id'>r</span> <span class='assign token'>=</span> <span class='rubyid_block identifier id'>block</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span> <span class='rubyid_dsl identifier id'>dsl</span>
-  <span class='rubyid_lang identifier id'>lang</span> <span class='assign token'>=</span> <span class='rubyid_dsl identifier id'>dsl</span><span class='dot token'>.</span><span class='rubyid_finalize identifier id'>finalize</span>
-  <span class='rubyid_config_eval identifier id'>config_eval</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_@language ivar id'>@language</span><span class='lbrack token'>[</span><span class='rubyid_lang identifier id'>lang</span><span class='dot token'>.</span><span class='rubyid_key identifier id'>key</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_lang identifier id'>lang</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_r identifier id'>r</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_language'>language</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_plugin_path_only?'>plugin_path_only?</span>
+  <span class='id identifier rubyid_dsl'>dsl</span> <span class='op'>=</span> <span class='const'>LanguageDSL</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_key'>key</span>
+  <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span> <span class='id identifier rubyid_dsl'>dsl</span>
+  <span class='id identifier rubyid_lang'>lang</span> <span class='op'>=</span> <span class='id identifier rubyid_dsl'>dsl</span><span class='period'>.</span><span class='id identifier rubyid_finalize'>finalize</span>
+  <span class='id identifier rubyid_config_eval'>config_eval</span> <span class='kw'>do</span>
+    <span class='ivar'>@language</span><span class='lbracket'>[</span><span class='id identifier rubyid_lang'>lang</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_lang'>lang</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_r'>r</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -741,27 +743,26 @@ supplied by <code>cog</code></p>
       <pre class="lines">
 
 
-79
 80
 81
 82
 83
 84
 85
-86</pre>
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/dsl/cogfile.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/dsl/cogfile.rb', line 80</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_language_extensions identifier id'>language_extensions</span><span class='lparen token'>(</span><span class='rubyid_map identifier id'>map</span><span class='rparen token'>)</span>
-  <span class='rubyid_return return kw'>return</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@cogfile_context ivar id'>@cogfile_context</span><span class='lbrack token'>[</span><span class='symbol val'>:plugin_path_only</span><span class='rbrack token'>]</span>
-  <span class='rubyid_config_eval identifier id'>config_eval</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_map identifier id'>map</span><span class='dot token'>.</span><span class='rubyid_each_pair identifier id'>each_pair</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='rubyid_value identifier id'>value</span><span class='bitor op'>|</span>
-      <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span><span class='lbrack token'>[</span><span class='rubyid_key identifier id'>key</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_value identifier id'>value</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_language_extensions'>language_extensions</span><span class='lparen'>(</span><span class='id identifier rubyid_map'>map</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_plugin_path_only?'>plugin_path_only?</span>
+  <span class='id identifier rubyid_config_eval'>config_eval</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_map'>map</span><span class='period'>.</span><span class='id identifier rubyid_each_pair'>each_pair</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+      <span class='ivar'>@language_extension_map</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -779,7 +780,8 @@ supplied by <code>cog</code></p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Define a directory in which to find plugins</p>
+<p>Define a directory in which to find plugins. A call to this method will be
+ignored if the containing cogfile is itself being treated as a plugin.</p>
 
 
   </div>
@@ -851,19 +853,20 @@ supplied by <code>cog</code></p>
 71
 72
 73
-74</pre>
+74
+75</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/dsl/cogfile.rb', line 68</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_plugin_path identifier id'>plugin_path</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span><span class='assign token'>=</span><span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
-  <span class='rubyid_path identifier id'>path</span> <span class='assign token'>=</span> <span class='rubyid_add_config_path identifier id'>add_config_path</span> <span class='symbol val'>:plugin</span><span class='comma token'>,</span> <span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_path identifier id'>path</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_PluginPathIsNotADirectory constant id'>PluginPathIsNotADirectory</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_path identifier id'>path</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_directory? fid id'>directory?</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='rparen token'>)</span>
-    <span class='rubyid_@cogfile_context ivar id'>@cogfile_context</span><span class='lbrack token'>[</span><span class='symbol val'>:config</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_register_plugins identifier id'>register_plugins</span> <span class='rubyid_path identifier id'>path</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_plugin_path'>plugin_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_absolute'>absolute</span><span class='op'>=</span><span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_plugin?'>plugin?</span>
+  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_add_config_path'>add_config_path</span> <span class='symbol'>:plugin</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_absolute'>absolute</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_path'>path</span> <span class='op'>&amp;&amp;</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Errors</span><span class='op'>::</span><span class='const'>PluginPathIsNotADirectory</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_path'>path</span> <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_directory?'>directory?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+    <span class='ivar'>@cogfile_context</span><span class='lbracket'>[</span><span class='symbol'>:config</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_register_plugins'>register_plugins</span> <span class='id identifier rubyid_path'>path</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -881,7 +884,8 @@ supplied by <code>cog</code></p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Define the directory in which to generate code</p>
+<p>Define the directory in which to generate code. A call to this method will
+be ignored if the containing cogfile is being treated as a plugin.</p>
 
 
   </div>
@@ -956,12 +960,11 @@ supplied by <code>cog</code></p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/dsl/cogfile.rb', line 40</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_project_path identifier id'>project_path</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span><span class='assign token'>=</span><span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
-  <span class='rubyid_return return kw'>return</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@cogfile_context ivar id'>@cogfile_context</span><span class='lbrack token'>[</span><span class='symbol val'>:plugin_path_only</span><span class='rbrack token'>]</span>
-  <span class='rubyid_path identifier id'>path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_@cogfile_context ivar id'>@cogfile_context</span><span class='lbrack token'>[</span><span class='symbol val'>:cogfile_dir</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_path identifier id'>path</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_absolute identifier id'>absolute</span>
-  <span class='rubyid_config_eval identifier id'>config_eval</span> <span class='lbrace token'>{</span> <span class='rubyid_@project_path ivar id'>@project_path</span> <span class='assign token'>=</span> <span class='rubyid_path identifier id'>path</span> <span class='rbrace token'>}</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_project_path'>project_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_absolute'>absolute</span><span class='op'>=</span><span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_plugin_path_only?'>plugin_path_only?</span> <span class='op'>||</span> <span class='id identifier rubyid_plugin?'>plugin?</span>
+  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='ivar'>@cogfile_context</span><span class='lbracket'>[</span><span class='symbol'>:cogfile_dir</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span> <span class='kw'>unless</span> <span class='id identifier rubyid_absolute'>absolute</span>
+  <span class='id identifier rubyid_config_eval'>config_eval</span> <span class='lbrace'>{</span> <span class='ivar'>@project_path</span> <span class='op'>=</span> <span class='id identifier rubyid_path'>path</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -980,7 +983,8 @@ supplied by <code>cog</code></p>
   <div class="discussion">
     
 <p>Define a block to call when stamping a generator for a plugin. A call to
-this method should only be used in plugin cogfiles.</p>
+this method will be ignored unless the containing cogfile is being treated
+as a plugin.</p>
 
 
   </div>
@@ -1056,17 +1060,16 @@ this method should only be used in plugin cogfiles.</p>
       <pre class="lines">
 
 
-116
-117
-118</pre>
+119
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/cog/dsl/cogfile.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'lib/cog/dsl/cogfile.rb', line 119</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_stamp_generator identifier id'>stamp_generator</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
-  <span class='rubyid_@cogfile_context ivar id'>@cogfile_context</span><span class='lbrack token'>[</span><span class='symbol val'>:plugin</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_stamp_generator_block identifier id'>stamp_generator_block</span> <span class='assign token'>=</span> <span class='rubyid_block identifier id'>block</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_stamp_generator'>stamp_generator</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_plugin'>plugin</span><span class='period'>.</span><span class='id identifier rubyid_stamp_generator_block'>stamp_generator_block</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span> <span class='kw'>if</span> <span class='id identifier rubyid_plugin?'>plugin?</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1158,11 +1161,10 @@ this method should only be used in plugin cogfiles.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/dsl/cogfile.rb', line 59</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_template_path identifier id'>template_path</span><span class='lparen token'>(</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span><span class='assign token'>=</span><span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
-  <span class='rubyid_return return kw'>return</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@cogfile_context ivar id'>@cogfile_context</span><span class='lbrack token'>[</span><span class='symbol val'>:plugin_path_only</span><span class='rbrack token'>]</span>
-  <span class='rubyid_add_config_path identifier id'>add_config_path</span> <span class='symbol val'>:template</span><span class='comma token'>,</span> <span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_absolute identifier id'>absolute</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_template_path'>template_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_absolute'>absolute</span><span class='op'>=</span><span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_plugin_path_only?'>plugin_path_only?</span>
+  <span class='id identifier rubyid_add_config_path'>add_config_path</span> <span class='symbol'>:template</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_absolute'>absolute</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1173,9 +1175,9 @@ this method should only be used in plugin cogfiles.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Jan  5 00:07:14 2013 by
+  Generated on Thu Apr 18 19:15:48 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.8.7).
+  0.8.6.1 (ruby-2.0.0).
 </div>
 
   </body>

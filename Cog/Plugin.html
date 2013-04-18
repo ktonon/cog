@@ -6,13 +6,13 @@
 <title>
   Class: Cog::Plugin
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.6.1
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -104,7 +104,7 @@
     
 <p>Describes a plugin found on the <span class='object_link'><a href="Config.html#plugin_path-instance_method" title="Cog::Config#plugin_path (method)">Config#plugin_path</a></span>. The plugin
 <span class='object_link'><a href="DSL/Cogfile.html" title="Cog::DSL::Cogfile (class)">DSL::Cogfile</a></span> will have already been processed, and should have contained
-a call to <span class='object_link'><a href="DSL/Cogfile.html#autoload_plugin-instance_method" title="Cog::DSL::Cogfile#autoload_plugin (method)">DSL::Cogfile#autoload_plugin</a></span>, which will make it’s DSL
+a call to <span class='object_link'><a href="DSL/Cogfile.html#autoload_plugin-instance_method" title="Cog::DSL::Cogfile#autoload_plugin (method)">DSL::Cogfile#autoload_plugin</a></span>, which will make it&#39;s DSL
 available to generators via a <span class='object_link'><a href="GeneratorSandbox.html" title="Cog::GeneratorSandbox (class)">GeneratorSandbox</a></span>.</p>
 
 
@@ -143,7 +143,7 @@ available to generators via a <span class='object_link'><a href="GeneratorSandbo
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Path to the plugin’s cogfile.</p>
+<p>Path to the plugin&#39;s cogfile.</p>
 </div></span>
   
 </li>
@@ -362,16 +362,15 @@ available to generators via a <span class='object_link'><a href="GeneratorSandbo
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/plugin.rb', line 19</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_cogfile_path identifier id'>cogfile_path</span><span class='rparen token'>)</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_cogfile_path identifier id'>cogfile_path</span><span class='rparen token'>)</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_InvalidPluginConfiguration constant id'>InvalidPluginConfiguration</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='symbol val'>:cogfile</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_@cogfile_path ivar id'>@cogfile_path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
-  <span class='rubyid_@path ivar id'>@path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_dirname identifier id'>dirname</span> <span class='rubyid_@cogfile_path ivar id'>@cogfile_path</span>
-  <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_basename identifier id'>basename</span> <span class='rubyid_@path ivar id'>@path</span>
-  <span class='rubyid_@name ivar id'>@name</span> <span class='assign token'>=</span> <span class='rubyid_$1 nth_ref id'>$1</span> <span class='rubyid_if if_mod kw'>if</span> <span class='regexp val'>/^(.+?)\-(\d|\.)+(rc2)?$/</span> <span class='match op'>=~</span> <span class='rubyid_@name ivar id'>@name</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_cogfile_path'>cogfile_path</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='id identifier rubyid_cogfile_path'>cogfile_path</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Errors</span><span class='op'>::</span><span class='const'>InvalidPluginConfiguration</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='symbol'>:cogfile</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_cogfile_path'>cogfile_path</span>
+  <span class='kw'>end</span>
+  <span class='ivar'>@cogfile_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span> <span class='id identifier rubyid_cogfile_path'>cogfile_path</span>
+  <span class='ivar'>@path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span> <span class='ivar'>@cogfile_path</span>
+  <span class='ivar'>@name</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_basename'>basename</span> <span class='ivar'>@path</span>
+  <span class='ivar'>@name</span> <span class='op'>=</span> <span class='backref'>$1</span> <span class='kw'>if</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(.+?)\-(\d|\.)+(rc2)?$</span><span class='regexp_end'>/</span></span> <span class='op'>=~</span> <span class='ivar'>@name</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -396,7 +395,7 @@ available to generators via a <span class='object_link'><a href="GeneratorSandbo
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Path to the plugin’s cogfile</p>
+<p>Path to the plugin&#39;s cogfile</p>
 
 
   </div>
@@ -415,7 +414,7 @@ available to generators via a <span class='object_link'><a href="GeneratorSandbo
       
         &mdash;
         <div class='inline'>
-<p>path to the plugin’s cogfile</p>
+<p>path to the plugin&#39;s cogfile</p>
 </div>
       
     </li>
@@ -435,10 +434,9 @@ available to generators via a <span class='object_link'><a href="GeneratorSandbo
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/plugin.rb', line 13</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
-  <span class='rubyid_@cogfile_path ivar id'>@cogfile_path</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_cogfile_path'>cogfile_path</span>
+  <span class='ivar'>@cogfile_path</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -497,10 +495,9 @@ available to generators via a <span class='object_link'><a href="GeneratorSandbo
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/plugin.rb', line 7</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_name identifier id'>name</span>
-  <span class='rubyid_@name ivar id'>@name</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='ivar'>@name</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -559,10 +556,9 @@ available to generators via a <span class='object_link'><a href="GeneratorSandbo
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/plugin.rb', line 10</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_path identifier id'>path</span>
-  <span class='rubyid_@path ivar id'>@path</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_path'>path</span>
+  <span class='ivar'>@path</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -621,10 +617,9 @@ available to generators via a <span class='object_link'><a href="GeneratorSandbo
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/plugin.rb', line 16</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_stamp_generator_block identifier id'>stamp_generator_block</span>
-  <span class='rubyid_@stamp_generator_block ivar id'>@stamp_generator_block</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_stamp_generator_block'>stamp_generator_block</span>
+  <span class='ivar'>@stamp_generator_block</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -670,10 +665,9 @@ available to generators via a <span class='object_link'><a href="GeneratorSandbo
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/plugin.rb', line 30</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='cmp op'>&lt;=&gt;</span><span class='lparen token'>(</span><span class='rubyid_other identifier id'>other</span><span class='rparen token'>)</span>
-  <span class='rubyid_@name ivar id'>@name</span> <span class='cmp op'>&lt;=&gt;</span> <span class='rubyid_other identifier id'>other</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='op'>&lt;=&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
+  <span class='ivar'>@name</span> <span class='op'>&lt;=&gt;</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -684,9 +678,9 @@ available to generators via a <span class='object_link'><a href="GeneratorSandbo
 </div>
 
     <div id="footer">
-  Generated on Sat Jan  5 00:07:13 2013 by
+  Generated on Thu Apr 18 19:15:46 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.8.7).
+  0.8.6.1 (ruby-2.0.0).
 </div>
 
   </body>

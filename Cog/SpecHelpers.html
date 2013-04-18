@@ -6,13 +6,13 @@
 <title>
   Module: Cog::SpecHelpers
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.6.1
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -112,33 +112,32 @@ which is returned from a call to <span class='object_link'><a href="SpecHelpers/
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><span class='rubyid_require identifier id'>require</span> <span class='string val'>'cog/spec_helpers'</span>
+      <pre class="example code"><code><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>cog/spec_helpers</span><span class='tstring_end'>&#39;</span></span>
 
-<span class='rubyid_describe identifier id'>describe</span> <span class='string val'>'The command line interface'</span> <span class='rubyid_do do kw'>do</span>
+<span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>The command line interface</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
 
-  <span class='rubyid_include identifier id'>include</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_SpecHelpers constant id'>SpecHelpers</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'>Cog</span><span class='op'>::</span><span class='const'>SpecHelpers</span>
 
-  <span class='rubyid_before identifier id'>before</span> <span class='symbol val'>:all</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_@cog ivar id'>@cog</span> <span class='assign token'>=</span> <span class='rubyid_Cog constant id'>Cog</span><span class='colon2 op'>::</span><span class='rubyid_SpecHelpers constant id'>SpecHelpers</span><span class='colon2 op'>::</span><span class='rubyid_Runner constant id'>Runner</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='string val'>'bin/cog'</span>
-  <span class='rubyid_end end kw'>end</span>
+  <span class='id identifier rubyid_before'>before</span> <span class='symbol'>:all</span> <span class='kw'>do</span>
+    <span class='ivar'>@cog</span> <span class='op'>=</span> <span class='const'>Cog</span><span class='op'>::</span><span class='const'>SpecHelpers</span><span class='op'>::</span><span class='const'>Runner</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bin/cog</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
 
-  <span class='rubyid_it identifier id'>it</span> <span class='string val'>'should print help when no args are passed'</span> <span class='rubyid_do do kw'>do</span>
-    <span class='rubyid_@cog ivar id'>@cog</span><span class='dot token'>.</span><span class='rubyid_run identifier id'>run</span><span class='dot token'>.</span><span class='rubyid_should identifier id'>should</span> <span class='rubyid_show_help identifier id'>show_help</span>
-  <span class='rubyid_end end kw'>end</span>
+  <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>should print help when no args are passed</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='ivar'>@cog</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_show_help'>show_help</span>
+  <span class='kw'>end</span>
 
-  <span class='rubyid_context identifier id'>context</span> <span class='string val'>'in an uninitialized project'</span> <span class='rubyid_do do kw'>do</span>
+  <span class='id identifier rubyid_context'>context</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>in an uninitialized project</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
 
-    <span class='rubyid_before identifier id'>before</span> <span class='symbol val'>:each</span> <span class='rubyid_do do kw'>do</span>
-      <span class='rubyid_use_fixture identifier id'>use_fixture</span> <span class='symbol val'>:uninitialized</span>
-    <span class='rubyid_end end kw'>end</span>
+    <span class='id identifier rubyid_before'>before</span> <span class='symbol'>:each</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_use_fixture'>use_fixture</span> <span class='symbol'>:uninitialized</span>
+    <span class='kw'>end</span>
 
-    <span class='rubyid_it identifier id'>it</span> <span class='string val'>'running `cog init` should make a Cogfile'</span> <span class='rubyid_do do kw'>do</span>
-      <span class='rubyid_@cog ivar id'>@cog</span><span class='dot token'>.</span><span class='rubyid_run identifier id'>run</span><span class='lparen token'>(</span><span class='symbol val'>:init</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_should identifier id'>should</span> <span class='rubyid_make identifier id'>make</span><span class='lparen token'>(</span><span class='rubyid_cogfile_path identifier id'>cogfile_path</span><span class='rparen token'>)</span>
-    <span class='rubyid_end end kw'>end</span>
+    <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>running `cog init` should make a Cogfile</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+      <span class='ivar'>@cog</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='symbol'>:init</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_make'>make</span><span class='lparen'>(</span><span class='id identifier rubyid_cogfile_path'>cogfile_path</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
 
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></code></pre>
     
   </div>
 
@@ -405,7 +404,7 @@ which is returned from a call to <span class='object_link'><a href="SpecHelpers/
   
     <span class="summary_desc"><div class='inline'>
 <p>The next cog spec will execute in a fresh copy of the given fixture Fixture
-directories are stored in <code>spec/fixtures</code>.</p>
+directories are stored in spec/fixtures.</p>
 </div></span>
   
 </li>
@@ -430,7 +429,7 @@ directories are stored in <code>spec/fixtures</code>.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>The next cog spec will execute in a fresh copy of the given home fixture
-Home fixture directories are stored in <code>spec/home_fixtures</code>.</p>
+Home fixture directories are stored in spec/home_fixtures.</p>
 </div></span>
   
 </li>
@@ -496,10 +495,9 @@ Home fixture directories are stored in <code>spec/home_fixtures</code>.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 47</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span>
-  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_spec_root identifier id'>spec_root</span><span class='comma token'>,</span> <span class='string val'>'active_fixture'</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_active_fixture_dir'>active_fixture_dir</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='id identifier rubyid_spec_root'>spec_root</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>active_fixture</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -556,10 +554,9 @@ Home fixture directories are stored in <code>spec/home_fixtures</code>.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 52</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_active_home_fixture_dir identifier id'>active_home_fixture_dir</span>
-  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_spec_root identifier id'>spec_root</span><span class='comma token'>,</span> <span class='string val'>'active_home_fixture'</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_active_home_fixture_dir'>active_home_fixture_dir</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='id identifier rubyid_spec_root'>spec_root</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>active_home_fixture</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -616,10 +613,9 @@ Home fixture directories are stored in <code>spec/home_fixtures</code>.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 62</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_cog_directory identifier id'>cog_directory</span>
-  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span><span class='comma token'>,</span> <span class='string val'>'cog'</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_cog_directory'>cog_directory</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='id identifier rubyid_active_fixture_dir'>active_fixture_dir</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>cog</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -676,10 +672,9 @@ Home fixture directories are stored in <code>spec/home_fixtures</code>.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 57</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_cogfile_path identifier id'>cogfile_path</span>
-  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span><span class='comma token'>,</span> <span class='string val'>'Cogfile'</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_cogfile_path'>cogfile_path</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='id identifier rubyid_active_fixture_dir'>active_fixture_dir</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Cogfile</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -756,10 +751,9 @@ Home fixture directories are stored in <code>spec/home_fixtures</code>.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 86</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_generated_file identifier id'>generated_file</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span>
-  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span><span class='comma token'>,</span> <span class='string val'>'src'</span><span class='comma token'>,</span> <span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_generated_file'>generated_file</span><span class='lparen'>(</span><span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_active_fixture_dir'>active_fixture_dir</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>src</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -836,10 +830,9 @@ Home fixture directories are stored in <code>spec/home_fixtures</code>.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 68</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_generator identifier id'>generator</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span><span class='comma token'>,</span> <span class='string val'>'cog'</span><span class='comma token'>,</span> <span class='string val'>'generators'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;#{name}.rb&quot;</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_generator'>generator</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_active_fixture_dir'>active_fixture_dir</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>cog</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>generators</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>.rb</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -916,10 +909,9 @@ Home fixture directories are stored in <code>spec/home_fixtures</code>.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 80</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_plugin identifier id'>plugin</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span><span class='comma token'>,</span> <span class='string val'>'cog'</span><span class='comma token'>,</span> <span class='string val'>'plugins'</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_plugin'>plugin</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_active_fixture_dir'>active_fixture_dir</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>cog</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>plugins</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -976,10 +968,9 @@ Home fixture directories are stored in <code>spec/home_fixtures</code>.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 42</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_spec_root identifier id'>spec_root</span>
-  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='rubyid___FILE__ __file__ kw'>__FILE__</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='string val'>'..'</span><span class='comma token'>,</span> <span class='string val'>'..'</span><span class='comma token'>,</span> <span class='string val'>'spec'</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_spec_root'>spec_root</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>..</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>..</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>spec</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1056,10 +1047,9 @@ Home fixture directories are stored in <code>spec/home_fixtures</code>.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 74</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_template identifier id'>template</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span><span class='comma token'>,</span> <span class='string val'>'cog'</span><span class='comma token'>,</span> <span class='string val'>'templates'</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_template'>template</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_active_fixture_dir'>active_fixture_dir</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>cog</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>templates</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1135,13 +1125,12 @@ directories are stored in <code>spec/fixtures</code>.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 94</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_use_fixture identifier id'>use_fixture</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_path identifier id'>path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_spec_root identifier id'>spec_root</span><span class='comma token'>,</span> <span class='string val'>'fixtures'</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span>
-  <span class='rubyid_copy_fixture identifier id'>copy_fixture</span> <span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span>
-  <span class='rubyid_Dir constant id'>Dir</span><span class='dot token'>.</span><span class='rubyid_chdir identifier id'>chdir</span> <span class='rubyid_active_fixture_dir identifier id'>active_fixture_dir</span>
-  <span class='rubyid_nil nil kw'>nil</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_use_fixture'>use_fixture</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='id identifier rubyid_spec_root'>spec_root</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fixtures</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='id identifier rubyid_copy_fixture'>copy_fixture</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_active_fixture_dir'>active_fixture_dir</span>
+  <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span> <span class='id identifier rubyid_active_fixture_dir'>active_fixture_dir</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1216,12 +1205,11 @@ Home fixture directories are stored in <code>spec/home_fixtures</code></p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers.rb', line 105</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_use_home_fixture identifier id'>use_home_fixture</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
-  <span class='rubyid_path identifier id'>path</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_spec_root identifier id'>spec_root</span><span class='comma token'>,</span> <span class='string val'>'home_fixtures'</span><span class='comma token'>,</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span>
-  <span class='rubyid_copy_fixture identifier id'>copy_fixture</span> <span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_active_home_fixture_dir identifier id'>active_home_fixture_dir</span>
-  <span class='rubyid_nil nil kw'>nil</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_use_home_fixture'>use_home_fixture</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='id identifier rubyid_spec_root'>spec_root</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>home_fixtures</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='id identifier rubyid_copy_fixture'>copy_fixture</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_active_home_fixture_dir'>active_home_fixture_dir</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1232,9 +1220,9 @@ Home fixture directories are stored in <code>spec/home_fixtures</code></p>
 </div>
 
     <div id="footer">
-  Generated on Sat Jan  5 00:07:09 2013 by
+  Generated on Thu Apr 18 19:15:45 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.8.7).
+  0.8.6.1 (ruby-2.0.0).
 </div>
 
   </body>

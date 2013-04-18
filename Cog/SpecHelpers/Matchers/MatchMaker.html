@@ -6,13 +6,13 @@
 <title>
   Class: Cog::SpecHelpers::Matchers::MatchMaker
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.6.1
   
 </title>
 
-  <link rel="stylesheet" href="../../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -304,10 +304,9 @@ message template.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers/matchers/match_maker.rb', line 13</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_error identifier id'>error</span>
-  <span class='rubyid_@error ivar id'>@error</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_error'>error</span>
+  <span class='ivar'>@error</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -348,10 +347,9 @@ message template.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers/matchers/match_maker.rb', line 10</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_lines identifier id'>lines</span>
-  <span class='rubyid_@lines ivar id'>@lines</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_lines'>lines</span>
+  <span class='ivar'>@lines</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -432,11 +430,10 @@ post invocation #test.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers/matchers/match_maker.rb', line 44</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_before identifier id'>before</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
-  <span class='rubyid_@before_block ivar id'>@before_block</span> <span class='assign token'>=</span> <span class='rubyid_block identifier id'>block</span>
-  <span class='rubyid_nil nil kw'>nil</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_before'>before</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='ivar'>@before_block</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -462,8 +459,8 @@ which look like this <code>&quot;[positive|negative]</code>“ will be
 replaced with the appropriate section.</p>
 
 <p>would read “expected cog to show the default help text” for a positive
-failure and “expected cog to not show the default help text” for a
-negative failure. The “expected cog” part is inserted automatically.</p>
+failure and “expected cog to not show the default help text” for a negative
+failure. The “expected cog” part is inserted automatically.</p>
 
 
   </div>
@@ -474,8 +471,7 @@ negative failure. The “expected cog” part is inserted automatically.</p>
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><span class='rubyid_message identifier id'>message</span> <span class='lbrace token'>{</span> <span class='string val'>&quot;to [show|not show] the default help text&quot;</span> <span class='rbrace token'>}</span>
-</pre>
+      <pre class="example code"><code><span class='id identifier rubyid_message'>message</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>to [show|not show] the default help text</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span></code></pre>
     
   </div>
 
@@ -525,11 +521,10 @@ negative failure. The “expected cog” part is inserted automatically.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers/matchers/match_maker.rb', line 32</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_message identifier id'>message</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
-  <span class='rubyid_@msg_block ivar id'>@msg_block</span> <span class='assign token'>=</span> <span class='rubyid_block identifier id'>block</span>
-  <span class='rubyid_nil nil kw'>nil</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_message'>message</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='ivar'>@msg_block</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -602,11 +597,10 @@ negative failure. The “expected cog” part is inserted automatically.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/spec_helpers/matchers/match_maker.rb', line 55</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_test identifier id'>test</span><span class='lparen token'>(</span><span class='bitand op'>&amp;</span><span class='rubyid_block identifier id'>block</span><span class='rparen token'>)</span>
-  <span class='rubyid_@test_block ivar id'>@test_block</span> <span class='assign token'>=</span> <span class='rubyid_block identifier id'>block</span>
-  <span class='rubyid_nil nil kw'>nil</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_test'>test</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='ivar'>@test_block</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -617,9 +611,9 @@ negative failure. The “expected cog” part is inserted automatically.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Jan  5 00:07:16 2013 by
+  Generated on Thu Apr 18 19:15:49 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.8.7).
+  0.8.6.1 (ruby-2.0.0).
 </div>
 
   </body>

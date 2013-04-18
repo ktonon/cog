@@ -6,13 +6,13 @@
 <title>
   Module: Cog::Config
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.6.1
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -270,7 +270,8 @@ to determine where to find things, and where to put them.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>If installed as a gem, return the parent directory of the gem’s location.</p>
+<p>If installed as a gem, return the parent directory of the gem&#39;s
+location.</p>
 </div></span>
   
 </li>
@@ -342,7 +343,7 @@ to determine where to find things, and where to put them.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Path to the current user’s cogfile.</p>
+<p>Path to the current user&#39;s cogfile.</p>
 </div></span>
   
 </li>
@@ -366,7 +367,7 @@ to determine where to find things, and where to put them.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Path to <code>${HOME}/.cog</code>.</p>
+<p>Path to $HOME/.cog.</p>
 </div></span>
   
 </li>
@@ -465,10 +466,9 @@ to determine where to find things, and where to put them.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 15</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_generator_path identifier id'>generator_path</span>
-  <span class='rubyid_@generator_path ivar id'>@generator_path</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_generator_path'>generator_path</span>
+  <span class='ivar'>@generator_path</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -527,10 +527,9 @@ to determine where to find things, and where to put them.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 21</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_plugin_path identifier id'>plugin_path</span>
-  <span class='rubyid_@plugin_path ivar id'>@plugin_path</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_plugin_path'>plugin_path</span>
+  <span class='ivar'>@plugin_path</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -589,10 +588,9 @@ to determine where to find things, and where to put them.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 18</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_template_path identifier id'>template_path</span>
-  <span class='rubyid_@template_path ivar id'>@template_path</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_template_path'>template_path</span>
+  <span class='ivar'>@template_path</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -663,17 +661,16 @@ to determine where to find things, and where to put them.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 24</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_gem_dir identifier id'>gem_dir</span>
-  <span class='rubyid_spec identifier id'>spec</span> <span class='assign token'>=</span> <span class='rubyid_Gem constant id'>Gem</span><span class='dot token'>.</span><span class='rubyid_loaded_specs identifier id'>loaded_specs</span><span class='lbrack token'>[</span><span class='string val'>'cog'</span><span class='rbrack token'>]</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_spec identifier id'>spec</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-    <span class='comment val'># The current __FILE__ is:</span>
-    <span class='comment val'>#   ${COG_GEM_ROOT}/lib/cog/config.rb</span>
-    <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='rubyid___FILE__ __file__ kw'>__FILE__</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='string val'>'..'</span><span class='comma token'>,</span> <span class='string val'>'..'</span><span class='rparen token'>)</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_spec identifier id'>spec</span><span class='dot token'>.</span><span class='rubyid_gem_dir identifier id'>gem_dir</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_gem_dir'>gem_dir</span>
+  <span class='id identifier rubyid_spec'>spec</span> <span class='op'>=</span> <span class='const'>Gem</span><span class='period'>.</span><span class='id identifier rubyid_loaded_specs'>loaded_specs</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>cog</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_spec'>spec</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='comment'># The current __FILE__ is:
+</span>    <span class='comment'>#   ${COG_GEM_ROOT}/lib/cog/config.rb
+</span>    <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>..</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>..</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_spec'>spec</span><span class='period'>.</span><span class='id identifier rubyid_gem_dir'>gem_dir</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -691,7 +688,8 @@ to determine where to find things, and where to put them.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>If installed as a gem, return the parent directory of the gem’s location</p>
+<p>If installed as a gem, return the parent directory of the gem&#39;s
+location</p>
 
 
   </div>
@@ -710,7 +708,8 @@ to determine where to find things, and where to put them.</p>
       
         &mdash;
         <div class='inline'>
-<p>if installed as a gem, return the parent directory of the gem’s location</p>
+<p>if installed as a gem, return the parent directory of the gem&#39;s
+location</p>
 </div>
       
     </li>
@@ -731,11 +730,10 @@ to determine where to find things, and where to put them.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 36</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_gems_root_dir identifier id'>gems_root_dir</span>
-  <span class='rubyid_x identifier id'>x</span> <span class='assign token'>=</span> <span class='rubyid_gem_dir identifier id'>gem_dir</span>
-  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span><span class='lparen token'>(</span><span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_x identifier id'>x</span><span class='comma token'>,</span> <span class='string val'>'..'</span><span class='rparen token'>)</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_x identifier id'>x</span><span class='comma token'>,</span> <span class='string val'>'Gemfile'</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_gems_root_dir'>gems_root_dir</span>
+  <span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_gem_dir'>gem_dir</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>..</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Gemfile</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -875,28 +873,27 @@ be <code>false</code></p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 61</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_prepare identifier id'>prepare</span><span class='lparen token'>(</span><span class='rubyid_opt identifier id'>opt</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='rubyid_throw identifier id'>throw</span> <span class='symbol val'>:ConfigInstanceAlreadyPrepared</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@prepared ivar id'>@prepared</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:force_reset</span><span class='rbrack token'>]</span>
-  <span class='rubyid_@prepared ivar id'>@prepared</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span>
-  <span class='rubyid_@fullpaths ivar id'>@fullpaths</span> <span class='assign token'>=</span> <span class='rubyid_opt identifier id'>opt</span><span class='lbrack token'>[</span><span class='symbol val'>:fullpaths</span><span class='rbrack token'>]</span>
-  <span class='rubyid_@project_path ivar id'>@project_path</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_@project_generator_path ivar id'>@project_generator_path</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_@project_plugin_path ivar id'>@project_plugin_path</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_@project_template_path ivar id'>@project_template_path</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_@generator_path ivar id'>@generator_path</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-  <span class='rubyid_@plugin_path ivar id'>@plugin_path</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-  <span class='rubyid_@template_path ivar id'>@template_path</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-  <span class='rubyid_@plugins ivar id'>@plugins</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
-  <span class='rubyid_@target_language ivar id'>@target_language</span> <span class='assign token'>=</span> <span class='rubyid_Language constant id'>Language</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
-  <span class='rubyid_@active_languages ivar id'>@active_languages</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rubyid_Language constant id'>Language</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='rbrack token'>]</span> <span class='comment val'># active language stack</span>
-  <span class='rubyid_@language ivar id'>@language</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
-  <span class='rubyid_@language_extension_map ivar id'>@language_extension_map</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_prepare'>prepare</span><span class='lparen'>(</span><span class='id identifier rubyid_opt'>opt</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_throw'>throw</span> <span class='symbol'>:ConfigInstanceAlreadyPrepared</span> <span class='kw'>if</span> <span class='ivar'>@prepared</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_opt'>opt</span><span class='lbracket'>[</span><span class='symbol'>:force_reset</span><span class='rbracket'>]</span>
+  <span class='ivar'>@prepared</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='ivar'>@fullpaths</span> <span class='op'>=</span> <span class='id identifier rubyid_opt'>opt</span><span class='lbracket'>[</span><span class='symbol'>:fullpaths</span><span class='rbracket'>]</span>
+  <span class='ivar'>@project_path</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@project_generator_path</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@project_plugin_path</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@project_template_path</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@generator_path</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@plugin_path</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@template_path</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@plugins</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@target_language</span> <span class='op'>=</span> <span class='const'>Language</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='ivar'>@active_languages</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='const'>Language</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='rbracket'>]</span> <span class='comment'># active language stack
+</span>  <span class='ivar'>@language</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@language_extension_map</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   
-  <span class='rubyid_process_cogfiles identifier id'>process_cogfiles</span> <span class='rubyid_opt identifier id'>opt</span>
-  <span class='rubyid_post_cogfile_processing identifier id'>post_cogfile_processing</span>
-  <span class='rubyid_build_language_extension_map identifier id'>build_language_extension_map</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='id identifier rubyid_process_cogfiles'>process_cogfiles</span> <span class='id identifier rubyid_opt'>opt</span>
+  <span class='id identifier rubyid_post_cogfile_processing'>post_cogfile_processing</span>
+  <span class='id identifier rubyid_build_language_extension_map'>build_language_extension_map</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -953,10 +950,9 @@ be <code>false</code></p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 52</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_show_fullpaths? fid id'>show_fullpaths?</span>
-  <span class='rubyid_@fullpaths ivar id'>@fullpaths</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_show_fullpaths?'>show_fullpaths?</span>
+  <span class='ivar'>@fullpaths</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -974,7 +970,7 @@ be <code>false</code></p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Path to the current user’s cogfile</p>
+<p>Path to the current user&#39;s cogfile</p>
 
 
   </div>
@@ -993,7 +989,7 @@ be <code>false</code></p>
       
         &mdash;
         <div class='inline'>
-<p>Path to the current user’s cogfile</p>
+<p>Path to the current user&#39;s cogfile</p>
 </div>
       
     </li>
@@ -1013,10 +1009,9 @@ be <code>false</code></p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 47</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_user_cogfile identifier id'>user_cogfile</span>
-  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span> <span class='rubyid_user_dir identifier id'>user_dir</span><span class='comma token'>,</span> <span class='string val'>'Cogfile'</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_user_cogfile'>user_cogfile</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='id identifier rubyid_user_dir'>user_dir</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Cogfile</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1073,10 +1068,9 @@ be <code>false</code></p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/config.rb', line 42</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_user_dir identifier id'>user_dir</span>
-  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_expand_path identifier id'>expand_path</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_ENV constant id'>ENV</span><span class='lbrack token'>[</span><span class='string val'>'HOME'</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='string val'>'.cog'</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_user_dir'>user_dir</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>HOME</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.cog</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1087,9 +1081,9 @@ be <code>false</code></p>
 </div>
 
     <div id="footer">
-  Generated on Sat Jan  5 00:07:08 2013 by
+  Generated on Thu Apr 18 19:15:45 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.8.7).
+  0.8.6.1 (ruby-2.0.0).
 </div>
 
   </body>

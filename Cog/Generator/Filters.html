@@ -6,13 +6,13 @@
 <title>
   Module: Cog::Generator::Filters
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.6.1
   
 </title>
 
-  <link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -197,7 +197,7 @@
         <span class='name'>name</span>
       
       
-        <span class='type'>(<tt>Symbol</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../../Symbol.html" title="Symbol (class)">Symbol</a></span></tt>)</span>
       
       
       
@@ -274,13 +274,12 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/generator/filters.rb', line 17</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_call_filter identifier id'>call_filter</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_text identifier id'>text</span><span class='rparen token'>)</span>
-  <span class='rubyid_gcontext identifier id'>gcontext</span><span class='lbrack token'>[</span><span class='symbol val'>:filters</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='dstring node'>%w(comment)</span>
-  <span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_name identifier id'>name</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span>
-  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Errors constant id'>Errors</span><span class='colon2 op'>::</span><span class='rubyid_NoSuchFilter constant id'>NoSuchFilter</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_gcontext identifier id'>gcontext</span><span class='lbrack token'>[</span><span class='symbol val'>:filters</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_member? fid id'>member?</span> <span class='rubyid_name identifier id'>name</span>
-  <span class='rubyid_method identifier id'>method</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_call identifier id'>call</span> <span class='rubyid_text identifier id'>text</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_call_filter'>call_filter</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_gcontext'>gcontext</span><span class='lbracket'>[</span><span class='symbol'>:filters</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='qwords_beg'>%w(</span><span class='tstring_content'>comment</span><span class='words_sep'>)</span>
+  <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Errors</span><span class='op'>::</span><span class='const'>NoSuchFilter</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_gcontext'>gcontext</span><span class='lbracket'>[</span><span class='symbol'>:filters</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_member?'>member?</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span> <span class='id identifier rubyid_text'>text</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -357,10 +356,9 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/generator/filters.rb', line 9</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_comment identifier id'>comment</span><span class='lparen token'>(</span><span class='rubyid_text identifier id'>text</span><span class='rparen token'>)</span>
-  <span class='rubyid_Cog constant id'>Cog</span><span class='dot token'>.</span><span class='rubyid_active_language identifier id'>active_language</span><span class='dot token'>.</span><span class='rubyid_comment identifier id'>comment</span> <span class='rubyid_text identifier id'>text</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_comment'>comment</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
+  <span class='const'>Cog</span><span class='period'>.</span><span class='id identifier rubyid_active_language'>active_language</span><span class='period'>.</span><span class='id identifier rubyid_comment'>comment</span> <span class='id identifier rubyid_text'>text</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -371,9 +369,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sat Jan  5 00:07:09 2013 by
+  Generated on Thu Apr 18 19:15:45 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.8.7).
+  0.8.6.1 (ruby-2.0.0).
 </div>
 
   </body>

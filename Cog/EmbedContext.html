@@ -6,13 +6,13 @@
 <title>
   Class: Cog::EmbedContext
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.6.1
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
@@ -449,8 +449,8 @@ file.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Was the ‘once’ switch used? Embed statements using this switch will be
-removed after the statement is expanded.</p>
+<p>Was the &#39;once&#39; switch used? Embed statements using this switch will
+be removed after the statement is expanded.</p>
 </div></span>
   
 </li>
@@ -489,12 +489,11 @@ curly braces</p>
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><span class='regexp val'>//</span> <span class='rubyid_cog identifier id'>cog</span><span class='colon op'>:</span> <span class='rubyid_my identifier id'>my</span><span class='minus op'>-</span><span class='rubyid_hook identifier id'>hook</span> <span class='lbrace token'>{</span>
-<span class='rubyid_this identifier id'>this</span> <span class='rubyid_is identifier id'>is</span>
-<span class='rubyid_the identifier id'>the</span>
-<span class='rubyid_body identifier id'>body</span>
-<span class='regexp val'>//</span> <span class='rubyid_cog identifier id'>cog</span><span class='colon op'>:</span> <span class='rbrace token'>}</span>
-</pre>
+      <pre class="example code"><code>// cog: my-hook {
+this is
+the
+body
+// cog: }</code></pre>
     
   </div>
 
@@ -531,10 +530,9 @@ curly braces</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/embed_context.rb', line 13</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_body identifier id'>body</span>
-  <span class='rubyid_@body ivar id'>@body</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_body'>body</span>
+  <span class='ivar'>@body</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -545,7 +543,7 @@ curly braces</p>
       <div class="method_details ">
   <h3 class="signature " id="count-instance_method">
   
-    - (<tt>Fixnum</tt>) <strong>count</strong>  <span class="extras">(readonly)</span>
+    - (<tt><span class='object_link'><a href="../Fixnum.html" title="Fixnum (class)">Fixnum</a></span></tt>) <strong>count</strong>  <span class="extras">(readonly)</span>
   
 
   
@@ -568,7 +566,7 @@ same file, this value indicates the total number of occurrences</p>
     <li>
       
       
-        <span class='type'>(<tt>Fixnum</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Fixnum.html" title="Fixnum (class)">Fixnum</a></span></tt>)</span>
       
       
       
@@ -595,10 +593,9 @@ same file, this value indicates the total number of occurrences</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/embed_context.rb', line 27</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_count identifier id'>count</span>
-  <span class='rubyid_@count ivar id'>@count</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_count'>count</span>
+  <span class='ivar'>@count</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -629,8 +626,7 @@ same file, this value indicates the total number of occurrences</p>
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><span class='regexp val'>//</span> <span class='rubyid_cog identifier id'>cog</span><span class='colon op'>:</span> <span class='rubyid_this identifier id'>this</span><span class='minus op'>-</span><span class='rubyid_is identifier id'>is</span><span class='minus op'>-</span><span class='rubyid_the identifier id'>the</span><span class='minus op'>-</span><span class='rubyid_hook identifier id'>hook</span><span class='minus op'>-</span><span class='rubyid_name identifier id'>name</span>
-</pre>
+      <pre class="example code"><code>// cog: this-is-the-hook-name</code></pre>
     
   </div>
 
@@ -666,10 +662,9 @@ same file, this value indicates the total number of occurrences</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/embed_context.rb', line 18</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_hook identifier id'>hook</span>
-  <span class='rubyid_@hook ivar id'>@hook</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_hook'>hook</span>
+  <span class='ivar'>@hook</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -680,7 +675,7 @@ same file, this value indicates the total number of occurrences</p>
       <div class="method_details ">
   <h3 class="signature " id="index-instance_method">
   
-    - (<tt>Fixnum</tt>) <strong>index</strong> 
+    - (<tt><span class='object_link'><a href="../Fixnum.html" title="Fixnum (class)">Fixnum</a></span></tt>) <strong>index</strong> 
   
 
   
@@ -704,7 +699,7 @@ for the first, 1 for the second, and so on…</p>
     <li>
       
       
-        <span class='type'>(<tt>Fixnum</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Fixnum.html" title="Fixnum (class)">Fixnum</a></span></tt>)</span>
       
       
       
@@ -732,10 +727,9 @@ for the first, 1 for the second, and so on…</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/embed_context.rb', line 24</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_index identifier id'>index</span>
-  <span class='rubyid_@index ivar id'>@index</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
+  <span class='ivar'>@index</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -746,7 +740,7 @@ for the first, 1 for the second, and so on…</p>
       <div class="method_details ">
   <h3 class="signature " id="lineno-instance_method">
   
-    - (<tt>Fixnum</tt>) <strong>lineno</strong> 
+    - (<tt><span class='object_link'><a href="../Fixnum.html" title="Fixnum (class)">Fixnum</a></span></tt>) <strong>lineno</strong> 
   
 
   
@@ -769,7 +763,7 @@ line in the file</p>
     <li>
       
       
-        <span class='type'>(<tt>Fixnum</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Fixnum.html" title="Fixnum (class)">Fixnum</a></span></tt>)</span>
       
       
       
@@ -796,10 +790,9 @@ line in the file</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/embed_context.rb', line 21</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_lineno identifier id'>lineno</span>
-  <span class='rubyid_@lineno ivar id'>@lineno</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_lineno'>lineno</span>
+  <span class='ivar'>@lineno</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -858,10 +851,9 @@ line in the file</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/embed_context.rb', line 30</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_path identifier id'>path</span>
-  <span class='rubyid_@path ivar id'>@path</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_path'>path</span>
+  <span class='ivar'>@path</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -897,8 +889,7 @@ line in the file</p>
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><span class='regexp val'>//</span> <span class='rubyid_cog identifier id'>cog</span><span class='colon op'>:</span> <span class='rubyid_my identifier id'>my</span><span class='minus op'>-</span><span class='rubyid_hook identifier id'>hook</span> <span class='lparen token'>(</span><span class='rubyid_these identifier id'>these</span> <span class='rubyid_are identifier id'>are</span> <span class='rubyid_the identifier id'>the</span> <span class='rubyid_args identifier id'>args</span><span class='rparen token'>)</span>
-</pre>
+      <pre class="example code"><code>// cog: my-hook (these are the args)</code></pre>
     
   </div>
 
@@ -934,10 +925,9 @@ line in the file</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/embed_context.rb', line 47</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_args identifier id'>args</span>
-  <span class='rubyid_@args ivar id'>@args</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_args'>args</span>
+  <span class='ivar'>@args</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -994,10 +984,9 @@ line in the file</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/embed_context.rb', line 52</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_extension identifier id'>extension</span>
-  <span class='rubyid_@ext ivar id'>@ext</span> <span class='opasgn op'>||=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_extname identifier id'>extname</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_slice identifier id'>slice</span><span class='lparen token'>(</span><span class='float val'>1</span><span class='dot2 op'>..</span><span class='integer val'>-1</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_extension'>extension</span>
+  <span class='ivar'>@ext</span> <span class='op'>||=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_extname'>extname</span><span class='lparen'>(</span><span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='int'>1</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1054,10 +1043,9 @@ line in the file</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/embed_context.rb', line 57</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_filename identifier id'>filename</span>
-  <span class='rubyid_@filename ivar id'>@filename</span> <span class='opasgn op'>||=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_basename identifier id'>basename</span> <span class='rubyid_@path ivar id'>@path</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_filename'>filename</span>
+  <span class='ivar'>@filename</span> <span class='op'>||=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_basename'>basename</span> <span class='ivar'>@path</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1116,10 +1104,9 @@ file</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/embed_context.rb', line 62</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_first? fid id'>first?</span>
-  <span class='rubyid_@index ivar id'>@index</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_first?'>first?</span>
+  <span class='ivar'>@index</span> <span class='op'>==</span> <span class='int'>0</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1178,10 +1165,9 @@ file</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/embed_context.rb', line 67</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_last? fid id'>last?</span>
-  <span class='rubyid_@index ivar id'>@index</span> <span class='eq op'>==</span> <span class='rubyid_@count ivar id'>@count</span> <span class='minus op'>-</span> <span class='integer val'>1</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_last?'>last?</span>
+  <span class='ivar'>@index</span> <span class='op'>==</span> <span class='ivar'>@count</span> <span class='op'>-</span> <span class='int'>1</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1199,8 +1185,8 @@ file</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Was the ‘once’ switch used? Embed statements using this switch will be
-removed after the statement is expanded</p>
+<p>Was the &#39;once&#39; switch used? Embed statements using this switch will
+be removed after the statement is expanded</p>
 
 
   </div>
@@ -1211,8 +1197,7 @@ removed after the statement is expanded</p>
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><span class='regexp val'>//</span> <span class='rubyid_cog identifier id'>cog</span><span class='colon op'>:</span> <span class='rubyid_my identifier id'>my</span><span class='minus op'>-</span><span class='rubyid_hook identifier id'>hook</span> <span class='rubyid_once identifier id'>once</span>
-</pre>
+      <pre class="example code"><code>// cog: my-hook once</code></pre>
     
   </div>
 
@@ -1228,8 +1213,8 @@ removed after the statement is expanded</p>
       
         &mdash;
         <div class='inline'>
-<p>was the ‘once’ switch used? Embed statements using this switch will be
-removed after the statement is expanded</p>
+<p>was the &#39;once&#39; switch used? Embed statements using this switch will
+be removed after the statement is expanded</p>
 </div>
       
     </li>
@@ -1249,10 +1234,9 @@ removed after the statement is expanded</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/cog/embed_context.rb', line 74</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_once? fid id'>once?</span>
-  <span class='rubyid_@once ivar id'>@once</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_once?'>once?</span>
+  <span class='ivar'>@once</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1263,9 +1247,9 @@ removed after the statement is expanded</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Jan  5 00:07:15 2013 by
+  Generated on Thu Apr 18 19:15:48 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.8.7).
+  0.8.6.1 (ruby-2.0.0).
 </div>
 
   </body>
