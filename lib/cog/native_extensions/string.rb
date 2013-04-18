@@ -43,7 +43,10 @@ class String
   # @api developer
   # @return [String, String] source and type, where type is one of <tt>:project</tt>, <tt>:user</tt>, <tt>:built_in</tt>, <tt>:gem</tt>, or <tt>:unknown</tt>
   def cog_source_and_type
-    if start_with?(Cog.project_root) || start_with?(Cog.project_template_path) || start_with?(Cog.project_generator_path) || start_with?(Cog.project_plugin_path)
+    if ((Cog.project_root && start_with?(Cog.project_root)) ||
+        (Cog.project_template_path && start_with?(Cog.project_template_path)) || 
+        (Cog.project_generator_path && start_with?(Cog.project_generator_path)) ||
+        (Cog.project_plugin_path && start_with?(Cog.project_plugin_path)))
       [File.basename(Cog.project_root), :project]
     elsif start_with? Cog.user_dir
       [File.basename(ENV['HOME']), :user]
