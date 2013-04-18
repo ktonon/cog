@@ -1,3 +1,7 @@
+## 0.3.3 - April 18, 2013
+
+- Updated for Ruby 2.0
+
 ## 0.3.1 - January 5, 2013
 
 ### New features
