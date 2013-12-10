@@ -1,6 +1,6 @@
 class String
   def normalize_eol
-    gsub /(\r|\n|\r\n)/, "\n"
+    gsub(/\r\n/, "\n").gsub(/\r/, "\n")
   end
 end
 
@@ -18,14 +18,17 @@ module Cog
       def initialize(filename)
         @filename = filename
         @f = File.open filename, 'r'
+        @f = @f.binmode if @f.respond_to?(:binmode)
         @lines = []
         @mark = nil
         @cap_begin_pos = nil
         @cap_end_pos = nil
+        @cap_end_lineno = nil
         @match = nil # The last match object
         @win_fudge = if RUBY_PLATFORM =~ /(mswin|mingw)/
-          x = @f.readline.end_with? '\r\n'
+          x = @f.readline.end_with? "\r\n"
           @f.seek 0
+          @f.lineno = 0
           x ? 0 : 1
         else
           0
@@ -120,6 +123,7 @@ module Cog
           return true if line =~ pattern
           @lines << line
           @cap_end_pos = @f.pos # win_fudge not needed here
+          @cap_end_lineno = @f.lineno
         end
       rescue EOFError
         false
@@ -137,11 +141,13 @@ module Cog
       def replace_captured_text(value, opt={})
         return false if @cap_begin_pos.nil? || @cap_end_pos.nil?
         @f.seek 0
-        tmp.write @f.read(opt[:once] ? @mark : @cap_begin_pos).normalize_eol
-        tmp.write value.normalize_eol
+        @f.lineno = 0
+        tmp.write @f.read(opt[:once] ? @mark : @cap_begin_pos)
+        tmp.write value
         @f.seek @cap_end_pos
+        @f.lineno = @cap_end_lineno
         @f.readline if opt[:once]
-        tmp.write @f.read.normalize_eol
+        tmp.write @f.read
         tmp.close
         close
         FileUtils.mv tmp_filename, @filename
@@ -153,10 +159,11 @@ module Cog
       def insert_at_mark(value)
         return false if @mark.nil?
         @f.seek 0
-        tmp.write @f.read(@mark).normalize_eol
-        tmp.write value.normalize_eol
+        @f.lineno = 0
+        tmp.write @f.read(@mark)
+        tmp.write value
         @f.readline # discard original
-        tmp.write @f.read.normalize_eol
+        tmp.write @f.read
         tmp.close
         close
         FileUtils.mv tmp_filename, @filename
@@ -170,7 +177,11 @@ module Cog
       end
       
       def tmp
-        @tmp ||= File.open(tmp_filename, 'w')
+        unless @tmp
+          @tmp = File.open(tmp_filename, 'w')
+          @tmp = @tmp.binmode if @tmp.respond_to?(:binmode)
+        end
+        @tmp
       end
     end
     
