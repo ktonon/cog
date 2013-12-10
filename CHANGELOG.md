@@ -1,3 +1,8 @@
+## 0.3.4 - December 9, 2013
+
+- Fixed issue with Windows native line endings and Ruby 2.0
+- Discontinued support for Ruby 1.8.7
+
 ## 0.3.3 - April 18, 2013
 
 - Updated for Ruby 2.0
