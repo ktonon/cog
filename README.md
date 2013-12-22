@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/ktonon/cog.png?branch=master)](https://travis-ci.org/ktonon/cog)
 [![Dependency Status](https://gemnasium.com/ktonon/cog.png)](https://gemnasium.com/ktonon/cog)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/ktonon/cog)
+[![Code Climate](https://codeclimate.com/github/ktonon/cog.png)](https://codeclimate.com/github/ktonon/cog)
 
 `cog` is a command line utility that makes it easy to organize a project which
 uses code generation.
