@@ -1,6 +1,7 @@
 require 'active_support/core_ext'
 require 'fileutils'
 require 'rainbow'
+require 'rainbow/ext/string' unless ''.respond_to? :color
 
 require 'cog/errors'
 require 'cog/native_extensions'
