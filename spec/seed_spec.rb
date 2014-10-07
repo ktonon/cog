@@ -17,14 +17,14 @@ describe 'seeds' do
     end
 
     it 'should generate C++ code that compiles' do
-      @cog.run(:gen).should_not complain
-      @make.run.should_not complain
+      expect(@cog.run(:gen)).not_to complain
+      expect(@make.run).not_to complain
     end
 
     it 'should compile an executable that runs' do
-      @cog.run(:gen).should_not complain
-      @make.run.should_not complain
-      @trainer.run.should output(/A dog says: /)
+      expect(@cog.run(:gen)).not_to complain
+      expect(@make.run).not_to complain
+      expect(@trainer.run).to output(/A dog says: /)
     end
   end
 end

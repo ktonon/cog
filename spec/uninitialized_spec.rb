@@ -15,39 +15,39 @@ describe 'projects' do
     end
     
     it 'running `cog init` should make a Cogfile' do
-      @cog.run(:init).should make(cogfile_path)
+      expect(@cog.run(:init)).to make(cogfile_path)
     end
     
     it 'running `cog generator` do nothing' do
-      @cog.run(:generator).should_not do_something
+      expect(@cog.run(:generator)).not_to do_something
     end
   
     it 'running `cog generator new piggy` will fail' do
-      @cog.run(:generator, :new, :piggy).should complain
+      expect(@cog.run(:generator, :new, :piggy)).to complain
     end
     
     it 'running `cog gen list` should list built-in generators' do
-      @cog.run(:generator, :list).should output(/^\[cog\]\s+sort$/m)
+      expect(@cog.run(:generator, :list)).to output(/^\[cog\]\s+sort$/m)
     end
     
     it 'running `cog run` do nothing' do
-      @cog.run(:generator, :run).should_not do_something
+      expect(@cog.run(:generator, :run)).not_to do_something
     end
     
     it 'running `cog plugin` should list built-in plugins' do
-      @cog.run(:plugin).should output(/^\[cog\]\s+basic$/m)
+      expect(@cog.run(:plugin)).to output(/^\[cog\]\s+basic$/m)
     end
 
     it 'running `cog plugin new foo` should create a plugin in the current directory' do
-      @cog.run(:plugin, :new, :foo).should make('foo/Cogfile')
+      expect(@cog.run(:plugin, :new, :foo)).to make('foo/Cogfile')
     end
     
     it 'running `cog template` should list built-in templates' do
-      @cog.run(:template).should output(/^\[cog\]\s+warning$/m)
+      expect(@cog.run(:template)).to output(/^\[cog\]\s+warning$/m)
     end
     
     it 'running `cog template new piggy.txt` will fail' do
-      @cog.run(:template, :new , 'piggy.txt').should complain
+      expect(@cog.run(:template, :new , 'piggy.txt')).to complain
     end
   end  
   

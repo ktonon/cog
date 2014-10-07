@@ -19,28 +19,28 @@ describe 'generated files' do
     end
     
     it "should keep them when they have bodies" do
-      File.should exist(generated_file('kept.c'))
-      @cog.run(:gen, :keeper).should_not do_something
+      expect(File).to exist(generated_file('kept.c'))
+      expect(@cog.run(:gen, :keeper)).not_to do_something
       w = read('kept.c')
-      w.should =~ /keep this;/
-      w.should =~ /keep that;/
+      expect(w).to match(/keep this;/)
+      expect(w).to match(/keep that;/)
     end
 
     it "should expand them when they do not" do
-      File.should_not exist(generated_file('expanded.c'))
-      @cog.run(:gen, :expander).should do_something
+      expect(File).not_to exist(generated_file('expanded.c'))
+      expect(@cog.run(:gen, :expander)).to do_something
       w = read('expanded.c')
-      w.should =~ /\/\/ keep: func1 \{\n\n\/\/ keep: \}/m
+      expect(w).to match(/\/\/ keep: func1 \{\n\n\/\/ keep: \}/m)
     end
     
     it "should fail when there are duplicate hooks" do
-      @cog.run(:gen, :duper).should complain
-      File.should_not exist(generated_file('duped.c'))
+      expect(@cog.run(:gen, :duper)).to complain
+      expect(File).not_to exist(generated_file('duped.c'))
     end
 
     it "should fail when keep hooks go missing" do
-      File.should exist(generated_file('fewer.c'))
-      @cog.run(:gen, :fewer).should complain
+      expect(File).to exist(generated_file('fewer.c'))
+      expect(@cog.run(:gen, :fewer)).to complain
     end
 
   end

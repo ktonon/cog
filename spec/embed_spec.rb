@@ -19,110 +19,110 @@ describe 'projects' do
     end
     
     it 'should expand embeds with values provided' do
-      @cog.run(:gen, :fruit).should_not complain
-      read('app.pro').should =~ /apple[.]c orange[.]c pear[.]c/
-      read('main.c').should =~ /include "apple.h"/
+      expect(@cog.run :gen, :fruit).not_to complain
+      expect(read 'app.pro').to match(/apple[.]c orange[.]c pear[.]c/)
+      expect(read 'main.c').to match(/include "apple.h"/)
     end
     
     it 'should make use of context' do
-      @cog.run(:gen, :contextual).should_not complain
+      expect(@cog.run(:gen, :contextual)).not_to complain
       x = read('main.c')
-      x.should =~ /hook is contextual/
-      x.should =~ /filename is main.c/
-      x.should =~ /lineno is 1/
-      x.should =~ /body was one/
-      x.should =~ /extension is c/
-      x.should =~ /\/\/ this is a comment/
-      x.should =~ /orange\-3\-cat/
-      x.should =~ /contextual is once/
-      x.should =~ /only occurrence is first and last/
-      x.should =~ /only occurrence index is 0/
-      x.should =~ /only occurrence count is 1/
+      expect(x).to match(/hook is contextual/)
+      expect(x).to match(/filename is main.c/)
+      expect(x).to match(/lineno is 1/)
+      expect(x).to match(/body was one/)
+      expect(x).to match(/extension is c/)
+      expect(x).to match(/\/\/ this is a comment/)
+      expect(x).to match(/orange\-3\-cat/)
+      expect(x).to match(/contextual is once/)
+      expect(x).to match(/only occurrence is first and last/)
+      expect(x).to match(/only occurrence index is 0/)
+      expect(x).to match(/only occurrence count is 1/)
     end
     
     it 'should have correct index and count context with multiple hooks' do
-      @cog.run(:gen, :context_many).should_not complain
+      expect(@cog.run(:gen, :context_many)).not_to complain
       x = read('main.c')
-      x.should =~ /0 of 4 on line 5 is first but is not last/
-      x.should =~ /1 of 4 on line 19 is not first and is not last/
-      x.should =~ /2 of 4 on line 26 is not first and is not last/
-      x.should =~ /3 of 4 on line 38 is not first but is last/
+      expect(x).to match(/0 of 4 on line 5 is first but is not last/)
+      expect(x).to match(/1 of 4 on line 19 is not first and is not last/)
+      expect(x).to match(/2 of 4 on line 26 is not first and is not last/)
+      expect(x).to match(/3 of 4 on line 38 is not first but is last/)
     end
     
     it 'should replace once embeds with content only (i.e. remove the directive)' do
-      @cog.run(:gen, :one_time).should_not complain
+      expect(@cog.run(:gen, :one_time)).not_to complain
       x = read('main.c')
-      x.should =~ /one-time stuff/
-      x.should_not =~ /embed\(one-time\)/
+      expect(x).to match(/one-time stuff/)
+      expect(x).not_to match(/embed\(one-time\)/)
     end
 
     it 'should replace once embeds that already have content with new content only' do
       directive = /one-time-body/
-      read('main.c').should =~ directive
-      @cog.run(:gen, :one_time_body).should_not complain
+      expect(read('main.c')).to match(directive)
+      expect(@cog.run(:gen, :one_time_body)).not_to complain
       x = read('main.c')
-      x.should_not =~  directive
-      x.should =~ /one time replacement/
-      x.should_not =~ /one time replacement\n\/\/ cog\: \}/m
+      expect(x).not_to match(directive)
+      expect(x).to match(/one time replacement/)
+      expect(x).not_to match(/one time replacement\n\/\/ cog\: \}/m)
     end
 
     it 'should replace once embeds that already have content with content only even if content has not changed' do
       directive = /one-time-same-body/
       body = /one time same body/
       x = read('main.c')
-      x.should =~ directive
-      x.should =~ body
-      @cog.run(:gen, :one_time_same_body).should_not complain
+      expect(x).to match(directive)
+      expect(x).to match(body)
+      expect(@cog.run(:gen, :one_time_same_body)).not_to complain
       x = read('main.c')
-      x.should_not =~ directive
-      x.should =~ body
-      x.should_not =~ /one time same body\n\/\/ cog\: \}/m
+      expect(x).not_to match(directive)
+      expect(x).to match(body)
+      expect(x).not_to match(/one time same body\n\/\/ cog\: \}/m)
     end
     
     it 'should tolerate /* cog: embed(multiline-style-comment-delimiters) */' do
-      @cog.run(:gen, :multiline).should_not complain
-      read('main.c').should =~ /multiline stuff/
+      expect(@cog.run(:gen, :multiline)).not_to complain
+      expect(read('main.c')).to match(/multiline stuff/)
     end
     
     it 'should tolerate spacing in the directive' do
-      @cog.run(:gen, :spaces).should_not complain
-      read('main.c').should =~ /spaces stuff/
+      expect(@cog.run(:gen, :spaces)).not_to complain
+      expect(read('main.c')).to match(/spaces stuff/)
     end
     
     it 'should tolerate //cog:embed(compact-style-spacing)' do
-      @cog.run(:gen, :compact).should_not complain
-      read('main.c').should =~ /compact stuff/
+      expect(@cog.run(:gen, :compact)).not_to complain
+      expect(read('main.c')).to match(/compact stuff/)
     end
     
     it 'should correct spacing when expanding for the first time' do
-      @cog.run(:gen, :spaces, :compact).should_not complain
+      expect(@cog.run(:gen, :spaces, :compact)).not_to complain
       x = read('main.c')
-      x.should =~ /\/\/ cog: spaces\(with args\) \{$/
-      x.should =~ /\/\/ cog: compact\(with args\) \{$/
+      expect(x).to match(/\/\/ cog: spaces\(with args\) \{$/)
+      expect(x).to match(/\/\/ cog: compact\(with args\) \{$/)
     end
     
     it 'should replace embed expansions which differ' do
-      @cog.run(:gen, :replace).should do_something
-      read('main.c').should =~ /replace stuff/
+      expect(@cog.run(:gen, :replace)).to do_something
+      expect(read('main.c')).to match(/replace stuff/)
     end
     
     it 'should not replace embed expansions which have not changed' do
-      @cog.run(:gen, :same).should_not do_something
-      read('main.c').should =~ /same stuff/
+      expect(@cog.run(:gen, :same)).not_to do_something
+      expect(read('main.c')).to match(/same stuff/)
     end
     
     it 'should replace all occurrences if the same embed appears more than once in one file' do
-      @cog.run(:gen, :twice).should do_something
+      expect(@cog.run(:gen, :twice)).to do_something
       count = 0
       read('main.c').scan(/twice stuff/) do
         count += 1
       end
-      count.should == 2
+      expect(count).to eq(2)
     end
     
     it 'should complain if the expansion terminator is expected and missing' do
-      @cog.run(:gen, :missing_terminator).should complain
-      read('main.c').should_not =~ /missing-terminator stuff/
+      expect(@cog.run(:gen, :missing_terminator)).to complain
+      expect(read('main.c')).not_to match(/missing-terminator stuff/)
     end
   end
   

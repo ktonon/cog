@@ -10,7 +10,7 @@ describe 'cog' do
   end
   
   it 'should print help when no args are passed' do
-    @cog.run.should show_help
+    expect(@cog.run).to show_help
   end
   
 end

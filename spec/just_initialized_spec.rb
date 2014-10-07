@@ -15,28 +15,28 @@ describe 'projects' do
     end
     
     it 'running `cog init` should not do anything' do
-      @cog.run(:init).should_not do_something
+      expect(@cog.run(:init)).not_to do_something
     end
     
     it 'running `cog generator` should not list anything' do
-      @cog.run(:generator).should_not do_something
+      expect(@cog.run(:generator)).not_to do_something
     end
       
     it 'running `cog generator new` should do nothing' do
-      @cog.run(:generator, :new).should_not do_something
+      expect(@cog.run(:generator, :new)).not_to do_something
     end
     
     it 'running `cog generator new piggy` should create a generator named piggy' do
-      @cog.run(:generator, :new, :piggy).should make(generator(:piggy))
+      expect(@cog.run(:generator, :new, :piggy)).to make(generator(:piggy))
     end
     
     it 'running `cog template new piggy.txt` should create a template named piggy.txt.erb' do
-      @cog.run(:template, :new, 'piggy.txt').should make(template('piggy.txt.erb'))
+      expect(@cog.run(:template, :new, 'piggy.txt')).to make(template('piggy.txt.erb'))
     end
     
     it 'running `cog template new warning` should override the built-in template' do
-      @cog.run(:template, :new, 'warning').should_not complain
-      File.read(template('warning.erb')).should_not be_empty
+      expect(@cog.run(:template, :new, 'warning')).not_to complain
+      expect(File.read(template('warning.erb'))).not_to be_empty
     end
   end
   
@@ -47,15 +47,15 @@ describe 'projects' do
     end
     
     it 'running `cog template new piggy.txt` should complain' do
-      @cog.run(:template, :new, 'piggy.txt').should complain
+      expect(@cog.run(:template, :new, 'piggy.txt')).to complain
     end
 
     it 'running `cog generator new piggy` should complain' do
-      @cog.run(:generator, :new, :piggy).should complain
+      expect(@cog.run(:generator, :new, :piggy)).to complain
     end
 
     it 'running `cog plugin new piggy` should create a plugin in the current directory' do
-      @cog.run(:plugin, :new, :piggy).should make('piggy/Cogfile')
+      expect(@cog.run(:plugin, :new, :piggy)).to make('piggy/Cogfile')
     end
   end
   

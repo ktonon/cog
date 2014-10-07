@@ -19,33 +19,33 @@ describe 'Primitive types' do
     before(:each) { Cog.activate_language 'c' }
       
     it 'should map each primitive to an identifier' do
-      :boolean.to_prim.should == 'bool'
-      :integer.to_prim.should == 'int'
-      :long.to_prim.should == 'long'
-      :float.to_prim.should == 'float'
-      :double.to_prim.should == 'double'
-      :char.to_prim.should == 'char'
-      :string.to_prim.should == 'char *'
-      :null.to_prim.should == 'void *'
+      expect(:boolean.to_prim).to eq('bool')
+      expect(:integer.to_prim).to eq('int')
+      expect(:long.to_prim).to eq('long')
+      expect(:float.to_prim).to eq('float')
+      expect(:double.to_prim).to eq('double')
+      expect(:char.to_prim).to eq('char')
+      expect(:string.to_prim).to eq('char *')
+      expect(:null.to_prim).to eq('void *')
     end
 
     it 'should map ruby objects to literals' do
-      1.to_lit.should == '1'
-      (2**15 - 1).to_lit.should == '32767'
-      (2**15).to_lit.should == '32768l'
-      true.to_lit.should == 'true'
-      false.to_lit.should == 'false'
-      1.0.to_lit.should == '1.0f'
-      -5.3.to_lit.should == '-5.3f'
-      'c'.to_lit.should == '\'c\''
-      'fresh'.to_lit.should == '"fresh"'
-      nil.to_lit.should == 'NULL'
+      expect(1.to_lit).to eq('1')
+      expect((2**15 - 1).to_lit).to eq('32767')
+      expect((2**15).to_lit).to eq('32768l')
+      expect(true.to_lit).to eq('true')
+      expect(false.to_lit).to eq('false')
+      expect(1.0.to_lit).to eq('1.0f')
+      expect(-5.3.to_lit).to eq('-5.3f')
+      expect('c'.to_lit).to eq('\'c\'')
+      expect('fresh'.to_lit).to eq('"fresh"')
+      expect(nil.to_lit).to eq('NULL')
     end
     
     it 'should escape reserved words' do
-      'foo'.to_ident.should == 'foo'
-      'auto'.to_ident.should == 'auto_'
-      '_Packed'.to_ident.should == '_Packed_'
+      expect('foo'.to_ident).to eq('foo')
+      expect('auto'.to_ident).to eq('auto_')
+      expect('_Packed'.to_ident).to eq('_Packed_')
     end
   end
 
@@ -54,32 +54,32 @@ describe 'Primitive types' do
     before(:each) { Cog.activate_language 'c++' }
       
     it 'should map each primitive to an identifier' do
-      :boolean.to_prim.should == 'bool'
-      :integer.to_prim.should == 'int'
-      :long.to_prim.should == 'long'
-      :float.to_prim.should == 'float'
-      :double.to_prim.should == 'double'
-      :char.to_prim.should == 'char'
-      :string.to_prim.should == 'std::string'
-      :null.to_prim.should == 'void *'
+      expect(:boolean.to_prim).to eq('bool')
+      expect(:integer.to_prim).to eq('int')
+      expect(:long.to_prim).to eq('long')
+      expect(:float.to_prim).to eq('float')
+      expect(:double.to_prim).to eq('double')
+      expect(:char.to_prim).to eq('char')
+      expect(:string.to_prim).to eq('std::string')
+      expect(:null.to_prim).to eq('void *')
     end
 
     it 'should map ruby objects to literals' do
-      1.to_lit.should == '1'
-      (2**15 - 1).to_lit.should == '32767'
-      (2**15).to_lit.should == '32768l'
-      true.to_lit.should == 'true'
-      false.to_lit.should == 'false'
-      1.0.to_lit.should == '1.0f'
-      'c'.to_lit.should == '\'c\''
-      'fresh'.to_lit.should == '"fresh"'
-      nil.to_lit.should == 'NULL'
+      expect(1.to_lit).to eq('1')
+      expect((2**15 - 1).to_lit).to eq('32767')
+      expect((2**15).to_lit).to eq('32768l')
+      expect(true.to_lit).to eq('true')
+      expect(false.to_lit).to eq('false')
+      expect(1.0.to_lit).to eq('1.0f')
+      expect('c'.to_lit).to eq('\'c\'')
+      expect('fresh'.to_lit).to eq('"fresh"')
+      expect(nil.to_lit).to eq('NULL')
     end
 
     it 'should escape reserved words' do
-      'foo'.to_ident.should == 'foo'
-      'MAX_RAND'.to_ident.should == 'MAX_RAND_'
-      'virtual'.to_ident.should == 'virtual_'
+      expect('foo'.to_ident).to eq('foo')
+      expect('MAX_RAND'.to_ident).to eq('MAX_RAND_')
+      expect('virtual'.to_ident).to eq('virtual_')
     end
   end
 
@@ -88,32 +88,32 @@ describe 'Primitive types' do
     before(:each) { Cog.activate_language 'c#' }
       
     it 'should map each primitive to an identifier' do
-      :boolean.to_prim.should == 'bool'
-      :integer.to_prim.should == 'int'
-      :long.to_prim.should == 'long'
-      :float.to_prim.should == 'float'
-      :double.to_prim.should == 'double'
-      :char.to_prim.should == 'char'
-      :string.to_prim.should == 'string'
-      :null.to_prim.should == 'Object'
+      expect(:boolean.to_prim).to eq('bool')
+      expect(:integer.to_prim).to eq('int')
+      expect(:long.to_prim).to eq('long')
+      expect(:float.to_prim).to eq('float')
+      expect(:double.to_prim).to eq('double')
+      expect(:char.to_prim).to eq('char')
+      expect(:string.to_prim).to eq('string')
+      expect(:null.to_prim).to eq('Object')
     end
 
     it 'should map ruby objects to literals' do
-      1.to_lit.should == '1'
-      (2**31 - 1).to_lit.should == '2147483647'
-      (2**31).to_lit.should == '2147483648L'
-      true.to_lit.should == 'true'
-      false.to_lit.should == 'false'
-      1.0.to_lit.should == '1.0F'
-      'c'.to_lit.should == '\'c\''
-      'fresh'.to_lit.should == '"fresh"'
-      nil.to_lit.should == 'null'
+      expect(1.to_lit).to eq('1')
+      expect((2**31 - 1).to_lit).to eq('2147483647')
+      expect((2**31).to_lit).to eq('2147483648L')
+      expect(true.to_lit).to eq('true')
+      expect(false.to_lit).to eq('false')
+      expect(1.0.to_lit).to eq('1.0F')
+      expect('c'.to_lit).to eq('\'c\'')
+      expect('fresh'.to_lit).to eq('"fresh"')
+      expect(nil.to_lit).to eq('null')
     end
 
     it 'should escape reserved words' do
-      'foo'.to_ident.should == 'foo'
-      'unchecked'.to_ident.should == 'unchecked_'
-      'virtual'.to_ident.should == 'virtual_'
+      expect('foo'.to_ident).to eq('foo')
+      expect('unchecked'.to_ident).to eq('unchecked_')
+      expect('virtual'.to_ident).to eq('virtual_')
     end
   end
 
@@ -122,32 +122,32 @@ describe 'Primitive types' do
     before(:each) { Cog.activate_language 'java' }
       
     it 'should map each primitive to an identifier' do
-      :boolean.to_prim.should == 'boolean'
-      :integer.to_prim.should == 'int'
-      :long.to_prim.should == 'long'
-      :float.to_prim.should == 'float'
-      :double.to_prim.should == 'double'
-      :char.to_prim.should == 'char'
-      :string.to_prim.should == 'String'
-      :null.to_prim.should == 'Object'
+      expect(:boolean.to_prim).to eq('boolean')
+      expect(:integer.to_prim).to eq('int')
+      expect(:long.to_prim).to eq('long')
+      expect(:float.to_prim).to eq('float')
+      expect(:double.to_prim).to eq('double')
+      expect(:char.to_prim).to eq('char')
+      expect(:string.to_prim).to eq('String')
+      expect(:null.to_prim).to eq('Object')
     end
 
     it 'should map ruby objects to literals' do
-      1.to_lit.should == '1'
-      (2**31 - 1).to_lit.should == '2147483647'
-      (2**31).to_lit.should == '2147483648L'
-      true.to_lit.should == 'true'
-      false.to_lit.should == 'false'
-      1.0.to_lit.should == '1.0f'
-      'c'.to_lit.should == '\'c\''
-      'fresh'.to_lit.should == '"fresh"'
-      nil.to_lit.should == 'null'
+      expect(1.to_lit).to eq('1')
+      expect((2**31 - 1).to_lit).to eq('2147483647')
+      expect((2**31).to_lit).to eq('2147483648L')
+      expect(true.to_lit).to eq('true')
+      expect(false.to_lit).to eq('false')
+      expect(1.0.to_lit).to eq('1.0f')
+      expect('c'.to_lit).to eq('\'c\'')
+      expect('fresh'.to_lit).to eq('"fresh"')
+      expect(nil.to_lit).to eq('null')
     end
 
     it 'should escape reserved words' do
-      'foo'.to_ident.should == 'foo'
-      'assert'.to_ident.should == 'assert_'
-      'transient'.to_ident.should == 'transient_'
+      expect('foo'.to_ident).to eq('foo')
+      expect('assert'.to_ident).to eq('assert_')
+      expect('transient'.to_ident).to eq('transient_')
     end
   end
 
@@ -156,32 +156,32 @@ describe 'Primitive types' do
     before(:each) { Cog.activate_language 'javascript' }
       
     it 'should map each primitive to an identifier' do
-      :boolean.to_prim.should == 'Boolean'
-      :integer.to_prim.should == 'Number'
-      :long.to_prim.should == 'Number'
-      :float.to_prim.should == 'Number'
-      :double.to_prim.should == 'Number'
-      :char.to_prim.should == 'String'
-      :string.to_prim.should == 'String'
-      :null.to_prim.should == 'Object'
+      expect(:boolean.to_prim).to eq('Boolean')
+      expect(:integer.to_prim).to eq('Number')
+      expect(:long.to_prim).to eq('Number')
+      expect(:float.to_prim).to eq('Number')
+      expect(:double.to_prim).to eq('Number')
+      expect(:char.to_prim).to eq('String')
+      expect(:string.to_prim).to eq('String')
+      expect(:null.to_prim).to eq('Object')
     end
 
     it 'should map ruby objects to literals' do
-      1.to_lit.should == '1'
-      (2**31 - 1).to_lit.should == '2147483647'
-      (2**31).to_lit.should == '2147483648'
-      true.to_lit.should == 'true'
-      false.to_lit.should == 'false'
-      1.0.to_lit.should == '1.0'
-      'c'.to_lit.should == '"c"'
-      'fresh'.to_lit.should == '"fresh"'
-      nil.to_lit.should == 'null'
+      expect(1.to_lit).to eq('1')
+      expect((2**31 - 1).to_lit).to eq('2147483647')
+      expect((2**31).to_lit).to eq('2147483648')
+      expect(true.to_lit).to eq('true')
+      expect(false.to_lit).to eq('false')
+      expect(1.0.to_lit).to eq('1.0')
+      expect('c'.to_lit).to eq('"c"')
+      expect('fresh'.to_lit).to eq('"fresh"')
+      expect(nil.to_lit).to eq('null')
     end
 
     it 'should escape reserved words' do
-      'foo'.to_ident.should == 'foo'
-      'Math'.to_ident.should == 'Math_'
-      'var'.to_ident.should == 'var_'
+      expect('foo'.to_ident).to eq('foo')
+      expect('Math'.to_ident).to eq('Math_')
+      expect('var'.to_ident).to eq('var_')
     end
   end
 
@@ -190,32 +190,32 @@ describe 'Primitive types' do
     before(:each) { Cog.activate_language 'objc' }
       
     it 'should map each primitive to an identifier' do
-      :boolean.to_prim.should == 'BOOL'
-      :integer.to_prim.should == 'int'
-      :long.to_prim.should == 'long'
-      :float.to_prim.should == 'float'
-      :double.to_prim.should == 'double'
-      :char.to_prim.should == 'char'
-      :string.to_prim.should == 'NSString *'
-      :null.to_prim.should == 'id'
+      expect(:boolean.to_prim).to eq('BOOL')
+      expect(:integer.to_prim).to eq('int')
+      expect(:long.to_prim).to eq('long')
+      expect(:float.to_prim).to eq('float')
+      expect(:double.to_prim).to eq('double')
+      expect(:char.to_prim).to eq('char')
+      expect(:string.to_prim).to eq('NSString *')
+      expect(:null.to_prim).to eq('id')
     end
 
     it 'should map ruby objects to literals' do
-      1.to_lit.should == '1'
-      (2**15 - 1).to_lit.should == '32767'
-      (2**15).to_lit.should == '32768l'
-      true.to_lit.should == 'YES'
-      false.to_lit.should == 'NO'
-      1.0.to_lit.should == '1.0f'
-      'c'.to_lit.should == '\'c\''
-      'fresh'.to_lit.should == '@"fresh"'
-      nil.to_lit.should == 'nil'
+      expect(1.to_lit).to eq('1')
+      expect((2**15 - 1).to_lit).to eq('32767')
+      expect((2**15).to_lit).to eq('32768l')
+      expect(true.to_lit).to eq('YES')
+      expect(false.to_lit).to eq('NO')
+      expect(1.0.to_lit).to eq('1.0f')
+      expect('c'.to_lit).to eq('\'c\'')
+      expect('fresh'.to_lit).to eq('@"fresh"')
+      expect(nil.to_lit).to eq('nil')
     end
 
     it 'should escape reserved words' do
-      'foo'.to_ident.should == 'foo'
-      '@class'.to_ident.should == '@class_'
-      'retain'.to_ident.should == 'retain_'
+      expect('foo'.to_ident).to eq('foo')
+      expect('@class'.to_ident).to eq('@class_')
+      expect('retain'.to_ident).to eq('retain_')
     end
   end
 
@@ -224,32 +224,32 @@ describe 'Primitive types' do
     before(:each) { Cog.activate_language 'python' }
       
     it 'should map each primitive to an identifier' do
-      :boolean.to_prim.should == 'bool'
-      :integer.to_prim.should == 'int'
-      :long.to_prim.should == 'int'
-      :float.to_prim.should == 'float'
-      :double.to_prim.should == 'float'
-      :char.to_prim.should == 'str'
-      :string.to_prim.should == 'str'
-      :null.to_prim.should == 'object'
+      expect(:boolean.to_prim).to eq('bool')
+      expect(:integer.to_prim).to eq('int')
+      expect(:long.to_prim).to eq('int')
+      expect(:float.to_prim).to eq('float')
+      expect(:double.to_prim).to eq('float')
+      expect(:char.to_prim).to eq('str')
+      expect(:string.to_prim).to eq('str')
+      expect(:null.to_prim).to eq('object')
     end
 
     it 'should map ruby objects to literals' do
-      1.to_lit.should == '1'
-      (2**15 - 1).to_lit.should == '32767'
-      (2**15).to_lit.should == '32768'
-      true.to_lit.should == 'True'
-      false.to_lit.should == 'False'
-      1.0.to_lit.should == '1.0'
-      'c'.to_lit.should == '"c"'
-      'fresh'.to_lit.should == '"fresh"'
-      nil.to_lit.should == 'None'
+      expect(1.to_lit).to eq('1')
+      expect((2**15 - 1).to_lit).to eq('32767')
+      expect((2**15).to_lit).to eq('32768')
+      expect(true.to_lit).to eq('True')
+      expect(false.to_lit).to eq('False')
+      expect(1.0.to_lit).to eq('1.0')
+      expect('c'.to_lit).to eq('"c"')
+      expect('fresh'.to_lit).to eq('"fresh"')
+      expect(nil.to_lit).to eq('None')
     end
 
     it 'should escape reserved words' do
-      'foo'.to_ident.should == 'foo'
-      'None'.to_ident.should == 'None_'
-      'class'.to_ident.should == 'class_'
+      expect('foo'.to_ident).to eq('foo')
+      expect('None'.to_ident).to eq('None_')
+      expect('class'.to_ident).to eq('class_')
     end
   end
 
@@ -258,32 +258,32 @@ describe 'Primitive types' do
     before(:each) { Cog.activate_language 'ruby' }
       
     it 'should map each primitive to an identifier' do
-      :boolean.to_prim.should == '!!'
-      :integer.to_prim.should == 'Fixnum'
-      :long.to_prim.should == 'Fixnum'
-      :float.to_prim.should == 'Float'
-      :double.to_prim.should == 'Float'
-      :char.to_prim.should == 'String'
-      :string.to_prim.should == 'String'
-      :null.to_prim.should == 'Object'
+      expect(:boolean.to_prim).to eq('!!')
+      expect(:integer.to_prim).to eq('Fixnum')
+      expect(:long.to_prim).to eq('Fixnum')
+      expect(:float.to_prim).to eq('Float')
+      expect(:double.to_prim).to eq('Float')
+      expect(:char.to_prim).to eq('String')
+      expect(:string.to_prim).to eq('String')
+      expect(:null.to_prim).to eq('Object')
     end
 
     it 'should map ruby objects to literals' do
-      1.to_lit.should == '1'
-      (2**15 - 1).to_lit.should == '32767'
-      (2**15).to_lit.should == '32768'
-      true.to_lit.should == 'true'
-      false.to_lit.should == 'false'
-      1.0.to_lit.should == '1.0'
-      'c'.to_lit.should == '"c"'
-      'fresh'.to_lit.should == '"fresh"'
-      nil.to_lit.should == 'nil'
+      expect(1.to_lit).to eq('1')
+      expect((2**15 - 1).to_lit).to eq('32767')
+      expect((2**15).to_lit).to eq('32768')
+      expect(true.to_lit).to eq('true')
+      expect(false.to_lit).to eq('false')
+      expect(1.0.to_lit).to eq('1.0')
+      expect('c'.to_lit).to eq('"c"')
+      expect('fresh'.to_lit).to eq('"fresh"')
+      expect(nil.to_lit).to eq('nil')
     end
 
     it 'should escape reserved words' do
-      'foo'.to_ident.should == 'foo'
-      '__FILE__'.to_ident.should == '__FILE___'
-      'unless'.to_ident.should == 'unless_'
+      expect('foo'.to_ident).to eq('foo')
+      expect('__FILE__'.to_ident).to eq('__FILE___')
+      expect('unless'.to_ident).to eq('unless_')
     end
   end
   

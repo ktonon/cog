@@ -78,7 +78,7 @@ module Cog
         
         # @api developer
         # @return [String] negative interpretation of the {#message} block result
-        def negative_failure_message
+        def failure_message_when_negated
           _failure_message '\2'
         end
         

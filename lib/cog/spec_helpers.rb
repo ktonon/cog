@@ -21,7 +21,7 @@ module Cog
   #     end
   # 
   #     it 'should print help when no args are passed' do
-  #       @cog.run.should show_help
+  #       expect(@cog.run).to show_help
   #     end
   #
   #     context 'in an uninitialized project' do
@@ -31,7 +31,7 @@ module Cog
   #       end
   # 
   #       it 'running `cog init` should make a Cogfile' do
-  #         @cog.run(:init).should make(cogfile_path)
+  #         expect(@cog.run(:init)).to make(cogfile_path)
   #       end
   #
   #     end

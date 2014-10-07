@@ -9,7 +9,7 @@ uses code generation.
 
 This `README` page is synchronized with the git repository. For other documentation see
 
-* The [API documentation][docs] for the current [gem][] (version 0.3.4)
+* The [API documentation][docs] for the current [gem][] (version 0.3.7)
 * The [change log][changelog]
 
 Note that _this project is still under development_.

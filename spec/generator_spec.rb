@@ -19,23 +19,23 @@ describe Cog::Generator do
     it 'should not change the present working directory' do
       x = Dir.pwd
       stamp('cheese.txt')
-      Dir.pwd.should == x
+      expect(Dir.pwd).to eq(x)
       stamp('cheese.txt', 'dest.text', :quiet => true)
-      Dir.pwd.should == x
+      expect(Dir.pwd).to eq(x)
     end
     
     it 'should return a string when destination is omitted' do
-      stamp('cheese.txt').should == @expected
+      expect(stamp('cheese.txt')).to eq(@expected)
     end
     
     it 'should return nil when a destination is provided' do
-      stamp('cheese.txt', 'dest.txt', :quiet => true).should be(nil)
+      expect(stamp('cheese.txt', 'dest.txt', :quiet => true)).to be(nil)
     end
 
     it 'should create a file when a destination is provided' do
       stamp('cheese.txt', 'dest.txt', :quiet => true)
       expect(File).to exist(generated_file 'dest.txt')
-      File.new(generated_file 'dest.txt').read.should == @expected
+      expect(File.new(generated_file 'dest.txt').read).to eq(@expected)
     end
 
     it 'should accept absolute paths' do
@@ -46,7 +46,7 @@ describe Cog::Generator do
     end
     
     it 'should be able to find built-in templates' do
-      stamp('warning').should =~ /do not edit this/i
+      expect(stamp('warning')).to match(/do not edit this/i)
     end
     
   end
