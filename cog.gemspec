@@ -13,7 +13,7 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc = 'yard'
   s.bindir = 'bin'
   s.executables << 'cog'
-  s.add_dependency('active_support')
+  s.add_dependency('activesupport')
   s.add_dependency('gli')
   s.add_dependency('i18n')
   s.add_dependency('rainbow')

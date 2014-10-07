@@ -126,7 +126,7 @@ command :lang do |c|
 end
 
 pre do |gopt, command, opt, args|
-  Sickill::Rainbow.enabled = false if gopt[:colorless]
+  Rainbow.enabled = false if gopt[:colorless]
   if gopt[:cogfile] && !File.exists?(gopt[:cogfile])
     STDERR.write "No such Cogfile at #{gopt[:cogfile]}\n"
     false
