@@ -6,7 +6,7 @@
 <title>
   Module: Cog::SpecHelpers
   
-    &mdash; Documentation by YARD 0.8.6.1
+    &mdash; Documentation by YARD 0.8.7.4
   
 </title>
 
@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../';
-  framesUrl = "../frames.html#!" + escape(window.location.href);
+  framesUrl = "../frames.html#!Cog/SpecHelpers.html";
 </script>
 
 
@@ -123,7 +123,7 @@ which is returned from a call to <span class='object_link'><a href="SpecHelpers/
   <span class='kw'>end</span>
 
   <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>should print help when no args are passed</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-    <span class='ivar'>@cog</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_show_help'>show_help</span>
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='ivar'>@cog</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_show_help'>show_help</span>
   <span class='kw'>end</span>
 
   <span class='id identifier rubyid_context'>context</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>in an uninitialized project</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
@@ -133,7 +133,7 @@ which is returned from a call to <span class='object_link'><a href="SpecHelpers/
     <span class='kw'>end</span>
 
     <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>running `cog init` should make a Cogfile</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-      <span class='ivar'>@cog</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='symbol'>:init</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_make'>make</span><span class='lparen'>(</span><span class='id identifier rubyid_cogfile_path'>cogfile_path</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='ivar'>@cog</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='symbol'>:init</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_make'>make</span><span class='lparen'>(</span><span class='id identifier rubyid_cogfile_path'>cogfile_path</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
 
   <span class='kw'>end</span>
@@ -456,7 +456,7 @@ Home fixture directories are stored in spec/home_fixtures.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Directory of the active fixture.</p>
+<p>Returns directory of the active fixture.</p>
 
 
   </div>
@@ -515,7 +515,7 @@ Home fixture directories are stored in spec/home_fixtures.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Directory of the active home fixture.</p>
+<p>Returns directory of the active home fixture.</p>
 
 
   </div>
@@ -574,7 +574,7 @@ Home fixture directories are stored in spec/home_fixtures.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Path to the cog directory in the active spec fixture</p>
+<p>Returns path to the cog directory in the active spec fixture</p>
 
 
   </div>
@@ -633,7 +633,7 @@ Home fixture directories are stored in spec/home_fixtures.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Path to the Cogfile in the active spec fixture</p>
+<p>Returns path to the Cogfile in the active spec fixture</p>
 
 
   </div>
@@ -692,7 +692,7 @@ Home fixture directories are stored in spec/home_fixtures.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Absolute path to the generated file</p>
+<p>Returns absolute path to the generated file</p>
 
 
   </div>
@@ -771,7 +771,7 @@ Home fixture directories are stored in spec/home_fixtures.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Path to the generator with the given name</p>
+<p>Returns path to the generator with the given name</p>
 
 
   </div>
@@ -850,7 +850,7 @@ Home fixture directories are stored in spec/home_fixtures.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Absolute file system path to the plugin directory</p>
+<p>Returns absolute file system path to the plugin directory</p>
 
 
   </div>
@@ -929,7 +929,7 @@ Home fixture directories are stored in spec/home_fixtures.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Absolute path to the root spec directory</p>
+<p>Returns absolute path to the root spec directory</p>
 
 
   </div>
@@ -988,7 +988,7 @@ Home fixture directories are stored in spec/home_fixtures.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Absolute file system path to the template</p>
+<p>Returns absolute file system path to the template</p>
 
 
   </div>
@@ -1220,9 +1220,9 @@ Home fixture directories are stored in <code>spec/home_fixtures</code></p>
 </div>
 
     <div id="footer">
-  Generated on Thu Apr 18 19:15:45 2013 by
+  Generated on Tue Oct  7 09:43:20 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.6.1 (ruby-2.0.0).
+  0.8.7.4 (ruby-2.0.0).
 </div>
 
   </body>
