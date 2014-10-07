@@ -3,13 +3,14 @@
 [![Build Status](https://secure.travis-ci.org/ktonon/cog.png?branch=master)](https://travis-ci.org/ktonon/cog)
 [![Dependency Status](https://gemnasium.com/ktonon/cog.png)](https://gemnasium.com/ktonon/cog)
 [![Code Climate](https://codeclimate.com/github/ktonon/cog.png)](https://codeclimate.com/github/ktonon/cog)
+[![Gem Version](https://badge.fury.io/rb/cog.svg)](http://badge.fury.io/rb/cog)
 
 `cog` is a command line utility that makes it easy to organize a project which
 uses code generation.
 
 This `README` page is synchronized with the git repository. For other documentation see
 
-* The [API documentation][docs] for the current [gem][] (version 0.3.7)
+* The [API documentation][docs]
 * The [change log][changelog]
 
 Note that _this project is still under development_.
