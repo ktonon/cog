@@ -34,15 +34,15 @@ describe Cog::Generator do
 
     it 'should create a file when a destination is provided' do
       stamp('cheese.txt', 'dest.txt', :quiet => true)
-      File.exists?(generated_file 'dest.txt').should be_true
+      expect(File).to exist(generated_file 'dest.txt')
       File.new(generated_file 'dest.txt').read.should == @expected
     end
 
     it 'should accept absolute paths' do
       stamp template('cheese.txt'), 'dest1.txt', :absolute_template_path => true, :quiet => true
       stamp 'cheese.txt', generated_file('dest2.txt'), :absolute_destination => true, :quiet => true
-      File.exists?(generated_file 'dest1.txt').should be_true
-      File.exists?(generated_file 'dest2.txt').should be_true
+      expect(File).to exist(generated_file 'dest1.txt')
+      expect(File).to exist(generated_file 'dest2.txt')
     end
     
     it 'should be able to find built-in templates' do
