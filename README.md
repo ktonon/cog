@@ -8,12 +8,10 @@
 `cog` is a command line utility that makes it easy to organize a project which
 uses code generation.
 
-This `README` page is synchronized with the git repository. For other documentation see
+See also,
 
 * The [API documentation][docs]
 * The [change log][changelog]
-
-Note that _this project is still under development_.
 
 Table of contents
 -----------------

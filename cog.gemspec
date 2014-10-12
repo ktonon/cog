@@ -2,8 +2,10 @@
 require File.join(File.dirname(__FILE__),'lib','cog/version.rb')
 spec = Gem::Specification.new do |s| 
   s.name = 'cog'
+  s.description = 'Command-line utility that makes it easy to organize a project which uses code generation'
   s.version = Cog::VERSION
   s.author = 'Kevin Tonon'
+  s.licenses = ['MIT']
   s.email = 'kevin@betweenconcepts.com'
   s.homepage = 'https://github.com/ktonon/cog'
   s.platform = Gem::Platform::RUBY
@@ -13,12 +15,12 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc = 'yard'
   s.bindir = 'bin'
   s.executables << 'cog'
-  s.add_dependency('activesupport')
-  s.add_dependency('gli')
-  s.add_dependency('i18n')
-  s.add_dependency('rainbow')
-  s.add_development_dependency('rake')
-  s.add_development_dependency('redcarpet')
-  s.add_development_dependency('rspec')
-  s.add_development_dependency('yard')
+  s.add_dependency('activesupport', '~> 4.1.0')
+  s.add_dependency('gli', '~> 2.0')
+  s.add_dependency('i18n', '~> 0.0')
+  s.add_dependency('rainbow', ' ~> 2.0')
+  s.add_development_dependency('rake', '~> 10.0')
+  s.add_development_dependency('redcarpet', '~> 3.0')
+  s.add_development_dependency('rspec', '~> 3.0')
+  s.add_development_dependency('yard', '~> 0.0')
 end

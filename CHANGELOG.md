@@ -1,3 +1,12 @@
+## 0.3.8 - October 12, 2014
+
+- Fixed issue when installing on rvm managed Ruby instance (version conflict with activesupport gem)
+- Added travis tester for Ruby 2.1
+
+## 0.3.5 - Februrary 1, 2014
+
+- Updated to work with rainbow gem 2.0.0
+
 ## 0.3.4 - December 9, 2013
 
 - Fixed issue with Windows native line endings and Ruby 2.0
