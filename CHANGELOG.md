@@ -1,3 +1,7 @@
+## 0.3.9 - February 12, 2015
+
+- Updated activesupport to 4.2
+
 ## 0.3.8 - October 12, 2014
 
 - Fixed issue when installing on rvm managed Ruby instance (version conflict with activesupport gem)

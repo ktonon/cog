@@ -15,7 +15,7 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc = 'yard'
   s.bindir = 'bin'
   s.executables << 'cog'
-  s.add_dependency('activesupport', '~> 4.1.0')
+  s.add_dependency('activesupport', '~> 4.2.0')
   s.add_dependency('gli', '~> 2.0')
   s.add_dependency('i18n', '~> 0.0')
   s.add_dependency('rainbow', ' ~> 2.0')
