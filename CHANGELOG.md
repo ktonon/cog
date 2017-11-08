@@ -1,3 +1,8 @@
+## 1.0.0 - November 8, 2017
+
+- Updated activesupport to 5.1.4
+- Requires Ruby version >= 2.2.2
+
 ## 0.3.9 - February 12, 2015
 
 - Updated activesupport to 4.2
@@ -43,7 +48,7 @@
   * Instead, they are evaluated as instances of [GeneratorSandbox][], which already includes the [Generator][] mixin
 - Generator scripts for plugins should not `require` the plugin anymore
   * The plugin module should be made available to the [GeneratorSandbox][] via [autoload_plugin][]
-  
+
 ### New features
 
 - `cog` will evaluate a chain of cogfiles in this order

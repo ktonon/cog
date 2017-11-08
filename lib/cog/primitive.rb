@@ -12,7 +12,7 @@ class Symbol
   def to_prim
     Cog.active_language.to_prim(self)
   end
-  
+
   # @return [String] assuming this symbol represents a cog primitive type, returns the literal representation of the default value for that type
   # @example
   #   # For Objective-C
@@ -37,11 +37,7 @@ module Cognum
   end
 end
 
-class Bignum
-  include Cognum
-end
-
-class Fixnum
+class Integer
   include Cognum
 end
 
@@ -63,7 +59,7 @@ class String
   def to_lit
     Cog.active_language.to_char(self) || Cog.active_language.to_string(self)
   end
-  
+
   # @return [String] a safe identifier name in the {Cog::Config::LanguageConfig#active_language Cog.active_language} so as not to conflict with any {Cog::DSL::LanguageDSL#reserved reserved words}
   # @example
   #   # For Java
@@ -116,4 +112,3 @@ class NilClass
     Cog.active_language.to_null(self)
   end
 end
-
